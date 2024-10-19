@@ -1,0 +1,22 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AnalyticsController } from './controllers';
+
+import { TokenService, Utils } from 'src/utilities';
+import { AnalyticsService } from './services';
+
+import { Expense, Note, Order, Payment, Product } from 'src/entities';
+
+@Module({
+    imports: [TypeOrmModule.forFeature([
+        Order,
+        Note,
+        Product,
+        Payment,
+        Expense
+    ])],
+    providers: [AnalyticsService, Utils, TokenService],
+    controllers: [AnalyticsController]
+})
+export class AnalyticsModule { }

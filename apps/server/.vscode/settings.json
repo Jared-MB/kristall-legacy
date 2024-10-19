@@ -1,0 +1,12 @@
+{
+	"cSpell.words": [
+		"clabe",
+		"dtos",
+		"nestjs",
+		"typeorm"
+	],
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": "always"
+	}
+}

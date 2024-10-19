@@ -1,0 +1,105 @@
+name: CI
+on:
+  push:
+    branches: [ main, develop ]
+jobs:
+  e2e:
+    needs: [build, lint]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.0
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.18.2
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - uses: actions/download-artifact@v4
+        with:
+          name: next
+          path: .next
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Start server and run tests
+        run: npx start-server-and-test start http://localhost:3000 'npx playwright test'
+  unit_test: 
+    needs: lint
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.0
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.18.2
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Create and populate .env file
+        env:
+          SERVER_API: ${{ secrets.SERVER_API }}
+          LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+        run: |
+          echo "SERVER_API=${SERVER_API}" > .env.test
+          echo "LOGIN_USERNAME=${LOGIN_USERNAME}" >> .env.test
+          echo "LOGIN_PASSWORD=${LOGIN_PASSWORD}" >> .env.test
+        shell: bash
+      - name: Run unit tests
+        run: pnpm test
+  lint:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: 1.6.0
+      - name: Run Biome
+        run: biome ci ./src
+  build:
+    needs: [unit_test]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.0
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.18.2
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Create and populate .env file
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.SERVER_API }}
+          SERVER_API: ${{ secrets.SERVER_API }}
+        run: |
+          echo "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}" > .env
+          echo "SERVER_API=${SERVER_API}" >> .env
+        shell: bash
+      - name: Build
+        run: pnpm build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: next
+          path: .next

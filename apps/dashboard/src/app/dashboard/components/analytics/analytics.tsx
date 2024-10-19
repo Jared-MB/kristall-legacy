@@ -1,0 +1,120 @@
+import {
+	ClipboardList,
+	LineChart,
+	Sparkle,
+	TrendingDown,
+	TrendingUp,
+} from "lucide-react";
+
+import { Card, CardBody } from "@/components/ui";
+
+import { getAnalytics, getPendingOrders } from "./_adapters";
+
+import VERSIONS from "@/constants/versions";
+import Link from "next/link";
+import type React from "react";
+import MoneyChart from "./money-chart";
+import ProductsChart from "./products-chart";
+
+import AnimatedShinyText from "@/components/ui/animated-shiny-text";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { cn } from "@/core/utils";
+import { diffDays } from "@formkit/tempo";
+
+export default async function Analytics() {
+	const [analytics, pendingOrders] = await Promise.all([
+		getAnalytics(),
+		getPendingOrders(),
+	]);
+
+	const thisMonth = new Date().getMonth();
+
+	const earningsOfTheMonth = analytics.earningsByDay.filter(
+		(day) => new Date(day.date).getMonth() === thisMonth,
+	);
+
+	const earnings = earningsOfTheMonth.reduce(
+		(acc, day) => acc + Number(day.earnings),
+		0,
+	);
+	const cost = earningsOfTheMonth.reduce(
+		(acc, day) => acc + Number(day.cost),
+		0,
+	);
+
+	const revenue = earnings - cost;
+
+	const daysAfterNewVersion = diffDays(new Date(), VERSIONS[0].date);
+
+	return (
+		<div className="flex flex-col gap-y-4">
+			<div
+				className={cn(
+					"grid grid-cols-4 gap-x-4",
+					daysAfterNewVersion < 7 && "grid-cols-5",
+				)}
+			>
+				{daysAfterNewVersion < 7 && (
+					<InfoCard title="Nueva versión" icon={<Sparkle />} isNewVersion>
+						<div className="flex justify-between items-end h-full">
+							<span className="text-base text-zinc-300/90">
+								{VERSIONS[0]._id}
+							</span>
+							<AnimatedShinyText>
+								<Link
+									className="text-xs hover:underline hover:text-purple-500"
+									href={`/docs/change-log#${VERSIONS[0]._id}`}
+								>
+									¿Qué hay de nuevo?
+								</Link>
+							</AnimatedShinyText>
+						</div>
+					</InfoCard>
+				)}
+				<InfoCard title="Ganancias totales" icon={<LineChart />}>
+					${revenue}
+				</InfoCard>
+				<InfoCard title="Ventas totales" icon={<TrendingUp />}>
+					${earnings}
+				</InfoCard>
+				<InfoCard title="Gastos totales" icon={<TrendingDown />}>
+					${cost}
+				</InfoCard>
+				<InfoCard title="Ordenes pendientes" icon={<ClipboardList />}>
+					{pendingOrders}
+				</InfoCard>
+			</div>
+			<div className="grid grid-cols-[auto_1fr] gap-x-4">
+				<MoneyChart analytics={analytics} />
+				<ProductsChart />
+			</div>
+		</div>
+	);
+}
+
+function InfoCard({
+	title,
+	icon,
+	children,
+	isNewVersion = false,
+}: {
+	title: string;
+	icon: React.ReactNode;
+	children?: React.ReactNode;
+	isNewVersion?: boolean;
+}) {
+	return (
+		<Card>
+			{isNewVersion && (
+				<BorderBeam size={100} colorFrom="#a855f7" colorTo="#fff" />
+			)}
+			<CardBody className="p-4">
+				<h4 className="text-base text-zinc-400 flex items-center justify-between gap-x-2">
+					{title}
+					{icon}
+				</h4>
+				<span className="text-2xl h-full">{children}</span>
+			</CardBody>
+		</Card>
+	);
+}

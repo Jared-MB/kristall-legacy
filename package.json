@@ -1,0 +1,40 @@
+{
+  "name": "kristall-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:landing": "pnpm --filter @kristall/landing dev",
+    "dev:dashboard": "pnpm --filter @kristall/dashboard dev",
+    "dev:pos": "pnpm --filter @kristall/pos dev",
+    "dev:server": "pnpm --filter @kristall/server dev",
+    "dev:web": "pnpm --filter \"@kristall/landing\" --filter \"@kristall/server\" dev",
+    "build": "turbo run build",
+    "build:landing": "pnpm --filter @kristall/landing build",
+    "build:dashboard": "pnpm --filter @kristall/dashboard build",
+    "build:pos": "pnpm --filter @kristall/pos build",
+    "build:server": "pnpm --filter @kristall/server build",
+    "clean": "turbo run clean",
+    "test": "turbo run test",
+    "format": "biome format --write .",
+    "ui": "pnpm --filter @kristall/ui ui"
+  },
+  "devDependencies": {
+    "@kristall/typescript-config": "workspace:*",
+    "@biomejs/biome": "1.8.3",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "@vitejs/plugin-react": "^4.0.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.6.2",
+    "turbo": "latest",
+    "@testing-library/jest-dom": "^6.1.3",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "vitest": "^0.34.4",
+    "jsdom": "^22.1.0"
+  },
+  "packageManager": "pnpm@9.7.0"
+}
