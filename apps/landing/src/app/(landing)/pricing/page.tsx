@@ -1,4 +1,4 @@
-import { Package } from "@/constants";
+import type { Package } from "@/constants";
 import Card from "./components/card";
 
 interface StripePackage {
