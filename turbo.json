@@ -3,6 +3,14 @@
   "globalDependencies": [".env"],
   "tasks": {
     "build": {
+      "env": [
+        "SERVER_API"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env",
+        ".env.local"
+      ],
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
