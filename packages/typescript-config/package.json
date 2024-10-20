@@ -1,9 +1,12 @@
 {
-    "name": "@kristall/typescript-config",
-    "version": "0.0.0",
-    "private": true,
-    "license": "MIT",
-    "publishConfig": {
-      "access": "public"
-    }
+  "name": "@kristall/typescript-config",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.6.3"
   }
+}

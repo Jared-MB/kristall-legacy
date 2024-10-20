@@ -20,5 +20,10 @@
 	},
 	"formatter": {
 		"enabled": true
+	},
+	"files": {
+		"ignore": [
+			"apps/server/**"
+		]
 	}
 }

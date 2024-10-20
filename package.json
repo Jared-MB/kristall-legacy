@@ -19,6 +19,7 @@
     "ui": "pnpm --filter @kristall/ui ui"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.6.3",
     "@kristall/typescript-config": "workspace:*",
     "turbo": "latest"
   },

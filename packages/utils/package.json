@@ -1,5 +1,8 @@
 {
     "name": "@kristall/utils",
     "version": "0.0.0",
-    "private": true
-  }
+    "private": true,
+    "devDependencies": {
+        "@biomejs/biome": "1.6.3"
+    }
+}

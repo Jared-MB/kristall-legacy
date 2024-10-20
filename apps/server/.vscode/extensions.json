@@ -1,9 +1,0 @@
-{
-    "recommendations": [
-        "usernamehw.errorlens",
-        "YoavBls.pretty-ts-errors",
-        "esbenp.prettier-vscode",
-        "streetsidesoftware.code-spell-checker",
-        "ms-vscode.vscode-typescript-next"
-    ]
-}
