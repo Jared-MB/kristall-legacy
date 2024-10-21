@@ -1,0 +1,32 @@
+{
+	"compilerOptions": {
+		"target": "es2018",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": false,
+		"esModuleInterop": true,
+		"module": "NodeNext",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"incremental": true,
+		"paths": {
+			"@/*": ["./src/*"],
+			"@kristall/http/*": ["./src/modules/http/*"]
+		},
+		"outDir": "./dist",
+		"declaration": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"node_modules/next/types/**/*.ts"
+	],
+	"exclude": ["dist"]
+}
