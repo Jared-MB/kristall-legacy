@@ -12,6 +12,9 @@ import { NotepadText } from "lucide-react";
 import StatusIcon from "../../../app/dashboard/components/status-icon";
 import OrdersTableDropdown from "./orders-table-dropdown";
 
+/**
+ * @deprecated This component should not be here, maybe should be moved to ui package
+ */
 export default async function OrdersTable({
 	orders,
 }: { orders: OrderSummary[] }) {

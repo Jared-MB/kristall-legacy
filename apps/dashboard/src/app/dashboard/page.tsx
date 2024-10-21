@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Analytics from "./components/analytics";
 import AnalyticsSkeleton from "./components/analytics/skeleton";
-import OrdersSection from "./components/orders-section";
+import DashboardOrders from "./components/orders";
 
 export default function DashboardPage() {
 	return (
@@ -9,7 +9,12 @@ export default function DashboardPage() {
 			<Suspense fallback={<AnalyticsSkeleton />}>
 				<Analytics />
 			</Suspense>
-			<OrdersSection />
+			<section className="pt-8">
+				<h3 className="text-2xl mb-4">Últimos pedidos</h3>
+				<Suspense fallback={null}>
+					<DashboardOrders />
+				</Suspense>
+			</section>
 		</main>
 	);
 }

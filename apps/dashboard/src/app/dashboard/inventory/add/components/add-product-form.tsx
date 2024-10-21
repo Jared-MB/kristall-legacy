@@ -64,7 +64,6 @@ export default function AddProductForm({ categories }: Props) {
 
 	const router = useRouter();
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (errors) {
 			if ("success" in errors && errors.success) {
