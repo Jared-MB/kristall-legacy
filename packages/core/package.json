@@ -1,20 +1,30 @@
 {
-  "name": "@kristall/core",
-  "version": "1.0.0",
-  "license": "ISC",
-  "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.6.3",
-    "@types/node": "20.12.7",
-    "typescript": "5.4.5"
-  },
-  "peerDependencies": {
-    "next": "^14.0.0"
-  },
-  "exports": {
-    "./*": "./src/*"
-  }
+	"name": "@kristall/core",
+	"version": "1.0.0",
+	"license": "ISC",
+	"exports": {
+		"./modules/*": "./src/modules/*/index.ts",
+		"./utils": "./src/utils/index.ts",
+		"./constants": "./src/constants/index.ts",
+		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts"
+	},
+	"typesVersions": {
+		"*": {
+			"modules/*": ["./src/modules/*/index.ts"],
+			"utils": ["./src/utils/index.ts"],
+			"constants": ["./src/constants/index.ts"]
+		}
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.6.3",
+		"@types/node": "20.12.7",
+		"typescript": "5.4.5"
+	},
+	"peerDependencies": {
+		"next": "^14.0.0"
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch"
+	}
 }
