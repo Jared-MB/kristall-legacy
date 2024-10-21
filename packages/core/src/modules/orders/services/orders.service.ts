@@ -1,7 +1,7 @@
-import type { ServerResponse } from "@kristall/core/modules/http/interfaces";
+import type { ServerResponse } from "@kristall/http/interfaces";
 import type { Order } from "../interfaces";
 
-import { GET } from "@kristall/core/modules/http";
+import { GET } from "@kristall/http";
 
 export const getLatestOrdersService = async (): Promise<
 	ServerResponse<Order[]>

@@ -10,12 +10,19 @@
 	},
 	"typesVersions": {
 		"*": {
-			"modules/*": ["./src/modules/*/index.ts"],
-			"utils": ["./src/utils/index.ts"],
-			"constants": ["./src/constants/index.ts"]
+			"modules/*": [
+				"./src/modules/*/index.ts"
+			],
+			"utils": [
+				"./src/utils/index.ts"
+			],
+			"constants": [
+				"./src/constants/index.ts"
+			]
 		}
 	},
 	"devDependencies": {
+		"@kristall/http": "workspace:*",
 		"@biomejs/biome": "1.6.3",
 		"@types/node": "20.12.7",
 		"typescript": "5.4.5"
