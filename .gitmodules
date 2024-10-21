@@ -1,3 +1,3 @@
-[submodule "http-nextjs"]
-	path = http-nextjs
+[submodule "packages/http"]
+	path = packages/http
 	url = git@github.com:Jared-MB/http-nextjs.git
