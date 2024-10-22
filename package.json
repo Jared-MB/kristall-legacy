@@ -21,6 +21,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
+		"@changesets/cli": "2.27.9",
 		"@kristall/typescript-config": "workspace:*",
 		"turbo": "latest"
 	},
