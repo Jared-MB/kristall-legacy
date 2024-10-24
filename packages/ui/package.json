@@ -7,6 +7,8 @@
 	},
 	"dependencies": {
 		"@radix-ui/react-accordion": "^1.2.0",
+		"@radix-ui/react-dropdown-menu": "^2.1.2",
+		"@radix-ui/react-separator": "^1.1.0",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.453.0",
@@ -15,19 +17,34 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
+		"@kristall/core": "workspace:*",
 		"@kristall/typescript-config": "workspace:*",
+		"@types/node": "20.12.7",
+		"@types/react": "18.2.79",
+		"@types/react-dom": "18.2.25",
 		"autoprefixer": "^10.4.20",
 		"postcss": "^8.4.47",
 		"tailwindcss": "^3.4.14"
 	},
 	"peerDependencies": {
+		"next": "^14.0.0",
 		"react": "^18.2.0"
 	},
 	"exports": {
 		"./globals.css": "./src/globals.css",
 		"./postcss.config": "./postcss.config.js",
 		"./tailwind.config": "./tailwind.config.ts",
-		"./lib/*": "./src/core/utils/*.ts",
-		"./*": "./src/components/ui/*.tsx"
+		"./utils/*": "./src/core/utils/*.ts",
+		"./*": "./src/components/ui/*.tsx",
+		"./icons/*": "./src/components/icons/*.tsx",
+		"./compound/*": "./src/components/compound/*.tsx",
+		"./core/*": "./src/core/*/index.ts"
+	},
+	"typesVersions": {
+		"*": {
+			"core/*": [
+				"./src/core/*/index.ts"
+			]
+		}
 	}
 }
