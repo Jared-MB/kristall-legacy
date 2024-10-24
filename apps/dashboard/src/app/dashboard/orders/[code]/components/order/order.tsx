@@ -1,5 +1,7 @@
 "use client";
 
+import OrderStatusIcon from "@kristall/ui/icons/order-status-icon";
+
 import Divider from "@/components/divider";
 import {
 	Button,
@@ -44,7 +46,6 @@ import { AlignRight, Printer, ShoppingBasket } from "lucide-react";
 import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
-import StatusIcon from "../../../../components/status-icon";
 import { updateOrderStatus } from "./_adapters";
 
 const orderStatus = [
@@ -102,7 +103,7 @@ export default function Order({
 					<div className="flex items-center gap-x-2">
 						<CardDescription>
 							<span className="flex gap-x-2 items-center">
-								<StatusIcon status={label} />
+								<OrderStatusIcon status={label} />
 								{(ORDER_STATUS as any)[label]}
 							</span>
 						</CardDescription>
@@ -136,7 +137,7 @@ export default function Order({
 						<DropdownMenuSeparator />
 						<DropdownMenuSub>
 							<DropdownMenuSubTrigger className="flex flex-row gap-x-2 items-center">
-								<StatusIcon status={label as any} />
+								<OrderStatusIcon status={label as any} />
 								Editar estatus
 							</DropdownMenuSubTrigger>
 							<DropdownMenuSubContent className="p-0">
@@ -152,7 +153,7 @@ export default function Order({
 													onSelect={handleUpdateStatus}
 													className="flex items-center gap-x-2"
 												>
-													<StatusIcon status={label as any} />
+													<OrderStatusIcon status={label as any} />
 													{(ORDER_STATUS as any)[label]}
 												</CommandItem>
 											))}

@@ -1,5 +1,6 @@
+import OrdersTable from "@kristall/ui/compound/orders/table/orders-table";
+
 import { MenuLink } from "@/components/nav-link";
-import OrdersTable from "@/components/orders/table";
 import Search from "@/components/search";
 import TablePagination from "@/components/table-pagination";
 import { Button } from "@/components/ui/button";
