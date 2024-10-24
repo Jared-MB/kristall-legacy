@@ -1,6 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
+// NextJS uses seconds instead of milliseconds
+const EVERY_HALF_HOUR = 60 * 30;
+
 export default async function Footer() {
 	let status = {
 		text: "Todos los sistemas normales",
@@ -8,7 +11,9 @@ export default async function Footer() {
 	};
 
 	try {
-		const res = await fetch("https://status.kristall.app/api/status");
+		const res = await fetch("https://status.kristall.app/api/status", {
+			next: { revalidate: EVERY_HALF_HOUR },
+		});
 		const data = (await res.json()) as {
 			status: "ok" | "error";
 			key: string;
@@ -55,23 +60,13 @@ export default async function Footer() {
 						status.color === "green"
 							? "default"
 							: status.color === "yellow"
-							? "warning"
-							: "destructive"
+								? "warning"
+								: "destructive"
 					}
 				>
 					{status.text}
 				</Badge>
 			</Link>
-			{/* <small>
-				<span>Gráficas por:</span>
-				<Link
-					className="underline ml-1 font-bold"
-					target="_blank"
-					href="https://tradingview.github.io/lightweight-charts/"
-				>
-					TradingView - Lightweight Charts™
-				</Link>
-			</small> */}
 			<div className="flex flex-col gap-y-2 items-end">
 				<small>
 					<span>Ilustraciones por:</span>
