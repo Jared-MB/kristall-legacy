@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@kristall/ui/button";
 import Link from "next/link";
 
 export default function Resume() {
@@ -15,14 +15,8 @@ export default function Resume() {
 				y ventas de forma sencilla, rápida y en cualquier lugar.
 			</p>
 			<div className="flex justify-center w-full mt-8 lg:mt-0">
-				<Button
-					as={Link}
-					href="/pricing"
-					variant="shadow"
-					className="shadow-md"
-					color="primary"
-				>
-					Inicia ahora
+				<Button asChild>
+					<Link href="/pricing">Inicia ahora</Link>
 				</Button>
 			</div>
 		</section>

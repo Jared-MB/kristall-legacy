@@ -1,5 +1,5 @@
 import type { Package } from "@/constants";
-import Card from "./components/card";
+import Price from "./components/price";
 
 interface StripePackage {
 	id: string;
@@ -37,7 +37,7 @@ export default async function Page() {
 	const prices = await getPrices();
 
 	return (
-		<section className="flex flex-col p-4 py-8 pt-16	 gap-12">
+		<div className="flex flex-col p-4 py-8 pt-16 gap-12">
 			<div className="flex flex-col justify-center items-center lg:gap-4 gap-8">
 				<h3 className="text-purple-500 text-4xl text-center md:text-start text-balance">
 					¿Listo para unirte a nuestro equipo?
@@ -46,27 +46,27 @@ export default async function Page() {
 					Empieza ahora para acceder a nuestros servicios
 				</p>
 			</div>
-			<div className="flex items-center lg:justify-evenly px-6 flex-col lg:flex-row gap-12 lg:gap-0">
-				<Card
+			<div className="grid px-6 grid-cols-1 items-center lg:grid-cols-3 gap-12">
+				<Price
 					id={prices[0].id}
 					nickname={prices[0].nickname.toLowerCase() as Package}
 					price={prices[0].unit_amount / 100}
 					features={basicFeatures}
 				/>
-				<Card
+				<Price
 					id={prices[1].id}
 					recommended
 					nickname={prices[1].nickname.toLowerCase() as Package}
 					price={prices[1].unit_amount / 100}
 					features={standardFeatures}
 				/>
-				<Card
+				<Price
 					id={prices[2].id}
 					nickname={prices[2].nickname.toLowerCase() as Package}
 					price={prices[2].unit_amount / 100}
 					features={plusFeatures}
 				/>
 			</div>
-		</section>
+		</div>
 	);
 }

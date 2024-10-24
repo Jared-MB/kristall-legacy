@@ -1,15 +1,12 @@
-import { Package, RESTRICTIONS } from "@/constants";
-import { BsCheckLg } from "react-icons/bs";
+import { type Package, RESTRICTIONS } from "@/constants";
 
-import {
-	CardBody,
-	Card as CardContainer,
-	CardFooter,
-	CardHeader,
-} from "@nextui-org/card";
-import { Divider } from "@nextui-org/divider";
-import { Spacer } from "@nextui-org/spacer";
-import CardButton from "./button";
+import { Check } from "lucide-react";
+
+import { Card, CardBody, CardFooter, CardHeader } from "@kristall/ui/card";
+import { Divider } from "@kristall/ui/separator";
+
+import { cn } from "@/lib/utils";
+import Pay from "./pay";
 
 interface Props {
 	id: string;
@@ -19,7 +16,7 @@ interface Props {
 	features: string[];
 }
 
-export default function Card({
+export default function Price({
 	nickname,
 	recommended,
 	price,
@@ -27,10 +24,7 @@ export default function Card({
 	features = [],
 }: Props) {
 	return (
-		<CardContainer
-			role="card"
-			className="basis-1/4 flex flex-col border border-zinc-800/10 rounded-md py-4 px-6 gap-2 relative"
-		>
+		<Card className="h-fit w-full">
 			<CardHeader className="flex flex-col items-center">
 				{recommended && (
 					<>
@@ -39,8 +33,12 @@ export default function Card({
 						</div>
 					</>
 				)}
-				{recommended && <Spacer y={8} />}
-				<div className="flex items-center flex-col gap-2">
+				<div
+					className={cn(
+						"flex items-center flex-col gap-2",
+						recommended && "pt-8",
+					)}
+				>
 					<h2 className="text-purple-500 text-xl uppercase">{nickname}</h2>
 					<p className="text-purple-500 text-xl">
 						$<span className="text-4xl font-medium">{price}</span>/mes
@@ -51,29 +49,34 @@ export default function Card({
 			<CardBody>
 				<ul>
 					{features.map((feature, index) => (
-						<Item key={index} textValue={feature} />
+						<Item
+							key={`${feature}-${index}-${Math.random()}`}
+							textValue={feature}
+						/>
 					))}
 					<Item
-						textValue={`${RESTRICTIONS.MAX_LOCATIONS[nickname]} ubicaci${RESTRICTIONS.MAX_LOCATIONS[nickname] > 1 ? "ones" : "ón"
-							}`}
+						textValue={`${RESTRICTIONS.MAX_LOCATIONS[nickname]} ubicaci${
+							RESTRICTIONS.MAX_LOCATIONS[nickname] > 1 ? "ones" : "ón"
+						}`}
 					/>
 					<Item
-						textValue={`${RESTRICTIONS.MAX_USERS[nickname]} usuario${RESTRICTIONS.MAX_LOCATIONS[nickname] > 1 ? "s" : ""
-							}`}
+						textValue={`${RESTRICTIONS.MAX_USERS[nickname]} usuario${
+							RESTRICTIONS.MAX_LOCATIONS[nickname] > 1 ? "s" : ""
+						}`}
 					/>
 				</ul>
 			</CardBody>
 			<Divider />
 			<CardFooter className="flex justify-center items-center">
-				<CardButton recommended={recommended} id={id} />
+				<Pay recommended={recommended} id={id} />
 			</CardFooter>
-		</CardContainer>
+		</Card>
 	);
 }
 
 const Item = ({ textValue }: { textValue: string }) => (
 	<li className="flex items-center gap-2">
-		<BsCheckLg className="text-purple-500" />
+		<Check className="text-purple-500 w-4 h-4" />
 		<span className="text-zinc-300">{textValue}</span>
 	</li>
 );

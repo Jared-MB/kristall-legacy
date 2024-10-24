@@ -1,11 +1,11 @@
 "use client";
 
 import { API_REST } from "@/constants";
-import { Button } from "@nextui-org/button";
+import { Button } from "@kristall/ui/button";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function CardButton({
+export default function Pay({
 	recommended = false,
 	id,
 }: {
@@ -26,11 +26,9 @@ export default function CardButton({
 
 	return (
 		<Button
-			variant={recommended ? "shadow" : "bordered"}
-			radius="sm"
-			color="primary"
+			variant={recommended ? "default" : "outline"}
 			className={recommended ? "shadow-md" : ""}
-			onPress={handleClick}
+			onClick={handleClick}
 		>
 			Empezar
 		</Button>
