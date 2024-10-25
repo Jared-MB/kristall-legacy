@@ -1,9 +1,10 @@
+import { products } from "@kristall/core/modules/products";
+
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui";
-import { getBestSellingProducts } from "@/utils/connections";
 import Chart from "./chart";
 
 export default async function ProductsChart() {
-	const products = await getBestSellingProducts();
+	const bestSellers = await products.getBestSellers();
 
 	if (!products) {
 		return null;
@@ -16,7 +17,7 @@ export default async function ProductsChart() {
 					<CardTitle>Productos más vendidos</CardTitle>
 				</CardHeader>
 				<div>
-					<Chart products={products} />
+					<Chart products={bestSellers} />
 				</div>
 			</div>
 			<CardFooter className="flex-col gap-2 text-sm">
