@@ -1,6 +1,6 @@
 import type { Image } from "../../image/interfaces";
+import type { LocationProduct } from "../../locations/interfaces";
 import type { Category } from "./categories.interface";
-import type { LocationProduct } from "./locations";
 
 export interface Product {
 	_id: string;
@@ -21,3 +21,5 @@ export type CatalogProduct = Pick<
 	Product,
 	"_id" | "name" | "code" | "image" | "price" | "stock" | "cost"
 >;
+
+export type BestSeller = Pick<Product, "_id" | "name" | "totalSales">;
