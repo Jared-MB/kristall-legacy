@@ -12,7 +12,7 @@ export default function NavLink({
 }: { href: string; children: React.ReactNode; icon?: React.ReactNode }) {
 	const pathname = usePathname();
 
-	const isActive = pathname === href;
+	const isActive = pathname === href.split("?")[0];
 
 	return (
 		<Link
