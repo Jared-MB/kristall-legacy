@@ -105,7 +105,7 @@ export class ProductsController {
     }
 
     let batches: ProductBatch[] | undefined = undefined
-    if (product.batches && product.batchEnabled) {
+    if (product.batches && product.batches?.length > 0 && product.batchEnabled) {
       const mappedBatches = this.batchesService.addLocationsProducts(
         locationsProducts,
         product.batches
