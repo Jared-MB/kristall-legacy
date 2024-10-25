@@ -7,3 +7,5 @@ export interface ProductBatch {
 	locationProduct: LocationProduct | LocationToAdd;
 	batchNumber: number;
 }
+
+export type BatchToAdd = Omit<ProductBatch, "_id">;
