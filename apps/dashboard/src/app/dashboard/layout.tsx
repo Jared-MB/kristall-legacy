@@ -17,7 +17,7 @@ import Routes from "@/constants/routes";
 import type { Metadata } from "next";
 import "../globals.css";
 
-import Header from "./components/header";
+import Header from "@/components/layout/header";
 
 export const metadata: Metadata = {
 	title: "Kristall - Dashboard",

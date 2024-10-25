@@ -1,4 +1,5 @@
 import Divider from "@/components/divider";
+import Header from "@/components/layout/header";
 import NavLink from "@/components/nav-link";
 import {
 	Accordion,
@@ -9,7 +10,6 @@ import {
 import VERSIONS from "@/constants/versions";
 import { CircleHelp, Logs } from "lucide-react";
 import Link from "next/link";
-import Header from "../dashboard/components/header";
 
 export default function DocsLayout({
 	children,
