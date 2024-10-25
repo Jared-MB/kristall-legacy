@@ -1,3 +1,5 @@
+import type { Analytics } from "@kristall/core/modules/analytics/interfaces";
+
 import { Card, CardBody } from "@/components/ui";
 import { Skeleton } from "@/components/ui/skeleton";
 import { addDay } from "@formkit/tempo";
@@ -7,7 +9,6 @@ import {
 	TrendingDown,
 	TrendingUp,
 } from "lucide-react";
-import type { Analytics } from "./_interfaces";
 import MoneyChart from "./money-chart";
 import ProductsChartSkeleton from "./products-chart/skeleton";
 

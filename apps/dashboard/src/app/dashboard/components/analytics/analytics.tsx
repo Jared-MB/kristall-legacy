@@ -6,9 +6,10 @@ import {
 	TrendingUp,
 } from "lucide-react";
 
-import { Card, CardBody } from "@/components/ui";
+import { analytics } from "@kristall/core/modules/analytics";
+import { orders } from "@kristall/core/modules/orders";
 
-import { getAnalytics, getPendingOrders } from "./_adapters";
+import { Card, CardBody } from "@/components/ui";
 
 import VERSIONS from "@/constants/versions";
 import Link from "next/link";
@@ -20,16 +21,18 @@ import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/core/utils";
 import { diffDays } from "@formkit/tempo";
+import { Suspense } from "react";
+import ProductsChartSkeleton from "./products-chart/skeleton";
 
 export default async function Analytics() {
-	const [analytics, pendingOrders] = await Promise.all([
-		getAnalytics(),
-		getPendingOrders(),
+	const [analyticsInfo, pendingOrders] = await Promise.all([
+		analytics.getAnalytics(),
+		orders.getPendingOrders(),
 	]);
 
 	const thisMonth = new Date().getMonth();
 
-	const earningsOfTheMonth = analytics.earningsByDay.filter(
+	const earningsOfTheMonth = analyticsInfo.earningsByDay.filter(
 		(day) => new Date(day.date).getMonth() === thisMonth,
 	);
 
@@ -85,8 +88,10 @@ export default async function Analytics() {
 				</InfoCard>
 			</div>
 			<div className="grid grid-cols-[auto_1fr] gap-x-4">
-				<MoneyChart analytics={analytics} />
-				<ProductsChart />
+				<MoneyChart analytics={analyticsInfo} />
+				<Suspense fallback={<ProductsChartSkeleton />}>
+					<ProductsChart />
+				</Suspense>
 			</div>
 		</div>
 	);

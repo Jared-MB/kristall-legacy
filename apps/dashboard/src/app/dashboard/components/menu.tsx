@@ -1,17 +1,13 @@
-"use client";
-
-import { logout } from "@/actions/auth.actions";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { auth } from "@kristall/core/modules/auth";
 import {
 	BookText,
 	ClipboardList,
@@ -26,24 +22,27 @@ import {
 	Users,
 } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function Menu({
-	logo,
-	username,
-}: {
-	logo: string;
-	username: string;
-}) {
+import {
+	ProfilePicture,
+	ProfilePictureSkeleton,
+	ProfileUsername,
+	ProfileUsernameSkeleton,
+} from "./profile";
+
+export default function Menu() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<Avatar>
-					<AvatarImage src={logo} alt="Kristall" />
-					<AvatarFallback>{username[0]}</AvatarFallback>
-				</Avatar>
+				<Suspense fallback={<ProfilePictureSkeleton />}>
+					<ProfilePicture />
+				</Suspense>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
-				<DropdownMenuLabel>{username}</DropdownMenuLabel>
+				<Suspense fallback={<ProfileUsernameSkeleton />}>
+					<ProfileUsername />
+				</Suspense>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup className="block lg:hidden">
 					<DropdownMenuItem>
@@ -137,7 +136,7 @@ export default function Menu({
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem className="flex items-center gap-x-2">
-						<form action={logout}>
+						<form action={auth.logout}>
 							<button type="submit" className="flex items-center gap-x-2">
 								<LogOut className="w-5 h-5" />
 								Cerrar sesión

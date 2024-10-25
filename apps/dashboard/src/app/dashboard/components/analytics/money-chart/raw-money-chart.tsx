@@ -1,10 +1,11 @@
 "use client";
 
+import type { Analytics } from "@kristall/core/modules/analytics/interfaces";
+
 import { format } from "@formkit/tempo";
 import { ColorType, createChart } from "lightweight-charts";
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
-import type { Analytics } from "../_interfaces";
 
 export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 	const incomesData = useMemo(() => {

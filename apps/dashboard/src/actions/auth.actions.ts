@@ -58,11 +58,3 @@ export const login = async (_prev: unknown, data: FormData) => {
 
 	redirect("/dashboard");
 };
-
-/**
- * @deprecated
- */
-export const logout = async () => {
-	cookies().delete("session");
-	redirect("/login");
-};

@@ -1,13 +1,13 @@
 "use client";
 
+import { SECTIONS } from "@/constants/sections";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
 	BreadcrumbLink,
 	BreadcrumbList,
 	BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { SECTIONS } from "@/constants/sections";
+} from "@kristall/ui/breadcrumb";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";

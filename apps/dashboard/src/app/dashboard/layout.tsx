@@ -13,14 +13,13 @@ import {
 import { getShopData } from "@/core/services/shop";
 
 import Divider from "@/components/divider";
-import Header from "@/components/header";
 import NavLink from "@/components/nav-link";
-
-import Menu from "./components/menu";
 
 import Routes from "@/constants/routes";
 import type { Metadata } from "next";
 import "../globals.css";
+
+import Header from "./components/header";
 
 export const metadata: Metadata = {
 	title: "Kristall - Dashboard",
@@ -78,9 +77,7 @@ export default async function DashboardLayout({
 					</NavLink>
 				</nav>
 			</aside>
-			<Header endContent={<Menu logo={logo} username={username} />}>
-				{shopName}
-			</Header>
+			<Header />
 			{children}
 		</div>
 	);
