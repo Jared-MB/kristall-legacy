@@ -1,5 +1,8 @@
 "use client";
 
+import type { Category } from "@kristall/core/modules/categories/interfaces";
+
+import { products } from "@kristall/core/modules/products";
 import { Button } from "@kristall/ui/button";
 
 import Divider from "@/components/divider";
@@ -27,7 +30,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { useShortcut } from "@/core/hooks/useShortcut";
-import type { Category } from "@/types/category";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -38,7 +40,6 @@ import Batches from "../../components/batches";
 import Locations from "../../components/locations";
 import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
-import { uploadProduct } from "./_adapters";
 import SaveButton from "./components/save-button";
 
 interface Props {
@@ -52,7 +53,7 @@ export default function AddProductForm({ categories }: Props) {
 	const [isCreatingMany, setIsCreatingMany] = useState(false);
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const enhancedAction = uploadProduct.bind(
+	const enhancedAction = products.uploadProduct.bind(
 		null,
 		locationsToAdd,
 		batches,
