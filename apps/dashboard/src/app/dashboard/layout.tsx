@@ -10,8 +10,6 @@ import {
 	Users,
 } from "lucide-react";
 
-import { getShopData } from "@/core/services/shop";
-
 import Divider from "@/components/divider";
 import NavLink from "@/components/nav-link";
 
@@ -30,10 +28,6 @@ export default async function DashboardLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const shop = await getShopData();
-
-	const { shopName, logo, username } = shop;
-
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-[20dvw_1fr] xl:grid-cols-[15dvw_1fr] grid-rows-[4rem_1fr] ">
 			<aside className="border-r border-r-zinc-700 hidden lg:flex flex-col h-dvh row-span-2 print:hidden">
