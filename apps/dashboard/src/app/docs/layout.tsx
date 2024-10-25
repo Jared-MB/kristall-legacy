@@ -1,7 +1,5 @@
 import Divider from "@/components/divider";
-import Header from "@/components/header";
 import NavLink from "@/components/nav-link";
-import { Button } from "@/components/ui";
 import {
 	Accordion,
 	AccordionContent,
@@ -11,6 +9,7 @@ import {
 import VERSIONS from "@/constants/versions";
 import { CircleHelp, Logs } from "lucide-react";
 import Link from "next/link";
+import Header from "../dashboard/components/header";
 
 export default function DocsLayout({
 	children,
@@ -23,15 +22,7 @@ export default function DocsLayout({
 				<h1 className="text-4xl text-purple-500 grid place-content-center h-16 border-b border-b-zinc-700 border-r border-r-zinc-700">
 					Kristall
 				</h1>
-				<Header
-					endContent={
-						<Button asChild variant="link">
-							<Link href="/dashboard">Ir al dashboard</Link>
-						</Button>
-					}
-				>
-					Documentación
-				</Header>
+				<Header />
 			</div>
 			<div className="grid grid-cols-1 lg:grid-cols-[20dvw_1fr] xl:grid-cols-[15dvw_1fr] h-full">
 				<aside className="border-r border-r-zinc-700 flex flex-col gap-y-4 px-6 py-4 h-full">
