@@ -9,6 +9,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { Suspense } from "react";
 import { getProducts } from "./_adapters";
 import ProductRow from "./components/product-row";
 
@@ -52,7 +53,9 @@ export default async function ProductsTable({
 					)}
 				</TableBody>
 			</Table>
-			<TablePagination page={data.page} totalPages={data.totalPages} />
+			<Suspense>
+				<TablePagination page={data.page} totalPages={data.totalPages} />
+			</Suspense>
 		</>
 	);
 }

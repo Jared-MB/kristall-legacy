@@ -45,13 +45,13 @@ export function ProductRowSkeleton() {
 				</div>
 			</TableCell>
 			<TableCell>
-				<Skeleton className="h-4" />
+				<Skeleton className="h-5" />
 			</TableCell>
 			<TableCell>
-				<Skeleton className="h-4 w-10" />
+				<Skeleton className="h-5 w-10" />
 			</TableCell>
 			<TableCell>
-				<Skeleton className="h-4 w-10" />
+				<Skeleton className="h-5 w-10" />
 			</TableCell>
 			<TableCell>
 				<MoreVertical />

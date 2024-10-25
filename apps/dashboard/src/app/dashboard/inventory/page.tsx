@@ -14,8 +14,12 @@ export default function InventoryPage({
 	return (
 		<main>
 			<header className="flex flex-row items-center justify-end p-4 gap-x-4">
-				<Search showLabel={false} queryName="name" />
-				<LocationsFilter />
+				<Suspense>
+					<Search showLabel={false} queryName="name" />
+				</Suspense>
+				<Suspense>
+					<LocationsFilter />
+				</Suspense>
 				<Menu />
 			</header>
 			<section className="px-4">
