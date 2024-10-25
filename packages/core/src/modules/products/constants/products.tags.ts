@@ -1,0 +1,3 @@
+export const PRODUCTS_TAGS = {
+	BEST_SELLERS: "PRODUCTS_BEST_SELLERS",
+} as const;
