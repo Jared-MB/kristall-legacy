@@ -12,7 +12,7 @@ import {
 } from "@/components/ui";
 import { Badge } from "@/components/ui/badge";
 import { TabsContent } from "@/components/ui/tabs";
-import { getDefaultPOSAccessEnabled } from "@/core/modules/settings";
+import { settings } from "@kristall/core/modules/settings";
 import Link from "next/link";
 import DashboardPermissions from "./dashboard-permissions";
 
@@ -24,7 +24,8 @@ export default async function UserPermissions({
 }: {
 	user: UserBasic;
 }) {
-	const { defaultPOSAccessEnabled } = await getDefaultPOSAccessEnabled();
+	const { defaultPOSAccessEnabled } =
+		await settings.getDefaultPOSAccessEnabled();
 	const hasPOSAccess = await access.getPOSAccess(user._id);
 
 	const updateUserPOSAccess = access.updatePOSAccess.bind(null, user._id);

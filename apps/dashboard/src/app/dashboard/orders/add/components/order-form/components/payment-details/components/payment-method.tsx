@@ -11,7 +11,7 @@ import {
 	SelectValue,
 } from "@/components/ui";
 import { bankAccount } from "@/core/modules/bank-account";
-import { bankAccountSettings } from "@/core/modules/settings";
+import { bankAccountSettings } from "@kristall/core/modules/settings";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";

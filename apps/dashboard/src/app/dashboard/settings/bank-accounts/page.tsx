@@ -1,7 +1,7 @@
 // Dependencies
 
 // Core
-import { bankAccountSettings } from "@/core/modules/settings";
+import { bankAccountSettings } from "@kristall/core/modules/settings";
 
 // Components
 import Setting from "../components/setting";

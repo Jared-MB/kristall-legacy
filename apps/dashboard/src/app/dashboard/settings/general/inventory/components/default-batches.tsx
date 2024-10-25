@@ -1,14 +1,11 @@
 import { Label, Switch, SwitchContainer } from "@/components/ui";
-import {
-	getDefaultBatchEnabled,
-	updateDefaultBatchEnabled,
-} from "@/core/modules/settings";
+import { settings } from "@kristall/core/modules/settings";
 
 export default async function DefaultBatches() {
-	const { defaultBatchEnabled } = await getDefaultBatchEnabled();
+	const { defaultBatchEnabled } = await settings.getDefaultBatchEnabled();
 
 	return (
-		<form action={updateDefaultBatchEnabled}>
+		<form action={settings.updateDefaultBatchEnabled}>
 			<SwitchContainer>
 				<Switch
 					defaultChecked={defaultBatchEnabled}

@@ -11,13 +11,11 @@ import {
 	Switch,
 	SwitchContainer,
 } from "@/components/ui";
-import {
-	getUseExperimentalFeatures,
-	updateUseExperimentalFeatures,
-} from "@/core/modules/settings";
+import { settings } from "@kristall/core/modules/settings";
 
 export default async function ExperimentalSettingsPage() {
-	const { useExperimentalFeatures } = await getUseExperimentalFeatures();
+	const { useExperimentalFeatures } =
+		await settings.getUseExperimentalFeatures();
 
 	return (
 		<div className="flex flex-col gap-y-6">
@@ -41,7 +39,7 @@ export default async function ExperimentalSettingsPage() {
 						experimental y puede causar errores. Si encuentras algún problema,
 						por favor, háznoslo saber.
 					</small>
-					<form action={updateUseExperimentalFeatures}>
+					<form action={settings.updateUseExperimentalFeatures}>
 						<SwitchContainer>
 							<Label htmlFor="experimental">Habilitar</Label>
 							<Switch

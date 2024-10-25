@@ -1,7 +1,7 @@
 import { getCategories } from "@/actions/category.actions";
 import { getProductById } from "@/actions/product.actions";
-import { getDefaultBatchEnabled } from "@/core/modules/settings";
 import type { ProductBatch } from "@/types/batch";
+import { settings } from "@kristall/core/modules/settings";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import ProductForm from "./components/product-form";
@@ -15,7 +15,7 @@ export default async function ProductIdPage({
 }) {
 	const product = await getProductById(params._id);
 	const categories = await getCategories();
-	const { defaultBatchEnabled } = await getDefaultBatchEnabled();
+	const { defaultBatchEnabled } = await settings.getDefaultBatchEnabled();
 
 	if (!product) return <div>Product not found</div>;
 	if (!categories) return <div>Categories not found</div>;

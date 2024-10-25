@@ -1,13 +1,13 @@
 import { getCategories } from "@/actions/category.actions";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui";
-import { getDefaultBatchEnabled } from "@/core/modules/settings";
+import { settings } from "@kristall/core/modules/settings";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import AddProductForm from "./components/add-product-form";
 
 export default async function ProductIdPage() {
 	const categories = await getCategories();
-	const { defaultBatchEnabled } = await getDefaultBatchEnabled();
+	const { defaultBatchEnabled } = await settings.getDefaultBatchEnabled();
 
 	if (!categories) return <div>Categories not found</div>;
 

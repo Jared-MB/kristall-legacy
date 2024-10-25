@@ -1,14 +1,12 @@
 import { Label, Switch, SwitchContainer } from "@/components/ui";
-import {
-	getDefaultPOSAccessEnabled,
-	updateDefaultPOSAccessEnabled,
-} from "@/core/modules/settings";
+import { settings } from "@kristall/core/modules/settings";
 
 export default async function DefaultAccess() {
-	const { defaultPOSAccessEnabled } = await getDefaultPOSAccessEnabled();
+	const { defaultPOSAccessEnabled } =
+		await settings.getDefaultPOSAccessEnabled();
 
 	return (
-		<form action={updateDefaultPOSAccessEnabled}>
+		<form action={settings.updateDefaultPOSAccessEnabled}>
 			<SwitchContainer>
 				<Switch
 					defaultChecked={defaultPOSAccessEnabled}
