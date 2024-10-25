@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export interface ProductBatch {
 	_id: string;
 	stock: number;
@@ -6,4 +9,7 @@ export interface ProductBatch {
 	batchNumber: number;
 }
 
+/**
+ * @deprecated
+ */
 export type BatchToAdd = Omit<ProductBatch, "_id">;

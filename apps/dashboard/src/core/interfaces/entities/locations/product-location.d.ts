@@ -1,5 +1,8 @@
 import type { ProductBatch } from "../batch";
 
+/**
+ * @deprecated
+ */
 export interface LocationProduct {
 	_id: string;
 	productId: string;
@@ -8,4 +11,7 @@ export interface LocationProduct {
 	productBatches?: ProductBatch[];
 }
 
+/**
+ * @deprecated
+ */
 export type LocationToAdd = Pick<LocationProduct, "locationId" | "stock">;

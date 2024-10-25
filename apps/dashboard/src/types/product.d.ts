@@ -32,6 +32,10 @@ export type CatalogProduct = Pick<
 	Product,
 	"_id" | "name" | "code" | "image" | "price" | "stock" | "cost"
 >;
+
+/**
+ * @deprecated
+ */
 export type BestSeller = Pick<Product, "_id" | "name" | "totalSales">;
 
 export interface ProductOrder extends CartProduct {
