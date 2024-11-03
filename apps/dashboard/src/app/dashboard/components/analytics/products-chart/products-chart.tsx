@@ -6,7 +6,7 @@ import Chart from "./chart";
 export default async function ProductsChart() {
 	const bestSellers = await products.getBestSellers();
 
-	if (!products) {
+	if (!bestSellers) {
 		return null;
 	}
 
