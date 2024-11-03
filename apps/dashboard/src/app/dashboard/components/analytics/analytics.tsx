@@ -32,6 +32,10 @@ export default async function Analytics() {
 
 	const thisMonth = new Date().getMonth();
 
+	if (!analyticsInfo) {
+		return null;
+	}
+
 	const earningsOfTheMonth = analyticsInfo.earningsByDay.filter(
 		(day) => new Date(day.date).getMonth() === thisMonth,
 	);
