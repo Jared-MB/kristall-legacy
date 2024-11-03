@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "turbo run dev",
+		"start:server": "pnpm --filter @kristall/server start",
 		"dev:landing": "pnpm --filter @kristall/landing dev",
 		"dev:dashboard": "pnpm --filter @kristall/dashboard dev",
 		"dev:pos": "pnpm --filter @kristall/pos dev",
@@ -15,7 +16,9 @@
 		"build:pos": "pnpm --filter @kristall/pos build",
 		"build:server": "pnpm --filter @kristall/server build",
 		"clean": "turbo run clean",
-		"test": "turbo run test",
+		"test": "turbo run test --filter=@kristall/core --filter=@kristall/http",
+		"vitest": "pnpm vitest --filter=@kristall/core --filter=@kristall/http",
+		"coverage": "pnpm --filter @kristall/core coverage",
 		"format": "biome format --write .",
 		"ui": "pnpm --filter @kristall/ui ui"
 	},
@@ -23,7 +26,8 @@
 		"@biomejs/biome": "1.6.3",
 		"@changesets/cli": "2.27.9",
 		"@kristall/typescript-config": "workspace:*",
-		"turbo": "latest"
+		"turbo": "latest",
+		"@nestjs/cli": "^10.4.5"
 	},
 	"packageManager": "pnpm@9.7.0"
 }

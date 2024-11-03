@@ -5,7 +5,8 @@
   "scripts": {
     "build": "nest build",
     "dev": "nest start swc --watch",
-    "start": "node dist/main",
+    "start:server": "node dist/main",
+    "start":"node dist/main",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -45,7 +46,6 @@
   "devDependencies": {
     "@biomejs/biome": "1.6.3",
     "@compodoc/compodoc": "^1.1.25",
-    "@kristall/count-code-lines": "^0.0.1",
     "@nestjs/cli": "^10.4.5",
     "@nestjs/schematics": "^10.1.4",
     "@nestjs/testing": "^10.4.1",
