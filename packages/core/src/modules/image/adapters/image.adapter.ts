@@ -13,6 +13,10 @@ export const uploadImage = async (
 	const image = data.get("image") as File;
 	const id = data.get("imageId")?.toString();
 
+	if (!(image instanceof File)) {
+		throw new Error("Image is not a file");
+	}
+
 	const { shopId, shopName } = config as UploadImageConfig;
 
 	/** WE DON´T THROW AN ERROR BECAUSE CAN CAUSE AN UNEXPECTED BEHAVIOR
@@ -20,7 +24,7 @@ export const uploadImage = async (
 	 *  WE HAVE A CONFIG
 	 */
 	if (!shopName || !shopId) {
-		console.error("Shop name or ID is not defined, may cause errors");
+		console.error("⚠️ Shop name or ID is not defined, may cause errors");
 	}
 
 	// ID ITS ALSO EVALUATED AS A STRING BECAUSE IT COMES FROM A FORM DATA OBJECT, SO WE NEED TO CAST IT TO A UUID
