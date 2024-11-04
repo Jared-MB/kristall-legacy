@@ -11,7 +11,7 @@ import { images } from "../../image";
 import { productsService } from "../services";
 import { AddProductSchema } from "../validators";
 
-export const getBestSellers = async (): Promise<BestSeller[]> => {
+export const getBestSellers = async (): Promise<BestSeller[] | null> => {
 	const { data } = await productsService.getBestSellingProductsService();
 	return data;
 };
@@ -45,7 +45,6 @@ export const uploadProduct = async (
 		payload.append("image", product.image);
 		image = await images.uploadImage(payload);
 	} catch (err) {
-		console.log(err);
 		if (err instanceof Error) {
 			return {
 				size: [err.message],
@@ -60,7 +59,7 @@ export const uploadProduct = async (
 		parsedData.data,
 		image,
 	);
-	if (status > 400) {
+	if (status >= 400) {
 		image && (await images.deleteImage(image._id));
 		return {
 			message: ["Error al subir el producto"],

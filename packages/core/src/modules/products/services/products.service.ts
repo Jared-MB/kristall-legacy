@@ -11,7 +11,7 @@ import { PRODUCTS_TAGS } from "../constants";
 const BASE_URL = "/products";
 
 export const getBestSellingProductsService = async (): Promise<
-	ServerResponse<BestSeller[]>
+	ServerResponse<BestSeller[] | null>
 > => {
 	return await GET(`${BASE_URL}/best-sellers?take=10&skip=0`, {
 		tags: [PRODUCTS_TAGS.BEST_SELLERS],
