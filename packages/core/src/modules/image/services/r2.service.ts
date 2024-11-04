@@ -9,4 +9,9 @@ const r2 = new S3Client({
 	},
 });
 
+export { r2 };
+
+/**
+ * @deprecated
+ */
 export default r2;
