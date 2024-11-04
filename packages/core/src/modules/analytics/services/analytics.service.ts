@@ -9,7 +9,7 @@ import { ANALYTICS_TAGS } from "../constants";
 const BASE_URL = "/analytics";
 
 export const getAnalyticsService = async (): Promise<
-	ServerResponse<Analytics>
+	ServerResponse<Analytics | null>
 > => {
 	return await GET<Analytics>(BASE_URL, {
 		tags: [ANALYTICS_TAGS.INFO],
