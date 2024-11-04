@@ -17,7 +17,10 @@ export const AddProductSchema = z.object({
 			.positive("El precio debe ser mayor a 0")
 			.min(1, "El precio es requerido"),
 	),
-	cost: z.preprocess((val) => Number(val), z.number().min(0).optional()),
+	cost: z.preprocess(
+		(val) => Number(val),
+		z.number().min(0, "El costo debe ser mayor a 0").optional(),
+	),
 	category: z.string().uuid("La categoría es requerida").optional(),
 	locations: z
 		.array(
