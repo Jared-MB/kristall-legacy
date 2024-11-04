@@ -1,20 +1,11 @@
 "use server";
 
-import type { UUID } from "node:crypto";
-import type { Image } from "../interfaces";
+import type { Image, UploadImageServiceParams } from "../interfaces";
 
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { isDev } from "../../../utils";
-import r2 from "./r2.service";
-
-interface UploadImageServiceParams {
-	image: File;
-	imageId: UUID;
-	shopName: string;
-	shopId: string;
-	safe?: boolean;
-}
+import { r2 } from "./r2.service";
 
 /**
  * Pure service to upload an image to the S3 bucket
@@ -30,8 +21,6 @@ export const uploadImageService = async ({
 	shopName,
 	safe = false,
 }: UploadImageServiceParams): Promise<Image | null> => {
-	console.log(process.env.R2_BUCKET_NAME);
-
 	if (!image || image?.size === 0) {
 		return null;
 	}
@@ -98,7 +87,8 @@ const getKey = ({ id, shopId, shopName, isDev }: GetKeyParams): string => {
 	let key = id;
 
 	if (shopId && shopName) {
-		key = `${shopId}-${shopName}/${id}`;
+		const trimmedShopName = shopName.replace(/\s/g, "");
+		key = `${shopId}-${trimmedShopName}/${id}`;
 	}
 
 	if (isDev) {
