@@ -18,7 +18,7 @@
 		"clean": "turbo run clean",
 		"test": "turbo run test --filter=@kristall/core --filter=@kristall/http",
 		"test:ci": "turbo run test --filter=@kristall/core --filter=@kristall/http",
-		"vitest": "pnpm vitest --filter=@kristall/core --filter=@kristall/http",
+		"vitest": "pnpm vitest --filter=@kristall/core",
 		"coverage": "pnpm --filter @kristall/core coverage",
 		"format": "biome format --write .",
 		"ui": "pnpm --filter @kristall/ui ui"
