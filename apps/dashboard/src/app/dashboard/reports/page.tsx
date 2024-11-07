@@ -17,6 +17,10 @@ import {
 export default async function ReportsPage() {
 	const latestReports = await reports.getLatestReports();
 
+	if (!latestReports) {
+		("Error al obtener reportes");
+	}
+
 	return (
 		<main className="p-4">
 			<Table>
