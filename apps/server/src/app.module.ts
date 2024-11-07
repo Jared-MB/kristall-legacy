@@ -17,6 +17,7 @@ import {
   NotesModule,
   OrdersModule,
   ProductsModule,
+  ReportsModule,
   SettingsModule,
   ShopsModule,
   StripeModule,
@@ -63,6 +64,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     AnalyticsModule,
     VirtualShowroomModule,
     SettingsModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [

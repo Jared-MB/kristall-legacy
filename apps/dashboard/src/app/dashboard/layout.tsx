@@ -18,6 +18,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 
 import Header from "@/components/layout/header";
+import ReportLink from "./components/report-link";
 
 export const metadata: Metadata = {
 	title: "Kristall - Dashboard",
@@ -69,6 +70,7 @@ export default async function DashboardLayout({
 					<NavLink icon={<Users />} href={Routes.USERS}>
 						Usuarios
 					</NavLink>
+					<ReportLink />
 				</nav>
 			</aside>
 			<Header />

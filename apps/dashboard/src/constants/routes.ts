@@ -12,6 +12,7 @@ const Routes = {
 	EXPENSES: `${BASE_URL}/expenses`,
 	USERS: `${BASE_URL}/users`,
 	SETTINGS: `${BASE_URL}/settings`,
+	REPORTS: `${BASE_URL}/reports`,
 };
 
 export default Routes;

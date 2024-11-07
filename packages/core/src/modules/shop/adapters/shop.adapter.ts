@@ -1,5 +1,6 @@
 "use server";
 
+import { GET } from "@kristall/http";
 import { getShopDataService } from "../services";
 
 export const getShopData = async () => {
@@ -14,4 +15,9 @@ export const getShopData = async () => {
 			url: data.showroom.url,
 		},
 	};
+};
+
+export const isAdmin = async () => {
+	const { data } = await GET("/user/is-admin");
+	return data;
 };

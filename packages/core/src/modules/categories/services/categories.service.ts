@@ -9,9 +9,9 @@ import { CATEGORIES_TAGS } from "../constants";
 const BASE_URL = "/categories";
 
 export const getCategoriesService = async (): Promise<
-	ServerResponse<Category[]>
+	ServerResponse<Category[] | null>
 > => {
-	return await GET<Category[]>(`${BASE_URL}`, {
+	return await GET<Category[] | null>(`${BASE_URL}`, {
 		tags: [CATEGORIES_TAGS.GET],
 	});
 };

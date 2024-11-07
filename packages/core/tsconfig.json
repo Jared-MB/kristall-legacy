@@ -28,5 +28,6 @@
 		".next/types/**/*.ts",
 		"node_modules/next/types/**/*.ts"
 	],
+	"types": ["vitest/globals"],
 	"exclude": ["dist", "vitest.config.ts", "**/*.test.ts", "**/*.mock.ts"]
 }

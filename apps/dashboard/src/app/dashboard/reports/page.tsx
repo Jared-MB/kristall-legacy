@@ -1,0 +1,49 @@
+import { format } from "@formkit/tempo";
+
+import { reports } from "@kristall/core/modules/reports";
+
+import { Badge } from "@kristall/ui/badge";
+import { Button } from "@kristall/ui/button";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@kristall/ui/table";
+import { MoreVertical } from "lucide-react";
+
+export default async function ReportsPage() {
+	const latestReports = await reports.getLatestReports();
+
+	return (
+		<main className="p-4">
+			<Table>
+				<TableHeader>
+					<TableHead>Mensaje de Error</TableHead>
+					<TableHead>Nivel de gravedad</TableHead>
+					<TableHead>Fecha</TableHead>
+				</TableHeader>
+				<TableBody>
+					{latestReports.map((report) => (
+						<TableRow key={report._id}>
+							<TableCell>{report.errorMessage}</TableCell>
+							<TableCell>
+								<Badge>{report.severity}</Badge>
+							</TableCell>
+							<TableCell className="capitalize">
+								{format(report.createdAt, { date: "full", time: "short" })}
+							</TableCell>
+							<TableCell>
+								<Button size="icon" variant="outline">
+									<MoreVertical />
+								</Button>
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</main>
+	);
+}
