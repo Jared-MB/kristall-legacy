@@ -18,7 +18,7 @@ export default async function ReportsPage() {
 	const latestReports = await reports.getLatestReports();
 
 	if (!latestReports) {
-		("Error al obtener reportes");
+		<p>Error al obtener reportes</p>;
 	}
 
 	return (
