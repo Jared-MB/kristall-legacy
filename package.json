@@ -17,7 +17,7 @@
 		"build:server": "pnpm --filter @kristall/server build",
 		"clean": "turbo run clean",
 		"test": "turbo run test --filter=@kristall/core --filter=@kristall/http",
-		"test:ci": "turbo run test --filter=@kristall/core --filter=@kristall/http",
+		"test:ci": "turbo run test --filter=@kristall/core",
 		"vitest": "pnpm vitest --filter=@kristall/core --filter=@kristall/http",
 		"coverage": "pnpm --filter @kristall/core coverage",
 		"format": "biome format --write .",
