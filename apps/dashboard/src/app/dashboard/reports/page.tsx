@@ -1,4 +1,5 @@
 import { format } from "@formkit/tempo";
+import { MoreVertical } from "lucide-react";
 
 import { reports } from "@kristall/core/modules/reports";
 
@@ -12,7 +13,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@kristall/ui/table";
-import { MoreVertical } from "lucide-react";
 
 export default async function ReportsPage() {
 	const latestReports = await reports.getLatestReports();
