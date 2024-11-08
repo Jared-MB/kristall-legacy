@@ -11,15 +11,9 @@
 	},
 	"typesVersions": {
 		"*": {
-			"modules/*": [
-				"./src/modules/*/index.ts"
-			],
-			"utils": [
-				"./src/utils/index.ts"
-			],
-			"constants": [
-				"./src/constants/index.ts"
-			]
+			"modules/*": ["./src/modules/*/index.ts"],
+			"utils": ["./src/utils/index.ts"],
+			"constants": ["./src/constants/index.ts"]
 		}
 	},
 	"devDependencies": {
@@ -35,8 +29,6 @@
 		"next": "^14.0.0"
 	},
 	"scripts": {
-		"build": "tsc",
-		"dev": "tsc --watch",
 		"test": "vitest",
 		"coverage": "vitest run --coverage"
 	},
