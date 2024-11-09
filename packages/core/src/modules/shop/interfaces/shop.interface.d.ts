@@ -6,6 +6,9 @@ export interface Shop {
 	username: string;
 	logo: string;
 	showroom: Showroom;
+	/**
+	 * @deprecated Use Settings instead
+	 */
 	bankAccounts: BankAccounts;
 }
 
@@ -14,6 +17,9 @@ export interface Settings {
 	defaultBatchEnabled: boolean;
 }
 
+/**
+ * @deprecated
+ */
 export interface BankAccounts {
 	hasAcceptedTerms: boolean;
 	removeBankAccounts: boolean;
