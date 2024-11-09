@@ -1,7 +1,7 @@
 import { Controller, Get, NotFoundException, UnauthorizedException, UseInterceptors } from '@nestjs/common';
-import { Cookies } from '@kristall/server/src/decorators';
-import { ResponseInterceptor } from '@kristall/server/src/interceptors';
-import { AuthService } from '@kristall/server/src/services';
+import { Cookies } from '@/server/decorators';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService } from '@/server/services';
 import { ReportsService } from '../services/reports.service';
 
 @Controller('reports')

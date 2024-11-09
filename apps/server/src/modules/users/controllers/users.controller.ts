@@ -18,10 +18,10 @@ import {
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
 import { randomUUID } from 'node:crypto';
-import { Cookies } from '@kristall/server/src/decorators';
-import { ResponseInterceptor } from '@kristall/server/src/interceptors';
-import { AuthService, UtilsService } from '@kristall/server/src/services';
-import { RESTRICTIONS, TokenService, USER_PERMISSIONS, Utils } from '@kristall/server/src/utilities';
+import { Cookies } from '@/server/decorators';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService, UtilsService } from '@/server/services';
+import { RESTRICTIONS, TokenService, USER_PERMISSIONS, Utils } from '@/server/utilities';
 import { allowedQueries } from '../constants';
 import { ChangePasswordDto, CreateUserClientDto } from '../dto';
 import type { FindAllUsersOptions, FindAllUsersQuery } from '../interfaces';

@@ -9,9 +9,9 @@ import {
   Res
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Cancellation } from '@kristall/server/src/entities';
-import { Expense } from '@kristall/server/src/entities/expense.entity';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { Cancellation } from '@/server/entities';
+import { Expense } from '@/server/entities/expense.entity';
+import { TokenService, Utils } from '@/server/utilities';
 import { ExpensesService } from './expenses.service';
 
 @Controller('expenses')

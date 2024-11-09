@@ -11,8 +11,8 @@ import {
   Res
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { DeliveryLocation, Location } from '@kristall/server/src/entities';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { DeliveryLocation, Location } from '@/server/entities';
+import { TokenService, Utils } from '@/server/utilities';
 import { LocationsService } from './locations.service';
 
 @Controller('locations')

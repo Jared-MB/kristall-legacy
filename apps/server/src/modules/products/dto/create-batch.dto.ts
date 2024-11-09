@@ -1,4 +1,4 @@
-import { LocationProduct } from "@kristall/server/src/entities";
+import { LocationProduct } from "@/server/entities";
 import { CreateLocationProductDto } from "./create-location-product.dto";
 
 // FROM CLIENT

@@ -8,8 +8,8 @@ import {
     Payment,
     Product,
     ProductOrder,
-} from '@kristall/server/src/entities';
-import { Utils, generateNoNameCode } from '@kristall/server/src/utilities';
+} from '@/server/entities';
+import { Utils, generateNoNameCode } from '@/server/utilities';
 import { Repository } from 'typeorm';
 
 @Injectable()

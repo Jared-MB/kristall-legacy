@@ -6,13 +6,13 @@ import { Repository } from 'typeorm';
 
 import { JwtService } from '@nestjs/jwt';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { User } from '@kristall/server/src/entities';
-import { auth as FirebaseAuth, FirebaseService, firebaseRegister } from '@kristall/server/src/firebase';
-import { BankAccountsService } from '@kristall/server/src/modules/bank-accounts/services';
-import { ShopService } from '@kristall/server/src/modules/shops/services';
-import { StripeService } from '@kristall/server/src/modules/stripe/services';
-import { RESTRICTIONS, USER_PERMISSIONS } from '@kristall/server/src/utilities';
-import { ServerError } from '@kristall/server/src/utilities/Errors';
+import { User } from '@/server/entities';
+import { auth as FirebaseAuth, FirebaseService, firebaseRegister } from '@/server/firebase';
+import { BankAccountsService } from '@/server/modules/bank-accounts/services';
+import { ShopService } from '@/server/modules/shops/services';
+import { StripeService } from '@/server/modules/stripe/services';
+import { RESTRICTIONS, USER_PERMISSIONS } from '@/server/utilities';
+import { ServerError } from '@/server/utilities/Errors';
 import { CreateUserServerDto } from '../dto';
 import { FindAllUsersOptions } from '../interfaces/users.interface';
 

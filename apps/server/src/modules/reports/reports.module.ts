@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthService } from '@kristall/server/src/services';
+import { AuthService } from '@/server/services';
 import { ReportsController } from './controllers/reports.controller';
 import { ErrorLog } from './models/report.model';
 import { ReportsService } from './services/reports.service';

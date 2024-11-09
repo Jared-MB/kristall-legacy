@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Crypto } from '@kristall/server/src/utilities/Crypto';
+import { Crypto } from '@/server/utilities/Crypto';
 
 @Injectable()
 export class CodeService {

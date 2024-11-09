@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { LocationProduct, ProductBatch } from '@kristall/server/src/entities';
+import { LocationProduct, ProductBatch } from '@/server/entities';
 import { CreateBatchClientDto, CreateBatchServerDto } from '../dto';
 
 @Injectable()

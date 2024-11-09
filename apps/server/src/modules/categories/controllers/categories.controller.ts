@@ -1,10 +1,10 @@
 import { Body, Controller, ForbiddenException, Get, InternalServerErrorException, Param, Post, Put, Req, Res, UseInterceptors } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Cookies } from '@kristall/server/src/decorators';
-import { Category } from '@kristall/server/src/entities';
-import { ResponseInterceptor } from '@kristall/server/src/interceptors';
-import { AuthService } from '@kristall/server/src/services';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { Cookies } from '@/server/decorators';
+import { Category } from '@/server/entities';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { CategoriesService } from '../services';
 
 @Controller('categories')

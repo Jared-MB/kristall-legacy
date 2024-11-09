@@ -11,8 +11,9 @@
     "outDir": "./dist",
     "paths": {
       "src/*": ["./src/*"],
-      "@kristall/server": ["./src/*"]
+      "@/server/*": ["./src/*"]
     },
+    "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,

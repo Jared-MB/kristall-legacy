@@ -1,4 +1,4 @@
-import { Image, LocationProduct, ProductBatch } from "@kristall/server/src/entities";
+import { Image, LocationProduct, ProductBatch } from "@/server/entities";
 import { CreateBatchClientDto } from "./create-batch.dto";
 import { CreateLocationProductDto } from "./create-location-product.dto";
 

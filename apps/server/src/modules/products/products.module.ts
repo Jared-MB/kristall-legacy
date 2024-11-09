@@ -1,16 +1,16 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ImageModule, ShopsModule } from '@kristall/server/src/modules';
+import { ImageModule, ShopsModule } from '@/server/modules';
 
 import { ProductsController, PublicProductsController } from './controllers';
 
-import { LocationsService } from '@kristall/server/src/locations/locations.service';
-import { AuthService } from '@kristall/server/src/services';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { LocationsService } from '@/server/locations/locations.service';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { BatchService, LocationProductService, ProductsService, PublicProductsService } from './services';
 
-import { DeliveryLocation, Image, Location, LocationProduct, Product, ProductBatch, Shop } from '@kristall/server/src/entities';
+import { DeliveryLocation, Image, Location, LocationProduct, Product, ProductBatch, Shop } from '@/server/entities';
 
 @Module({
     imports: [

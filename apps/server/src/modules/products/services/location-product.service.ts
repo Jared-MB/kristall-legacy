@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
 import { Repository } from 'typeorm';
 
-import { LocationProduct } from '@kristall/server/src/entities';
+import { LocationProduct } from '@/server/entities';
 import { CreateLocationProductDto } from '../dto';
 
 @Injectable()

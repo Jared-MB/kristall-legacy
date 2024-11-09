@@ -1,4 +1,4 @@
-import { Shop } from "@kristall/server/src/entities"
+import { Shop } from "@/server/entities"
 
 export class CreateSettingServerDto {
     shop: Partial<Shop>

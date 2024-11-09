@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
-import { Shop } from '@kristall/server/src/entities';
-import { BankAccount } from '@kristall/server/src/entities/bank-account';
-import { Utils } from '@kristall/server/src/utilities';
-import { Crypto } from '@kristall/server/src/utilities/Crypto';
-import { ServerError } from '@kristall/server/src/utilities/Errors';
+import { Shop } from '@/server/entities';
+import { BankAccount } from '@/server/entities/bank-account';
+import { Utils } from '@/server/utilities';
+import { Crypto } from '@/server/utilities/Crypto';
+import { ServerError } from '@/server/utilities/Errors';
 import { Repository } from 'typeorm';
 
 @Injectable()

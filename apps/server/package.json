@@ -10,7 +10,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "set NODE_ENV=test && jest --config ./test/jest-e2e.json --detectOpenHandles",
     "clean": "rm -rf dist node_modules",
     "doc:code": "compodoc -p tsconfig.json -s"
   },
@@ -80,7 +80,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

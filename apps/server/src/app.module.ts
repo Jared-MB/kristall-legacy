@@ -34,8 +34,17 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env', '.env.local', '.env.mobile'],
-      isGlobal: true,
+      envFilePath: [
+        (() => {
+          if (process.env.NODE_ENV?.trim() === 'test') {
+            console.log('Reading .env.test')
+            return '.env.test';
+          }
+          console.log('Reading .env.local')
+          return '.env.development';
+        })(),
+      ],
+      isGlobal: true
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

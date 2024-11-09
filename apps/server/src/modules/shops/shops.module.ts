@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { LocationsModule } from '@kristall/server/src/locations/locations.module';
-import { CategoriesModule, ProductsModule } from '@kristall/server/src/modules';
+import { LocationsModule } from '@/server/locations/locations.module';
+import { CategoriesModule, ProductsModule } from '@/server/modules';
 
 import { ShopController, ShopPublicController } from './controllers';
 
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { TokenService, Utils } from '@/server/utilities';
 import { ShopPublicService, ShopService } from './services';
 
-import { Image, PublicPage, Shop } from '@kristall/server/src/entities';
+import { Image, PublicPage, Shop } from '@/server/entities';
 
-import { Setting } from '@kristall/server/src/modules/settings/models';
-import { SettingsService } from '@kristall/server/src/modules/settings/services';
-import { AuthService } from '@kristall/server/src/services';
+import { Setting } from '@/server/modules/settings/models';
+import { SettingsService } from '@/server/modules/settings/services';
+import { AuthService } from '@/server/services';
 
 @Module({
     imports: [

@@ -1,8 +1,8 @@
-import { Cookies } from '@kristall/server/src/decorators';
-import { Image, PublicPage, SaveUser } from '@kristall/server/src/entities';
-import { ResponseInterceptor } from '@kristall/server/src/interceptors';
-import { AuthService } from '@kristall/server/src/services';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { Cookies } from '@/server/decorators';
+import { Image, PublicPage, SaveUser } from '@/server/entities';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import {
     Body,
     Controller,

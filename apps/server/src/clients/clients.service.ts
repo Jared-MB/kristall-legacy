@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Client, Shop } from '@kristall/server/src/entities';
+import { Client, Shop } from '@/server/entities';
 import { ILike, Like, Repository } from 'typeorm';
 
 @Injectable()

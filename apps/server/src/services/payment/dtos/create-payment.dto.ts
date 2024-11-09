@@ -1,4 +1,4 @@
-import { Shop } from "@kristall/server/src/entities"
+import { Shop } from "@/server/entities"
 import { PaymentMethod } from "../interfaces"
 
 export class CreatePaymentDto {

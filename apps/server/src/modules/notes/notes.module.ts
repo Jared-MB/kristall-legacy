@@ -7,9 +7,9 @@ import {
     Payment,
     Product,
     ProductOrder,
-} from '@kristall/server/src/entities';
-import { AuthService, PaymentService } from '@kristall/server/src/services';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+} from '@/server/entities';
+import { AuthService, PaymentService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { NotesController } from './controllers/notes.controller';
 import { NotesService } from './services/notes.service';
 

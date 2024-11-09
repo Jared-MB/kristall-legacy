@@ -4,10 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
 import { DataSource, ILike, Repository } from 'typeorm';
 
-import { ImageService } from '@kristall/server/src/modules/image/services/image.service';
-import { Utils } from '@kristall/server/src/utilities';
+import { ImageService } from '@/server/modules/image/services/image.service';
+import { Utils } from '@/server/utilities';
 
-import { Image, Location, LocationProduct, Product, ProductBatch, Shop } from '@kristall/server/src/entities';
+import { Image, Location, LocationProduct, Product, ProductBatch, Shop } from '@/server/entities';
 import { CreateProductServerDto, DateRangeDto } from '../dto';
 
 @Injectable()

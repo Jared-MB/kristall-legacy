@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Put, UnauthorizedException } from '@nestjs/common';
-import { Cookies } from '@kristall/server/src/decorators/cookie.decorator';
-import { AuthService } from '@kristall/server/src/services';
+import { Cookies } from '@/server/decorators/cookie.decorator';
+import { AuthService } from '@/server/services';
 import { CreateVirtualShowroomClientDto } from '../dtos';
 import { VirtualShowroomService } from '../services/virtual-showroom.service';
 
-import { ShopService } from '@kristall/server/src/modules/shops/services';
+import { ShopService } from '@/server/modules/shops/services';
 
 @Controller('virtual-showroom')
 export class VirtualShowroomController {

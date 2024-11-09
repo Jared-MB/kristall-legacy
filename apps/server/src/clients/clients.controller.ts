@@ -14,11 +14,11 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Cookies } from '@kristall/server/src/decorators';
-import { Client } from '@kristall/server/src/entities';
-import { ResponseInterceptor } from '@kristall/server/src/interceptors';
-import { AuthService } from '@kristall/server/src/services';
-import { TokenService, Utils } from '@kristall/server/src/utilities';
+import { Cookies } from '@/server/decorators';
+import { Client } from '@/server/entities';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { ClientsService } from './clients.service';
 
 @Controller('clients')
