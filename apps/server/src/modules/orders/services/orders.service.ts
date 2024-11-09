@@ -11,9 +11,9 @@ import {
     Product,
     ProductOrder,
     Shop,
-} from 'src/entities';
-import { BankAccountsService } from 'src/modules/bank-accounts/services';
-import { generateCode, generateSecurityCode, Utils } from 'src/utilities';
+} from '@kristall/server/src/entities';
+import { BankAccountsService } from '@kristall/server/src/modules/bank-accounts/services';
+import { generateCode, generateSecurityCode, Utils } from '@kristall/server/src/utilities';
 import { DeepPartial, Equal, ILike, Like, Or, Repository } from 'typeorm';
 import { CodeService } from './code.service';
 

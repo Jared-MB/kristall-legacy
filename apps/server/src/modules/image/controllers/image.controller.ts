@@ -1,6 +1,6 @@
 import { Controller, Delete, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { Utils } from 'src/utilities';
+import { Utils } from '@kristall/server/src/utilities';
 import { ImageService } from '../services/image.service';
 
 @Controller('image')

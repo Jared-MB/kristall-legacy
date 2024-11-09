@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { User } from 'src/entities';
-import { ShopService } from 'src/modules/shops/services';
-import { StripeService } from 'src/modules/stripe/services';
-import { FindUserResult, UsersService } from 'src/modules/users/services';
+import { User } from '@kristall/server/src/entities';
+import { ShopService } from '@kristall/server/src/modules/shops/services';
+import { StripeService } from '@kristall/server/src/modules/stripe/services';
+import { FindUserResult, UsersService } from '@kristall/server/src/modules/users/services';
 
 @Injectable()
 export class AuthService {

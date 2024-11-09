@@ -1,4 +1,4 @@
-import { Shop } from "src/entities";
+import { Shop } from "@kristall/server/src/entities";
 
 export class CreateUserClientDto {
     email: string;

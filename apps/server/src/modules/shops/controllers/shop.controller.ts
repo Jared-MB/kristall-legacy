@@ -1,3 +1,8 @@
+import { Cookies } from '@kristall/server/src/decorators';
+import { Image, PublicPage, SaveUser } from '@kristall/server/src/entities';
+import { ResponseInterceptor } from '@kristall/server/src/interceptors';
+import { AuthService } from '@kristall/server/src/services';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import {
     Body,
     Controller,
@@ -14,11 +19,6 @@ import {
 } from '@nestjs/common';
 import { ApiAcceptedResponse, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { Cookies } from 'src/decorators';
-import { Image, PublicPage, SaveUser } from 'src/entities';
-import { ResponseInterceptor } from 'src/interceptors';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
 import { ShopService } from '../services';
 
 @ApiTags('shops')
@@ -58,10 +58,6 @@ export class ShopController {
             showroom: {
                 isPublic: user.shop?.publicPage?.isPublic ?? false,
                 url: user.shop?.publicPage?.url ?? '',
-            },
-            bankAccounts: {
-                hasAcceptedTerms: user.hasAcceptedTerms,
-                removeBankAccounts: user.removeBankAccounts,
             }
         });
         return this.utils.adaptResponse(shopName, res);

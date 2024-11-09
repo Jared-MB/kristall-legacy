@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cancellation, Expense } from 'src/entities';
-import { TokenService, Utils } from 'src/utilities';
+import { Cancellation, Expense } from '@kristall/server/src/entities';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import { ExpensesController } from './expenses.controller';
 import { ExpensesService } from './expenses.service';
 

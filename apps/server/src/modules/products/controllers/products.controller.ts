@@ -20,16 +20,16 @@ import {
 import { randomUUID } from 'crypto';
 import { Request, Response } from 'express';
 
-import { Cookies } from 'src/decorators/cookie.decorator';
+import { Cookies } from '@kristall/server/src/decorators/cookie.decorator';
 
-import { ImageService } from 'src/modules/image/services/image.service';
-import { AuthService } from 'src/services/auth.service';
-import { TokenService, Utils } from 'src/utilities';
+import { ImageService } from '@kristall/server/src/modules/image/services/image.service';
+import { AuthService } from '@kristall/server/src/services/auth.service';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import { BatchService, LocationProductService, ProductsService } from '../services';
 
 import { addMonth } from '@formkit/tempo';
-import { Image, LocationProduct, ProductBatch } from 'src/entities';
-import { ResponseInterceptor } from 'src/interceptors';
+import { Image, LocationProduct, ProductBatch } from '@kristall/server/src/entities';
+import { ResponseInterceptor } from '@kristall/server/src/interceptors';
 import { CreateBatchClientDto, CreateLocationProductDto, CreateProductClientDto, CreateProductServerDto, EditProductClientDto } from '../dto';
 
 @Controller('products')

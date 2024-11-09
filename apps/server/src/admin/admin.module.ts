@@ -1,9 +1,9 @@
+import { User } from '@kristall/server/src/entities';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Utils } from '@kristall/server/src/utilities';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entities';
-import { Utils } from 'src/utilities';
 
 @Module({
   imports: [
@@ -12,4 +12,4 @@ import { Utils } from 'src/utilities';
   controllers: [AdminController],
   providers: [AdminService, Utils],
 })
-export class AdminModule {}
+export class AdminModule { }

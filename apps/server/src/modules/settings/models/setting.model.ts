@@ -1,4 +1,4 @@
-import { Shop } from "src/entities";
+import { Shop } from "@kristall/server/src/entities";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

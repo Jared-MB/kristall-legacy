@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Category, Product } from 'src/entities';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { Category, Product } from '@kristall/server/src/entities';
+import { AuthService } from '@kristall/server/src/services';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import { CategoriesController } from './controllers';
 import { CategoriesService } from './services';
 

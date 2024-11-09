@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 import { Controller, Get, Req, Res } from '@nestjs/common';
 
-import { TokenService, Utils } from 'src/utilities';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import { AnalyticsService } from '../services';
 
 @Controller('analytics')

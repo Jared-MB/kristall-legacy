@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { SaveUser } from 'src/entities';
+import { SaveUser } from '@kristall/server/src/entities';
 
 @Injectable()
 export class AuthService {

@@ -1,8 +1,8 @@
 import { BadRequestException, Controller, Get, Patch, Post, UnauthorizedException, UseInterceptors } from '@nestjs/common';
-import { Cookies } from 'src/decorators';
-import { ResponseInterceptor } from 'src/interceptors';
-import { BankAccountsService } from 'src/modules/bank-accounts/services';
-import { AuthService } from 'src/services';
+import { Cookies } from '@kristall/server/src/decorators';
+import { ResponseInterceptor } from '@kristall/server/src/interceptors';
+import { BankAccountsService } from '@kristall/server/src/modules/bank-accounts/services';
+import { AuthService } from '@kristall/server/src/services';
 import { Setting } from '../models';
 import { SettingsService } from '../services/settings.service';
 

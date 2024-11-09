@@ -1,4 +1,4 @@
-import { Setting } from 'src/modules/settings/models';
+import { Setting } from '@kristall/server/src/modules/settings/models';
 import {
   Column,
   Entity,

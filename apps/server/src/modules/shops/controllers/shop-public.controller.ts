@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Public } from 'src/decorators/public.decorator';
-import { CategoriesService } from 'src/modules/categories/services';
-import { ProductsService } from 'src/modules/products/services';
-import { Utils } from 'src/utilities';
+import { Public } from '@kristall/server/src/decorators/public.decorator';
+import { CategoriesService } from '@kristall/server/src/modules/categories/services';
+import { ProductsService } from '@kristall/server/src/modules/products/services';
+import { Utils } from '@kristall/server/src/utilities';
 import { ShopService } from '../services';
 
 @ApiTags('shops-public')

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RANDOM_WORDS } from 'src/constants';
-import { PublicPage, Shop } from 'src/entities';
+import { RANDOM_WORDS } from '@kristall/server/src/constants';
+import { PublicPage, Shop } from '@kristall/server/src/entities';
 import { Repository } from 'typeorm';
 import { CreateVirtualShowroomServerDto } from '../dtos';
 

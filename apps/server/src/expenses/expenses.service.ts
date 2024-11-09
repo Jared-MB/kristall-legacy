@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'node:crypto';
-import { Cancellation, SaveUser } from 'src/entities';
-import { Expense } from 'src/entities/expense.entity';
+import { Cancellation, SaveUser } from '@kristall/server/src/entities';
+import { Expense } from '@kristall/server/src/entities/expense.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

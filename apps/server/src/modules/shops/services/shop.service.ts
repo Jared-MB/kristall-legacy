@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Image, PublicPage, Shop } from 'src/entities';
+import { Image, PublicPage, Shop } from '@kristall/server/src/entities';
 import { Repository } from 'typeorm';
 
 import { randomUUID } from 'node:crypto';
-import { LocationsService } from 'src/locations/locations.service';
-import { SettingsService } from 'src/modules/settings/services';
+import { LocationsService } from '@kristall/server/src/locations/locations.service';
+import { SettingsService } from '@kristall/server/src/modules/settings/services';
 
 @Injectable()
 export class ShopService {

@@ -1,6 +1,6 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
-import { Public } from 'src/decorators/public.decorator';
-import { ShopService } from 'src/modules/shops/services';
+import { Public } from '@kristall/server/src/decorators/public.decorator';
+import { ShopService } from '@kristall/server/src/modules/shops/services';
 import { PublicProductsService } from '../services';
 
 @Public()

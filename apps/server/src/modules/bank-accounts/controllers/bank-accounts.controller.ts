@@ -13,11 +13,11 @@ import {
     UseInterceptors
 } from '@nestjs/common';
 import type { Response } from 'express';
-import { Cookies } from 'src/decorators';
-import { ResponseInterceptor } from 'src/interceptors';
-import { SettingsService } from 'src/modules/settings/services';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { Cookies } from '@kristall/server/src/decorators';
+import { ResponseInterceptor } from '@kristall/server/src/interceptors';
+import { SettingsService } from '@kristall/server/src/modules/settings/services';
+import { AuthService } from '@kristall/server/src/services';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import type { CreateBankAccount } from '../interfaces';
 import { BankAccountsService } from '../services/bank-accounts.service';
 

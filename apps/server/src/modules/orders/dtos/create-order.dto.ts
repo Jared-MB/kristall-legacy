@@ -1,4 +1,4 @@
-import { PaymentMethod } from "src/services/payment/interfaces";
+import { PaymentMethod } from "@kristall/server/src/services/payment/interfaces";
 
 export class CreateOrderDto {
     client: string;

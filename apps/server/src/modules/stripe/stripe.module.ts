@@ -1,7 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entities';
-import { Utils } from 'src/utilities/Utils';
+import { User } from '@kristall/server/src/entities';
+import { Utils } from '@kristall/server/src/utilities/Utils';
 import { UsersModule } from '..';
 import { StripeController } from './controllers';
 import { StripeService } from './services';

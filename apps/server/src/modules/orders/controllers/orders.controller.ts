@@ -18,15 +18,15 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { randomUUID } from 'node:crypto';
-import { ClientsService } from 'src/clients/clients.service';
-import { Cookies } from 'src/decorators';
-import { Public } from 'src/decorators/public.decorator';
-import { Cancellation, Order } from 'src/entities';
-import { ResponseInterceptor } from 'src/interceptors';
-import { LocationsService } from 'src/locations/locations.service';
-import { LocationProductService, ProductsService } from 'src/modules/products/services';
-import { AuthService, PaymentService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { ClientsService } from '@kristall/server/src/clients/clients.service';
+import { Cookies } from '@kristall/server/src/decorators';
+import { Public } from '@kristall/server/src/decorators/public.decorator';
+import { Cancellation, Order } from '@kristall/server/src/entities';
+import { ResponseInterceptor } from '@kristall/server/src/interceptors';
+import { LocationsService } from '@kristall/server/src/locations/locations.service';
+import { LocationProductService, ProductsService } from '@kristall/server/src/modules/products/services';
+import { AuthService, PaymentService } from '@kristall/server/src/services';
+import { TokenService, Utils } from '@kristall/server/src/utilities';
 import { CreateOrderDto } from '../dtos';
 import { CodeService, OrdersService, ProductOrderService } from '../services';
 

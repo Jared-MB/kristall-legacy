@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category, Product, Shop } from 'src/entities';
+import { Category, Product, Shop } from '@kristall/server/src/entities';
 import { DataSource, Repository } from 'typeorm';
 import { CategoryDetail } from '../interfaces';
 

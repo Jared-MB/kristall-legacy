@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Expense, Payment } from "src/entities";
+import { Expense, Payment } from "@kristall/server/src/entities";
 import { DataSource } from "typeorm";
 
 @Injectable()
