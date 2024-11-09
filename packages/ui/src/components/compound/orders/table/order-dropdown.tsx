@@ -1,4 +1,7 @@
-import { Button } from "@/components/ui";
+import { MoreVertical } from "lucide-react";
+import Link from "next/link";
+
+import { Button } from "@kristall/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -6,10 +9,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
-
-import Link from "next/link";
+} from "@kristall/ui/dropdown-menu";
 
 export default function OrdersTableDropdown({ code }: { code: string }) {
 	return (
