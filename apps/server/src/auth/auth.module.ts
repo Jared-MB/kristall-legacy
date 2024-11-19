@@ -1,13 +1,24 @@
+import { ShopsModule, StripeModule, UsersModule } from '@/server/modules';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ShopsModule, StripeModule, UsersModule } from '@/server/modules';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: [
+        (() => {
+          if (process.env.NODE_ENV?.trim() === 'test') {
+            return '.env.test';
+          }
+          return '.env.development';
+        })(),
+      ],
+    }),
     UsersModule,
     StripeModule,
     ShopsModule,

@@ -13,3 +13,9 @@ export const getShopDataService = async (): Promise<ServerResponse<Shop>> => {
 		tags: [SHOP_TAGS.INFO],
 	});
 };
+
+export const isAdminService = async (): Promise<ServerResponse<boolean>> => {
+	return await GET<boolean>("/user/is-admin", {
+		tags: [SHOP_TAGS.IS_ADMIN],
+	});
+};

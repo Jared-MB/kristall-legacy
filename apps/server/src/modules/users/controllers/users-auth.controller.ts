@@ -1,3 +1,8 @@
+import { Cookies } from '@/server/decorators';
+import { Public } from '@/server/decorators/public.decorator';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService } from '@/server/services';
+import { Utils } from '@/server/utilities';
 import {
     BadRequestException,
     Body,
@@ -6,16 +11,9 @@ import {
     NotFoundException,
     Put,
     Query,
-    Res,
     UnauthorizedException,
     UseInterceptors
 } from '@nestjs/common';
-import { Response } from 'express';
-import { Cookies } from '@/server/decorators';
-import { Public } from '@/server/decorators/public.decorator';
-import { ResponseInterceptor } from '@/server/interceptors';
-import { AuthService } from '@/server/services';
-import { Utils } from '@/server/utilities';
 import { UsersService } from '../services';
 
 @Controller()
@@ -215,16 +213,20 @@ export class UsersAuthController {
 
 
     @Public()
+    @UseInterceptors(ResponseInterceptor)
     @Put('register')
     async signup(
-        @Res() res: Response,
         @Query() query: { by: 'stripe' },
         @Body() body: any,
     ) {
         if (query.by !== 'stripe') {
             throw new NotFoundException()
         }
-        const user = this.usersService.updateUserByEmail(body.email, body);
-        return await this.utils.adaptResponse(user, res);
+        const user = await this.usersService.updateUserByEmail(body.email, body);
+        if (!user){
+            throw new NotFoundException()
+        }
+
+        return 'ok'
     }
 }

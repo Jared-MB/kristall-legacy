@@ -8,10 +8,10 @@ import {
 	InputError,
 	Label,
 } from "@/components/ui";
+import { auth } from "@kristall/core/modules/auth";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
-import { registerUser } from "../_adapters";
 import type { CustomerDetails } from "../_interfaces";
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function RegisterForm({ customer }: Props) {
-	const [errors, dispatch] = useFormState(registerUser, undefined);
+	const [errors, dispatch] = useFormState(auth.register, undefined);
 
 	useEffect(() => {
 		errors && "message" in errors && toast.error(errors.message);
