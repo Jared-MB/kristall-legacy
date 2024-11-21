@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Image, PublicPage, Shop } from '@/server/entities';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { randomUUID } from 'node:crypto';
 import { LocationsService } from '@/server/locations/locations.service';
 import { SettingsService } from '@/server/modules/settings/services';
+import { randomUUID } from 'node:crypto';
 
 @Injectable()
 export class ShopService {
@@ -159,7 +159,7 @@ export class ShopService {
             },
         });
         if (!shop) {
-            throw new Error('Shop not found');
+            throw new NotFoundException()
         }
         return shop?.image?.url || null;
     }

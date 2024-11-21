@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Request, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Public } from './decorators/public.decorator';
+import { ResponseInterceptor } from './interceptors';
 import { Utils } from './utilities';
 
 @Controller()
@@ -13,11 +14,11 @@ export class AppController {
   ) { }
 
   @Public()
+  @UseInterceptors(ResponseInterceptor)
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Request() req: any, @Res() res: Response) {
-    const userToken = this.authService.login(req.user);
-    return this.utils.adaptResponse(userToken, res);
+  async login(@Request() req: any) {
+    return await this.authService.login(req.user);
   }
 
   @Get('auth/verify-token')

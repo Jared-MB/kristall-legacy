@@ -1,11 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'node:crypto';
 import { Repository } from 'typeorm';
 
-import { JwtService } from '@nestjs/jwt';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { User } from '@/server/entities';
 import { auth as FirebaseAuth, FirebaseService, firebaseRegister } from '@/server/firebase';
 import { BankAccountsService } from '@/server/modules/bank-accounts/services';
@@ -13,6 +11,8 @@ import { ShopService } from '@/server/modules/shops/services';
 import { StripeService } from '@/server/modules/stripe/services';
 import { RESTRICTIONS, USER_PERMISSIONS } from '@/server/utilities';
 import { ServerError } from '@/server/utilities/Errors';
+import { JwtService } from '@nestjs/jwt';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { CreateUserServerDto } from '../dto';
 import { FindAllUsersOptions } from '../interfaces/users.interface';
 
@@ -419,7 +419,7 @@ export class UsersService {
     async updateUserByEmail(email: string, user: Partial<User>) {
         const userdb = await this.usersRepository.findOne({ where: { email } });
         if (!userdb) {
-            throw new ServerError('Invalid password or email', 401);
+            throw new NotFoundException()
         }
         // if (!user.password) {
         //     throw new ServerError('Bad request', 400);
@@ -438,7 +438,7 @@ export class UsersService {
 
         const userFound = await this.findUserById({ _id: userdb._id });
         if (userFound?.shop?.name) {
-            throw new ServerError('Already has an account', 418);
+            throw new BadRequestException('El nombre no esta disponible')
         }
         const shop = await this.shopService.createShop({
             name: (user as any).shopName as unknown as string,
