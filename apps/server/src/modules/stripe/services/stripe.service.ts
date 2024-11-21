@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/entities';
-import { ServerError } from 'src/utilities/Errors';
+import { User } from '@/server/entities';
+import { ServerError } from '@/server/utilities/Errors';
 import Stripe from 'stripe';
 
 import { InjectRepository } from '@nestjs/typeorm';

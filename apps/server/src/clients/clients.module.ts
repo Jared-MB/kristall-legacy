@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Client, Shop } from 'src/entities';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { Client, Shop } from '@/server/entities';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { ClientsController } from './clients.controller';
 import { ClientsService } from './clients.service';
 

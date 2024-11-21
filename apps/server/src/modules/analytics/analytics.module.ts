@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AnalyticsController } from './controllers';
 
-import { TokenService, Utils } from 'src/utilities';
+import { TokenService, Utils } from '@/server/utilities';
 import { AnalyticsService } from './services';
 
-import { Expense, Note, Order, Payment, Product } from 'src/entities';
+import { Expense, Note, Order, Payment, Product } from '@/server/entities';
 
 @Module({
     imports: [TypeOrmModule.forFeature([

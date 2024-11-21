@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { SaveUser, Shop } from 'src/entities';
+import { SaveUser, Shop } from '@/server/entities';
 
 /**
  * @deprecated

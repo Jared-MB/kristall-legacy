@@ -1,4 +1,4 @@
-import { Shop } from "src/entities"
+import { Shop } from "@/server/entities"
 import { PaymentMethod } from "../interfaces"
 
 export class CreatePaymentDto {

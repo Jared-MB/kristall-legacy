@@ -1,10 +1,10 @@
+import { User } from '@/server/entities';
+import { ShopService } from '@/server/modules/shops/services';
+import { StripeService } from '@/server/modules/stripe/services';
+import { FindUserResult, UsersService } from '@/server/modules/users/services';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { User } from 'src/entities';
-import { ShopService } from 'src/modules/shops/services';
-import { StripeService } from 'src/modules/stripe/services';
-import { FindUserResult, UsersService } from 'src/modules/users/services';
 
 @Injectable()
 export class AuthService {
@@ -55,7 +55,7 @@ export class AuthService {
         user.stripeId,
       );
     } catch (err) {
-      // console.log('Error getting user subscription status', err);
+      console.log('Error getting user subscription status', err);
     }
     const formattedUser = {
       ...user,
@@ -74,7 +74,9 @@ export class AuthService {
     return {
       _id: user._id,
       username: user.username,
-      access_token: this.jwtService.sign(result),
+      access_token: this.jwtService.sign(result, {
+        secret: process.env.JWT_SECRET,
+      }),
     };
   }
 

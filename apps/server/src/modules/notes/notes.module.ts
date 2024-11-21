@@ -7,9 +7,9 @@ import {
     Payment,
     Product,
     ProductOrder,
-} from 'src/entities';
-import { AuthService, PaymentService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+} from '@/server/entities';
+import { AuthService, PaymentService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { NotesController } from './controllers/notes.controller';
 import { NotesService } from './services/notes.service';
 

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { Image } from 'src/entities';
+import { Image } from '@/server/entities';
 import { CreateImageDto } from '../dto';
 
 @Injectable()

@@ -13,11 +13,11 @@ import {
     UseInterceptors
 } from '@nestjs/common';
 import type { Response } from 'express';
-import { Cookies } from 'src/decorators';
-import { ResponseInterceptor } from 'src/interceptors';
-import { SettingsService } from 'src/modules/settings/services';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { Cookies } from '@/server/decorators';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { SettingsService } from '@/server/modules/settings/services';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import type { CreateBankAccount } from '../interfaces';
 import { BankAccountsService } from '../services/bank-accounts.service';
 

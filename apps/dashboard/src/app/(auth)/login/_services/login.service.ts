@@ -4,7 +4,7 @@ import type { Authorized } from "@/core/interfaces/auth";
 import type { ServerResponse } from "@/core/interfaces/http";
 import type { Login } from "../_interfaces";
 
-import { POST } from "@/core/modules/http";
+import { POST } from "@kristall/http";
 
 const BASE_URL = "/auth/login";
 

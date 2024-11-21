@@ -1,5 +1,5 @@
 {
-    "preset": "ts-jest",
+   "preset": "ts-jest",
     "testEnvironment": "node",
     "testRegex": ".e2e-spec.ts$",
     "moduleFileExtensions": ["js", "json", "ts"],
@@ -9,5 +9,8 @@
     },
     "collectCoverageFrom": ["src/**/*.ts"],
     "coverageDirectory": "coverage",
-    "testTimeout": 30000
+    "testTimeout": 30000,
+    "moduleNameMapper": {
+        "^@/server/(.*)$": "<rootDir>/../src/$1"
+    }
 }

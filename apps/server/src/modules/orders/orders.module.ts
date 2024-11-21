@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClientsService } from 'src/clients/clients.service';
+import { ClientsService } from '@/server/clients/clients.service';
 import {
   Cancellation,
   Client,
@@ -10,12 +10,12 @@ import {
   Payment,
   Product,
   ProductOrder
-} from 'src/entities';
-import { LocationsModule } from 'src/locations/locations.module';
-import { BankAccountsModule, ProductsModule } from 'src/modules';
-import { AuthService, PaymentService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
-import { Crypto } from 'src/utilities/Crypto';
+} from '@/server/entities';
+import { LocationsModule } from '@/server/locations/locations.module';
+import { BankAccountsModule, ProductsModule } from '@/server/modules';
+import { AuthService, PaymentService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
+import { Crypto } from '@/server/utilities/Crypto';
 import { OrdersController } from './controllers';
 import { OrdersPublicController } from './controllers/orders-public.controller';
 import { CodeService, OrdersService, ProductOrderService } from './services';

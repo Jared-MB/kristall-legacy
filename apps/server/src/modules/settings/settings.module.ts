@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthService } from 'src/services';
+import { AuthService } from '@/server/services';
 import { BankAccountsModule } from '../bank-accounts/bank-accounts.module';
 import { SettingsController } from './controllers';
 import { Setting } from './models';

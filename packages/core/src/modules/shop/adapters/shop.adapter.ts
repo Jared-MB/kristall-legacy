@@ -1,10 +1,15 @@
 "use server";
 
-import { GET } from "@kristall/http";
-import { getShopDataService } from "../services";
+import { redirect } from "next/navigation";
+import { getShopDataService, isAdminService } from "../services";
 
 export const getShopData = async () => {
 	const { data } = await getShopDataService();
+
+	if (!data) {
+		redirect("/login");
+	}
+
 	return {
 		_id: data._id,
 		shopName: data.shopName,
@@ -18,6 +23,6 @@ export const getShopData = async () => {
 };
 
 export const isAdmin = async () => {
-	const { data } = await GET("/user/is-admin");
+	const { data } = await isAdminService();
 	return data;
 };

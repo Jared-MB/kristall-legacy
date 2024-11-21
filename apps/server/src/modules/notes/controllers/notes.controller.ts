@@ -11,11 +11,11 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { Cookies } from 'src/decorators';
-import { Cancellation } from 'src/entities';
-import { ResponseInterceptor } from 'src/interceptors';
-import { AuthService, PaymentService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { Cookies } from '@/server/decorators';
+import { Cancellation } from '@/server/entities';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService, PaymentService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { NotesService } from '../services/notes.service';
 
 @Controller('notes')

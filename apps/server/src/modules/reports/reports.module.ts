@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthService } from 'src/services';
+import { AuthService } from '@/server/services';
 import { ReportsController } from './controllers/reports.controller';
 import { ErrorLog } from './models/report.model';
 import { ReportsService } from './services/reports.service';
@@ -12,4 +12,4 @@ import { ReportsService } from './services/reports.service';
   providers: [ReportsService, AuthService],
   exports: [ReportsService],
 })
-export class ReportsModule {}
+export class ReportsModule { }

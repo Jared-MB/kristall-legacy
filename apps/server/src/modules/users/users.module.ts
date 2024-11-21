@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtStrategy } from 'src/auth/jwt.strategy';
-import { User } from 'src/entities';
-import { FirebaseService } from 'src/firebase';
-import { LocationsModule } from 'src/locations/locations.module';
-import { BankAccountsModule, ShopsModule, StripeModule } from 'src/modules';
-import { AuthService, UtilsService } from 'src/services';
-import { TokenService } from 'src/utilities';
-import { Utils } from 'src/utilities/Utils';
+import { JwtStrategy } from '@/server/auth/jwt.strategy';
+import { User } from '@/server/entities';
+import { FirebaseService } from '@/server/firebase';
+import { LocationsModule } from '@/server/locations/locations.module';
+import { BankAccountsModule, ShopsModule, StripeModule } from '@/server/modules';
+import { AuthService, UtilsService } from '@/server/services';
+import { TokenService } from '@/server/utilities';
+import { Utils } from '@/server/utilities/Utils';
 import { UsersAuthController, UsersController } from './controllers';
 import { UsersService } from './services';
 

@@ -18,15 +18,15 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { randomUUID } from 'node:crypto';
-import { ClientsService } from 'src/clients/clients.service';
-import { Cookies } from 'src/decorators';
-import { Public } from 'src/decorators/public.decorator';
-import { Cancellation, Order } from 'src/entities';
-import { ResponseInterceptor } from 'src/interceptors';
-import { LocationsService } from 'src/locations/locations.service';
-import { LocationProductService, ProductsService } from 'src/modules/products/services';
-import { AuthService, PaymentService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { ClientsService } from '@/server/clients/clients.service';
+import { Cookies } from '@/server/decorators';
+import { Public } from '@/server/decorators/public.decorator';
+import { Cancellation, Order } from '@/server/entities';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { LocationsService } from '@/server/locations/locations.service';
+import { LocationProductService, ProductsService } from '@/server/modules/products/services';
+import { AuthService, PaymentService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { CreateOrderDto } from '../dtos';
 import { CodeService, OrdersService, ProductOrderService } from '../services';
 

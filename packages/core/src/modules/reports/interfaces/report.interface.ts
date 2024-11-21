@@ -16,9 +16,13 @@ export interface Report {
 	fileName: string;
 	lineNumber: number;
 	context: Record<string, any>;
-	userId: string;
+	userId: string | null;
 	createdAt: Date;
 	isResolved: boolean;
-	resolvedAt: Date;
-	resolution: string;
+	resolvedAt: Date | null;
+	resolution: string | null;
 }
+
+export type ReportRaw = Omit<Report, "severity"> & {
+	severity: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+};

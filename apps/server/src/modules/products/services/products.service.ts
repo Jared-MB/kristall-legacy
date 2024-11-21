@@ -4,10 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
 import { DataSource, ILike, Repository } from 'typeorm';
 
-import { ImageService } from 'src/modules/image/services/image.service';
-import { Utils } from 'src/utilities';
+import { ImageService } from '@/server/modules/image/services/image.service';
+import { Utils } from '@/server/utilities';
 
-import { Image, Location, LocationProduct, Product, ProductBatch, Shop } from 'src/entities';
+import { Image, Location, LocationProduct, Product, ProductBatch, Shop } from '@/server/entities';
 import { CreateProductServerDto, DateRangeDto } from '../dto';
 
 @Injectable()

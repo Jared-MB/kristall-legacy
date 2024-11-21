@@ -1,5 +1,5 @@
-import type { ProductOrder } from "src/entities";
-import type { PaymentMethod } from "src/services/payment/interfaces";
+import type { ProductOrder } from "@/server/entities";
+import type { PaymentMethod } from "@/server/services/payment/interfaces";
 
 export class CreateNoteClientDto {
     products: ProductOrder[]

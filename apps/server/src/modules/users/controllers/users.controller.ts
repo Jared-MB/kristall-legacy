@@ -18,10 +18,10 @@ import {
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
 import { randomUUID } from 'node:crypto';
-import { Cookies } from 'src/decorators';
-import { ResponseInterceptor } from 'src/interceptors';
-import { AuthService, UtilsService } from 'src/services';
-import { RESTRICTIONS, TokenService, USER_PERMISSIONS, Utils } from 'src/utilities';
+import { Cookies } from '@/server/decorators';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService, UtilsService } from '@/server/services';
+import { RESTRICTIONS, TokenService, USER_PERMISSIONS, Utils } from '@/server/utilities';
 import { allowedQueries } from '../constants';
 import { ChangePasswordDto, CreateUserClientDto } from '../dto';
 import type { FindAllUsersOptions, FindAllUsersQuery } from '../interfaces';

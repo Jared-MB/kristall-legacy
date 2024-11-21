@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ImageController } from './controllers';
 
-import { Utils } from 'src/utilities';
+import { Utils } from '@/server/utilities';
 import { ImageService } from './services';
 
-import { Image } from 'src/entities';
+import { Image } from '@/server/entities';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Image])],

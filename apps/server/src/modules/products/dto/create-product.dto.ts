@@ -1,4 +1,4 @@
-import { Image, LocationProduct, Shop } from "src/entities";
+import { Image, LocationProduct, Shop } from "@/server/entities";
 import { CreateBatchClientDto } from "./create-batch.dto";
 import { CreateLocationProductDto } from "./create-location-product.dto";
 

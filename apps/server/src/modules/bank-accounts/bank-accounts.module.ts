@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BankAccount } from 'src/entities/bank-account';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
-import { Crypto } from 'src/utilities/Crypto';
+import { BankAccount } from '@/server/entities/bank-account';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
+import { Crypto } from '@/server/utilities/Crypto';
 import { SettingsModule } from '../settings/settings.module';
 import { BankAccountsController } from './controllers/bank-accounts.controller';
 import { BankAccountsService } from './services/bank-accounts.service';

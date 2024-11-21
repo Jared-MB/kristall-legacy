@@ -8,8 +8,8 @@ import {
     Payment,
     Product,
     ProductOrder,
-} from 'src/entities';
-import { Utils, generateNoNameCode } from 'src/utilities';
+} from '@/server/entities';
+import { Utils, generateNoNameCode } from '@/server/utilities';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -1,6 +1,5 @@
 "use server";
 
-import { login } from "../../login/_adapters";
 import { registerUserService } from "../_services";
 import { RegisterSchema } from "../_validators";
 
@@ -24,14 +23,17 @@ export const registerUser = async (_prevState: unknown, payload: FormData) => {
 	}
 
 	try {
-		await registerUserService({
+		const data = await registerUserService({
 			username: username.toString(),
 			password: password.toString(),
 			shopName: shopName.toString(),
 			email: email.toString(),
 		});
+		console.log(data);
 	} catch (err: unknown) {
+		console.log(err);
 		return { message: "Internal server error" };
 	}
-	await login(null, payload);
+	console.log("Registered");
+	// await login(null, payload);
 };

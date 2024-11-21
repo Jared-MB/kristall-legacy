@@ -12,9 +12,9 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Public } from 'src/decorators/public.decorator';
-import { ResponseInterceptor } from 'src/interceptors';
-import { Utils } from 'src/utilities';
+import { Public } from '@/server/decorators/public.decorator';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { Utils } from '@/server/utilities';
 import { StripeService } from '../services/stripe.service';
 @Controller('stripe')
 export class StripeController {

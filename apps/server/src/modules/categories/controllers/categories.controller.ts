@@ -1,10 +1,10 @@
 import { Body, Controller, ForbiddenException, Get, InternalServerErrorException, Param, Post, Put, Req, Res, UseInterceptors } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Cookies } from 'src/decorators';
-import { Category } from 'src/entities';
-import { ResponseInterceptor } from 'src/interceptors';
-import { AuthService } from 'src/services';
-import { TokenService, Utils } from 'src/utilities';
+import { Cookies } from '@/server/decorators';
+import { Category } from '@/server/entities';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService } from '@/server/services';
+import { TokenService, Utils } from '@/server/utilities';
 import { CategoriesService } from '../services';
 
 @Controller('categories')
