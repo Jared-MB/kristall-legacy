@@ -7,11 +7,11 @@ import SubmitButton from "@/components/submit-button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Password } from "@/components/ui/password";
+import { auth } from "@kristall/core/modules/auth";
 import { toast } from "sonner";
-import { login } from "./_adapters";
 
 export default function LoginForm() {
-	const [errors, dispatch] = useFormState(login, undefined);
+	const [errors, dispatch] = useFormState(auth.login, undefined);
 
 	useEffect(() => {
 		errors && "message" in errors && toast.error(errors.message);
