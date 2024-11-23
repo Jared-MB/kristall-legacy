@@ -13,18 +13,33 @@ import { settingsService } from "../services";
 
 export const getDefaultBatchEnabled = async (): Promise<DefaultBatch> => {
 	const { data } = await settingsService.getDefaultBatchEnabledService();
+	if (!data) {
+		return {
+			defaultBatchEnabled: false,
+		};
+	}
 	return data;
 };
 
 export const getDefaultPOSAccessEnabled =
 	async (): Promise<DefaultPOSAccess> => {
 		const { data } = await settingsService.getDefaultPOSAccessService();
+		if (!data) {
+			return {
+				defaultPOSAccessEnabled: false,
+			};
+		}
 		return data;
 	};
 
 export const getUseExperimentalFeatures =
 	async (): Promise<UseExperimentalFeatures> => {
 		const { data } = await settingsService.getUseExperimentalFeaturesService();
+		if (!data) {
+			return {
+				useExperimentalFeatures: false,
+			};
+		}
 		return data;
 	};
 

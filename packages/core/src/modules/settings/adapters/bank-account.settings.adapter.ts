@@ -8,12 +8,18 @@ import { bankAccountSettingsService } from "../services";
 export const getEnableBankAccountSettings = async (): Promise<boolean> => {
 	const { data } =
 		await bankAccountSettingsService.getEnableBankAccountService();
+	if (!data) {
+		return false;
+	}
 	return data.enableBankAccounts;
 };
 
 export const getRemoveBankAccountSettings = async (): Promise<boolean> => {
 	const { data } =
 		await bankAccountSettingsService.getRemoveBankAccountService();
+	if (!data) {
+		return false;
+	}
 	return data.removeBankAccounts;
 };
 
