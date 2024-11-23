@@ -9,21 +9,20 @@ import {
 	Label,
 } from "@/components/ui";
 import { auth } from "@kristall/core/modules/auth";
+import type { CustomerDetails } from "@kristall/core/modules/stripe/interfaces";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
-import type { CustomerDetails } from "../_interfaces";
 
-interface Props {
+export default function RegisterForm({
+	customer,
+}: {
 	customer: CustomerDetails;
-}
-
-export default function RegisterForm({ customer }: Props) {
+}) {
 	const [errors, dispatch] = useFormState(auth.register, undefined);
 
 	useEffect(() => {
 		errors && "message" in errors && toast.error(errors.message);
-		console.log(errors);
 	}, [errors]);
 
 	return (
