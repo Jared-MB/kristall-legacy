@@ -39,7 +39,10 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
           if (process.env.NODE_ENV?.trim() === 'test') {
             return '.env.test';
           }
-          return '.env.development';
+          if (process.env.NODE_ENV?.trim() === 'development') {
+            return '.env.development';
+          }
+          return '.env';
         })(),
       ],
       isGlobal: true

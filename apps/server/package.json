@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nest build",
-    "dev": "set NODE_ENV=test && nest start swc --watch",
+    "dev": "nest start swc --watch",
     "start:server": "node dist/main",
     "start":"node dist/main",
     "test": "jest",
