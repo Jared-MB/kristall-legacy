@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { User } from '@/server/entities';
 import { ServerError } from '@/server/utilities/Errors';
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import Stripe from 'stripe';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,7 +23,12 @@ export class StripeService {
   }
 
   async getSessionById(id: string) {
-    return await this.getStripe().checkout.sessions.retrieve(id);
+    try {
+      return await this.getStripe().checkout.sessions.retrieve(id);
+    }
+    catch (error) {
+      return null;
+    }
   }
 
   async isUserSubscribed(stripeId: string) {

@@ -1,3 +1,6 @@
+import { Public } from '@/server/decorators/public.decorator';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { Utils } from '@/server/utilities';
 import {
   Body,
   Controller,
@@ -12,9 +15,6 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { Public } from '@/server/decorators/public.decorator';
-import { ResponseInterceptor } from '@/server/interceptors';
-import { Utils } from '@/server/utilities';
 import { StripeService } from '../services/stripe.service';
 @Controller('stripe')
 export class StripeController {
@@ -33,12 +33,11 @@ export class StripeController {
     });
   }
 
-  @UseInterceptors(new ResponseInterceptor())
   @Public()
+  @UseInterceptors(ResponseInterceptor)
   @Get('sessionId/:id')
   async getSessionById(@Param('id') id: string) {
     const session = await this.stripeService.getSessionById(id);
-    // const hasAlreadyRegister = await this.stripeService.getCostumerByEmail
     return session
   }
 
