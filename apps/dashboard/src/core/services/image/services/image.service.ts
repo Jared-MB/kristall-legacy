@@ -1,7 +1,7 @@
 "use server";
 
-import type { Image } from "@/core/interfaces/entities";
 import type { UUID } from "node:crypto";
+import type { Image } from "@/core/interfaces/entities";
 
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 

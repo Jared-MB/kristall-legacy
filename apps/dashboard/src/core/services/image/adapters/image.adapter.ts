@@ -1,7 +1,7 @@
 "use server";
 
-import { getShopData } from "@/core/services/shop";
 import { type UUID, randomUUID } from "node:crypto";
+import { getShopData } from "@/core/services/shop";
 import { deleteImageService, uploadImageService } from "../services";
 
 interface UploadImageConfig {

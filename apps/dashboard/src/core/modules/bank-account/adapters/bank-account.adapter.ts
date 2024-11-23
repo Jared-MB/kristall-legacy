@@ -26,7 +26,7 @@ export const uploadBankAccount = async (
 	const parsedData = BankAccountSchema.safeParse(data);
 
 	if (!parsedData.success) {
-		return
+		return;
 		// console.log(parsedData.error.flatten().fieldErrors);
 		// return parsedData.error.flatten().fieldErrors;
 	}

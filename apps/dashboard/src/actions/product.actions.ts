@@ -1,5 +1,6 @@
 "use server";
 
+import { type UUID, randomUUID } from "node:crypto";
 import type { BatchToAdd } from "@/app/dashboard/inventory/context/batch-context";
 import type { LocationToAdd } from "@/app/dashboard/inventory/context/location-context";
 import type { Image, Product } from "@/core/interfaces/entities";
@@ -27,7 +28,6 @@ import {
 import { parse } from "@formkit/tempo";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { type UUID, randomUUID } from "node:crypto";
 
 /**
  * @deprecated
