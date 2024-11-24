@@ -11,15 +11,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { deliverOrder } from "@/core/modules/orders";
 import { PackageCheck } from "lucide-react";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useEffect, useActionState } from "react";
 import { toast } from "sonner";
 
 export default function SecretForm({
 	code,
 	isReady,
 }: { code: string; isReady: boolean }) {
-	const [error, dispatch] = useFormState(deliverOrder, undefined);
+	const [error, dispatch] = useActionState(deliverOrder, undefined);
 
 	useEffect(() => {
 		error && toast.error(error);

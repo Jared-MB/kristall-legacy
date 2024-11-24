@@ -12,14 +12,15 @@ import { NotepadText } from "lucide-react";
 import OrdersTableDropdown from "./components/orders-table-dropdown";
 import StatusIcon from "./components/status-icon";
 
-export default async function OrdersPage({
-	searchParams,
-}: {
-	searchParams: Readonly<URLSearchParams>;
-}) {
-	const { entities: orders } = await getOrders(searchParams);
+export default async function OrdersPage(
+    props: {
+        searchParams: Promise<Readonly<URLSearchParams>>;
+    }
+) {
+    const searchParams = await props.searchParams;
+    const { entities: orders } = await getOrders(searchParams);
 
-	return (
+    return (
 		<Table>
 			<TableHeader>
 				<TableRow>

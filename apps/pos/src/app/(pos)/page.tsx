@@ -5,14 +5,15 @@ import ProductButton from "./components/product-button";
 import ShoppingCart from "./components/shopping-cart";
 import ShoppingCartResume from "./components/shopping-cart-resume";
 
-export default async function Home({
-	searchParams,
-}: {
-	searchParams: Readonly<URLSearchParams>;
-}) {
-	const products = await getProductsByLocation(searchParams);
+export default async function Home(
+    props: {
+        searchParams: Promise<Readonly<URLSearchParams>>;
+    }
+) {
+    const searchParams = await props.searchParams;
+    const products = await getProductsByLocation(searchParams);
 
-	return (
+    return (
 		<main className="grid grid-cols-[1fr_25dvw] h-layout">
 			<section className="overflow-y-scroll my-8 px-8 grid grid-cols-5 grid-rows-[auto_minmax(auto)] place-content-start gap-6">
 				<header className="col-span-5 flex justify-between items-center relative z-10">

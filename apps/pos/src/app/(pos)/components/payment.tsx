@@ -20,8 +20,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Banknote, CreditCard, DollarSign } from "lucide-react";
-import { useMemo, useState } from "react";
-import { useFormState } from "react-dom";
+import { useMemo, useState, useActionState } from "react";
 import { ErrorsProvider } from "../context/errors.context";
 import {
 	PaymentMethodProvider,
@@ -43,7 +42,7 @@ export default function Payment() {
 		}, 0);
 	}, [products]);
 
-	const [response, dispatch] = useFormState(() => {}, undefined);
+	const [response, dispatch] = useActionState(() => {}, undefined);
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useEffect, useActionState } from "react";
 
 import { SubmitButton } from "@/components/functional/submit-button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
@@ -10,7 +9,7 @@ import { login } from "@/core/services/auth";
 import { toast } from "sonner";
 
 export default function LoginForm() {
-	const [errors, dispatch] = useFormState(login, undefined);
+	const [errors, dispatch] = useActionState(login, undefined);
 
 	useEffect(() => {
 		errors && "message" in errors && toast.error(errors.message);

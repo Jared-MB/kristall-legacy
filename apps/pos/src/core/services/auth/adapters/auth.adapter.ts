@@ -24,7 +24,7 @@ export const login = async (_prevState: unknown, data: FormData) => {
 		const { data } = await loginService(parsedData.data);
 		const { access_token } = data;
 
-		cookies().set("session", access_token, {
+		(await cookies()).set("session", access_token, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
 			maxAge: 60 * 60 * 24, // One week
@@ -49,6 +49,6 @@ export const login = async (_prevState: unknown, data: FormData) => {
 };
 
 export const logout = async (): Promise<void> => {
-	cookies().delete("session");
+	(await cookies()).delete("session");
 	redirect("/login");
 };

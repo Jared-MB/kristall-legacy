@@ -38,16 +38,17 @@ import StatusIcon from "../components/status-icon";
 import { OrderProgressDesktop } from "./components/order-progress";
 import SecretForm from "./components/secret";
 
-export default async function OrderPage({
-	params,
-}: {
-	params: {
-		code: string;
-	};
-}) {
-	const order = await getOrderByCode(params.code);
+export default async function OrderPage(
+    props: {
+        params: Promise<{
+            code: string;
+        }>;
+    }
+) {
+    const params = await props.params;
+    const order = await getOrderByCode(params.code);
 
-	return (
+    return (
 		<Card>
 			<CardHeader className="flex-row justify-between items-start ">
 				<div className="flex flex-col gap-y-1">
