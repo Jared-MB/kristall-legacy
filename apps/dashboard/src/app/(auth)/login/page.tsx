@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect } from "react";
 
 import SubmitButton from "@/components/submit-button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
@@ -11,7 +10,7 @@ import { auth } from "@kristall/core/modules/auth";
 import { toast } from "sonner";
 
 export default function LoginForm() {
-	const [errors, dispatch] = useFormState(auth.login, undefined);
+	const [errors, dispatch] = useActionState(auth.login, undefined);
 
 	useEffect(() => {
 		errors && "message" in errors && toast.error(errors.message);

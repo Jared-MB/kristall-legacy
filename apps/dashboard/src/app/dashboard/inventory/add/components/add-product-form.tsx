@@ -32,8 +32,7 @@ import {
 import { useShortcut } from "@/core/hooks/useShortcut";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import AddCategory from "../../categories/components/add-category";
 import Batches from "../../components/batches";
@@ -61,7 +60,7 @@ export default function AddProductForm({ categories }: Props) {
 		isCreatingMany,
 	);
 
-	const [errors, dispatch] = useFormState(enhancedAction, undefined);
+	const [errors, dispatch] = useActionState(enhancedAction, undefined);
 
 	const router = useRouter();
 

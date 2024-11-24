@@ -4,12 +4,11 @@ import SubmitButton from "@/components/submit-button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { auth } from "@/core/modules/users";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function ChangePasswordForm() {
-	const [response, dispatch] = useFormState(auth.updatePassword, undefined);
+	const [response, dispatch] = useActionState(auth.updatePassword, undefined);
 
 	useEffect(() => {
 		if (typeof response === "string") {

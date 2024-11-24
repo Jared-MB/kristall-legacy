@@ -3,7 +3,7 @@ import type {
 	HeadersContent,
 	ServerConnectionOptions,
 } from "@/types/server-connection";
-import { cookies } from "next/headers";
+import { type UnsafeUnwrappedCookies, cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 /**
@@ -63,7 +63,9 @@ export class ServerConnection {
 				return null;
 			}
 		}
-		const session = cookies().get("session");
+		const session = (cookies() as unknown as UnsafeUnwrappedCookies).get(
+			"session",
+		);
 		if (!session?.value) {
 			redirect("/login");
 		}

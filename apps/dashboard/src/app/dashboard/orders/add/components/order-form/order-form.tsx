@@ -5,8 +5,7 @@ import SubmitButton from "@/components/submit-button";
 import { Card, CardFooter, buttonVariants } from "@/components/ui";
 import { useCartStore } from "@/core/store";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { uploadOrder } from "../_adapters";
@@ -24,7 +23,7 @@ export default function OrderForm() {
 
 	const enhancedAction = uploadOrder.bind(null, cart, methods.watch());
 
-	const [errors, dispatch] = useFormState(enhancedAction, undefined);
+	const [errors, dispatch] = useActionState(enhancedAction, undefined);
 
 	useEffect(() => {
 		if (errors) {

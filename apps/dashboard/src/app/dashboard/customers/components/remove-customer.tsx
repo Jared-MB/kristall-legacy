@@ -12,8 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/core/hooks";
 import type { Customer } from "@/types/customer";
-import { forwardRef, useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { forwardRef, useActionState, useEffect, useState } from "react";
 
 const initialState = {
 	message: "",
@@ -28,7 +27,7 @@ const RemoveCustomer = forwardRef<
 	HTMLFormElement,
 	{ customer: Customer; closeMenu: () => void }
 >(({ customer, closeMenu }, _ref) => {
-	const [state, action] = useFormState(removeCustomer, initialState);
+	const [state, action] = useActionState(removeCustomer, initialState);
 
 	const { promiseToast, resolveToast } = useToast();
 	const [open, setOpen] = useState(false);

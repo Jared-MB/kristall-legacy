@@ -13,8 +13,7 @@ import {
 	Label,
 } from "@/components/ui";
 import { useToast } from "@/core/hooks";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 
 const initialState = {
 	message: "",
@@ -28,7 +27,7 @@ const initialState = {
 export default function AddCustomer() {
 	const { promiseToast, resolveToast } = useToast();
 
-	const [state, action] = useFormState(addCustomer, initialState);
+	const [state, action] = useActionState(addCustomer, initialState);
 	const [open, setOpen] = useState(false);
 
 	const handleAction = (data: FormData) => {

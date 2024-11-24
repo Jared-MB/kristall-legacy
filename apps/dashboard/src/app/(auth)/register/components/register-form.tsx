@@ -10,8 +10,7 @@ import {
 } from "@/components/ui";
 import { auth } from "@kristall/core/modules/auth";
 import type { CustomerDetails } from "@kristall/core/modules/stripe/interfaces";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function RegisterForm({
@@ -19,7 +18,7 @@ export default function RegisterForm({
 }: {
 	customer: CustomerDetails;
 }) {
-	const [errors, dispatch] = useFormState(auth.register, undefined);
+	const [errors, dispatch] = useActionState(auth.register, undefined);
 
 	useEffect(() => {
 		errors && "message" in errors && toast.error(errors.message);

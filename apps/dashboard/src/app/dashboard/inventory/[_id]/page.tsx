@@ -6,13 +6,12 @@ import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import ProductForm from "./components/product-form";
 
-export default async function ProductIdPage({
-	params,
-}: {
-	params: {
+export default async function ProductIdPage(props: {
+	params: Promise<{
 		_id: string;
-	};
+	}>;
 }) {
+	const params = await props.params;
 	const product = await getProductById(params._id);
 	const categories = await getCategories();
 	const { defaultBatchEnabled } = await settings.getDefaultBatchEnabled();

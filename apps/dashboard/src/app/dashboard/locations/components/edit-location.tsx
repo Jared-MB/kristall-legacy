@@ -14,8 +14,7 @@ import { Input, InputContainer, InputDescription } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/core/hooks";
 import type { Location } from "@/types/location";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 
 const initialState = { location: null as Location | null, errors: null } as
 	| { location: Location | null }
@@ -35,7 +34,7 @@ const initialState = { location: null as Location | null, errors: null } as
 export default function EditLocation({ data }: { data: Location }) {
 	const [open, setOpen] = useState<boolean>(false);
 
-	const [state, action] = useFormState(editLocation, initialState);
+	const [state, action] = useActionState(editLocation, initialState);
 
 	const { promiseToast, resolveToast } = useToast();
 

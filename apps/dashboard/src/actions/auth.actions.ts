@@ -40,7 +40,7 @@ export const login = async (_prev: unknown, data: FormData) => {
 			return { message: "Usuario o contraseña incorrectos" };
 		}
 
-		cookies().set("session", data.access_token, {
+		(await cookies()).set("session", data.access_token, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
 			maxAge: 60 * 60 * 24, // One week

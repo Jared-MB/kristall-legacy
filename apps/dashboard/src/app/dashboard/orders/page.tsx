@@ -18,13 +18,12 @@ import PrintOrders from "./components/print-orders";
 
 import { getOrders } from "./_adapters";
 
-export default async function OrdersPage({
-	searchParams,
-}: {
-	searchParams: URLSearchParams;
+export default async function OrdersPage(props: {
+	searchParams: Promise<URLSearchParams>;
 }) {
+	const searchParams = await props.searchParams;
 	const { entities: orders, page, totalPages } = await getOrders(searchParams);
-	const cookie = cookies().get("session");
+	const cookie = (await cookies()).get("session");
 
 	if (!orders) return <div>Error al cargar los pedidos</div>;
 

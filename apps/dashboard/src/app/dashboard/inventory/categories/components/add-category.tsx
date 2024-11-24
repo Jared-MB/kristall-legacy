@@ -12,8 +12,7 @@ import {
 import { Input, InputContainer, InputError } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Blocks } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { uploadCategory } from "../_adapters";
 
@@ -23,7 +22,7 @@ import { uploadCategory } from "../_adapters";
 export default function AddCategory({ asLink = false, showIcon = true }) {
 	const [open, setOpen] = useState(false);
 
-	const [response, dispatch] = useFormState(uploadCategory, undefined);
+	const [response, dispatch] = useActionState(uploadCategory, undefined);
 
 	useEffect(() => {
 		if (response) {

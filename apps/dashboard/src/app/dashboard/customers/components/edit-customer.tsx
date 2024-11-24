@@ -13,8 +13,7 @@ import { Input, InputContainer } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/core/hooks";
 import type { Customer } from "@/types/customer";
-import { forwardRef, useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { forwardRef, useActionState, useEffect, useState } from "react";
 
 const initialState = {
 	message: "",
@@ -31,7 +30,7 @@ const EditCustomer = forwardRef<
 >(({ customer, closeMenu }, _ref) => {
 	const { promiseToast, resolveToast } = useToast();
 
-	const [state, action] = useFormState(editCustomer, initialState);
+	const [state, action] = useActionState(editCustomer, initialState);
 	const [open, setOpen] = useState(false);
 
 	const onOpenChange = (value: boolean) => {

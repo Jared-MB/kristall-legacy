@@ -12,8 +12,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteProduct } from "../_adapters";
 
@@ -27,7 +26,7 @@ export default function RemoveProduct({ image }: { image: Image | undefined }) {
 		image?._id,
 	);
 
-	const [error, dispatch] = useFormState(enhancedDeleteProduct, undefined);
+	const [error, dispatch] = useActionState(enhancedDeleteProduct, undefined);
 
 	useEffect(() => {
 		error && toast.error(error.message);

@@ -2,11 +2,10 @@ import OrderContextProvider from "./_context";
 import { getCustomers, getProducts } from "./components/_adapters";
 import OrderForm from "./components/order-form";
 
-export default async function AddOrderPage({
-	searchParams,
-}: {
-	searchParams: string;
+export default async function AddOrderPage(props: {
+	searchParams: Promise<string>;
 }) {
+	const searchParams = await props.searchParams;
 	const productsPromise = getProducts(new URLSearchParams(searchParams));
 	const clientsPromise = getCustomers(new URLSearchParams(searchParams));
 

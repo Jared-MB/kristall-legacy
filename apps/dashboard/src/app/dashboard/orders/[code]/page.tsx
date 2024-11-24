@@ -1,9 +1,10 @@
 import { order as orderModule } from "@/core/modules/orders";
 import Order from "./components/order";
 
-export default async function OrderPage({
-	params,
-}: { params: { code: string } }) {
+export default async function OrderPage(props: {
+	params: Promise<{ code: string }>;
+}) {
+	const params = await props.params;
 	const order = await orderModule.getOrderByCode(params.code);
 
 	if (!order) {

@@ -21,14 +21,13 @@ import {
 	Label,
 } from "@/components/ui";
 import { DollarSign, MoreVertical } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function ExpensesMenu() {
 	const [open, setOpen] = useState(false);
 
-	const [response, dispatch] = useFormState(addExpense, undefined);
+	const [response, dispatch] = useActionState(addExpense, undefined);
 
 	useEffect(() => {
 		if (response?.success) {

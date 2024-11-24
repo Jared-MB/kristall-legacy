@@ -3,10 +3,12 @@
 type Url = `/${string}`;
 
 import { environment } from "@/constants/environment";
-import { cookies } from "next/headers";
+import { type UnsafeUnwrappedCookies, cookies } from "next/headers";
 
 const createHeaders = (): HeadersInit => {
-	const cookie = cookies().get("session");
+	const cookie = (cookies() as unknown as UnsafeUnwrappedCookies).get(
+		"session",
+	);
 	const access_token = cookie?.value;
 	return {
 		Authorization: `Bearer ${access_token}`,

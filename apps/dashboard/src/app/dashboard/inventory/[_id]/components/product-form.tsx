@@ -16,8 +16,7 @@ import {
 import type { Product } from "@/core/interfaces/entities";
 import type { Category } from "@/types/category";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
@@ -47,7 +46,7 @@ export default function ProductForm({
 	);
 
 	const params = useParams();
-	const [errors, dispatch] = useFormState(enhancedAction, undefined);
+	const [errors, dispatch] = useActionState(enhancedAction, undefined);
 
 	useEffect(() => {
 		if (typeof errors === "string") {

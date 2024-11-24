@@ -24,14 +24,13 @@ import {
 } from "@/components/ui";
 import { DatePickerWithRange } from "@/components/ui/date-picker";
 import { cn } from "@/core/utils";
-import { forwardRef, useState } from "react";
-import { useFormState } from "react-dom";
+import { forwardRef, useActionState, useState } from "react";
 import { useLocationsContext } from "../../context/location-context";
 
 const InventoryCut = forwardRef(() => {
 	const locations = useLocationsContext();
 
-	const [errors, dispatch] = useFormState(cutOffInventory, undefined);
+	const [errors, dispatch] = useActionState(cutOffInventory, undefined);
 
 	const [onlySoldProducts, setOnlySoldProducts] = useState(false);
 	const [location, setLocation] = useState(

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 type Action = (
@@ -23,7 +22,7 @@ export function useDialogForm(
 		gender?: "male" | "female";
 	},
 ) {
-	const [state, formAction] = useFormState(action, initialState);
+	const [state, formAction] = useActionState(action, initialState);
 	const handleAction = (data: FormData) => {
 		const id = toast.loading("Cargando...");
 		setId(id);

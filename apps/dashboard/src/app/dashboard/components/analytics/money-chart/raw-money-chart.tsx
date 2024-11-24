@@ -40,7 +40,7 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 		currency: "MXN", // Currency for data points
 	}).format;
 
-	const chartContainerRef = useRef();
+	const chartContainerRef = useRef(undefined);
 
 	useEffect(() => {
 		const handleResize = () => {

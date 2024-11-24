@@ -9,12 +9,11 @@ import {
 	Label,
 } from "@/components/ui";
 import { user } from "@/core/modules/users";
-import { useEffect, useRef } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 export default function AddUserForm() {
-	const [response, dispatch] = useFormState(user.uploadUser, undefined);
+	const [response, dispatch] = useActionState(user.uploadUser, undefined);
 	const formRef = useRef<HTMLFormElement>(null);
 
 	useEffect(() => {
