@@ -6,18 +6,19 @@ import {
 import OrderCard from "@/components/order-card";
 import { redirect } from "next/navigation";
 
-export default async function Order({
-	params,
-}: {
-	params: { order: string };
-}) {
-	const order = await getOrderByCode(params.order);
+export default async function Order(
+    props: {
+        params: Promise<{ order: string }>;
+    }
+) {
+    const params = await props.params;
+    const order = await getOrderByCode(params.order);
 
-	if (!order) {
+    if (!order) {
 		redirect("/track-order?error=not-found");
 	}
 
-	return (
+    return (
 		<main className="pt-24 pb-8 px-8">
 			<OrderProgressDesktop status={order.status} />
 			<OrderProgressMobile status={order.status} />

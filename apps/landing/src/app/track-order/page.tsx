@@ -2,14 +2,15 @@ import { redirectToOrder } from "@/actions/order.actions";
 import { Button } from "@/components/ui/button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
 
-export default function TrackOrder({
-	searchParams,
-}: {
-	searchParams: URLSearchParams;
-}) {
-	const search = new URLSearchParams(searchParams);
+export default async function TrackOrder(
+    props: {
+        searchParams: Promise<URLSearchParams>;
+    }
+) {
+    const searchParams = await props.searchParams;
+    const search = new URLSearchParams(searchParams);
 
-	return (
+    return (
 		<main className="w-full h-[calc(100dvh-4rem)] py-12 md:py-24 lg:py-32 flex items-center">
 			<div className="container px-4 md:px-6 text-center">
 				<div className="max-w-2xl mx-auto space-y-4">

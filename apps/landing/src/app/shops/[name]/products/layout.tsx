@@ -4,7 +4,12 @@ import Categories from "./components/filters/categories";
 import PriceFilter from "./components/filters/price";
 import SortProducts from "./components/filters/sort";
 
-export default async function ProductsLayout({ children, params }: { children: React.ReactNode, params: { name: string } }) {
+export default async function ProductsLayout(props: { children: React.ReactNode, params: Promise<{ name: string }> }) {
+    const params = await props.params;
+
+    const {
+        children
+    } = props;
 
     const categories = await new CategoryService().getCategories(params.name)
 

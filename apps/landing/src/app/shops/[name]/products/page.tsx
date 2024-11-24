@@ -3,7 +3,8 @@ import { Search } from "lucide-react"
 import CustomCard from "../components/card"
 import { ProductService } from "../services"
 
-export default async function ProductPage({ params }: { params: { name: string } }) {
+export default async function ProductPage(props: { params: Promise<{ name: string }> }) {
+    const params = await props.params;
 
     const products = await new ProductService().getProducts(params.name)
 

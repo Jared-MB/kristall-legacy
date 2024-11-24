@@ -11,6 +11,8 @@ import {
 	Users,
 } from "lucide-react";
 
+import type { JSX } from "react";
+
 interface Item {
 	title: string;
 	href: string;

@@ -8,11 +8,14 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function ShopsLayout({
-	params,
-	children,
-}: { params: { name: string }; children: React.ReactNode }) {
-	return (
+export default async function ShopsLayout(props: { params: Promise<{ name: string }>; children: React.ReactNode }) {
+    const params = await props.params;
+
+    const {
+        children
+    } = props;
+
+    return (
 		<>
 			<Navbar isBordered height="4rem">
 				<NavbarBrand className="flex items-center gap-x-4">

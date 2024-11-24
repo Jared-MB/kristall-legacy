@@ -56,7 +56,7 @@ export default function Chart(props: any) {
 		return earningsData;
 	}, [incomesData, expensesData]);
 
-	const chartContainerRef = useRef();
+	const chartContainerRef = useRef(undefined);
 
 	useEffect(() => {
 		const handleResize = () => {
