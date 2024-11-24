@@ -632,10 +632,10 @@ importers:
         version: 0.1.2
       '@radix-ui/react-separator':
         specifier: ^1.1.0
-        version: 1.1.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 1.1.0(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       '@radix-ui/react-slot':
         specifier: ^1.1.0
-        version: 1.1.0(@types/react@18.2.79)(react@18.2.0)
+        version: 1.1.0(react@19.0.0-rc-66855b96-20241106)(types-react@19.0.0-rc.1)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -644,16 +644,16 @@ importers:
         version: 2.1.1
       lucide-react:
         specifier: ^0.428.0
-        version: 0.428.0(react@18.2.0)
+        version: 0.428.0(react@19.0.0-rc-66855b96-20241106)
       next:
-        specifier: 14.2.5
-        version: 14.2.5(@playwright/test@1.48.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: 15.0.3
+        version: 15.0.3(@babel/core@7.25.8)(@playwright/test@1.48.1)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
       react:
-        specifier: ^18
-        version: 18.2.0
+        specifier: 19.0.0-rc-66855b96-20241106
+        version: 19.0.0-rc-66855b96-20241106
       react-dom:
-        specifier: ^18
-        version: 18.2.0(react@18.2.0)
+        specifier: 19.0.0-rc-66855b96-20241106
+        version: 19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.4
@@ -668,11 +668,11 @@ importers:
         specifier: ^20
         version: 20.12.7
       '@types/react':
-        specifier: ^18
-        version: 18.2.79
+        specifier: npm:types-react@19.0.0-rc.1
+        version: types-react@19.0.0-rc.1
       '@types/react-dom':
-        specifier: ^18
-        version: 18.2.25
+        specifier: npm:types-react-dom@19.0.0-rc.1
+        version: types-react-dom@19.0.0-rc.1
       postcss:
         specifier: ^8
         version: 8.4.47
@@ -8844,11 +8844,6 @@ packages:
       date-fns: ^2.28.0 || ^3.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  react-dom@18.2.0:
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-
   react-dom@19.0.0-rc-66855b96-20241106:
     resolution: {integrity: sha512-D25vdaytZ1wFIRiwNU98NPQ/upS2P8Co4/oNoa02PzHbh8deWdepjm5qwZM/46OdSiGv4WSWwxP55RO9obqJEQ==}
     peerDependencies:
@@ -8947,10 +8942,6 @@ packages:
     peerDependencies:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
-
-  react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
-    engines: {node: '>=0.10.0'}
 
   react@19.0.0-rc-66855b96-20241106:
     resolution: {integrity: sha512-klH7xkT71SxRCx4hb1hly5FJB21Hz0ACyxbXYAECEqssUjtJeFUAaI2U1DgJAzkGEnvEm3DkxuBchMC/9K4ipg==}
@@ -9137,9 +9128,6 @@ packages:
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
-
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
   scheduler@0.25.0-rc-66855b96-20241106:
     resolution: {integrity: sha512-HQXp/Mnp/MMRSXMQF7urNFla+gmtXW/Gr1KliuR0iboTit4KvZRY8KYaq5ccCTAOJiUqQh2rE2F3wgUekmgdlA==}
@@ -10817,7 +10805,7 @@ snapshots:
       '@aws-sdk/types': 3.535.0
       '@smithy/property-provider': 2.2.0
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@aws-sdk/credential-provider-http@3.535.0':
     dependencies:
@@ -10829,7 +10817,7 @@ snapshots:
       '@smithy/smithy-client': 2.5.1
       '@smithy/types': 2.12.0
       '@smithy/util-stream': 2.2.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@aws-sdk/credential-provider-ini@3.540.0(@aws-sdk/credential-provider-node@3.540.0)':
     dependencies:
@@ -10843,7 +10831,7 @@ snapshots:
       '@smithy/property-provider': 2.2.0
       '@smithy/shared-ini-file-loader': 2.4.0
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
     transitivePeerDependencies:
       - '@aws-sdk/credential-provider-node'
       - aws-crt
@@ -10871,7 +10859,7 @@ snapshots:
       '@smithy/property-provider': 2.2.0
       '@smithy/shared-ini-file-loader': 2.4.0
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@aws-sdk/credential-provider-sso@3.540.0(@aws-sdk/credential-provider-node@3.540.0)':
     dependencies:
@@ -10881,7 +10869,7 @@ snapshots:
       '@smithy/property-provider': 2.2.0
       '@smithy/shared-ini-file-loader': 2.4.0
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
     transitivePeerDependencies:
       - '@aws-sdk/credential-provider-node'
       - aws-crt
@@ -10892,7 +10880,7 @@ snapshots:
       '@aws-sdk/types': 3.535.0
       '@smithy/property-provider': 2.2.0
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
     transitivePeerDependencies:
       - '@aws-sdk/credential-provider-node'
       - aws-crt
@@ -11035,7 +11023,7 @@ snapshots:
 
   '@aws-sdk/util-arn-parser@3.535.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@aws-sdk/util-endpoints@3.540.0':
     dependencies:
@@ -11053,7 +11041,7 @@ snapshots:
 
   '@aws-sdk/util-locate-window@3.568.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@aws-sdk/util-user-agent-browser@3.535.0':
     dependencies:
@@ -11071,7 +11059,7 @@ snapshots:
 
   '@aws-sdk/util-utf8-browser@3.259.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@aws-sdk/xml-builder@3.535.0':
     dependencies:
@@ -14343,12 +14331,6 @@ snapshots:
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
 
-  '@radix-ui/react-compose-refs@1.1.0(@types/react@18.2.79)(react@18.2.0)':
-    dependencies:
-      react: 18.2.0
-    optionalDependencies:
-      '@types/react': 18.2.79
-
   '@radix-ui/react-compose-refs@1.1.0(react@19.0.0-rc-66855b96-20241106)(types-react@19.0.0-rc.1)':
     dependencies:
       react: 19.0.0-rc-66855b96-20241106
@@ -14667,15 +14649,6 @@ snapshots:
       '@types/react': types-react@19.0.0-rc.1
       '@types/react-dom': types-react-dom@19.0.0-rc.1
 
-  '@radix-ui/react-primitive@2.0.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@radix-ui/react-slot': 1.1.0(@types/react@18.2.79)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    optionalDependencies:
-      '@types/react': 18.2.79
-      '@types/react-dom': 18.2.25
-
   '@radix-ui/react-primitive@2.0.0(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)':
     dependencies:
       '@radix-ui/react-slot': 1.1.0(react@19.0.0-rc-66855b96-20241106)(types-react@19.0.0-rc.1)
@@ -14776,15 +14749,6 @@ snapshots:
       '@types/react': types-react@19.0.0-rc.1
       '@types/react-dom': types-react-dom@19.0.0-rc.1
 
-  '@radix-ui/react-separator@1.1.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    optionalDependencies:
-      '@types/react': 18.2.79
-      '@types/react-dom': 18.2.25
-
   '@radix-ui/react-separator@1.1.0(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)':
     dependencies:
       '@radix-ui/react-primitive': 2.0.0(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
@@ -14801,13 +14765,6 @@ snapshots:
       react: 19.0.0-rc-66855b96-20241106
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
-
-  '@radix-ui/react-slot@1.1.0(@types/react@18.2.79)(react@18.2.0)':
-    dependencies:
-      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.2.79)(react@18.2.0)
-      react: 18.2.0
-    optionalDependencies:
-      '@types/react': 18.2.79
 
   '@radix-ui/react-slot@1.1.0(react@19.0.0-rc-66855b96-20241106)(types-react@19.0.0-rc.1)':
     dependencies:
@@ -15982,16 +15939,16 @@ snapshots:
   '@smithy/abort-controller@2.2.0':
     dependencies:
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/chunked-blob-reader-native@2.2.0':
     dependencies:
       '@smithy/util-base64': 2.3.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/chunked-blob-reader@2.2.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/config-resolver@2.2.0':
     dependencies:
@@ -16018,7 +15975,7 @@ snapshots:
       '@smithy/property-provider': 2.2.0
       '@smithy/types': 2.12.0
       '@smithy/url-parser': 2.2.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/eventstream-codec@2.2.0':
     dependencies:
@@ -16048,7 +16005,7 @@ snapshots:
     dependencies:
       '@smithy/eventstream-codec': 2.2.0
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/fetch-http-handler@2.5.0':
     dependencies:
@@ -16085,7 +16042,7 @@ snapshots:
 
   '@smithy/is-array-buffer@2.2.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/md5-js@2.2.0':
     dependencies:
@@ -16149,7 +16106,7 @@ snapshots:
   '@smithy/property-provider@2.2.0':
     dependencies:
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/protocol-http@3.3.0':
     dependencies:
@@ -16160,12 +16117,12 @@ snapshots:
     dependencies:
       '@smithy/types': 2.12.0
       '@smithy/util-uri-escape': 2.2.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/querystring-parser@2.2.0':
     dependencies:
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/service-error-classification@2.1.5':
     dependencies:
@@ -16174,7 +16131,7 @@ snapshots:
   '@smithy/shared-ini-file-loader@2.4.0':
     dependencies:
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/signature-v4@2.3.0':
     dependencies:
@@ -16184,7 +16141,7 @@ snapshots:
       '@smithy/util-middleware': 2.2.0
       '@smithy/util-uri-escape': 2.2.0
       '@smithy/util-utf8': 2.3.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/smithy-client@2.5.1':
     dependencies:
@@ -16222,11 +16179,11 @@ snapshots:
   '@smithy/util-buffer-from@2.2.0':
     dependencies:
       '@smithy/is-array-buffer': 2.2.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/util-config-provider@2.3.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/util-defaults-mode-browser@2.2.1':
     dependencies:
@@ -16254,12 +16211,12 @@ snapshots:
 
   '@smithy/util-hex-encoding@2.2.0':
     dependencies:
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/util-middleware@2.2.0':
     dependencies:
       '@smithy/types': 2.12.0
-      tslib: 2.8.0
+      tslib: 2.8.1
 
   '@smithy/util-retry@2.2.0':
     dependencies:
@@ -20209,10 +20166,6 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-66855b96-20241106
 
-  lucide-react@0.428.0(react@18.2.0):
-    dependencies:
-      react: 18.2.0
-
   lucide-react@0.428.0(react@19.0.0-rc-66855b96-20241106):
     dependencies:
       react: 19.0.0-rc-66855b96-20241106
@@ -20438,32 +20391,6 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 14.2.14
       '@next/swc-win32-ia32-msvc': 14.2.14
       '@next/swc-win32-x64-msvc': 14.2.14
-      '@playwright/test': 1.48.1
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-
-  next@14.2.5(@playwright/test@1.48.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      '@next/env': 14.2.5
-      '@swc/helpers': 0.5.5
-      busboy: 1.6.0
-      caniuse-lite: 1.0.30001669
-      graceful-fs: 4.2.11
-      postcss: 8.4.31
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(react@18.2.0)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 14.2.5
-      '@next/swc-darwin-x64': 14.2.5
-      '@next/swc-linux-arm64-gnu': 14.2.5
-      '@next/swc-linux-arm64-musl': 14.2.5
-      '@next/swc-linux-x64-gnu': 14.2.5
-      '@next/swc-linux-x64-musl': 14.2.5
-      '@next/swc-win32-arm64-msvc': 14.2.5
-      '@next/swc-win32-ia32-msvc': 14.2.5
-      '@next/swc-win32-x64-msvc': 14.2.5
       '@playwright/test': 1.48.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -21061,12 +20988,6 @@ snapshots:
       date-fns: 3.6.0
       react: 19.0.0-rc-66855b96-20241106
 
-  react-dom@18.2.0(react@18.2.0):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.2
-
   react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106):
     dependencies:
       react: 19.0.0-rc-66855b96-20241106
@@ -21163,10 +21084,6 @@ snapshots:
       prop-types: 15.8.1
       react: 19.0.0-rc-66855b96-20241106
       react-dom: 19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106)
-
-  react@18.2.0:
-    dependencies:
-      loose-envify: 1.4.0
 
   react@19.0.0-rc-66855b96-20241106: {}
 
@@ -21384,10 +21301,6 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
-
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
 
   scheduler@0.25.0-rc-66855b96-20241106: {}
 
@@ -21765,11 +21678,6 @@ snapshots:
     dependencies:
       '@tokenizer/token': 0.3.0
       peek-readable: 5.3.1
-
-  styled-jsx@5.1.1(react@18.2.0):
-    dependencies:
-      client-only: 0.0.1
-      react: 18.2.0
 
   styled-jsx@5.1.1(react@19.0.0-rc-66855b96-20241106):
     dependencies:
