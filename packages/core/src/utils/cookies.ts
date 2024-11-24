@@ -3,12 +3,12 @@
 import { cookies } from "next/headers";
 
 export const getCookie = async (key: string) => {
-	const cookie = cookies().get(key);
+	const cookie = (await cookies()).get(key);
 	return cookie?.value;
 };
 
 export const deleteCookie = async (key: string) => {
-	cookies().delete(key);
+	(await cookies()).delete(key);
 };
 
 export const setCookie = async (
@@ -22,7 +22,7 @@ export const setCookie = async (
 		httpOnly?: boolean;
 	},
 ) => {
-	cookies().set(key, value, {
+	(await cookies()).set(key, value, {
 		maxAge: options?.maxAge,
 		path: options?.path,
 		domain: options?.domain,

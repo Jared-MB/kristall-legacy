@@ -30,7 +30,7 @@ export const login = async (_prevState: unknown, payload: FormData) => {
 
 	const ONE_DAY = 60 * 60 * 24;
 
-	cookies().set("session", access_token, {
+	(await cookies()).set("session", access_token, {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		maxAge: ONE_DAY,
