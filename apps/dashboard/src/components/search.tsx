@@ -36,11 +36,7 @@ export default function Search({
 	}, WAIT_BETWEEN_TYPING);
 
 	return (
-		<InputContainer
-			classNames={{
-				container: "max-w-sm",
-			}}
-		>
+		<InputContainer className="max-w-sm">
 			{showLabel && <Label htmlFor="search">Buscar</Label>}
 			<Input
 				id="search"
