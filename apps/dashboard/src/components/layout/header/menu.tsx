@@ -119,7 +119,7 @@ export default function Menu() {
 				<DropdownMenuGroup>
 					<DropdownMenuItem asChild>
 						<Link
-							href="/dashboard/settings"
+							href="/dashboard/settings/general"
 							className="flex items-center gap-x-2"
 						>
 							<Settings className="h-5 w-5" />
