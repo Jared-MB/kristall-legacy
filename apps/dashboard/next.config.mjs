@@ -12,11 +12,6 @@ const nextConfig = {
 				destination: "/dashboard/settings/general",
 				permanent: true,
 			},
-			{
-				source: "/dashboard/settings/general",
-				destination: "/dashboard/settings/general/inventory",
-				permanent: true,
-			},
 		];
 	},
 	images: {
