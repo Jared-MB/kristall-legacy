@@ -1,6 +1,9 @@
 "use client";
 
-import type { Location, LocationProduct } from "@/types/location";
+import type {
+	Location,
+	LocationProduct,
+} from "@kristall/core/modules/locations/interfaces";
 import {
 	type Dispatch,
 	type SetStateAction,
