@@ -7,6 +7,7 @@ export interface Settings {
 	useExperimentalFeatures: boolean;
 	enableBankAccounts: boolean;
 	removeBankAccounts: boolean;
+	saveForms: boolean;
 }
 
 export type DefaultBatch = Pick<Settings, "defaultBatchEnabled">;
@@ -14,3 +15,4 @@ export type DefaultPOSAccess = Pick<Settings, "defaultPOSAccessEnabled">;
 export type UseExperimentalFeatures = Pick<Settings, "useExperimentalFeatures">;
 export type EnableBankAccounts = Pick<Settings, "enableBankAccounts">;
 export type RemoveBankAccounts = Pick<Settings, "removeBankAccounts">;
+export type SaveForms = Pick<Settings, "saveForms">;
