@@ -33,9 +33,9 @@ export async function middleware(request: NextRequest) {
 		);
 	}
 
-	const data = (await response.json()) as ServerResponse<string>;
+	const data = (await response.json()) as ServerResponse<string> & {statusCode: number};
 
-	if (data.status >= 400) {
+	if (data.status >= 400 || data.statusCode >= 400) {
 		return NextResponse.redirect(
 			new URL("/login", request.nextUrl).toString(),
 			302,
