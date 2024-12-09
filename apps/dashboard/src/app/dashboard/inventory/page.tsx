@@ -13,12 +13,8 @@ export default async function InventoryPage(props: {
 	return (
 		<main>
 			<header className="flex flex-row items-center justify-end p-4 gap-x-4">
-				<Suspense>
-					<Search showLabel={false} queryName="name" />
-				</Suspense>
-				<Suspense>
-					<LocationsFilter />
-				</Suspense>
+				<Search showLabel={false} queryName="name" />
+				<LocationsFilter />
 				<Menu />
 			</header>
 			<section className="px-4">
