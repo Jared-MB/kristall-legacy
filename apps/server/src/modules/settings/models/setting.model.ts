@@ -35,4 +35,9 @@ export class Setting {
     })
     useExperimentalFeatures: boolean
 
+    @Column({
+        default: false
+    })
+    saveForms: boolean
+
 }

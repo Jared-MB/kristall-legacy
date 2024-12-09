@@ -1,8 +1,8 @@
-import { BadRequestException, Controller, Get, Patch, Post, UnauthorizedException, UseInterceptors } from '@nestjs/common';
 import { Cookies } from '@/server/decorators';
 import { ResponseInterceptor } from '@/server/interceptors';
 import { BankAccountsService } from '@/server/modules/bank-accounts/services';
 import { AuthService } from '@/server/services';
+import { BadRequestException, Controller, Get, Patch, Post, UnauthorizedException, UseInterceptors } from '@nestjs/common';
 import { Setting } from '../models';
 import { SettingsService } from '../services/settings.service';
 
@@ -14,6 +14,24 @@ export class SettingsController {
         private readonly bankAccountsService: BankAccountsService,
         private readonly authService: AuthService
     ) { }
+
+    @UseInterceptors(ResponseInterceptor)
+    @Get('save-forms')
+    async getSaveForms(
+        @Cookies('session') session: string
+    ){
+        const user = this.authService.decodeCookie(session)
+        if (!user) {
+            throw new UnauthorizedException()
+        }
+
+        const { shop } = user
+
+        const settings = await this.settingsService.findByShopId(shop._id)
+        return {
+            saveForms: !!settings?.saveForms
+        }
+    }
 
     @UseInterceptors(new ResponseInterceptor())
     @Get('default-batches')
@@ -107,6 +125,27 @@ export class SettingsController {
         return {
             removeBankAccounts: !!settings?.removeBankAccounts
         }
+    }
+
+    @UseInterceptors(ResponseInterceptor)
+    @Patch('save-forms')
+    async toggleSaveForms(
+        @Cookies('session') session: string,
+    ) {
+        const user = this.authService.decodeCookie(session)
+        if (!user) {
+            throw new UnauthorizedException()
+        }
+
+        const { shop } = user
+
+        const settings = await this.settingsService.findByShopId(shop._id)
+        const newSettings: Partial<Setting> = {
+            saveForms: !settings?.saveForms
+        }
+
+        await this.settingsService.update(newSettings, shop._id)
+        return newSettings
     }
 
     @UseInterceptors(new ResponseInterceptor())
