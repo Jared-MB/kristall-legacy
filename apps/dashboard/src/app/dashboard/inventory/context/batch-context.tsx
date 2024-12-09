@@ -1,6 +1,6 @@
 "use client";
 
-import type { ProductBatch } from "@/types/batch";
+import type { ProductBatch } from "@kristall/core/modules/locations/interfaces";
 import {
 	type Dispatch,
 	type SetStateAction,
