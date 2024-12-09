@@ -4,4 +4,5 @@ export const ORDER_STATUS = {
 	delivering: "En camino",
 	ready: "Listo para recoger",
 	completed: "Completado",
+	cancelled: "Cancelado",
 } as const;
