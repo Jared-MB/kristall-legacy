@@ -11,6 +11,16 @@ import { images } from "../../image";
 import { productsService } from "../services";
 import { AddProductSchema } from "../validators";
 
+import { paginateURL } from "@kristall/core/utils";
+
+export const getPaginatedProducts = async (
+	searchParams: Readonly<URLSearchParams>,
+) => {
+	const query = paginateURL(searchParams);
+	const { data } = await productsService.getPaginatedProductsService(query);
+	return data;
+};
+
 export const getBestSellers = async (): Promise<BestSeller[] | null> => {
 	const { data } = await productsService.getBestSellingProductsService();
 	return data;

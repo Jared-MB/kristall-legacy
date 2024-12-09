@@ -9,14 +9,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { products } from "@kristall/core/modules/products";
 import { Suspense } from "react";
-import { getProducts } from "./_adapters";
 import ProductRow from "./components/product-row";
 
 export default async function ProductsTable({
 	searchParams,
 }: { searchParams: URLSearchParams }) {
-	const data = await getProducts(searchParams);
+	const data = await products.getPaginatedProducts(searchParams);
 
 	if (!data) return <div>Products not found</div>;
 
