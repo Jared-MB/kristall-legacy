@@ -14,10 +14,12 @@
 		"incremental": true,
 		"paths": {
 			"@/*": ["./src/*"],
-			"@kristall/core/*": ["./src/*"]
+			"@kristall/core/*": ["./src/*"],
+			"@core/*": ["./src/*"]
 		},
 		"outDir": "./dist",
-		"declaration": true
+		"declaration": true,
+		"jsx": "react-jsx"
 	},
 	"include": [
 		"src/**/*.ts",

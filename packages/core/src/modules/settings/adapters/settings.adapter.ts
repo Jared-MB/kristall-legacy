@@ -3,7 +3,6 @@
 import type {
 	DefaultBatch,
 	DefaultPOSAccess,
-	SaveForms,
 	UseExperimentalFeatures,
 } from "../interfaces";
 
@@ -11,16 +10,6 @@ import { revalidateTag } from "next/cache";
 
 import { SETTINGS_TAGS } from "../constants";
 import { settingsService } from "../services";
-
-export const getSaveForms = async (): Promise<SaveForms> => {
-	const { data } = await settingsService.getSaveFormsService();
-	if (!data) {
-		return {
-			saveForms: false,
-		};
-	}
-	return data;
-};
 
 export const getDefaultBatchEnabled = async (): Promise<DefaultBatch> => {
 	const { data } = await settingsService.getDefaultBatchEnabledService();
@@ -53,11 +42,6 @@ export const getUseExperimentalFeatures =
 		}
 		return data;
 	};
-
-export const updateSaveForms = async (): Promise<void> => {
-	await settingsService.updateSaveFormsService();
-	revalidateTag(SETTINGS_TAGS.SAVE_FORMS);
-};
 
 export const updateUseExperimentalFeatures = async (): Promise<void> => {
 	await settingsService.updateUseExperimentalFeaturesService();

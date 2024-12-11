@@ -4,21 +4,12 @@ import type { ServerResponse } from "@kristall/http/interfaces";
 import type {
 	DefaultBatch,
 	DefaultPOSAccess,
-	SaveForms,
 	UseExperimentalFeatures,
 } from "../interfaces";
 
 import { GET, PATCH, POST } from "@kristall/http";
 
 import { SETTINGS_TAGS } from "../constants";
-
-export const getSaveFormsService = async (): Promise<
-	ServerResponse<SaveForms>
-> => {
-	return await GET<SaveForms>("/settings/save-forms", {
-		tags: [SETTINGS_TAGS.SAVE_FORMS],
-	});
-};
 
 export const getDefaultBatchEnabledService = async (): Promise<
 	ServerResponse<DefaultBatch>
@@ -42,12 +33,6 @@ export const getUseExperimentalFeaturesService = async (): Promise<
 	return await GET<UseExperimentalFeatures>("/settings/experimental-features", {
 		tags: [SETTINGS_TAGS.USE_EXPERIMENTAL_FEATURES],
 	});
-};
-
-export const updateSaveFormsService = async (): Promise<
-	ServerResponse<SaveForms>
-> => {
-	return await PATCH<any, SaveForms>("/settings/save-forms", {});
 };
 
 export const updateUseExperimentalFeaturesService = async (): Promise<

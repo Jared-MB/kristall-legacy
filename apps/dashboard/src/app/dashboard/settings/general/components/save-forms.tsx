@@ -1,11 +1,14 @@
 import { Label, Switch, SwitchContainer } from "@/components/ui";
-import { settings } from "@kristall/core/modules/settings";
+import {
+	getSaveFormsConfig,
+	updateSaveForms,
+} from "@kristall/core/settings/save-forms";
 
 export default async function SaveForms() {
-	const { saveForms } = await settings.getSaveForms();
+	const { saveForms } = await getSaveFormsConfig();
 
 	return (
-		<form action={settings.updateSaveForms}>
+		<form action={updateSaveForms}>
 			<SwitchContainer>
 				<Switch id="save-forms" defaultChecked={saveForms} type="submit" />
 				<Label htmlFor="save-forms">Guardar formularios</Label>
