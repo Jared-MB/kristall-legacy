@@ -9,7 +9,7 @@
 		"./constants": "./src/constants/index.ts",
 		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",
 		"./*": "./src/modules/*.ts",
-		"./interfaces/*": "./src/modules/*.d.ts"
+		"./interfaces/*": "./src/modules/*/interfaces/index.d.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",

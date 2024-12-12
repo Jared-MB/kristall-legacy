@@ -34,6 +34,7 @@ export default function MobileMenu() {
 					}}
 				>
 					<DropdownItem
+						key="/solutions/inventory"
 						href="/solutions/inventory"
 						startContent={<CiBoxes className="w-4 h-4" />}
 						description="Gestiona tu inventario de manera eficiente."
@@ -41,6 +42,7 @@ export default function MobileMenu() {
 						Administración de inventario
 					</DropdownItem>
 					<DropdownItem
+						key="/solutions/orders"
 						href="/solutions/orders"
 						startContent={<PiNotepad className="w-4 h-4" />}
 						description="Ten todos tus pedidos en un solo lugar"
@@ -48,6 +50,7 @@ export default function MobileMenu() {
 						Gestor de pedidos
 					</DropdownItem>
 					<DropdownItem
+						key="/solutions/pos"
 						href="/solutions/pos"
 						startContent={<AiOutlineShop className="w-4 h-4" />}
 						description="Vende desde cualquier lugar."
@@ -55,6 +58,7 @@ export default function MobileMenu() {
 						Punto de ventas
 					</DropdownItem>
 					<DropdownItem
+						key="/solutions/users"
 						href="/solutions/users"
 						startContent={<PiUsersThree className="w-4 h-4" />}
 						description="Controla que puede hacer cada usuario."
@@ -62,6 +66,7 @@ export default function MobileMenu() {
 						Usuarios
 					</DropdownItem>
 					<DropdownItem
+						key="/solutions/locations"
 						href="/solutions/locations"
 						startContent={<CiLocationOn className="w-4 h-4" />}
 						description="Administra más de una ubicación."
@@ -69,6 +74,7 @@ export default function MobileMenu() {
 						Ubicaciones
 					</DropdownItem>
 					<DropdownItem
+						key="/solutions/clients"
 						href="/solutions/clients"
 						startContent={<PiUsersThree className="w-4 h-4" />}
 						description="Lleva un registro de tus clientes."
@@ -83,12 +89,14 @@ export default function MobileMenu() {
 					}}
 				>
 					<DropdownItem
+						key="/pricing"
 						href="/pricing"
 						startContent={<BsCurrencyDollar className="w-4 h-4" />}
 					>
 						Precios
 					</DropdownItem>
 					<DropdownItem
+						key="/login"
 						href={`${process.env.NEXT_PUBLIC_DASHBOARD_URL}/login`}
 						target="_blank"
 						startContent={<PiUserCircleFill className="w-4 h-4" />}
@@ -96,6 +104,7 @@ export default function MobileMenu() {
 						Iniciar sesión
 					</DropdownItem>
 					<DropdownItem
+						key="/register"
 						href="/pricing"
 						startContent={<SlLogin className="w-4 h-4" />}
 					>

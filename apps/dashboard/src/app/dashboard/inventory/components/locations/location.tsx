@@ -38,7 +38,7 @@ export default function Location({ location }: LocationProps) {
 					</header>
 					<span className="text-zinc-400 text-sm flex flex-row gap-x-1 items-center">
 						<MapPin className="w-4 h-4" />
-						{fullLocation.address ?? "Sin dirección"}
+						{fullLocation?.address ?? "Sin dirección"}
 					</span>
 					<span className="text-zinc-400 text-base flex flex-row gap-x-1 items-center">
 						<Package className="w-4 h-4" />

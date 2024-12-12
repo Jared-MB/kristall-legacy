@@ -10,6 +10,7 @@ import {
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -61,7 +62,9 @@ export default function AddLocation() {
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
-				<DialogHeader className="text-xl">Agregar ubicación</DialogHeader>
+				<DialogHeader>
+					<DialogTitle className="text-xl">Agregar ubicación</DialogTitle>
+				</DialogHeader>
 				<div className="flex flex-col gap-4">
 					<InputContainer>
 						<Label>Ubicación</Label>

@@ -12,13 +12,17 @@ import { BatchService, LocationProductService, ProductsService, PublicProductsSe
 
 import { DeliveryLocation, Image, Location, LocationProduct, Product, ProductBatch, Shop } from '@/server/entities';
 
+import { InventoryController } from './controllers/inventory.controller';
+import { LocationProductRepository } from './repositories/location-product.repository';
+import { ProductRepository } from './repositories/product.repository';
+
 @Module({
     imports: [
         TypeOrmModule.forFeature([Product, LocationProduct, Image, Location, DeliveryLocation, ProductBatch, Shop]),
         ImageModule,
         forwardRef(() => ShopsModule),
     ],
-    controllers: [ProductsController, PublicProductsController],
+    controllers: [ProductsController, PublicProductsController, InventoryController],
     providers: [
         ProductsService,
         Utils,
@@ -28,6 +32,8 @@ import { DeliveryLocation, Image, Location, LocationProduct, Product, ProductBat
         LocationProductService,
         AuthService,
         PublicProductsService,
+        ProductRepository,
+        LocationProductRepository
     ],
     exports: [ProductsService, LocationProductService],
 })

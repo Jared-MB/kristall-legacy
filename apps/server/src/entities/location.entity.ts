@@ -2,13 +2,11 @@ import {
   Column,
   Entity,
   ManyToOne,
-  OneToMany,
-  PrimaryColumn,
   PrimaryGeneratedColumn
 } from 'typeorm';
-import { ProductBatch } from './batch.entity';
-import { Product } from './product.entity';
 import { Shop } from './shop.entity';
+
+export * from '@/server/modules/products/models/location-product.model';
 
 @Entity()
 export class Location {
@@ -63,30 +61,3 @@ export class DeliveryLocation {
   isLocal: boolean;
 }
 
-@Entity()
-export class LocationProduct {
-  @PrimaryColumn()
-  _id: string;
-
-  /**
-   * @deprecated Use the relation with the `Product` entity instead.
-   */
-  @Column({
-    nullable: true
-  })
-  productId: string;
-
-  @ManyToOne(() => Product, {
-    nullable: true
-  })
-  product: Product;
-
-  @Column()
-  locationId: string;
-
-  @Column()
-  stock: number;
-
-  @OneToMany(() => ProductBatch, productBatch => productBatch.locationProduct)
-  productBatches: ProductBatch[];
-}

@@ -8,8 +8,8 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Image, LocationProduct, Shop } from '.';
-import { Category } from './category.entity';
+import { Image, LocationProduct, Shop } from '../../../entities';
+import { Category } from '../../../entities/category.entity';
 
 @Entity()
 export class Product {
@@ -59,7 +59,7 @@ export class Product {
   @Column({
     type: 'date',
     nullable: true,
-    default: new Date(),
+    default: new Date()
   })
   updatedAt: Date;
 

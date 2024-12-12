@@ -10,7 +10,7 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVertical, Shapes, Upload } from "lucide-react";
+import { MoreVertical, PackagePlus, Shapes, Upload } from "lucide-react";
 
 import InventoryCut from "./inventory-cut";
 import MenuShortcut from "./menu-shortcut";
@@ -38,6 +38,14 @@ export default function Menu() {
 					<DropdownMenuItem>
 						<MenuLink href="/dashboard/inventory/categories" icon={<Shapes />}>
 							Ver categorías
+						</MenuLink>
+					</DropdownMenuItem>
+				</DropdownMenuGroup>
+				<DropdownMenuSeparator />
+				<DropdownMenuGroup>
+					<DropdownMenuItem>
+						<MenuLink href="/dashboard/inventory/new" icon={<PackagePlus />}>
+							Agregar inventario
 						</MenuLink>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>

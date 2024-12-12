@@ -11,6 +11,17 @@ interface Version {
 
 const VERSIONS: Version[] = [
 	{
+		_id: "v0.9.0",
+		date: "2024-12-11",
+		title: "Inventarios",
+		description: `
+			Ahora puedes incrementar el stock de tus productos en el almacén de una manera más sencilla si te ha llegado un nuevo inventario.
+			Lo encuentras en la pestaña "Inventario" en el dashboard, al abrir el menú desplegable encontrarás la opción "Agregar inventario".
+		`,
+		features: ["Agregar inventario"],
+		fixes: ["Se han arreglado algunos errores internos"],
+	},
+	{
 		_id: "v0.8.1",
 		date: "2024-10-17",
 		title: "Increase max name length to 50",

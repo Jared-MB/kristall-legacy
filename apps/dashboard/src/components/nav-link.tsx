@@ -44,7 +44,11 @@ export const menuLinkClass = "flex items-center gap-x-2 w-full";
 
 export const MenuLink = ({ children, href, icon }: MenuLinkProps) => {
 	return (
-		<Link href={href} className={menuLinkClass}>
+		<Link
+			href={href}
+			className={menuLinkClass}
+			prefetch={href.includes("/add")}
+		>
 			{icon}
 			{children}
 		</Link>

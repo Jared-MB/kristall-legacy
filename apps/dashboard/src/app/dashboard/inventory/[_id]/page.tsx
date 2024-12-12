@@ -1,10 +1,11 @@
-import { getCategories } from "@/actions/category.actions";
-import { getProductById } from "@/actions/product.actions";
 import type { ProductBatch } from "@/types/batch";
 import { settings } from "@kristall/core/modules/settings";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import ProductForm from "./components/product-form";
+
+import { getCategories } from "@kristall/core/categories/all";
+import { getProductById } from "@kristall/core/products/id";
 
 export default async function ProductIdPage(props: {
 	params: Promise<{
