@@ -3,6 +3,9 @@
 import { redirect } from "next/navigation";
 import { getShopDataService, isAdminService } from "../services";
 
+/**
+ * @deprecated Use data file from "@kristall/core/shop" instead
+ */
 export const getShopData = async () => {
 	const { data } = await getShopDataService();
 
