@@ -7,6 +7,8 @@ import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { isDev } from "../../../utils";
 import { r2 } from "./r2.service";
 
+import sharp from "sharp";
+
 /**
  * Pure service to upload an image to the S3 bucket
  * @param image The image to upload
@@ -38,11 +40,14 @@ export const uploadImageService = async ({
 	});
 
 	const buffer = await image.arrayBuffer();
+
+	const reformat = await sharp(buffer).avif().toBuffer();
+
 	const command = new PutObjectCommand({
 		Bucket: process.env.R2_BUCKET_NAME,
 		Key: shopKey,
-		Body: buffer as any,
-		ContentType: image.type,
+		Body: reformat as any,
+		ContentType: "image/avif",
 		CacheControl: "max-age=2592000",
 	});
 
