@@ -1,4 +1,5 @@
-import { getShopData } from "@/actions/user.action";
+import type { Product } from "@kristall/core/interfaces/products";
+
 import {
 	Table,
 	TableBody,
@@ -7,8 +8,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui";
-import type { Product } from "@/types/product";
 import { format } from "@formkit/tempo";
+import { getShopData } from "@kristall/core/shop/data";
 import { useQuery } from "@tanstack/react-query";
 import { forwardRef } from "react";
 
