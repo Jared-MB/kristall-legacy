@@ -100,6 +100,19 @@
   }
 }
 
+.loader {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
 .skeleton {
   background: linear-gradient(90deg, #ededed 25%, #cbcbcb 50%, #ededed 75%); /* Gradient effect */
   background-size: 200% 100%; /* Double the width for animation */
