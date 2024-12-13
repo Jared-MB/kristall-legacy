@@ -34,7 +34,7 @@ import { toast } from "sonner";
 
 const PrintOrders = forwardRef<HTMLDivElement, { cookie: string }>(
 	(props, _ref) => {
-		const printRef = useRef<HTMLDivElement>(null);
+		const printRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 
 		const { data: locations } = useQuery({
 			queryKey: ["locations"],
@@ -53,9 +53,9 @@ const PrintOrders = forwardRef<HTMLDivElement, { cookie: string }>(
 		// }, [status]);
 		const handlePrint = useReactToPrint({
 			documentTitle: "Print This Document",
-			onBeforePrint: () => resolveToast("Listo para imprimir..."),
+			onBeforePrint: async () => resolveToast("Listo para imprimir..."),
 			// onAfterPrint: () => console.log("after printing..."),
-			removeAfterPrint: true,
+			contentRef: printRef,
 		});
 
 		const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -101,7 +101,7 @@ const PrintOrders = forwardRef<HTMLDivElement, { cookie: string }>(
 			const orders = await response.json();
 			setOrders(orders.data);
 			setTimeout(() => {
-				handlePrint(null, () => printRef.current);
+				handlePrint();
 			}, 300);
 		};
 

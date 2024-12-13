@@ -64,23 +64,25 @@ export default function Order({
 	const [label, setLabel] = useState(order.status);
 	const [open, setOpen] = useState(false);
 
-	const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 
 	// use font-sans variable for fonts to use Quicksand
-	const handlePrint = useReactToPrint({
-		content: () => ref.current,
+	const print = useReactToPrint({
+		contentRef: ref,
 		pageStyle: `
             * {
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             }
         `,
-		onBeforePrint: () => {
+		onBeforePrint: async () => {
 			document.title = `Pedido ${order.code}`;
 		},
 		onAfterPrint: () => {
 			document.title = "Kristall";
 		},
 	});
+
+	const handlePrint = () => print();
 
 	const handleUpdateStatus = async (value: any) => {
 		const prevState = label;
