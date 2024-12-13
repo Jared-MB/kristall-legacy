@@ -4,7 +4,6 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 const config = {
 	darkMode: ["class"],
 	content: [
-		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
@@ -33,7 +32,7 @@ const config = {
 				foreground: "hsl(var(--foreground))",
 				primary: {
 					DEFAULT: "var(--primary)",
-					foreground: "--primary-foreground)",
+					foreground: "var(--primary-foreground)",
 				},
 				secondary: {
 					DEFAULT: "hsl(var(--secondary))",
