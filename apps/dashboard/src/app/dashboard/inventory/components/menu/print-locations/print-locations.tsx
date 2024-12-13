@@ -44,15 +44,18 @@ const PrintLocations = forwardRef(() => {
 		Pick<Product, "_id" | "name" | "stock" | "price">[] | null
 	>(null);
 
-	const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 
 	const print = useReactToPrint({
-		content: () => ref.current,
+		contentRef: ref,
 		documentTitle: `Inventario ${new Date().toLocaleDateString()}`,
 		pageStyle: `
             * {
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            }
+				background-color: #fff;
+				padding:0;
+				margin:0;
+			}
         `,
 	});
 
@@ -62,7 +65,7 @@ const PrintLocations = forwardRef(() => {
 		startTransition(async () => {
 			const products = await printInventory(location);
 			setProducts(products);
-			setTimeout(() => print(null), 1);
+			setTimeout(() => print(), 1);
 		});
 	}
 
