@@ -11,6 +11,17 @@ interface Version {
 
 const VERSIONS: Version[] = [
 	{
+		_id: "v0.9.1",
+		date: "2024-12-13",
+		title: "Impresión de inventarios",
+		description: `
+			La impresión de inventarios por ubicación se encuentra funcionando nuevamente.
+		`,
+		fixes: [
+			"Se arreglaron errores internos que impedían la impresión de inventarios",
+		],
+	},
+	{
 		_id: "v0.9.0",
 		date: "2024-12-11",
 		title: "Inventarios",
