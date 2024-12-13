@@ -18,7 +18,7 @@ import {
 	SelectValue,
 	dropdownMenuTriggerClass,
 } from "@/components/ui";
-import type { Product } from "@/types/product";
+import type { Product } from "@kristall/core/interfaces/products";
 import { useSearchParams } from "next/navigation";
 import { forwardRef, useMemo, useRef, useState, useTransition } from "react";
 import { useReactToPrint } from "react-to-print";

@@ -3,7 +3,7 @@
 import type {
 	Location,
 	LocationProduct,
-} from "@kristall/core/modules/locations/interfaces";
+} from "@kristall/core/interfaces/locations";
 import {
 	type Dispatch,
 	type SetStateAction,
