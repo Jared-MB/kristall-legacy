@@ -17,6 +17,9 @@ export class ServerConnection {
 		url: `/${string}`,
 		options: ServerConnectionOptions = { noAuth: false },
 	) {
+		console.warn(
+			`⚠️ ServerConnection is deprecated. Is used at: ${url}. Use @kristall/http package instead`,
+		);
 		this.url = url;
 		this.options = options;
 	}
