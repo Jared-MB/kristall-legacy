@@ -51,4 +51,4 @@ export const AddProductSchema = z.object({
 	batchEnabled: z.boolean(),
 });
 
-export type AddProduct = z.infer<typeof AddProductSchema>;
+export const UpdateProductSchema = AddProductSchema;
