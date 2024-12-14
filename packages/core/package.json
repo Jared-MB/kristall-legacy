@@ -7,6 +7,7 @@
 		"./modules/*": "./src/modules/*/index.ts",
 		"./utils": "./src/utils/index.ts",
 		"./constants": "./src/constants/index.ts",
+		"./environment": "./src/constants/environment.ts",
 		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",
 		"./*": "./src/modules/*.ts",
 		"./hooks/*": "./src/hooks/*.ts",

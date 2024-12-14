@@ -2,8 +2,8 @@
 
 import type { Image, UploadImageServiceParams } from "../interfaces";
 
-import { R2_BUCKET_NAME } from "@kristall/core/constants/environment";
 import sharp from "sharp";
+import { R2_BUCKET_NAME } from "../../../constants/environment";
 
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
