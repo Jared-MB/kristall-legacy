@@ -1,5 +1,8 @@
 "use client";
 
+import type { Product } from "@/core/interfaces/entities";
+import type { Category } from "@/types/category";
+
 import { useParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
@@ -13,8 +16,6 @@ import ProductImage from "@/components/form-product-image";
 import SubmitButton from "@/components/submit-button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { Product } from "@/core/interfaces/entities";
-import type { Category } from "@/types/category";
 import {
 	Select,
 	SelectContent,
