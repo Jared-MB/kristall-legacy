@@ -8,24 +8,21 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Loader2 } from "lucide-react";
-import { useFormStatus } from "react-dom";
 
 import submitButton from "@/core/styles/submit-button.module.css";
 
-export default function SaveButton() {
-	const { pending } = useFormStatus();
-
+export function SaveButton({ isPending }: { isPending: boolean }) {
 	return (
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<Button
-						disabled={pending}
+						disabled={isPending}
 						className="flex flex-row items-center gap-x-2"
 						type="submit"
 					>
-						{pending && <Loader2 className={submitButton.loader} />}
-						{pending ? "Guardando..." : "Guardar"}
+						{isPending && <Loader2 className={submitButton.loader} />}
+						{isPending ? "Guardando..." : "Guardar"}
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
