@@ -34,10 +34,10 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 
 	const currentLocale =
 		typeof window !== "undefined" ? window.navigator.languages[0] : "es-MX";
-	// Create a number format using Intl.NumberFormat
+
 	const myPriceFormatter = Intl.NumberFormat(currentLocale, {
 		style: "currency",
-		currency: "MXN", // Currency for data points
+		currency: "MXN",
 	}).format;
 
 	const chartContainerRef = useRef(undefined);
@@ -76,8 +76,6 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 			localization: {
 				priceFormatter: myPriceFormatter,
 			},
-			// handleScale: false,
-			// handleScroll: false,
 		});
 		chart.timeScale().fitContent();
 
@@ -86,9 +84,6 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 			title: "Gastos",
 			topColor: "#f43f5e",
 			bottomColor: "rgba(0, 0, 0, 0)",
-			// lineColor: expenseChartColors.lineColor,
-			// topColor: expenseChartColors.areaTopColor,
-			// bottomColor: expenseChartColors.areaBottomColor,
 		});
 
 		expensesSeries.setData(expensesData as any);
@@ -98,9 +93,6 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 			topColor: "#0ea5e9",
 			title: "Ingresos",
 			bottomColor: "rgba(0, 0, 0, 0)",
-			// lineColor,
-			// topColor: incomeChartColors.areaTopColor,
-			// bottomColor: incomeChartColors.areaBottomColor,
 		});
 
 		incomesSeries.setData(incomesData as any);
@@ -110,8 +102,6 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 			lineColor: "#22c55e",
 			topColor: "#22c55e",
 			bottomColor: "rgba(0, 0, 0, 0)",
-			// color: earningsChartColors.lineColor,
-			// lineWidth: 2,
 		});
 
 		earningsSeries.setData(revenue as any);
