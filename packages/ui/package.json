@@ -50,7 +50,8 @@
 		"./icons/*": "./src/components/icons/*.tsx",
 		"./compound/*": "./src/components/compound/*.tsx",
 		"./functional/*": "./src/components/functional/*.tsx",
-		"./core/*": "./src/core/*/index.ts"
+		"./core/*": "./src/core/*/index.ts",
+		"./layout/*": "./src/components/layout/*.tsx"
 	},
 	"typesVersions": {
 		"*": {
