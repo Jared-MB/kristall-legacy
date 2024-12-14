@@ -32,7 +32,7 @@ export default async function DashboardLayout({
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-[20dvw_1fr] xl:grid-cols-[15dvw_1fr] grid-rows-[4rem_1fr] ">
 			<aside className="border-r border-r-zinc-700 hidden lg:flex flex-col h-dvh row-span-2 print:hidden">
-				<h1 className="text-4xl text-purple-500 grid place-content-center h-16 border-b border-b-zinc-700">
+				<h1 className="text-4xl text-primary grid place-content-center h-16 border-b border-b-zinc-700">
 					Kristall
 				</h1>
 				<nav className="flex flex-col gap-y-4 px-6 py-4">
