@@ -2,8 +2,12 @@
 
 import type { Pagination, ServiceResponse } from "@kristall/http/interfaces";
 import type { Image } from "../../image/interfaces";
-import type { BestSeller, Product, UploadProduct } from "../interfaces";
-import type { AddProduct } from "../validators";
+import type {
+	AddProduct,
+	BestSeller,
+	Product,
+	UploadProduct,
+} from "../interfaces";
 
 import { GET, POST } from "@kristall/http";
 import { PRODUCTS_TAGS } from "../constants";
