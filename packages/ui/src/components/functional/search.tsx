@@ -15,7 +15,7 @@ interface Props extends InputProps {
 	resetPage?: boolean;
 }
 
-export default function Search({
+export function Search({
 	showLabel = true,
 	queryName,
 	placeholder = "Buscar...",
