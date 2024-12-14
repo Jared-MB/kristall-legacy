@@ -2,12 +2,13 @@
 
 import type { Image, UploadImageServiceParams } from "../interfaces";
 
+import { R2_BUCKET_NAME } from "@kristall/core/constants/environment";
+import sharp from "sharp";
+
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { isDev } from "../../../utils";
 import { r2 } from "./r2.service";
-
-import sharp from "sharp";
 
 /**
  * Pure service to upload an image to the S3 bucket
@@ -41,10 +42,20 @@ export const uploadImageService = async ({
 
 	const buffer = await image.arrayBuffer();
 
-	const reformat = await sharp(buffer).avif().toBuffer();
+	const reformat = await sharp(buffer)
+		.resize({
+			width: 500,
+			fit: "inside",
+			withoutEnlargement: true,
+		})
+		.avif({
+			quality: 50,
+			effort: 4,
+		})
+		.toBuffer();
 
 	const command = new PutObjectCommand({
-		Bucket: process.env.R2_BUCKET_NAME,
+		Bucket: R2_BUCKET_NAME,
 		Key: shopKey,
 		Body: reformat as any,
 		ContentType: "image/avif",
@@ -74,7 +85,7 @@ export const deleteImageService = async (
 	});
 
 	const command = new DeleteObjectCommand({
-		Bucket: process.env.R2_BUCKET_NAME,
+		Bucket: R2_BUCKET_NAME,
 		Key: key,
 	});
 
