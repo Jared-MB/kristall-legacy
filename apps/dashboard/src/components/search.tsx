@@ -2,7 +2,7 @@
 
 import { Input, InputContainer } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useShortcutStore } from "@/core/store";
+import { useShortcutStore } from "@kristall/core/hooks/use-shortcut";
 import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";

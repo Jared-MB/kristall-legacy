@@ -29,7 +29,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useShortcut } from "@/core/hooks/useShortcut";
+import { useShortcut } from "@kristall/core/hooks/use-shortcut";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useRef, useState } from "react";

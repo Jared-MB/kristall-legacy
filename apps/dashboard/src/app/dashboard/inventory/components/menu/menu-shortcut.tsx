@@ -1,6 +1,6 @@
 "use client";
 
-import { useShortcut } from "@/core/hooks/useShortcut";
+import { useShortcut } from "@kristall/core/hooks/use-shortcut";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
