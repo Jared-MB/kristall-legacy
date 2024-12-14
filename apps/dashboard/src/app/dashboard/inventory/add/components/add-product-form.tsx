@@ -2,8 +2,15 @@
 
 import type { Category } from "@kristall/core/modules/categories/interfaces";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+
+import { useShortcut } from "@kristall/core/hooks/use-shortcut";
 import { products } from "@kristall/core/modules/products";
-import { Button } from "@kristall/ui/button";
+import { useBatchesContext } from "../../context/batch-context";
+import { useLocationsToAddContext } from "../../context/location-context";
 
 import Divider from "@/components/divider";
 import ProductImage from "@/components/form-product-image";
@@ -29,17 +36,11 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useShortcut } from "@kristall/core/hooks/use-shortcut";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { Button } from "@kristall/ui/button";
 import AddCategory from "../../categories/components/add-category";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
-import { useBatchesContext } from "../../context/batch-context";
-import { useLocationsToAddContext } from "../../context/location-context";
-import SaveButton from "./components/save-button";
+import { SaveButton } from "./save-button";
 
 interface Props {
 	categories: Category[];
@@ -60,7 +61,10 @@ export default function AddProductForm({ categories }: Props) {
 		isCreatingMany,
 	);
 
-	const [errors, dispatch] = useActionState(enhancedAction, undefined);
+	const [errors, dispatch, isPending] = useActionState(
+		enhancedAction,
+		undefined,
+	);
 
 	const router = useRouter();
 
@@ -212,7 +216,7 @@ export default function AddProductForm({ categories }: Props) {
 					<Button variant="outline" asChild>
 						<Link href="/dashboard/inventory">Cancelar</Link>
 					</Button>
-					<SaveButton />
+					<SaveButton isPending={isPending} />
 				</CardFooter>
 			</form>
 		</Card>
