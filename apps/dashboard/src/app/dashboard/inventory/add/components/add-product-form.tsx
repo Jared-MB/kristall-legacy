@@ -13,7 +13,6 @@ import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
 
 import Divider from "@/components/divider";
-import ProductImage from "@/components/form-product-image";
 import {
 	Card,
 	CardBody,
@@ -37,6 +36,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@kristall/ui/button";
+import { ImagePreview } from "@kristall/ui/functional/image-preview";
 import AddCategory from "../../categories/components/add-category";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
@@ -128,12 +128,12 @@ export default function AddProductForm({ categories }: Props) {
 					</article>
 					<div className="w-full md:w-[1px] h-full bg-zinc-700" />
 					<article className="grid place-content-center py-6 px-4 md:py-0">
-						<ProductImage
-							classNames={{
-								fallback: "text-sm text-center text-pretty",
-							}}
-							fallback="Click para agregar una imagen"
-							url={""}
+						<ImagePreview
+							fallback={
+								<span className="text-sm text-center text-pretty">
+									Click para agregar una imagen
+								</span>
+							}
 						/>
 					</article>
 				</CardBody>
