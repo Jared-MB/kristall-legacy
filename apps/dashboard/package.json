@@ -81,11 +81,5 @@
 		"typescript": "^5.4.5",
 		"vite-tsconfig-paths": "^4.3.2",
 		"vitest": "^1.5.0"
-	},
-	"pnpm": {
-		"overrides": {
-			"@types/react": "19.0.1",
-			"@types/react-dom": "19.0.2"
-		}
 	}
 }
