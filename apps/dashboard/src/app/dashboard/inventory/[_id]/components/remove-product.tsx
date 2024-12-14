@@ -1,6 +1,6 @@
 "use client";
 
-import type { Image } from "@/core/interfaces/entities";
+import type { Image } from "@kristall/core/interfaces/image";
 
 import { useParams } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 import { deleteProductById } from "@kristall/core/products/id";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@kristall/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -17,7 +17,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@kristall/ui/dialog";
 import { SubmitButton } from "@kristall/ui/functional/submit-button";
 
 export default function RemoveProduct({ image }: { image: Image | undefined }) {
