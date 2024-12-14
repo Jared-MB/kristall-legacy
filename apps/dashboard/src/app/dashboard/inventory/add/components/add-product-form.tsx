@@ -12,31 +12,25 @@ import { products } from "@kristall/core/modules/products";
 import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
 
-import Divider from "@/components/divider";
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	CardSubtitle,
-	Switch,
-	SwitchContainer,
-} from "@/components/ui";
+import { Button } from "@kristall/ui/button";
+import { Card, CardBody, CardFooter, CardSubtitle } from "@kristall/ui/card";
+import { ImagePreview } from "@kristall/ui/functional/image-preview";
 import {
 	Input,
 	InputContainer,
 	InputDescription,
 	InputError,
-} from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@kristall/ui/button";
-import { ImagePreview } from "@kristall/ui/functional/image-preview";
+} from "@kristall/ui/select";
+import { Divider } from "@kristall/ui/separator";
+import { Switch, SwitchContainer } from "@kristall/ui/switch";
 import AddCategory from "../../categories/components/add-category";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
