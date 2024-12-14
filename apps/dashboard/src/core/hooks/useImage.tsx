@@ -7,6 +7,9 @@ import { uploadImage } from "@/core/services/image";
 import Link from "next/link";
 import { toast } from "sonner";
 
+/**
+ * @deprecated UseImageOptions is not longer necessary on the new API
+ */
 export type UseImageOptions =
 	| { submitOnChange?: false; uploadFunction?: never }
 	| {
@@ -14,6 +17,9 @@ export type UseImageOptions =
 			uploadFunction: (url: string, prevState?: string) => Promise<void>;
 	  };
 
+/**
+ * @deprecated Use useImage from @kristall/core/image/hooks/use-image instead
+ */
 export const useImage = (url?: string, options?: UseImageOptions) => {
 	const [file, setFile] = useState<File | null>(null);
 	const [previewImage, setPreviewImage] = useState<string | null>(url || null);
