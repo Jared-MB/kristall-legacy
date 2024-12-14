@@ -12,9 +12,13 @@ import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import AddProductForm from "./components/add-product-form";
 
-export default async function ProductIdPage() {
-	const allCategories = await categories.getCategories();
-	const { defaultBatchEnabled } = await settings.getDefaultBatchEnabled();
+export default async function AddProductPage() {
+	const [allCategories, userSettings] = await Promise.all([
+		categories.getCategories(),
+		settings.getDefaultBatchEnabled(),
+	]);
+
+	const { defaultBatchEnabled } = userSettings;
 
 	if (!allCategories) return <div>Categories not found</div>;
 

@@ -1,12 +1,12 @@
-import type { ProductBatch } from "@/types/batch";
+import { getCategories } from "@kristall/core/categories/all";
+import { getBatchesFromLocations } from "@kristall/core/locations/utils/locations-to-batches";
 import { settings } from "@kristall/core/modules/settings";
+import { getProductById } from "@kristall/core/products/id";
+
+import { MainContent } from "@kristall/ui/layout/main-content";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import ProductForm from "./components/product-form";
-
-import { getCategories } from "@kristall/core/categories/all";
-import { getProductById } from "@kristall/core/products/id";
-import { MainContent } from "@kristall/ui/layout/main-content";
 
 export default async function ProductIdPage(props: {
 	params: Promise<{
@@ -14,9 +14,16 @@ export default async function ProductIdPage(props: {
 	}>;
 }) {
 	const params = await props.params;
-	const product = await getProductById(params._id);
-	const categories = await getCategories();
-	const { defaultBatchEnabled } = await settings.getDefaultBatchEnabled();
+
+	const [product, categories, userSettings] = await Promise.all([
+		getProductById(params._id),
+		getCategories(),
+		settings.getDefaultBatchEnabled(),
+	]);
+
+	const { defaultBatchEnabled } = userSettings;
+	const hasEnableBatches = Boolean(product.batchEnabled);
+	const defaultBatches = getBatchesFromLocations(product.locations);
 
 	if (!product) return <div>Product not found</div>;
 	if (!categories) return <div>Categories not found</div>;
@@ -26,12 +33,8 @@ export default async function ProductIdPage(props: {
 			<LocationsToAddProvider value={product.locations}>
 				<BatchesProvider
 					value={{
-						batches: product.batchEnabled
-							? (product.locations.flatMap(
-									(location) => location.productBatches,
-								) as ProductBatch[])
-							: [],
-						isEnabled: Boolean(product.batchEnabled),
+						batches: defaultBatches,
+						isEnabled: hasEnableBatches,
 						defaultBatchEnabled,
 					}}
 				>
