@@ -1,6 +1,6 @@
 import type { Image } from "../../image/interfaces";
 import type { LocationProduct } from "../../locations/interfaces";
-import type { AddProduct } from "../validators";
+import type { AddProductSchema } from "../validators";
 import type { Category } from "./categories.interface";
 
 export interface Product {
@@ -24,6 +24,9 @@ export type CatalogProduct = Pick<
 >;
 
 export type BestSeller = Pick<Product, "_id" | "name" | "totalSales">;
+
+export type AddProduct = z.infer<typeof AddProductSchema>;
+export type UpdateProduct = AddProduct;
 
 export interface UploadProduct extends AddProduct {
 	image: Image | null;
