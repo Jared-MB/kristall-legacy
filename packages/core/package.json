@@ -9,6 +9,7 @@
 		"./constants": "./src/constants/index.ts",
 		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",
 		"./*": "./src/modules/*.ts",
+		"./hooks/*": "./src/hooks/*.ts",
 		"./interfaces/*": "./src/modules/*/interfaces/index.d.ts"
 	},
 	"devDependencies": {
@@ -16,8 +17,8 @@
 		"@kristall/http": "workspace:*",
 		"@types/node": "20.12.7",
 		"@vitest/coverage-v8": "2.1.4",
-		"react": "19.0.0-rc-66855b96-20241106",
-		"react-dom": "19.0.0-rc-66855b96-20241106",
+		"react": "19.0.0",
+		"react-dom": "19.0.0",
 		"typescript": "5.4.5",
 		"vite-tsconfig-paths": "^4.3.2",
 		"vitest": "^2.1.4"
