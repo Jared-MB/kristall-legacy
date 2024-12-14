@@ -1,10 +1,9 @@
-import Search from "@/components/search";
-
 import { Suspense } from "react";
 import LocationsFilter from "./components/locations-filter";
 import Menu from "./components/menu";
 import ProductsTable from "./components/products-table";
 import ProductsTableSkeleton from "./components/products-table/skeleton";
+import { SearchProduct } from "./components/search-product";
 
 export default async function InventoryPage(props: {
 	searchParams: Promise<URLSearchParams>;
@@ -13,7 +12,7 @@ export default async function InventoryPage(props: {
 	return (
 		<main>
 			<header className="flex flex-row items-center justify-end p-4 gap-x-4">
-				<Search showLabel={false} queryName="name" />
+				<SearchProduct />
 				<LocationsFilter />
 				<Menu />
 			</header>
