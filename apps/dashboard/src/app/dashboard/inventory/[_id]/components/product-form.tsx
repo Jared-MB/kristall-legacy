@@ -11,11 +11,10 @@ import { updateProduct } from "@/actions/product.actions";
 import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
 
-import Divider from "@/components/divider";
 import ProductImage from "@/components/form-product-image";
-import SubmitButton from "@/components/submit-button";
-import { Input, InputContainer, InputError } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { SubmitButton } from "@kristall/ui/functional/submit-button";
+import { Input, InputContainer, InputError } from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -23,6 +22,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@kristall/ui/select";
+import { Divider } from "@kristall/ui/separator";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
 import RemoveProduct from "../components/remove-product";
