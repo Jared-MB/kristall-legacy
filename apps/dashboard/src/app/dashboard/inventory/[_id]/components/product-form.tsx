@@ -1,7 +1,7 @@
 "use client";
 
-import type { Product } from "@/core/interfaces/entities";
-import type { Category } from "@/types/category";
+import type { Category } from "@kristall/core/interfaces/categories";
+import type { Product } from "@kristall/core/interfaces/products";
 
 import { useParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
@@ -11,7 +11,7 @@ import { updateProduct } from "@/actions/product.actions";
 import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
 
-import ProductImage from "@/components/form-product-image";
+import { ImagePreview } from "@kristall/ui/functional/image-preview";
 import { SubmitButton } from "@kristall/ui/functional/submit-button";
 import { Input, InputContainer, InputError } from "@kristall/ui/input";
 import { Label } from "@kristall/ui/label";
@@ -80,11 +80,7 @@ export default function ProductForm({
 							defaultValue={params._id}
 							readOnly
 						/>
-						<InputContainer
-							classNames={{
-								container: "col-span-2 lg:col-span-1",
-							}}
-						>
+						<InputContainer className="col-span-2 lg:col-span-1">
 							<Label>Nombre*</Label>
 							<Input
 								name="name"
@@ -121,7 +117,7 @@ export default function ProductForm({
 				</article>
 				<div className="w-full md:w-[1px] h-full bg-zinc-700" />
 				<article className="grid place-content-center py-8 px-4 md:py-0">
-					<ProductImage
+					<ImagePreview
 						fallback={product.name[0]}
 						url={product.image?.url}
 						id={product.image?._id}
@@ -166,11 +162,7 @@ export default function ProductForm({
 								<InputError>{errors.errors.cost[0]}</InputError>
 							)}
 					</InputContainer>
-					<InputContainer
-						classNames={{
-							container: "col-span-2 lg:col-span-1",
-						}}
-					>
+					<InputContainer className="col-span-2 lg:col-span-1">
 						<Label>Categoría</Label>
 						<Select
 							name="category"
