@@ -1,23 +1,25 @@
 "use client";
 
+import { useParams } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
+
 import { updateProduct } from "@/actions/product.actions";
+
 import Divider from "@/components/divider";
 import ProductImage from "@/components/form-product-image";
 import SubmitButton from "@/components/submit-button";
 import { Input, InputContainer, InputError } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { Product } from "@/core/interfaces/entities";
+import type { Category } from "@/types/category";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import type { Product } from "@/core/interfaces/entities";
-import type { Category } from "@/types/category";
-import { useParams } from "next/navigation";
-import { useActionState, useEffect } from "react";
-import { toast } from "sonner";
+} from "@kristall/ui/select";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
 import { useBatchesContext } from "../../context/batch-context";
@@ -27,14 +29,9 @@ import RemoveProduct from "../components/remove-product";
 interface Props {
 	product: Product;
 	categories: Category[];
-	loading?: boolean;
 }
 
-export default function ProductForm({
-	product,
-	categories,
-	loading = false,
-}: Props) {
+export default function ProductForm({ product, categories }: Props) {
 	const { locationsToAdd } = useLocationsToAddContext();
 	const { batches, isEnabled } = useBatchesContext();
 
@@ -83,11 +80,7 @@ export default function ProductForm({
 							}}
 						>
 							<Label>Nombre*</Label>
-							<Input
-								name="name"
-								defaultValue={product.name}
-								disabled={loading}
-							/>
+							<Input name="name" defaultValue={product.name} />
 						</InputContainer>
 						<InputContainer>
 							<Label>Código</Label>
@@ -96,7 +89,6 @@ export default function ProductForm({
 								type="number"
 								defaultValue={product.code}
 								placeholder="000000000"
-								disabled={loading}
 							/>
 							{typeof errors !== "string" &&
 								errors?.errors &&
@@ -112,11 +104,7 @@ export default function ProductForm({
 									(YYYY-MM-DD)
 								</small>
 							</Label>
-							<Input
-								defaultValue={product.createdAt}
-								readOnly
-								disabled={loading}
-							/>
+							<Input defaultValue={product.createdAt} readOnly />
 						</InputContainer>
 					</div>
 				</article>
@@ -141,7 +129,6 @@ export default function ProductForm({
 							type="number"
 							step="0.01"
 							defaultValue={product.price}
-							disabled={loading}
 						/>
 						{typeof errors !== "string" &&
 							errors?.errors &&
@@ -158,7 +145,6 @@ export default function ProductForm({
 							icon="$"
 							type="number"
 							defaultValue={product.cost}
-							disabled={loading}
 						/>
 						{typeof errors !== "string" &&
 							errors?.errors &&
@@ -174,7 +160,7 @@ export default function ProductForm({
 					>
 						<Label>Categoría</Label>
 						<Select name="category" defaultValue={product.category?._id}>
-							<SelectTrigger disabled={loading}>
+							<SelectTrigger>
 								<SelectValue placeholder="Selecciona una categoría" />
 							</SelectTrigger>
 							<SelectContent>
@@ -199,7 +185,7 @@ export default function ProductForm({
 			<Batches />
 			<footer className="px-8 py-6 bg-zinc-950/50 rounded-b flex flex-row justify-end items-center gap-x-4">
 				<RemoveProduct image={product.image} />
-				<SubmitButton loading={loading} pendingText="Guardando cambios">
+				<SubmitButton pendingText="Guardando cambios">
 					Guardar cambios
 				</SubmitButton>
 			</footer>
