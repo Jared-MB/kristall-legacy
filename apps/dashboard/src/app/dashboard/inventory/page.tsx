@@ -5,22 +5,24 @@ import ProductsTable from "./components/products-table";
 import ProductsTableSkeleton from "./components/products-table/skeleton";
 import { SearchProduct } from "./components/search-product";
 
+import { MainContent } from "@kristall/ui/layout/main-content";
+
 export default async function InventoryPage(props: {
 	searchParams: Promise<URLSearchParams>;
 }) {
 	const searchParams = await props.searchParams;
 	return (
-		<main>
-			<header className="flex flex-row items-center justify-end p-4 gap-x-4">
+		<MainContent>
+			<header className="flex flex-row items-center justify-end gap-x-4 mb-4">
 				<SearchProduct />
 				<LocationsFilter />
 				<Menu />
 			</header>
-			<section className="px-4">
+			<section>
 				<Suspense fallback={<ProductsTableSkeleton />}>
 					<ProductsTable searchParams={searchParams} />
 				</Suspense>
 			</section>
-		</main>
+		</MainContent>
 	);
 }

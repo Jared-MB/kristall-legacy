@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 
 import { Item, ItemTitle, ItemValue } from "@/components/ui/item";
+import { MainContent } from "@kristall/ui/layout/main-content";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { getCategories } from "./_adapters";
@@ -17,12 +18,12 @@ export default async function CategoriesPage() {
 	const categories = await getCategories();
 
 	return (
-		<main className="h-layout overflow-y-scroll">
-			<header className="p-4 flex flex-row justify-between items-center">
+		<MainContent>
+			<header className="flex flex-row justify-between items-center pb-4">
 				<h3 className="text-2xl">Categorías</h3>
 				<AddCategory />
 			</header>
-			<section className="grid grid-cols-3 gap-4 px-4">
+			<section className="grid grid-cols-3 gap-4">
 				{categories.map((category) => (
 					<Card key={category._id}>
 						<CardHeader>
@@ -50,6 +51,6 @@ export default async function CategoriesPage() {
 					</Card>
 				))}
 			</section>
-		</main>
+		</MainContent>
 	);
 }

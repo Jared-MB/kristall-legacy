@@ -7,6 +7,7 @@ import {
 	CardTitle,
 } from "@kristall/ui/card";
 
+import { MainContent } from "@kristall/ui/layout/main-content";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import AddProductForm from "./components/add-product-form";
@@ -18,7 +19,7 @@ export default async function ProductIdPage() {
 	if (!allCategories) return <div>Categories not found</div>;
 
 	return (
-		<main className="p-8 overflow-y-scroll h-layout">
+		<MainContent>
 			<Card variant="container" className="mb-4">
 				<CardHeader className="p-0">
 					<CardTitle>Agregar producto</CardTitle>
@@ -33,6 +34,6 @@ export default async function ProductIdPage() {
 					<AddProductForm categories={allCategories} />
 				</BatchesProvider>
 			</LocationsToAddProvider>
-		</main>
+		</MainContent>
 	);
 }

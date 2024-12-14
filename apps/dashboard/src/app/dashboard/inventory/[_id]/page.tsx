@@ -6,6 +6,7 @@ import ProductForm from "./components/product-form";
 
 import { getCategories } from "@kristall/core/categories/all";
 import { getProductById } from "@kristall/core/products/id";
+import { MainContent } from "@kristall/ui/layout/main-content";
 
 export default async function ProductIdPage(props: {
 	params: Promise<{
@@ -21,20 +22,22 @@ export default async function ProductIdPage(props: {
 	if (!categories) return <div>Categories not found</div>;
 
 	return (
-		<LocationsToAddProvider value={product.locations}>
-			<BatchesProvider
-				value={{
-					batches: product.batchEnabled
-						? (product.locations.flatMap(
-								(location) => location.productBatches,
-							) as ProductBatch[])
-						: [],
-					isEnabled: Boolean(product.batchEnabled),
-					defaultBatchEnabled,
-				}}
-			>
-				<ProductForm product={product} categories={categories} />
-			</BatchesProvider>
-		</LocationsToAddProvider>
+		<MainContent>
+			<LocationsToAddProvider value={product.locations}>
+				<BatchesProvider
+					value={{
+						batches: product.batchEnabled
+							? (product.locations.flatMap(
+									(location) => location.productBatches,
+								) as ProductBatch[])
+							: [],
+						isEnabled: Boolean(product.batchEnabled),
+						defaultBatchEnabled,
+					}}
+				>
+					<ProductForm product={product} categories={categories} />
+				</BatchesProvider>
+			</LocationsToAddProvider>
+		</MainContent>
 	);
 }
