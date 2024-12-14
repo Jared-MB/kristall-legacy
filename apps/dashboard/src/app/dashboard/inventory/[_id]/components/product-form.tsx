@@ -30,9 +30,14 @@ import RemoveProduct from "../components/remove-product";
 interface Props {
 	product: Product;
 	categories: Category[];
+	loading?: boolean;
 }
 
-export default function ProductForm({ product, categories }: Props) {
+export default function ProductForm({
+	product,
+	categories,
+	loading = false,
+}: Props) {
 	const { locationsToAdd } = useLocationsToAddContext();
 	const { batches, isEnabled } = useBatchesContext();
 
@@ -81,7 +86,11 @@ export default function ProductForm({ product, categories }: Props) {
 							}}
 						>
 							<Label>Nombre*</Label>
-							<Input name="name" defaultValue={product.name} />
+							<Input
+								name="name"
+								defaultValue={product.name}
+								disabled={loading}
+							/>
 						</InputContainer>
 						<InputContainer>
 							<Label>Código</Label>
@@ -90,6 +99,7 @@ export default function ProductForm({ product, categories }: Props) {
 								type="number"
 								defaultValue={product.code}
 								placeholder="000000000"
+								disabled={loading}
 							/>
 							{typeof errors !== "string" &&
 								errors?.errors &&
@@ -129,6 +139,7 @@ export default function ProductForm({ product, categories }: Props) {
 							icon="$"
 							type="number"
 							step="0.01"
+							disabled={loading}
 							defaultValue={product.price}
 						/>
 						{typeof errors !== "string" &&
@@ -146,6 +157,7 @@ export default function ProductForm({ product, categories }: Props) {
 							icon="$"
 							type="number"
 							defaultValue={product.cost}
+							disabled={loading}
 						/>
 						{typeof errors !== "string" &&
 							errors?.errors &&
@@ -160,7 +172,11 @@ export default function ProductForm({ product, categories }: Props) {
 						}}
 					>
 						<Label>Categoría</Label>
-						<Select name="category" defaultValue={product.category?._id}>
+						<Select
+							name="category"
+							defaultValue={product.category?._id}
+							disabled={loading}
+						>
 							<SelectTrigger>
 								<SelectValue placeholder="Selecciona una categoría" />
 							</SelectTrigger>
