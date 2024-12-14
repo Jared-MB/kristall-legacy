@@ -5,6 +5,8 @@ import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
 import { updateProduct } from "@/actions/product.actions";
+import { useBatchesContext } from "../../context/batch-context";
+import { useLocationsToAddContext } from "../../context/location-context";
 
 import Divider from "@/components/divider";
 import ProductImage from "@/components/form-product-image";
@@ -22,8 +24,6 @@ import {
 } from "@kristall/ui/select";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
-import { useBatchesContext } from "../../context/batch-context";
-import { useLocationsToAddContext } from "../../context/location-context";
 import RemoveProduct from "../components/remove-product";
 
 interface Props {
