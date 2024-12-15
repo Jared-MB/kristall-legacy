@@ -7,10 +7,10 @@ import { useParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
+import { updateProductById } from "@kristall/core/products/id";
 import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
 
-import { updateProductById } from "@kristall/core/products/id";
 import { ImagePreview } from "@kristall/ui/functional/image-preview";
 import { SubmitButton } from "@kristall/ui/functional/submit-button";
 import { Input, InputContainer, InputError } from "@kristall/ui/input";
