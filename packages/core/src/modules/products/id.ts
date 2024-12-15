@@ -124,6 +124,7 @@ export const updateProductById = async (
 	}
 
 	revalidateTag(PRODUCTS_TAGS.PAGINATED);
+	revalidateTag(`PRODUCT-${productId}`);
 	return "Actualizado correctamente";
 };
 
