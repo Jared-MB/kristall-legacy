@@ -12,5 +12,5 @@ export const getCategories = async () => {
 
 export const getCategoriesDetails = async (): Promise<CategoryDetail[]> => {
 	const { data } = await getCategoriesDetailsService();
-	return data;
+	return data ?? [];
 };
