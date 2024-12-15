@@ -31,7 +31,10 @@ export const AddOrderSchema = z.object({
 			required_error: "Debe seleccionar un método de pago",
 		},
 	),
-	advance: z.preprocess((val) => Number(val), z.number().int().min(0)),
+	advance: z.preprocess(
+		(val) => Number(val),
+		z.number().int().min(0, "El valor debe ser mayor o igual a 0").optional(),
+	),
 	productsFrom: z.string().uuid(),
 	cost: z.preprocess((val) => Number(val), z.number().int().min(0).optional()),
 });
