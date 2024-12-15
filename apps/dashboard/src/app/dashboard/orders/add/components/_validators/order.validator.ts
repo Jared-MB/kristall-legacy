@@ -18,7 +18,7 @@ export const AddOrderSchema = z.object({
 				total: z.number().int().positive(),
 				code: z.string().min(1).max(255),
 				name: z.string().min(1).max(255),
-				cost: z.number().int().positive().optional(),
+				cost: z.number().int().min(0).optional(),
 			}),
 		)
 		.min(1, "Debe agregar al menos un producto al carrito"),
