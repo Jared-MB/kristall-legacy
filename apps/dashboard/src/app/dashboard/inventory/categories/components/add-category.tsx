@@ -1,25 +1,26 @@
 "use client";
 
-import SubmitButton from "@/components/submit-button";
-import { Button } from "@/components/ui/button";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "sonner";
+
+import { uploadCategory } from "@kristall/core/categories/upload";
+
+import { Button } from "@kristall/ui/button";
 import {
 	Dialog,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input, InputContainer, InputError } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Blocks } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
-import { toast } from "sonner";
-import { uploadCategory } from "../_adapters";
+} from "@kristall/ui/dialog";
+import { SubmitButton } from "@kristall/ui/functional/submit-button";
+import { Input, InputContainer, InputError } from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
 
-/**
- * Refactor to get out of category route
- */
-export default function AddCategory({ asLink = false, showIcon = true }) {
+import { Blocks } from "lucide-react";
+
+export function AddCategory({ asLink = false, showIcon = true }) {
 	const [open, setOpen] = useState(false);
 
 	const [response, dispatch] = useActionState(uploadCategory, undefined);
@@ -47,7 +48,7 @@ export default function AddCategory({ asLink = false, showIcon = true }) {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<h3 className="text-2xl">Crear categoría</h3>
+					<DialogTitle>Crear categoría</DialogTitle>
 				</DialogHeader>
 				<form className="flex flex-col gap-y-4" action={dispatch}>
 					<InputContainer>

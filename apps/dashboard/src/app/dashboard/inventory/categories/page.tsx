@@ -1,21 +1,22 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+
+import { Item, ItemTitle, ItemValue } from "@/components/ui/item";
+import { getCategoriesDetails } from "@kristall/core/categories/all";
+import { Button, buttonVariants } from "@kristall/ui/button";
 import {
 	Card,
 	CardBody,
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-
-import { Item, ItemTitle, ItemValue } from "@/components/ui/item";
+} from "@kristall/ui/card";
 import { MainContent } from "@kristall/ui/layout/main-content";
+import { AddCategory } from "./components/add-category";
+
 import { ExternalLink } from "lucide-react";
-import Link from "next/link";
-import { getCategories } from "./_adapters";
-import AddCategory from "./components/add-category";
 
 export default async function CategoriesPage() {
-	const categories = await getCategories();
+	const categories = await getCategoriesDetails();
 
 	return (
 		<MainContent>
