@@ -31,7 +31,7 @@ import {
 } from "@kristall/ui/select";
 import { Divider } from "@kristall/ui/separator";
 import { Switch, SwitchContainer } from "@kristall/ui/switch";
-import AddCategory from "../../categories/components/add-category";
+import { AddCategory } from "../../categories/components/add-category";
 import Batches from "../../components/batches";
 import Locations from "../../components/locations";
 import { SaveButton } from "./save-button";
