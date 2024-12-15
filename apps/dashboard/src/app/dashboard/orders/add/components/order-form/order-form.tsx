@@ -27,6 +27,7 @@ export default function OrderForm() {
 
 	useEffect(() => {
 		if (errors) {
+			console.log(errors);
 			"message" in errors && toast.error(errors.message);
 			"cart" in errors && errors.cart && toast.error(errors.cart[0]);
 		}
