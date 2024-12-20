@@ -4,6 +4,7 @@ import { settings } from "@kristall/core/modules/settings";
 import { getProductById } from "@kristall/core/products/id";
 
 import { MainContent } from "@kristall/ui/layout/main-content";
+import { InventoryHeader } from "../components/inventory-form/inventory-header";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import ProductForm from "./components/product-form";
@@ -30,6 +31,7 @@ export default async function ProductIdPage(props: {
 
 	return (
 		<MainContent>
+			<InventoryHeader productName={product.name} />
 			<LocationsToAddProvider value={product.locations}>
 				<BatchesProvider
 					value={{
