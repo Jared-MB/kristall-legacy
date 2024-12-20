@@ -38,16 +38,17 @@ interface MenuLinkProps {
 	href: string;
 	children: React.ReactNode;
 	icon?: React.ReactNode;
+	prefetch?: boolean;
 }
 
 export const menuLinkClass = "flex items-center gap-x-2 w-full";
 
-export const MenuLink = ({ children, href, icon }: MenuLinkProps) => {
+export const MenuLink = ({ children, href, icon, prefetch }: MenuLinkProps) => {
 	return (
 		<Link
 			href={href}
 			className={menuLinkClass}
-			prefetch={href.includes("/add")}
+			prefetch={href.includes("/add") || prefetch}
 		>
 			{icon}
 			{children}
