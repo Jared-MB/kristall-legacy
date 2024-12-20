@@ -13,13 +13,11 @@ import {
 import { MoreVertical, PackagePlus, Shapes, Upload } from "lucide-react";
 
 import InventoryCut from "./inventory-cut";
-import MenuShortcut from "./menu-shortcut";
 import PrintLocations from "./print-locations";
 
 export default function Menu() {
 	return (
 		<DropdownMenu>
-			<MenuShortcut />
 			<DropdownMenuTrigger asChild>
 				<Button variant="outline" size="icon">
 					<MoreVertical />
@@ -30,7 +28,11 @@ export default function Menu() {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
-						<MenuLink href="/dashboard/inventory/add" icon={<Upload />}>
+						<MenuLink
+							href="/dashboard/inventory/add"
+							prefetch
+							icon={<Upload />}
+						>
 							Crear producto
 							<DropdownMenuShortcut>C</DropdownMenuShortcut>
 						</MenuLink>
@@ -44,8 +46,13 @@ export default function Menu() {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
-						<MenuLink href="/dashboard/inventory/new" icon={<PackagePlus />}>
+						<MenuLink
+							href="/dashboard/inventory/new"
+							prefetch
+							icon={<PackagePlus />}
+						>
 							Agregar inventario
+							<DropdownMenuShortcut>N</DropdownMenuShortcut>
 						</MenuLink>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
