@@ -3,7 +3,6 @@
 import type { Category } from "@kristall/core/modules/categories/interfaces";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -15,6 +14,7 @@ import { useLocationsToAddContext } from "../../context/location-context";
 import { Button } from "@kristall/ui/button";
 import { Card, CardBody, CardFooter, CardSubtitle } from "@kristall/ui/card";
 import { ImagePreview } from "@kristall/ui/functional/image-preview";
+import { SaveButton } from "@kristall/ui/functional/submit-button";
 import {
 	Input,
 	InputContainer,
@@ -22,19 +22,12 @@ import {
 	InputError,
 } from "@kristall/ui/input";
 import { Label } from "@kristall/ui/label";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@kristall/ui/select";
 import { Divider } from "@kristall/ui/separator";
 import { Switch, SwitchContainer } from "@kristall/ui/switch";
 import { AddCategory } from "../../categories/components/add-category";
 import Batches from "../../components/batches";
+import { SelectCategory } from "../../components/inventory-form/select-category";
 import Locations from "../../components/locations";
-import { SaveButton } from "./save-button";
 
 interface Props {
 	categories: Category[];
@@ -59,8 +52,6 @@ export default function AddProductForm({ categories }: Props) {
 		enhancedAction,
 		undefined,
 	);
-
-	const router = useRouter();
 
 	useEffect(() => {
 		if (errors) {
@@ -146,30 +137,9 @@ export default function AddProductForm({ categories }: Props) {
 							<Label>Costo</Label>
 							<Input name="cost" icon="$" type="number" placeholder="0" />
 						</InputContainer>
-						<InputContainer
-							classNames={{
-								container: "col-span-2 lg:col-span-1",
-							}}
-						>
+						<InputContainer className="col-span-2 lg:col-span-1">
 							<Label>Categoría*</Label>
-							<Select name="category">
-								<SelectTrigger>
-									<SelectValue placeholder="Selecciona una categoría" />
-								</SelectTrigger>
-								<SelectContent>
-									{categories.length > 0 ? (
-										categories.map((category) => (
-											<SelectItem key={category._id} value={category._id}>
-												{category.name}
-											</SelectItem>
-										))
-									) : (
-										<SelectItem disabled value="no-value">
-											No hay categorías disponibles
-										</SelectItem>
-									)}
-								</SelectContent>
-							</Select>
+							<SelectCategory categories={categories} />
 							<div className="flex items-center justify-between">
 								{errors && "category" in errors && errors?.category && (
 									<InputError>{errors.category[0]}</InputError>
