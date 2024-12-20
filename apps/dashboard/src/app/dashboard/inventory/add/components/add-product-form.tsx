@@ -7,7 +7,7 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { useShortcut } from "@kristall/core/hooks/use-shortcut";
-import { products } from "@kristall/core/modules/products";
+import { uploadProduct } from "@kristall/core/products/upload";
 import { useBatchesContext } from "../../context/batch-context";
 import { useLocationsToAddContext } from "../../context/location-context";
 
@@ -40,7 +40,7 @@ export default function AddProductForm({ categories }: Props) {
 	const [isCreatingMany, setIsCreatingMany] = useState(false);
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const enhancedAction = products.uploadProduct.bind(
+	const enhancedAction = uploadProduct.bind(
 		null,
 		locationsToAdd,
 		batches,
