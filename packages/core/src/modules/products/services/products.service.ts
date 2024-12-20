@@ -19,6 +19,7 @@ export const getPaginatedProductsService = async (
 ): ServiceResponse<Pagination<Product>> => {
 	return await GET<Pagination<Product>>(`${BASE_URL}?${query}`, {
 		tags: [PRODUCTS_TAGS.PAGINATED],
+		cache: "no-store",
 	});
 };
 
