@@ -32,6 +32,7 @@ export const uploadCategory = async (
 	}
 
 	revalidateTag(CATEGORIES_TAGS.DETAILS);
+	revalidateTag(CATEGORIES_TAGS.GET);
 	return {
 		success: true,
 	};
