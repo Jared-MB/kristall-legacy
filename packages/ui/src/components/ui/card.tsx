@@ -1,5 +1,5 @@
-import { cn } from "@kristall/ui/core/utils";
 import { forwardRef } from "react";
+import { cn } from "../../core/utils";
 
 export const Card = forwardRef<
 	HTMLDivElement,
@@ -46,9 +46,14 @@ export function CardTitle({ children }: { children: React.ReactNode }) {
 	return <h3 className="text-2xl font-medium text-balance">{children}</h3>;
 }
 
-export function CardSubtitle({ children }: { children: React.ReactNode }) {
+export function CardSubtitle({
+	children,
+	className,
+}: { children: React.ReactNode; className?: string }) {
 	return (
-		<h4 className="text-[1.37rem] font-medium text-zinc-300">{children}</h4>
+		<h4 className={cn("text-[1.37rem] font-medium text-zinc-300", className)}>
+			{children}
+		</h4>
 	);
 }
 
