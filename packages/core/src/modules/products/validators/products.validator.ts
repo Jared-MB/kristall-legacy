@@ -6,10 +6,7 @@ export const AddProductSchema = z.object({
 		.string()
 		.min(3, "El nombre debe tener al menos 3 caracteres")
 		.max(255),
-	code: z.preprocess(
-		(val) => Number(val),
-		z.number().int().min(0).max(999999999).optional(),
-	),
+	code: z.preprocess((val) => Number(val), z.number().int().min(0).optional()),
 	price: z.preprocess(
 		(val) => Number(val),
 		z
