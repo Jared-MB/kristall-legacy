@@ -7,9 +7,10 @@ import { images } from "../../image";
 import type { BatchToAdd, LocationToAdd } from "../../locations/interfaces";
 import { BEST_SELLERS } from "../constants/products.mock";
 import { productsService } from "../services";
+import { uploadProduct } from "../upload";
 import { products } from "./index";
 
-const { getBestSellers, uploadProduct } = products;
+const { getBestSellers } = products;
 
 vi.mock("next/navigation", () => ({
 	redirect: vi.fn(),
