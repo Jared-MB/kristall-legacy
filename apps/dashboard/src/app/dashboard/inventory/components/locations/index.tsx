@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
-import { toast } from "sonner";
+import { useMemo } from "react";
 
 import {
 	CardBody,
@@ -25,12 +24,6 @@ export default function Locations() {
 	const totalStock = useMemo(() => {
 		return locationsToAdd.reduce((acc, location) => acc + location.stock, 0);
 	}, [locationsToAdd]);
-
-	useEffect(() => {
-		toast.info("Al finalizar de editar, no olvides guardar los cambios", {
-			duration: 3000,
-		});
-	}, []);
 
 	return (
 		<CardBody className="flex flex-col gap-y-4">
