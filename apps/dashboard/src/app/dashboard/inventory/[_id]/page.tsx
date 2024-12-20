@@ -8,6 +8,7 @@ import { InventoryHeader } from "../components/inventory-form/inventory-header";
 import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import ProductForm from "./components/product-form";
+import SaveRemember from "./components/save-remember";
 
 export default async function ProductIdPage(props: {
 	params: Promise<{
@@ -43,6 +44,7 @@ export default async function ProductIdPage(props: {
 					<ProductForm product={product} categories={categories} />
 				</BatchesProvider>
 			</LocationsToAddProvider>
+			<SaveRemember />
 		</MainContent>
 	);
 }
