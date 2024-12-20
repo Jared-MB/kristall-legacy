@@ -152,14 +152,7 @@ export default function AddProductForm({ categories }: Props) {
 							}}
 						>
 							<Label>Categoría*</Label>
-							{/* <Input defaultValue={product.category.name} /> */}
-							<Select
-								name="category"
-								onValueChange={(value) =>
-									value === "create" &&
-									router.push("/dashboard/inventory/categories")
-								}
-							>
+							<Select name="category">
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona una categoría" />
 								</SelectTrigger>
@@ -171,14 +164,9 @@ export default function AddProductForm({ categories }: Props) {
 											</SelectItem>
 										))
 									) : (
-										<>
-											<SelectItem disabled value="no-value">
-												No hay categorías disponibles
-											</SelectItem>
-											<SelectItem value="create">
-												Crear una categoría
-											</SelectItem>
-										</>
+										<SelectItem disabled value="no-value">
+											No hay categorías disponibles
+										</SelectItem>
 									)}
 								</SelectContent>
 							</Select>
