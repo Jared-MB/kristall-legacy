@@ -7,6 +7,7 @@ import {
 	CardTitle,
 } from "@kristall/ui/card";
 import { Separator } from "@kristall/ui/separator";
+import { ExperimentalFeature } from "../components/experimental-feature";
 import SaveForms from "./components/save-forms";
 
 export default function GeneralSettingsPage() {
@@ -19,7 +20,9 @@ export default function GeneralSettingsPage() {
 				</CardHeader>
 				<Separator />
 				<CardBody id="default-access">
-					<CardSubtitle>Guardar formularios</CardSubtitle>
+					<CardSubtitle className="flex items-center justify-between gap-x-2">
+						Guardar formularios <ExperimentalFeature />
+					</CardSubtitle>
 					<CardDescription>
 						Guarda los formularios de cualquier tipo (como añadir productos,
 						pedidos, etc.) de formal local en tu navegador. Esto te permite
