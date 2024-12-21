@@ -11,6 +11,22 @@ interface Version {
 
 const VERSIONS: Version[] = [
 	{
+		_id: "v0.9.2",
+		date: "2024-12-20",
+		title: "Bugs Fixing",
+		description: `
+			Mejoramos varios errores internos que impedían la funcionalidad correcta y fluida de la aplicación al editar un producto, 
+			así como mejoras en la interfaz de usuario.
+		`,
+		fixes: [
+			"Mejor consistencia de la interfaz de usuario en la edición de productos.",
+			"Eliminado el bug que mostraba información desactualizada en la edición de productos al guardar los cambios.",
+		],
+		features: [
+			"Actualización de la interfaz en tabla de productos en la página de inventario, se añadieron nuevos botones para ordenar por stock y precio.",
+		],
+	},
+	{
 		_id: "v0.9.1",
 		date: "2024-12-13",
 		title: "Impresión de inventarios",
