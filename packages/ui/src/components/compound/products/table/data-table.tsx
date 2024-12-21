@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
 
 	const currentPage = useMemo(
 		() => table.getState().pagination.pageIndex + 1,
-		[table],
+		[table.getState()],
 	);
 	const pageCount = table.getPageCount();
 
@@ -110,7 +110,7 @@ export function DataTable<TData, TValue>({
 		} else {
 			prefetch([currentPage - 1, currentPage + 1]);
 		}
-	}, [currentPage, prefetch, pageCount]);
+	}, [table.getState(), prefetch, pageCount]);
 
 	useEffect(() => {
 		prefetch([1, 2]);

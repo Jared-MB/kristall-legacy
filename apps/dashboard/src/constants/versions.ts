@@ -11,6 +11,16 @@ interface Version {
 
 const VERSIONS: Version[] = [
 	{
+		_id: "v0.9.3",
+		date: "2024-12-20",
+		title: "Speed Improvements",
+		description: `
+			En Kristall siempre estamos buscando mejorar, por eso hemos aumentado la velocidad de carga de la aplicación.
+			Ahora, al navegar entre tu inventario de productos, la velocidad de carga es mucho más rápida.
+		`,
+		features: ["Mejoras en la carga de la aplicación."],
+	},
+	{
 		_id: "v0.9.2",
 		date: "2024-12-20",
 		title: "Bugs Fixing",
