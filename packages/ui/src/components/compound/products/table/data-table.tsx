@@ -17,7 +17,7 @@ import {
 	ChevronsLeft,
 	ChevronsRight,
 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../../../ui/button";
 import {
 	Table,
@@ -29,6 +29,7 @@ import {
 } from "../../../ui/table";
 
 import { useQueryParams } from "@kristall/core/hooks/use-query-params";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -43,7 +44,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 
-	const { setQueryParams } = useQueryParams();
+	const { setQueryParams, queryParams } = useQueryParams();
 
 	const onFirstPageClick = () => {
 		setQueryParams("page", 1);
@@ -81,6 +82,39 @@ export function DataTable<TData, TValue>({
 			sorting,
 		},
 	});
+
+	const router = useRouter();
+
+	const currentPage = useMemo(
+		() => table.getState().pagination.pageIndex + 1,
+		[table],
+	);
+	const pageCount = table.getPageCount();
+
+	const prefetch = useCallback(
+		(pages: number[]) => {
+			for (const page of pages) {
+				const query = new URLSearchParams(queryParams);
+				query.set("page", page.toString());
+				router.prefetch(`/dashboard/inventory?${query.toString()}`);
+			}
+		},
+		[queryParams],
+	);
+
+	useEffect(() => {
+		if (currentPage === 1) {
+			prefetch([currentPage + 1]);
+		} else if (currentPage === table.getPageCount()) {
+			prefetch([currentPage - 1]);
+		} else {
+			prefetch([currentPage - 1, currentPage + 1]);
+		}
+	}, [currentPage, prefetch, pageCount]);
+
+	useEffect(() => {
+		prefetch([1, 2]);
+	}, []);
 
 	return (
 		<section className="flex flex-col gap-y-2 grow">
