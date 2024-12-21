@@ -4,9 +4,11 @@ import { cn } from "@kristall/ui/core/utils";
 
 const Table = React.forwardRef<
 	HTMLTableElement,
-	React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-	<div className="relative w-full overflow-auto">
+	React.HTMLAttributes<HTMLTableElement> & { growContainer?: boolean }
+>(({ className, growContainer, ...props }, ref) => (
+	<div
+		className={cn("relative w-full overflow-auto", growContainer ? "grow" : "")}
+	>
 		<table
 			ref={ref}
 			className={cn("w-full caption-bottom text-sm", className)}
