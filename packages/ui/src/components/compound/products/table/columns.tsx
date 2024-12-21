@@ -1,0 +1,171 @@
+"use client";
+
+import type { Product } from "@kristall/core/interfaces/products";
+import type { ColumnDef } from "@tanstack/react-table";
+
+import Link from "next/link";
+
+import { useQueryParams } from "@kristall/core/hooks/use-query-params";
+import { ArrowUpDown, MoreVertical } from "lucide-react";
+import { NoImage } from "../../../svg/no-image";
+import { Button } from "../../../ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "../../../ui/dropdown-menu";
+
+type QueryKeys = "sortBy" | "orderBy";
+type QueryValues = "price" | "DESC" | "ASC" | "stock";
+
+export const columns: ColumnDef<Product>[] = [
+	{
+		id: "image",
+		cell: ({ row }) => {
+			const product = row.original;
+
+			return (
+				<div className="grid place-content-center">
+					{product.image?.url ? (
+						<img
+							loading="lazy"
+							src={product.image?.url}
+							alt={`Imagen del producto ${product.name}`}
+							className="w-10 h-10 rounded object-cover aspect-square object-center"
+						/>
+					) : (
+						<div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded">
+							<NoImage className="w-full h-full object-contain" />
+						</div>
+					)}
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: "name",
+		header: "Nombre",
+	},
+	{
+		accessorKey: "price",
+		header: ({ column }) => {
+			const { setQueryParams, queryParams, removeQueryParams } = useQueryParams<
+				QueryKeys,
+				QueryValues
+			>();
+
+			const handleSort = () => {
+				const hasQuery = queryParams.get("sortBy") === "price";
+
+				if (!hasQuery) {
+					setQueryParams([
+						{
+							key: "sortBy",
+							value: "price",
+						},
+						{
+							key: "orderBy",
+							value: "DESC",
+						},
+					]);
+					return;
+				}
+				if (hasQuery && queryParams.get("orderBy") === "DESC") {
+					setQueryParams("orderBy", "ASC");
+					return;
+				}
+				removeQueryParams(["orderBy", "sortBy"]);
+			};
+
+			return (
+				<Button variant="ghost" onClick={handleSort}>
+					Precio
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+		cell: ({ row }) => {
+			const amount = Number.parseFloat(row.getValue("price"));
+			const formatted = new Intl.NumberFormat("es-MX", {
+				style: "currency",
+				currency: "MXN",
+			}).format(amount);
+
+			return <div className="text-right font-medium pl-4">{formatted}</div>;
+		},
+	},
+	{
+		accessorKey: "stock",
+		header: ({ column }) => {
+			const { setQueryParams, queryParams, removeQueryParams } = useQueryParams<
+				QueryKeys,
+				QueryValues
+			>();
+
+			const handleSort = () => {
+				const hasQuery = queryParams.get("sortBy") === "stock";
+
+				if (!hasQuery) {
+					setQueryParams([
+						{
+							key: "sortBy",
+							value: "stock",
+						},
+						{
+							key: "orderBy",
+							value: "DESC",
+						},
+					]);
+					return;
+				}
+				if (hasQuery && queryParams.get("orderBy") === "DESC") {
+					setQueryParams("orderBy", "ASC");
+					return;
+				}
+				removeQueryParams(["orderBy", "sortBy"]);
+			};
+
+			return (
+				<Button variant="ghost" onClick={handleSort}>
+					Stock
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+		cell: ({ row }) => {
+			return (
+				<div className="text-right font-medium pl-4">
+					{row.getValue("stock")}
+				</div>
+			);
+		},
+	},
+	{
+		id: "actions",
+		cell: ({ row }) => {
+			const product = row.original;
+
+			return (
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant="ghost" size="icon">
+							<MoreVertical />
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuLabel>Opciones</DropdownMenuLabel>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem asChild>
+							<Link prefetch href={`/dashboard/inventory/${product._id}`}>
+								Ver más
+							</Link>
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			);
+		},
+	},
+];
