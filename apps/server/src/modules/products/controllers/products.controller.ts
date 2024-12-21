@@ -27,10 +27,12 @@ import { AuthService } from '@/server/services/auth.service';
 import { TokenService, Utils } from '@/server/utilities';
 import { BatchService, LocationProductService, ProductsService } from '../services';
 
-import { addMonth } from '@formkit/tempo';
-import { Image, LocationProduct, ProductBatch } from '@/server/entities';
+import { Image, LocationProduct, Product, ProductBatch } from '@/server/entities';
 import { ResponseInterceptor } from '@/server/interceptors';
+import { addMonth } from '@formkit/tempo';
 import { CreateBatchClientDto, CreateLocationProductDto, CreateProductClientDto, CreateProductServerDto, EditProductClientDto } from '../dto';
+import { GetProductQueryDto } from '../dto/get-product-query.dto';
+import { ProductRepository } from '../repositories/product.repository';
 
 @Controller('products')
 export class ProductsController {
@@ -41,39 +43,38 @@ export class ProductsController {
     private readonly tokenService: TokenService,
     private readonly locationProductService: LocationProductService,
     private readonly authService: AuthService,
-    private readonly imageService: ImageService
+    private readonly imageService: ImageService,
+    private readonly productRepository: ProductRepository
   ) { }
 
-  // #region REFACTOR
+  // #region GET PRODUCTS
+  @UseInterceptors(ResponseInterceptor)
   @Get()
   async getProducts(
-    @Query() query: {
-      take: string, skip: string, name: string, location: string, orderBy: {
-        tag: string,
-        order: 'ASC' | 'DESC',
-      }, category: string
-    },
-    @Res() res: Response,
-    @Req() req: Request,
+    @Query() query: GetProductQueryDto,
+    @Cookies('session') session: string,
   ) {
-    const cookie = req.cookies['session'];
-    const payload = this.tokenService.decodeCookie(cookie);
-    if (!payload) {
-      return res.status(404).json({ message: 'No route found' });
+    const user = this.authService.decodeCookie(session)
+    if (!user) throw new ForbiddenException()
+
+    const { sortBy = 'createdAt', orderBy = 'DESC' } = query
+
+    const ALLOWED_SORT_BY = ['createdAt', 'price', 'stock'] as (keyof Product)[]
+    if (!ALLOWED_SORT_BY.includes(sortBy)) {
+      throw new BadRequestException('Not allowed sort by query')
     }
 
-    const location = query.location ? query.location : '';
-    const take = query.take ? +query.take : 10;
-    const skip = query.skip ? +query.skip : 0;
-    const name = query.name ? query.name : undefined;
-    const orderBy = query.orderBy ? query.orderBy : {
-      order: 'ASC' as 'ASC' | 'DESC',
-      tag: ''
-    };
-    const category = query.category ? query.category : '';
+    const ALLOWED_ORDER_BY = ['ASC', 'DESC'] as ('ASC' | 'DESC')[]
+    if (!ALLOWED_ORDER_BY.includes(orderBy)) {
+      throw new BadRequestException('Not allowed order by query')
+    }
 
-    const products = this.productsService.getProducts(payload.shop._id, { take, skip, name, orderBy, category, location });
-    return this.utils.adaptResponse(products, res);
+    const products = await this.productRepository.getPaginated(user.shop._id, {
+      ...query,
+      sortBy,
+      orderBy
+    })
+    return products
   }
 
   // #region CREATE PRODUCT
@@ -189,6 +190,7 @@ export class ProductsController {
   }
 
   // #region EDIT PRODUCT
+  @UseInterceptors(ResponseInterceptor)
   @Put('id/:id')
   async editProduct(
     @Body() product: EditProductClientDto,
