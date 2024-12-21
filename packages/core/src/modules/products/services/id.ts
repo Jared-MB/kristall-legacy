@@ -6,7 +6,6 @@ import type { Product, UpdateProduct } from "../interfaces";
 export const getProductByIdService = async (_id: string) => {
 	return await GET<Product>(`/products/id/${_id}`, {
 		tags: [`PRODUCT-${_id}`],
-		cache: "no-store",
 	});
 };
 
