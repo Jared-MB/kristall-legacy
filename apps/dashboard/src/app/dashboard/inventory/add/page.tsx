@@ -7,7 +7,11 @@ import { BatchesProvider } from "../context/batch-context";
 import { LocationsToAddProvider } from "../context/location-context";
 import AddProductForm from "./components/add-product-form";
 
-export default async function AddProductPage() {
+interface Props {
+	redirectTo?: `/${string}`;
+}
+
+export default async function AddProductPage({ redirectTo }: Props) {
 	const [allCategories, userSettings] = await Promise.all([
 		getCategories(),
 		settings.getDefaultBatchEnabled(),
@@ -22,7 +26,7 @@ export default async function AddProductPage() {
 			<InventoryHeader />
 			<LocationsToAddProvider>
 				<BatchesProvider value={{ defaultBatchEnabled }}>
-					<AddProductForm categories={allCategories} />
+					<AddProductForm redirectTo={redirectTo} categories={allCategories} />
 				</BatchesProvider>
 			</LocationsToAddProvider>
 		</MainContent>

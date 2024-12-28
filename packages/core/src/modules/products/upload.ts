@@ -4,10 +4,11 @@ import type { Image } from "../image/interfaces";
 import type { BatchToAdd, LocationToAdd } from "../locations/interfaces";
 import type { UploadProductRaw } from "./interfaces";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { images } from "../image";
+import { PRODUCTS_TAGS } from "./constants";
 import { uploadProductService } from "./services/products.service";
 import { AddProductSchema } from "./validators";
 
@@ -16,6 +17,7 @@ export const uploadProduct = async (
 	batches: BatchToAdd[],
 	isEnabled: boolean,
 	isCreatingMany: boolean,
+	redirectTo: `/${string}` | undefined,
 	_prevState: unknown,
 	data: FormData,
 ) => {
@@ -58,10 +60,9 @@ export const uploadProduct = async (
 		};
 	}
 
-	console.log("⚠️ DON´T REVALIDATE PATH, USE REVALIDATE TAG INSTEAD");
-	revalidatePath("/dashboard/inventory");
+	revalidateTag(PRODUCTS_TAGS.PAGINATED);
 	if (!isCreatingMany) {
-		redirect("/dashboard/inventory");
+		redirect(redirectTo ?? "/dashboard/inventory");
 	}
 
 	return {

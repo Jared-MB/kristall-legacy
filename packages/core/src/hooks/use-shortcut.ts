@@ -34,7 +34,7 @@ export const useShortcut = (
 				options.shift === undefined || e.shiftKey === options.shift;
 
 			if (
-				keys.includes(e.key.toLowerCase()) &&
+				keys.includes(e.key?.toLowerCase()) &&
 				ctrlMatch &&
 				altMatch &&
 				shiftMatch

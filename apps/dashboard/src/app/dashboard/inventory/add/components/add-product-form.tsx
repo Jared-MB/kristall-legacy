@@ -31,9 +31,13 @@ import Locations from "../../components/locations";
 
 interface Props {
 	categories: Category[];
+	redirectTo?: `/${string}`;
 }
 
-export default function AddProductForm({ categories }: Props) {
+export default function AddProductForm({
+	categories,
+	redirectTo = undefined,
+}: Props) {
 	const { locationsToAdd, clearLocations } = useLocationsToAddContext();
 	const { batches, isEnabled, clearBatches } = useBatchesContext();
 
@@ -46,6 +50,7 @@ export default function AddProductForm({ categories }: Props) {
 		batches,
 		isEnabled,
 		isCreatingMany,
+		redirectTo,
 	);
 
 	const [errors, dispatch, isPending] = useActionState(

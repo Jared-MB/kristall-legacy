@@ -7,7 +7,7 @@ import { use, useEffect, useState } from "react";
 import { LocationsContext } from "../../context/location-context";
 import { useNewInventoryStore } from "../store/useNewInventoryStore";
 
-export default function SelectedLocation() {
+export function SelectedLocation() {
 	const locations = use(LocationsContext);
 
 	const setLocation = useNewInventoryStore((state) => state.setLocation);

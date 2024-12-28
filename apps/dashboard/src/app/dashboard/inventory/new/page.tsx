@@ -1,3 +1,4 @@
+import { Button } from "@kristall/ui/button";
 import {
 	Card,
 	CardDescription,
@@ -6,11 +7,13 @@ import {
 	CardTitle,
 } from "@kristall/ui/card";
 import { MainContent } from "@kristall/ui/layout/main-content";
+import { PackagePlus } from "lucide-react";
+import Link from "next/link";
 import Products from "./components/products";
 import RemoveProducts from "./components/remove-products";
 import SaveProducts from "./components/save-products";
 import { SearchProduct } from "./components/search-product";
-import SelectedLocation from "./components/selected-location";
+import { SelectedLocation } from "./components/selected-location";
 import { SearchProductContextProvider } from "./context/search-product";
 
 export default function NewInventoryPage() {
@@ -26,6 +29,14 @@ export default function NewInventoryPage() {
 							</CardDescription>
 						</div>
 						<div className="flex gap-x-4 items-center">
+							<Button variant="outline">
+								<Link
+									href="/dashboard/inventory/add"
+									className="flex items-center gap-x-2"
+								>
+									<PackagePlus className="w-5 h-5" /> Nuevo producto
+								</Link>
+							</Button>
 							<SearchProductContextProvider>
 								<SearchProduct />
 							</SearchProductContextProvider>
