@@ -114,7 +114,7 @@ import UnderConstruction from "@/components/pages/under-construction";
 export default async function SalesPage() {
 	return (
 		<UnderConstruction
-			value={25}
+			value={90}
 			link="https://pos.kristall.app"
 			target="_blank"
 		/>
