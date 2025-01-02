@@ -2,17 +2,22 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import * as React from "react";
+import type * as React from "react";
 
 import { cn } from "@kristall/ui/core/utils";
 import { useRouter } from "next/navigation";
 
-const Dialog = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Root>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> & {
-		navigateOnClose?: string;
-	}
->(({ onOpenChange, navigateOnClose, ...props }, ref) => {
+interface DialogProps
+	extends React.ComponentProps<typeof DialogPrimitive.Root> {
+	navigateOnClose?: string;
+	ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Overlay>>;
+}
+const Dialog = ({
+	ref,
+	onOpenChange,
+	navigateOnClose,
+	...props
+}: DialogProps) => {
 	const router = useRouter();
 
 	const navigate = () => navigateOnClose && router.push(navigateOnClose);
@@ -25,7 +30,7 @@ const Dialog = React.forwardRef<
 	};
 
 	return <DialogPrimitive.Root onOpenChange={handleOpenChange} {...props} />;
-});
+};
 Dialog.displayName = DialogPrimitive.Root.displayName;
 
 const DialogTrigger = DialogPrimitive.Trigger;
@@ -34,10 +39,11 @@ const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
 
-const DialogOverlay = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Overlay>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
+const DialogOverlay = ({
+	ref,
+	className,
+	...props
+}: React.ComponentProps<typeof DialogPrimitive.Overlay>) => (
 	<DialogPrimitive.Overlay
 		ref={ref}
 		className={cn(
@@ -46,15 +52,20 @@ const DialogOverlay = React.forwardRef<
 		)}
 		{...props}
 	/>
-));
+);
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-const DialogContent = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Content>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
-		navigateOnClose?: string;
-	}
->(({ className, children, navigateOnClose, ...props }, ref) => {
+interface DialogContentProps
+	extends React.ComponentProps<typeof DialogPrimitive.Content> {
+	navigateOnClose?: string;
+}
+const DialogContent = ({
+	ref,
+	className,
+	children,
+	navigateOnClose,
+	...props
+}: DialogContentProps) => {
 	const router = useRouter();
 
 	const navigate = () => navigateOnClose && router.push(navigateOnClose);
@@ -81,7 +92,7 @@ const DialogContent = React.forwardRef<
 			</DialogPrimitive.Content>
 		</DialogPortal>
 	);
-});
+};
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({
@@ -112,10 +123,11 @@ const DialogFooter = ({
 );
 DialogFooter.displayName = "DialogFooter";
 
-const DialogTitle = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Title>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
+const DialogTitle = ({
+	ref,
+	className,
+	...props
+}: React.ComponentProps<typeof DialogPrimitive.Title>) => (
 	<DialogPrimitive.Title
 		ref={ref}
 		className={cn(
@@ -124,19 +136,20 @@ const DialogTitle = React.forwardRef<
 		)}
 		{...props}
 	/>
-));
+);
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-const DialogDescription = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Description>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
+const DialogDescription = ({
+	ref,
+	className,
+	...props
+}: React.ComponentProps<typeof DialogPrimitive.Description>) => (
 	<DialogPrimitive.Description
 		ref={ref}
 		className={cn("text-sm text-muted-foreground", className)}
 		{...props}
 	/>
-));
+);
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {

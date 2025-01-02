@@ -1,15 +1,18 @@
 import { cn } from "@/core/utils";
-import { forwardRef } from "react";
 
-export const Card = forwardRef<
-	HTMLDivElement,
-	{
-		children: React.ReactNode;
-		variant?: "default" | "destructive" | "borderless" | "container";
-		className?: string;
-		as?: "section" | "div" | "nav";
-	}
->(({ children, variant, className, as = "section" }, ref) => {
+export const Card = ({
+	ref,
+	children,
+	variant,
+	className,
+	as = "section",
+}: {
+	children: React.ReactNode;
+	variant?: "default" | "destructive" | "borderless" | "container";
+	className?: string;
+	as?: "section" | "div" | "nav";
+	ref?: React.RefObject<HTMLDivElement>;
+}) => {
 	const As = as;
 
 	return (
@@ -26,7 +29,7 @@ export const Card = forwardRef<
 			{children}
 		</As>
 	);
-});
+};
 Card.displayName = "Card";
 
 export function CardHeader({

@@ -1,20 +1,25 @@
-import * as React from "react";
+import type * as React from "react";
 
 import { cn } from "@/core/utils";
 
 export interface InputProps
-	extends React.InputHTMLAttributes<HTMLInputElement> {}
+	extends React.InputHTMLAttributes<HTMLInputElement> {
+	icon?: React.ReactNode;
+	classNames?: {
+		container?: string;
+	};
+	endContent?: React.ReactNode;
+	ref?: React.Ref<HTMLInputElement>;
+}
 
-const Input = React.forwardRef<
-	HTMLInputElement,
-	InputProps & {
-		icon?: React.ReactNode;
-		classNames?: {
-			container?: string;
-		};
-		endContent?: React.ReactNode;
-	}
->(({ className, type, icon, endContent, ...props }, ref) => {
+const Input = ({
+	ref,
+	className,
+	type,
+	icon,
+	endContent,
+	...props
+}: InputProps) => {
 	return (
 		<div
 			className={cn(
@@ -36,7 +41,7 @@ const Input = React.forwardRef<
 			{endContent}
 		</div>
 	);
-});
+};
 Input.displayName = "Input";
 
 export function InputContainer({

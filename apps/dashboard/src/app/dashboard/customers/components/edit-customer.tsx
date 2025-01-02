@@ -13,7 +13,7 @@ import { Input, InputContainer } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/core/hooks";
 import type { Customer } from "@/types/customer";
-import { forwardRef, useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 const initialState = {
 	message: "",
@@ -24,10 +24,13 @@ const initialState = {
 	},
 };
 
-const EditCustomer = forwardRef<
-	HTMLFormElement,
-	{ customer: Customer; closeMenu: () => void }
->(({ customer, closeMenu }, _ref) => {
+const EditCustomer = ({
+	ref: _ref,
+	customer,
+	closeMenu,
+}: { customer: Customer; closeMenu: () => void } & {
+	ref?: React.RefObject<HTMLFormElement>;
+}) => {
 	const { promiseToast, resolveToast } = useToast();
 
 	const [state, action] = useActionState(editCustomer, initialState);
@@ -104,7 +107,7 @@ const EditCustomer = forwardRef<
 			</DialogContent>
 		</Dialog>
 	);
-});
+};
 
 export default EditCustomer;
 // export default function EditCustomer({ customer }: { customer: Customer }) {

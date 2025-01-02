@@ -11,15 +11,17 @@ import {
 import { format } from "@formkit/tempo";
 import { getShopData } from "@kristall/core/shop/data";
 import { useQuery } from "@tanstack/react-query";
-import { forwardRef } from "react";
 
-const PrintLocationPage = forwardRef<
-	HTMLDivElement,
-	{
-		products: Pick<Product, "_id" | "name" | "price" | "stock">[];
-		locationName: string;
-	}
->(({ products, locationName }, ref) => {
+const PrintLocationPage = ({
+	ref,
+	products,
+	locationName,
+}: {
+	products: Pick<Product, "_id" | "name" | "price" | "stock">[];
+	locationName: string;
+} & {
+	ref?: React.RefObject<HTMLDivElement>;
+}) => {
 	const { data } = useQuery({
 		queryKey: ["shop"],
 		queryFn: async () => await getShopData(),
@@ -55,6 +57,6 @@ const PrintLocationPage = forwardRef<
 			</Table>
 		</main>
 	);
-});
+};
 
 export default PrintLocationPage;

@@ -2,18 +2,10 @@
 
 import { cn } from "@/core/utils";
 import { Eye, EyeOff } from "lucide-react";
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import type { InputProps } from "./input";
 
-const Password = forwardRef<
-	HTMLInputElement,
-	InputProps & {
-		icon?: React.ReactNode;
-		classNames?: {
-			container?: string;
-		};
-	}
->(({ className, icon, ...props }, ref) => {
+const Password = ({ ref, className, icon, ...props }: InputProps) => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
@@ -39,7 +31,7 @@ const Password = forwardRef<
 			</button>
 		</div>
 	);
-});
+};
 Password.displayName = "Password";
 
 export { Password };

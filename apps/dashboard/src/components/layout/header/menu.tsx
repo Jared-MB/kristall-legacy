@@ -1,4 +1,5 @@
 import { ThemeSwitch } from "@/components/theme-switch";
+import { auth } from "@kristall/core/modules/auth";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -6,8 +7,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { auth } from "@kristall/core/modules/auth";
+} from "@kristall/ui/dropdown-menu";
 import {
 	BookText,
 	ClipboardList,
