@@ -1,5 +1,3 @@
-"use client";
-
 import { LogOut } from "lucide-react";
 
 import { logout } from "@/core/services/auth";
