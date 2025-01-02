@@ -6,8 +6,10 @@ import { Input, InputContainer } from "../ui/input";
 
 export default function Search({
 	queryName = "name",
+	autoFocus = true,
 }: {
 	queryName?: string;
+	autoFocus?: boolean;
 }) {
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
@@ -37,7 +39,11 @@ export default function Search({
 
 	return (
 		<InputContainer>
-			<Input onChange={handleChange} placeholder="Buscar productos ..." />
+			<Input
+				autoFocus={autoFocus}
+				onChange={handleChange}
+				placeholder="Buscar productos ..."
+			/>
 		</InputContainer>
 	);
 }
