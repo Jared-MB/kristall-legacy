@@ -21,9 +21,9 @@
 	"formatter": {
 		"enabled": true
 	},
-	"files": {
-		"ignore": [
-			"apps/server/**"
-		]
+	"javascript": {
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
 	}
 }
