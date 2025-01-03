@@ -1,6 +1,6 @@
-import type { Analytics } from "@kristall/core/modules/analytics/interfaces";
+import type { Analytics } from "@kristall/core/interfaces/analytics";
 
-import { Card, CardBody } from "@/components/ui";
+import { Card, CardBody } from "@kristall/ui/card";
 import RawMoneyChart from "./raw-money-chart";
 
 export default function MoneyChart({ analytics }: { analytics: Analytics }) {

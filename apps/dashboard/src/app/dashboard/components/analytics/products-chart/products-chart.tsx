@@ -1,6 +1,6 @@
 import { products } from "@kristall/core/modules/products";
 
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui";
+import { Card, CardFooter, CardHeader, CardTitle } from "@kristall/ui/card";
 import Chart from "./chart";
 
 export default async function ProductsChart() {

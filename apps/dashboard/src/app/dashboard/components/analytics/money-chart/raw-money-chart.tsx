@@ -4,10 +4,13 @@ import type { Analytics } from "@kristall/core/modules/analytics/interfaces";
 
 import { format } from "@formkit/tempo";
 import { ColorType, createChart } from "lightweight-charts";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
 
 export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
+	const { theme } = useTheme();
+
 	const incomesData = useMemo(() => {
 		const earnings = analytics.earningsByDay.map((day) => ({
 			time: format(new Date(day.date), "YYYY-MM-DD"),
@@ -43,6 +46,20 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 	const chartContainerRef = useRef(undefined);
 
 	useEffect(() => {
+		const isLightTheme = theme === "light";
+
+		let chartColors = {
+			bottomColor: "rgba(0, 0, 0, 0)",
+			layoutTextColor: "white",
+		};
+
+		if (isLightTheme) {
+			chartColors = {
+				bottomColor: "rgba(255, 255, 255, 0.1)",
+				layoutTextColor: "black",
+			};
+		}
+
 		const handleResize = () => {
 			// @ts-ignore
 			chart.applyOptions({ width: chartContainerRef.current.clientWidth });
@@ -55,7 +72,7 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 					type: ColorType.Solid,
 					color: "transparent",
 				},
-				textColor: "white",
+				textColor: chartColors.layoutTextColor,
 			},
 			// @ts-ignore
 			width: chartContainerRef.current.clientWidth,
@@ -80,19 +97,19 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 		chart.timeScale().fitContent();
 
 		const expensesSeries = chart.addAreaSeries({
-			lineColor: "#f43f5e",
 			title: "Gastos",
+			lineColor: "#f43f5e",
 			topColor: "#f43f5e",
-			bottomColor: "rgba(0, 0, 0, 0)",
+			bottomColor: chartColors.bottomColor,
 		});
 
 		expensesSeries.setData(expensesData as any);
 
 		const incomesSeries = chart.addAreaSeries({
+			title: "Ingresos",
 			lineColor: "#0ea5e9",
 			topColor: "#0ea5e9",
-			title: "Ingresos",
-			bottomColor: "rgba(0, 0, 0, 0)",
+			bottomColor: chartColors.bottomColor,
 		});
 
 		incomesSeries.setData(incomesData as any);
@@ -101,7 +118,7 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 			title: "Ganancias",
 			lineColor: "#22c55e",
 			topColor: "#22c55e",
-			bottomColor: "rgba(0, 0, 0, 0)",
+			bottomColor: chartColors.bottomColor,
 		});
 
 		earningsSeries.setData(revenue as any);
@@ -113,7 +130,7 @@ export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 
 			chart.remove();
 		};
-	}, [incomesData, expensesData]);
+	}, [incomesData, expensesData, theme]);
 
 	return (
 		<div

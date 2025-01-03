@@ -9,7 +9,7 @@ import {
 import { analytics } from "@kristall/core/modules/analytics";
 import { orders } from "@kristall/core/modules/orders";
 
-import { Card, CardBody } from "@/components/ui";
+import { Card, CardBody } from "@kristall/ui/card";
 
 import VERSIONS from "@/constants/versions";
 import Link from "next/link";

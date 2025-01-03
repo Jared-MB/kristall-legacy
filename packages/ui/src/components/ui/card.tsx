@@ -19,7 +19,7 @@ export const Card = ({
 		<As
 			ref={ref}
 			className={cn(
-				"flex flex-col [border:1px_solid_rgba(255,255,255,.1)] rounded relative print:m-8",
+				"flex flex-col border border-border rounded relative print:m-8",
 				variant === "destructive" && "!border-destructive",
 				variant === "borderless" && "!border-none shadow-lg bg-zinc-800/10",
 				variant === "container" && "!bg-transparent !border-none",
@@ -95,8 +95,9 @@ export function CardFooter({
 }: { children: React.ReactNode; className?: string }) {
 	return (
 		<footer
+			style={{ backgroundColor: "hsl(var(--card))" }}
 			className={cn(
-				"bg-zinc-950/50 rounded-b px-6 py-5 flex flex-row items-center",
+				"rounded-b px-6 py-5 flex flex-row items-center",
 				className,
 			)}
 		>
