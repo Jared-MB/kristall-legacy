@@ -4,6 +4,7 @@
 	"scripts": {
 		"dev": "turbo run dev",
 		"start:server": "pnpm --filter @kristall/server start",
+		"start:dashboard": "pnpm --filter @kristall/dashboard start",
 		"dev:landing": "pnpm --filter @kristall/landing dev",
 		"dev:dashboard": "pnpm --filter @kristall/dashboard dev",
 		"dev:pos": "pnpm --filter @kristall/pos dev",

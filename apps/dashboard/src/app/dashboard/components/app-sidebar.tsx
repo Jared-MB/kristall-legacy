@@ -16,7 +16,9 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@kristall/ui/sidebar";
+import { Skeleton } from "@kristall/ui/skeleton";
 import { ChevronUp, LogOut } from "lucide-react";
+import { Suspense } from "react";
 import { AppSidebarNavigation } from "./app-sidebar-navigation";
 import { AppSidebarUser } from "./app-sidebar-user";
 
@@ -33,7 +35,9 @@ export function AppSidebar() {
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<SidebarMenuButton className="h-12">
-									<AppSidebarUser />
+									<Suspense fallback={<Skeleton className="w-full h-full" />}>
+										<AppSidebarUser />
+									</Suspense>
 									<ChevronUp className="ml-auto" />
 								</SidebarMenuButton>
 							</DropdownMenuTrigger>
