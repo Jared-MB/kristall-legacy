@@ -1,8 +1,8 @@
 import type { Product } from "@/types";
-import { PublicPage } from "@/types/PublicPage";
+import type { PublicPage } from "@/types/PublicPage";
 import { Button } from "@nextui-org/react";
 import axios, { AxiosError } from "axios";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import BannerImage from "./components/banner-image";
@@ -57,9 +57,9 @@ async function getShopImage(shopName: string): Promise<string | null> {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    const image = await getShopImage(params.name);
-    return {
+	const params = await props.params;
+	const image = await getShopImage(params.name);
+	return {
 		title: params.name[0].toUpperCase() + params.name.slice(1),
 		description: `Productos de ${params.name}`,
 		icons: {
@@ -69,10 +69,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function ShopId(props: Props) {
-    const params = await props.params;
-    const config = await getPublicPageConfig(params.name);
+	const params = await props.params;
+	const config = await getPublicPageConfig(params.name);
 
-    return (
+	return (
 		<div className="flex flex-col items-center justify-center ">
 			<article className="flex justify-evenly h-[50dvh] w-full">
 				<header className="flex flex-col justify-center gap-y-10 items-start">

@@ -11,6 +11,16 @@ interface Version {
 
 const VERSIONS: Version[] = [
 	{
+		_id: "v0.9.4",
+		date: "2025-01-04",
+		title: "Sidebar",
+		description: `
+			Hemos cambiado ligeramente el diseño de la navegación lateral. Pudiendo ahora ocultar el sidebar con un solo click. Y dando paso a 
+			un estilo donde se puedan agregar más características futuras.
+		`,
+		features: ["Mejor diseño de la navegación lateral"],
+	},
+	{
 		_id: "v0.9.3",
 		date: "2024-12-20",
 		title: "Speed Improvements",
