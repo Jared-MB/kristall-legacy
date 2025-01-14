@@ -9,16 +9,11 @@ import {
 	toggleVirtualShowroomService,
 } from "./services/data";
 
-export const getVirtualShowroom = async (): Promise<VirtualShowroom> => {
+export const getVirtualShowroom = async (): Promise<VirtualShowroom | null> => {
 	const { data } = await getVirtualShowroomService();
 
 	if (!data) {
-		return {
-			isPublic: false,
-			_id: "",
-			url: "",
-			title: "",
-		};
+		return null;
 	}
 
 	return data;

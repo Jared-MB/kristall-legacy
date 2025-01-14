@@ -6,7 +6,7 @@ import { VirtualShowroomUrl } from "./virtual-showroom-url";
 export async function VirtualShowroom() {
 	const virtualShowroom = await getVirtualShowroom();
 
-	if (!virtualShowroom || !virtualShowroom.isPublic) {
+	if (!virtualShowroom || !virtualShowroom?.isPublic) {
 		return null;
 	}
 
