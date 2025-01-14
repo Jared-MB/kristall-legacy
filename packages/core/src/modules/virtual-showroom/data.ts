@@ -2,7 +2,6 @@
 
 import { revalidateTag } from "next/cache";
 
-import { redirect } from "next/navigation";
 import { VIRTUAL_SHOWROOM_TAGS } from "./constants/virtual-showroom.tags";
 import type { VirtualShowroom } from "./interfaces";
 import {
@@ -14,7 +13,12 @@ export const getVirtualShowroom = async (): Promise<VirtualShowroom> => {
 	const { data } = await getVirtualShowroomService();
 
 	if (!data) {
-		redirect("/login");
+		return {
+			isPublic: false,
+			_id: "",
+			url: "",
+			title: "",
+		};
 	}
 
 	return data;
