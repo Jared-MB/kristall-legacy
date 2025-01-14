@@ -3,14 +3,15 @@
  */
 export const paginateURL = (
 	searchParams: Readonly<URLSearchParams>,
+	take = 7,
 ): string => {
 	const query = new URLSearchParams(searchParams);
 	const page = Number(query.get("page") || "1");
-	const skip = (page - 1) * 7;
+	const skip = (page - 1) * take;
 
 	query.delete("page");
 
 	query.set("skip", skip.toString());
-	query.set("take", "7");
+	query.set("take", take.toString());
 	return query.toString();
 };

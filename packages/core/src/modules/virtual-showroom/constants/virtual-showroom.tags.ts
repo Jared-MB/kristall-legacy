@@ -1,0 +1,3 @@
+export const VIRTUAL_SHOWROOM_TAGS = {
+	DATA: "VIRTUAL_SHOWROOM_DATA",
+} as const;

@@ -1,6 +1,5 @@
 "use client";
 
-import type { Product } from "@/actions/products/public-products.action";
 import type { VirtualShowroom } from "@/actions/virtual-showroom";
 import Divider from "@/components/divider";
 import Svg from "@/components/svg";
@@ -16,13 +15,14 @@ import {
 	Label,
 } from "@/components/ui";
 import { useImage } from "@/core/hooks";
+import type { PublicProduct } from "@kristall/core/interfaces/products";
 import { useRef, useState } from "react";
 import Preview from "./preview";
 
 interface Props extends VirtualShowroom {
 	name: string;
-	products: Product[] | null;
-	newProducts: Product[] | null;
+	products: PublicProduct[] | null;
+	newProducts: PublicProduct[] | null;
 }
 
 export default function Customize(virtualShowroom: Props) {

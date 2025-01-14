@@ -1,6 +1,5 @@
 "use client";
 
-import type { Product } from "@/actions/products/public-products.action";
 import type { VirtualShowroom } from "@/actions/virtual-showroom";
 import Divider from "@/components/divider";
 import Svg from "@/components/svg";
@@ -14,6 +13,7 @@ import {
 import { cn } from "@/core/utils";
 import { Moon } from "lucide-react";
 
+import type { PublicProduct } from "@kristall/core/interfaces/products";
 import Autoplay from "embla-carousel-autoplay";
 
 interface Props extends VirtualShowroom {
@@ -27,21 +27,11 @@ interface Props extends VirtualShowroom {
 	alternativeImage?: string;
 	showBestSellers: boolean;
 	showNew: boolean;
-	products: Product[] | null;
-	newProducts: Product[] | null;
+	products: PublicProduct[] | null;
+	newProducts: PublicProduct[] | null;
 }
 
 export default function Preview(config: Props) {
-	// const { data, error } = useQuery({
-	// 	queryKey: ["best-sellers"],
-	// 	queryFn: async () => await getBestSellersProducts(),
-	// });
-
-	// useEffect(() => {
-	// 	console.log(data);
-	// 	console.log(error);
-	// }, [data, error]);
-
 	return (
 		<div className="flex flex-col gap-y-2 h-fit sticky top-0 overflow-y-auto">
 			<header className="flex flex-row items-center justify-between px-8">
@@ -125,7 +115,7 @@ export default function Preview(config: Props) {
 							>
 								<CarouselContent>
 									{config.products?.map((product) => (
-										<CarouselItem className="basis-1/6">
+										<CarouselItem key={product._id} className="basis-1/6">
 											<Card className="overflow-x-hidden">
 												<div className="overflow-hidden rounded">
 													<img
@@ -176,7 +166,7 @@ export default function Preview(config: Props) {
 							>
 								<CarouselContent>
 									{config.newProducts?.map((product) => (
-										<CarouselItem className="basis-1/6">
+										<CarouselItem key={product._id} className="basis-1/6">
 											<Card className="overflow-x-hidden">
 												<div className="overflow-hidden rounded">
 													<img

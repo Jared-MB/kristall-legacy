@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { Select } from "../ui/select";
 
 import { isDev } from "@kristall/ui/core/utils";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { useQueryParams } from "@kristall/core/hooks/use-query-params";
 
 interface SearchSelectProps extends SelectProps {
 	clearOnValue?: string;
@@ -15,27 +16,27 @@ export function SearchSelect({
 	clearOnValue = "",
 	...props
 }: SearchSelectProps) {
-	const searchParams = useSearchParams();
-	const router = useRouter();
-	const pathname = usePathname();
+	const { setQueryParams, removeQueryParams, queryParams } = useQueryParams();
 
 	const [value, setValue] = useState(
-		searchParams.get(props.name ?? "") ?? props.value,
+		queryParams.get(props.name ?? "") ?? props.value,
 	);
 
 	useEffect(() => {
 		if (!props.name) {
 			isDev && console.error("⚠️ SearchSelect: name prop is required");
 		} else if (value && clearOnValue !== value) {
-			const search = new URLSearchParams(searchParams);
-			search.set(props.name, value);
-			router.push(`${pathname}?${search.toString()}`);
+			setQueryParams(props.name, value);
 		} else if (!value || clearOnValue === value) {
-			const search = new URLSearchParams(searchParams);
-			search.delete(props.name);
-			router.push(`${pathname}?${search.toString()}`);
+			removeQueryParams(props.name);
 		}
 	}, [value]);
+
+	useEffect(() => {
+		if (props.defaultValue && props.name) {
+			setQueryParams(props.name, props.defaultValue);
+		}
+	}, [props.defaultValue]);
 
 	return (
 		<Select {...props} value={value} onValueChange={(e) => setValue(e)}>

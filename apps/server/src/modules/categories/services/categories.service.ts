@@ -1,7 +1,7 @@
+import { Category, Shop } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category, Product, Shop } from '@/server/entities';
-import { DataSource, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CategoryDetail } from '../interfaces';
 
 @Injectable()
@@ -9,11 +9,18 @@ export class CategoriesService {
 
     constructor(
         @InjectRepository(Category)
-        private categoryRepository: Repository<Category>,
-        @InjectRepository(Product)
-        private productRepository: Repository<Product>,
-        private dataSource: DataSource
+        private categoryRepository: Repository<Category>
     ) { }
+
+    public async getPublicCategories(shopName: string){
+        const categories = await this.categoryRepository.find({
+            where: { shop: { 
+                name: ILike(`%${shopName}%`)
+            } },
+            select: ['_id','name']
+        })
+        return categories;
+    }
 
     public async getAllCategories(shopId: string) {
         const categories = await this.categoryRepository.find({

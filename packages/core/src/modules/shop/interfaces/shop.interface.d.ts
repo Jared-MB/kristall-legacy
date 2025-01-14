@@ -1,11 +1,12 @@
 import type { UUID } from "node:crypto";
+import type { VirtualShowroom } from "../../virtual-showroom/interfaces";
 
 export interface Shop {
 	_id: string;
 	shopName: string;
 	username: string;
 	logo: string;
-	showroom: Showroom;
+	showroom: VirtualShowroom;
 	/**
 	 * @deprecated Use Settings instead
 	 */
@@ -23,9 +24,4 @@ export interface Settings {
 export interface BankAccounts {
 	hasAcceptedTerms: boolean;
 	removeBankAccounts: boolean;
-}
-
-export interface Showroom {
-	isPublic: boolean;
-	url: string;
 }

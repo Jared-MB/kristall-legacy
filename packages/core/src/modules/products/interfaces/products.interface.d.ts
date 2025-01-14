@@ -18,11 +18,22 @@ export interface Product {
 	batchEnabled: 0 | 1;
 }
 
+export type PublicProduct = Pick<
+	Product,
+	"_id" | "name" | "image" | "price" | "category" | "createdAt" | "totalSales"
+>;
+
+/**
+ * @deprecated Use PublicProduct instead
+ */
 export type CatalogProduct = Pick<
 	Product,
 	"_id" | "name" | "code" | "image" | "price" | "stock" | "cost"
 >;
 
+/**
+ * @deprecated Use PublicProduct instead
+ */
 export type BestSeller = Pick<Product, "_id" | "name" | "totalSales">;
 
 export type AddProduct = z.infer<typeof AddProductSchema>;

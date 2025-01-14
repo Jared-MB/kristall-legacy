@@ -4,9 +4,7 @@ import { redirect } from "next/navigation";
 import { getShopDataService } from "./services";
 
 export const getShopData = async () => {
-	const { data, message, status } = await getShopDataService();
-
-	console.log({ data, message, status });
+	const { data } = await getShopDataService();
 
 	if (!data) {
 		redirect("/login");

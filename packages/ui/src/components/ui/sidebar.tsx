@@ -170,6 +170,7 @@ const Sidebar = React.forwardRef<
 		side?: "left" | "right";
 		variant?: "sidebar" | "floating" | "inset";
 		collapsible?: "offcanvas" | "icon" | "none";
+		propagateClassName?: boolean;
 	}
 >(
 	(
@@ -179,6 +180,7 @@ const Sidebar = React.forwardRef<
 			collapsible = "offcanvas",
 			className,
 			children,
+			propagateClassName = false,
 			...props
 		},
 		ref,
@@ -238,6 +240,7 @@ const Sidebar = React.forwardRef<
 						variant === "floating" || variant === "inset"
 							? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
 							: "group-data-[collapsible=icon]:w-[--sidebar-width-icon]",
+						propagateClassName && className,
 					)}
 				/>
 				<div

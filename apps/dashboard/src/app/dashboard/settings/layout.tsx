@@ -18,7 +18,7 @@ export default function SettingsLayout({
 					</SettingsLink>
 					<SettingsLink href="/dashboard/settings/profile">Perfil</SettingsLink>
 					<SettingsLink href="/dashboard/settings/shop">Tienda</SettingsLink>
-					<SettingsLink disabled href="/dashboard/settings/virtual-showroom">
+					<SettingsLink href="/dashboard/settings/virtual-showroom">
 						Virtual Showroom
 					</SettingsLink>
 					<SettingsLink href="/dashboard/settings/bank-accounts">
