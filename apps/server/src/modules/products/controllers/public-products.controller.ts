@@ -17,8 +17,9 @@ export class PublicProductsController {
     @Get(':shopName')
     async getProducts(@Param('shopName') shopName: string, @Query() query: QueryProduct) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
+        console.log(shop)
         if (!shop?.publicPage.isPublic) {
-            throw new NotFoundException()
+            throw new NotFoundException(`${shopName} is not found`)
         }
 
         const parsedQuery: QueryProduct = {
