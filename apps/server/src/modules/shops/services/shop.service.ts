@@ -1,7 +1,7 @@
 import { Image, PublicPage, Shop } from '@/server/entities';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 
 import { LocationsService } from '@/server/locations/locations.service';
 import { SettingsService } from '@/server/modules/settings/services';
@@ -175,12 +175,10 @@ export class ShopService {
     }
 
     async getByVirtualShowroomName(virtualShowroomName: string) {
-        const URL = `${process.env.CLIENT_URL}/shops/${virtualShowroomName}`
+        // const URL = `${process.env.CLIENT_URL}/shops/${virtualShowroomName}`
         return await this.shopRepository.findOne({
             where: {
-                publicPage: {
-                    url: URL
-                }
+                name: ILike(`%${virtualShowroomName}%`)
             },
             relations: {
                 publicPage: true
