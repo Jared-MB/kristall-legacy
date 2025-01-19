@@ -62,12 +62,17 @@ export default async function Analytics() {
 				)}
 			>
 				{daysAfterNewVersion < 7 && (
-					<InfoCard title="Nueva versión" icon={<Sparkle />} isNewVersion>
-						<div className="flex justify-between items-end h-full">
+					<InfoCard
+						className="grow"
+						title="Nueva versión"
+						icon={<Sparkle />}
+						isNewVersion
+					>
+						<div className="flex flex-col 2xl:flex-row justify-between items-start h-full">
 							<span className="text-base text-zinc-300/90">
 								{VERSIONS[0]._id}
 							</span>
-							<AnimatedShinyText>
+							<AnimatedShinyText className="mx-0">
 								<Link
 									className="text-xs hover:underline hover:text-purple-500"
 									href={`/docs/change-log#${VERSIONS[0]._id}`}
@@ -106,14 +111,16 @@ function InfoCard({
 	icon,
 	children,
 	isNewVersion = false,
+	className,
 }: {
 	title: string;
 	icon: React.ReactNode;
 	children?: React.ReactNode;
 	isNewVersion?: boolean;
+	className?: string;
 }) {
 	return (
-		<Card>
+		<Card className={className}>
 			{isNewVersion && (
 				<BorderBeam size={100} colorFrom="#a855f7" colorTo="#fff" />
 			)}

@@ -11,6 +11,18 @@ export interface Version {
 
 export const VERSIONS: Version[] = [
 	{
+		_id: "v0.10.0-RC-2",
+		date: "2025-01-15",
+		title: "Virtual Showroom",
+		description: `
+			Se arreglo el bug que impedía acceder a la configuración de tu Virtual Showroom.
+			`,
+		fixes: [
+			"Acceso a la configuración de tu Virtual Showroom",
+			"Diseño roto de la página de inicio al presentar una nueva versión",
+		],
+	},
+	{
 		_id: "v0.10.0-RC-1",
 		date: "2025-01-15",
 		title: "Virtual Showroom",
