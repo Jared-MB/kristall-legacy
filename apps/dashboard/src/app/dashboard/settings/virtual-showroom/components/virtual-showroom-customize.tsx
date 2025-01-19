@@ -19,6 +19,10 @@ export async function VirtualShowroomCustomize({
 		newProductsPromise,
 	]);
 
+	if (!bestSellers?.entities || !newProducts?.entities) {
+		return null;
+	}
+
 	return (
 		<Customize
 			{...virtualShowroom}
