@@ -1,5 +1,7 @@
+import { isFeatureEnabled } from "@kristall/core/utils";
 import { getVirtualShowroom } from "@kristall/core/virtual-showroom/data";
 import { CardDescription, CardTitle } from "@kristall/ui/card";
+import { AVAILABLE_SINCE, AVAILABLE_SINCE_MINOR } from "../page";
 import { VirtualShowroomCustomize } from "./virtual-showroom-customize";
 import { VirtualShowroomUrl } from "./virtual-showroom-url";
 
@@ -7,6 +9,15 @@ export async function VirtualShowroom() {
 	const virtualShowroom = await getVirtualShowroom();
 
 	if (!virtualShowroom || !virtualShowroom?.isPublic) {
+		return null;
+	}
+
+	const isEnabled = await isFeatureEnabled(
+		AVAILABLE_SINCE,
+		AVAILABLE_SINCE_MINOR,
+	);
+
+	if (!isEnabled) {
 		return null;
 	}
 

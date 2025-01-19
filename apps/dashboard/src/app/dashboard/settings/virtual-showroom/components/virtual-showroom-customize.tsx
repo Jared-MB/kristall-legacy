@@ -1,7 +1,7 @@
 import type { VirtualShowroom } from "@kristall/core/interfaces/virtual-showroom";
 import {
-	getPublicBestSellers,
-	getPublicNewProducts,
+	getPublicBestSellersProducts,
+	getPublicNewestProducts,
 } from "@kristall/core/products/public";
 import { getShopData } from "@kristall/core/shop/data";
 import Customize from "./customize";
@@ -9,22 +9,22 @@ import Customize from "./customize";
 export async function VirtualShowroomCustomize({
 	virtualShowroom,
 }: { virtualShowroom: VirtualShowroom }) {
-	const bestSellersPromise = getPublicBestSellers(virtualShowroom.url);
-	const newProductsPromise = getPublicNewProducts(virtualShowroom.url);
-	const shopPromise = getShopData();
+	const { shopName } = await getShopData();
 
-	const [bestSellers, newProducts, shop] = await Promise.all([
+	const bestSellersPromise = getPublicBestSellersProducts(shopName);
+	const newProductsPromise = getPublicNewestProducts(shopName);
+
+	const [bestSellers, newProducts] = await Promise.all([
 		bestSellersPromise,
 		newProductsPromise,
-		shopPromise,
 	]);
 
 	return (
 		<Customize
 			{...virtualShowroom}
-			products={bestSellers}
-			newProducts={newProducts}
-			name={shop.shopName}
+			products={bestSellers.entities}
+			newProducts={newProducts.entities}
+			name={shopName}
 		/>
 	);
 }
