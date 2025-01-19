@@ -11,8 +11,10 @@ export async function VirtualShowroomCustomize({
 }: { virtualShowroom: VirtualShowroom }) {
 	const { shopName } = await getShopData();
 
-	const bestSellersPromise = getPublicBestSellersProducts(shopName);
-	const newProductsPromise = getPublicNewestProducts(shopName);
+	const bestSellersPromise = getPublicBestSellersProducts(
+		shopName.toLowerCase(),
+	);
+	const newProductsPromise = getPublicNewestProducts(shopName.toLowerCase());
 
 	const [bestSellers, newProducts] = await Promise.all([
 		bestSellersPromise,
