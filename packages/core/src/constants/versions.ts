@@ -1,4 +1,4 @@
-interface Version {
+export interface Version {
 	_id:
 		| `v${number}.${number}.${number}`
 		| `v${number}.${number}.${number}-RC-${number}`;
@@ -9,7 +9,18 @@ interface Version {
 	date: string;
 }
 
-const VERSIONS: Version[] = [
+export const VERSIONS: Version[] = [
+	{
+		_id: "v0.10.0-RC-1",
+		date: "2025-01-15",
+		title: "Virtual Showroom",
+		description: `
+			Ahora puedes crear un virtual showroom para tus productos. 
+			Esto te permite mostrar tus productos en una página web, 
+			y hacer que tus clientes puedan verlos en un lugar fácil de encontrar.
+			`,
+		features: ["Virtual Showroom"],
+	},
 	{
 		_id: "v0.9.4",
 		date: "2025-01-04",
@@ -145,5 +156,3 @@ const VERSIONS: Version[] = [
 		features: ["Documentación"],
 	},
 ];
-
-export default VERSIONS;

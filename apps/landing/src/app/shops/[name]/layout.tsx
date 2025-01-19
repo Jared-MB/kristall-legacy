@@ -60,7 +60,11 @@ export default async function ShopsLayout(props: {
 				<div className="flex items-center gap-x-4">
 					<nav>
 						<Button asChild variant="outline">
-							<Link href={`/shops/${params.name}/products`}>Productos</Link>
+							<Link
+								href={`/shops/${params.name}/products?sort-by=best-sellers`}
+							>
+								Productos
+							</Link>
 						</Button>
 					</nav>
 					<ThemeSwitcher />

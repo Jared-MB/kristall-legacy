@@ -1,4 +1,5 @@
 import type { PublicProduct } from "@kristall/core/interfaces/products";
+import { cn } from "@kristall/ui/utils/cn";
 import Link from "next/link";
 import EmptyImage from "./empty-image";
 
@@ -9,11 +10,18 @@ export function ProductCard({
 	name,
 	shopName,
 	_id,
+	isAvailable,
 }: PublicProduct & { shopName: string }) {
 	return (
-		<article className="pb-4 space-y-3 w-[225px]">
+		<article
+			className={cn(
+				"pb-4 space-y-3 w-[225px]",
+				!isAvailable && "opacity-40 pointer-events-none",
+			)}
+		>
 			<div>
 				<Link
+					aria-disabled={!isAvailable}
 					href={`/shops/${shopName}/products/${_id}`}
 					className="overflow-hidden rounded-md inline-block w-full"
 				>

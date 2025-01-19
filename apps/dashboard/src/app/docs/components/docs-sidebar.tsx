@@ -1,5 +1,5 @@
 import { Kristall } from "@/components/kristall";
-import VERSIONS from "@/constants/versions";
+import { VERSIONS } from "@kristall/core/constants";
 import {
 	Collapsible,
 	CollapsibleContent,

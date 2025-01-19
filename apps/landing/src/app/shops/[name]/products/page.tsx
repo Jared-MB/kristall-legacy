@@ -1,5 +1,6 @@
 import { getPublicProducts } from "@kristall/core/products/public";
 import { SidebarProvider } from "@kristall/ui/sidebar";
+import { notFound } from "next/navigation";
 import { ProductCard } from "../components/card";
 import { ProductsPagination } from "./components/products-pagination";
 import { ProductsSidebar } from "./components/products-sidebar";
@@ -11,13 +12,19 @@ export default async function ProductPage(props: {
 	const params = await props.params;
 	const searchParams = await props.searchParams;
 
+	const pagination = await getPublicProducts(params.name, searchParams);
+
+	if (!pagination?.entities) {
+		notFound();
+	}
+
 	const {
 		entities: products,
 		page,
 		totalPages,
 		hasMore,
 		previous,
-	} = await getPublicProducts(params.name, searchParams);
+	} = pagination;
 
 	return (
 		<SidebarProvider>

@@ -1,6 +1,6 @@
 import { SectionSubtitle, SectionTitle } from "@/components/ui/title";
-import VERSIONS from "@/constants/versions";
 import { format, parse } from "@formkit/tempo";
+import { VERSIONS } from "@kristall/core/constants";
 import Link from "next/link";
 
 export default function ChangeLogPage() {

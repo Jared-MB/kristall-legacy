@@ -21,7 +21,9 @@ export interface Product {
 export type PublicProduct = Pick<
 	Product,
 	"_id" | "name" | "image" | "price" | "category" | "createdAt" | "totalSales"
->;
+> & {
+	isAvailable: boolean;
+};
 
 /**
  * @deprecated Use PublicProduct instead

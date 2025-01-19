@@ -58,6 +58,7 @@ export class PublicProductsService {
         'category',
         'createdAt',
         'totalSales',
+        'stock'
       ],
       order: {
         ...this.getOrderBy(query['sort-by']),
@@ -82,8 +83,17 @@ export class PublicProductsService {
 
     const [products, count] = await Promise.all([productsPromise, countPromise])
 
+    const mappedProduct = products.map(product => {
+      const { stock, ...rest } = product
+
+      return {
+        ...rest,
+        isAvailable: stock > 0
+      }
+    })
+
     return {
-			entities: products,
+			entities: mappedProduct,
 			next: products.length === take ? skip + take : null,
       previous: skip - take >= 0 ? (skip - take) + 1 : null,
 			page: Math.ceil(skip / take) + 1, 

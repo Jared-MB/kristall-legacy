@@ -1,9 +1,11 @@
-import VERSIONS from "@/constants/versions";
+import { getLastVersion } from "@kristall/core/utils";
 
-export default function Version() {
+export default async function Version() {
+	const version = await getLastVersion();
+
 	return (
 		<span className="absolute bottom-0 right-0 opacity-30 text-xs">
-			{VERSIONS[0]._id}
+			{version._id}
 		</span>
 	);
 }

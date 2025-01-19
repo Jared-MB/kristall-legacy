@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui";
 import SettingsLink from "./components/settings-link";
+import { VirtualShowroomLink } from "./virtual-showroom/link";
 
 export default function SettingsLayout({
 	children,
@@ -18,9 +19,7 @@ export default function SettingsLayout({
 					</SettingsLink>
 					<SettingsLink href="/dashboard/settings/profile">Perfil</SettingsLink>
 					<SettingsLink href="/dashboard/settings/shop">Tienda</SettingsLink>
-					<SettingsLink href="/dashboard/settings/virtual-showroom">
-						Virtual Showroom
-					</SettingsLink>
+					<VirtualShowroomLink />
 					<SettingsLink href="/dashboard/settings/bank-accounts">
 						Cuentas bancarias
 					</SettingsLink>

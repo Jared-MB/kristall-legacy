@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import Header from "@/components/layout/header";
+import Version from "@/components/version";
 import { SidebarProvider } from "@kristall/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
 
@@ -20,6 +21,7 @@ export default async function DashboardLayout({
 				<Header />
 				{children}
 			</div>
+			<Version />
 		</SidebarProvider>
 	);
 }

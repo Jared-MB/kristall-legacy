@@ -4,6 +4,13 @@ import { GET, PUT } from "@kristall/http";
 import { VIRTUAL_SHOWROOM_TAGS } from "../constants/virtual-showroom.tags";
 import type { VirtualShowroom } from "../interfaces";
 
+export const getVirtualShowroomConfigService = async (shopName: string) => {
+	return await GET<VirtualShowroom>(`/shops/public/${shopName}/config`, {
+		cache: "no-store",
+		tags: ["no-tag-required"],
+	});
+};
+
 export const getVirtualShowroomService = async () => {
 	return await GET<VirtualShowroom>("/virtual-showroom", {
 		tags: [VIRTUAL_SHOWROOM_TAGS.DATA],

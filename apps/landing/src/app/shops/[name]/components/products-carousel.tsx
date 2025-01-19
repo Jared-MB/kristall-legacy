@@ -10,25 +10,26 @@ import Link from "next/link";
 import { ProductCard } from "./card";
 
 interface Props {
-	fetcher: () => Promise<PublicProduct[] | null>;
+	products: PublicProduct[];
 	title: string;
 	shopName: string;
+	href: `/shops/${string}/products${string}`;
 }
 
-export default async function ProductsCarousel({
-	fetcher,
+export default function ProductsCarousel({
+	products,
 	title,
+	href,
 	shopName,
 }: Props) {
-	const products = await fetcher();
-
 	return (
 		<div className="flex flex-col gap-y-4">
 			<div className="flex justify-between items-center">
 				<h3 className="text-3xl font-medium text-primary">{title}</h3>
 				<small>
 					<Link
-						href={`/shops/${shopName}/products`}
+						href={href}
+						prefetch
 						className="text-primary text-sm hover:underline"
 					>
 						Ver todos

@@ -8,13 +8,27 @@ import {
 import { Label } from "@/components/ui/label";
 import Setting from "../components/setting";
 
+import { isFeatureEnabled } from "@kristall/core/utils";
 import { Switch } from "@kristall/ui/switch";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ExperimentalFeature } from "../components/experimental-feature";
 import { VirtualShowroom } from "./components/virtual-showroom";
 import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 
-export default function VirtualShowroomPage() {
+export const AVAILABLE_SINCE = "v0.10.";
+export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
+
+export default async function VirtualShowroomPage() {
+	const isEnabled = await isFeatureEnabled(
+		AVAILABLE_SINCE,
+		AVAILABLE_SINCE_MINOR,
+	);
+
+	if (!isEnabled) {
+		redirect("/dashboard/settings/general/experimental");
+	}
+
 	return (
 		<Setting>
 			<section className="flex flex-col gap-y-2">

@@ -11,7 +11,7 @@ import { orders } from "@kristall/core/modules/orders";
 
 import { Card, CardBody } from "@kristall/ui/card";
 
-import VERSIONS from "@/constants/versions";
+import { VERSIONS } from "@kristall/core/constants";
 import Link from "next/link";
 import type React from "react";
 import MoneyChart from "./money-chart";

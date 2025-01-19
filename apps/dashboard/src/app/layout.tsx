@@ -5,7 +5,6 @@ import { QueryProvider, ThemeProvider } from "@/core/providers";
 import { cn } from "@/core/utils";
 import { quicksand } from "@/utils/fonts";
 
-import Version from "@/components/version";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -35,7 +34,6 @@ export default function RootLayout({
 						{children}
 					</ThemeProvider>
 					<Toaster visibleToasts={1} position="bottom-left" />
-					<Version />
 				</body>
 			</QueryProvider>
 		</html>
