@@ -84,7 +84,7 @@ export default function Preview(config: Props) {
 					>
 						{config.alternativeImage ? (
 							<img
-								src={config.alternativeImage}
+								src={config.alternativeImage || undefined}
 								alt="alternative"
 								className="w-40 object-cover object-center"
 							/>
@@ -119,7 +119,7 @@ export default function Preview(config: Props) {
 											<Card className="overflow-x-hidden">
 												<div className="overflow-hidden rounded">
 													<img
-														src={product.image?.url}
+														src={product.image?.url || undefined}
 														alt={product.name}
 														className="w-full h-12 object-cover object-center rounded transition-transform hover:scale-105"
 													/>
@@ -170,7 +170,7 @@ export default function Preview(config: Props) {
 											<Card className="overflow-x-hidden">
 												<div className="overflow-hidden rounded">
 													<img
-														src={product.image?.url}
+														src={product.image?.url || undefined}
 														alt={product.name}
 														className="w-full h-12 object-cover object-center rounded transition-transform hover:scale-105"
 													/>
