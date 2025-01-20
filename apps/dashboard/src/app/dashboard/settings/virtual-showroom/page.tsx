@@ -11,13 +11,16 @@ import Setting from "../components/setting";
 import { Switch } from "@kristall/ui/switch";
 import { Suspense } from "react";
 import { ExperimentalFeature } from "../components/experimental-feature";
-import { VirtualShowroom } from "./components/virtual-showroom";
+import {
+	VirtualShowroom,
+	VirtualShowroomSkeleton,
+} from "./components/virtual-showroom";
 import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 
 export const AVAILABLE_SINCE = "v0.10.";
 export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
 
-export default async function VirtualShowroomPage() {
+export default function VirtualShowroomPage() {
 	return (
 		<Setting>
 			<section className="flex flex-col gap-y-2">
@@ -46,7 +49,7 @@ export default async function VirtualShowroomPage() {
 					<ExperimentalFeature />
 				</CardBody>
 			</Card>
-			<Suspense fallback={""}>
+			<Suspense fallback={<VirtualShowroomSkeleton />}>
 				<VirtualShowroom />
 			</Suspense>
 		</Setting>

@@ -2,7 +2,6 @@ import { Cookies } from '@/server/decorators';
 import { Public } from '@/server/decorators/public.decorator';
 import { ResponseInterceptor } from '@/server/interceptors';
 import { AuthService } from '@/server/services';
-import { Utils } from '@/server/utilities';
 import {
     BadRequestException,
     Body,
@@ -21,7 +20,6 @@ export class UsersAuthController {
     constructor(
         private usersService: UsersService,
         private readonly authService: AuthService,
-        private readonly utils: Utils,
     ) { }
 
     @UseInterceptors(ResponseInterceptor)
