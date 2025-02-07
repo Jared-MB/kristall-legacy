@@ -81,10 +81,12 @@ export const columns: ColumnDef<Product>[] = [
 			};
 
 			return (
-				<Button variant="ghost" onClick={handleSort}>
-					Precio
-					<ArrowUpDown className="ml-2 h-4 w-4" />
-				</Button>
+				<div className="flex w-full items-center justify-end">
+					<Button variant="ghost" onClick={handleSort}>
+						Precio
+						<ArrowUpDown className="ml-2 h-4 w-4" />
+					</Button>
+				</div>
 			);
 		},
 		cell: ({ row }) => {
@@ -94,7 +96,7 @@ export const columns: ColumnDef<Product>[] = [
 				currency: "MXN",
 			}).format(amount);
 
-			return <div className="text-right font-medium pl-4">{formatted}</div>;
+			return <div className="text-end font-medium pr-4">{formatted}</div>;
 		},
 	},
 	{
@@ -129,17 +131,17 @@ export const columns: ColumnDef<Product>[] = [
 			};
 
 			return (
-				<Button variant="ghost" onClick={handleSort}>
-					Stock
-					<ArrowUpDown className="ml-2 h-4 w-4" />
-				</Button>
+				<div className="flex w-full items-center justify-end">
+					<Button variant="ghost" onClick={handleSort}>
+						Stock
+						<ArrowUpDown className="ml-2 h-4 w-4" />
+					</Button>
+				</div>
 			);
 		},
 		cell: ({ row }) => {
 			return (
-				<div className="text-right font-medium pl-4">
-					{row.getValue("stock")}
-				</div>
+				<div className="text-end font-medium pr-4">{row.getValue("stock")}</div>
 			);
 		},
 	},
@@ -149,22 +151,24 @@ export const columns: ColumnDef<Product>[] = [
 			const product = row.original;
 
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" size="icon">
-							<MoreVertical />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent>
-						<DropdownMenuLabel>Opciones</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem asChild>
-							<Link prefetch href={`/dashboard/inventory/${product._id}`}>
-								Ver más
-							</Link>
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<div className="grid place-content-center">
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant="ghost" size="icon">
+								<MoreVertical />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuLabel>Opciones</DropdownMenuLabel>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem asChild>
+								<Link prefetch href={`/dashboard/inventory/${product._id}`}>
+									Ver más
+								</Link>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</div>
 			);
 		},
 	},
