@@ -1,3 +1,5 @@
+import type { Analytics } from "@kristall/core/interfaces/analytics";
+
 import {
 	ClipboardList,
 	LineChart,
@@ -6,27 +8,30 @@ import {
 	TrendingUp,
 } from "lucide-react";
 
-import { analytics } from "@kristall/core/modules/analytics";
+import { addDay, diffDays } from "@formkit/tempo";
+import { Suspense } from "react";
+
+import { getAnalytics } from "@kristall/core/analytics/get";
+import { VERSIONS } from "@kristall/core/constants";
 import { orders } from "@kristall/core/modules/orders";
 
 import { Card, CardBody } from "@kristall/ui/card";
-
-import { VERSIONS } from "@kristall/core/constants";
+import { Skeleton } from "@kristall/ui/skeleton";
 import Link from "next/link";
-import type React from "react";
+
 import MoneyChart from "./money-chart";
 import ProductsChart from "./products-chart";
 
 import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import { BorderBeam } from "@/components/ui/border-beam";
+
 import { cn } from "@/core/utils";
-import { diffDays } from "@formkit/tempo";
-import { Suspense } from "react";
+
 import ProductsChartSkeleton from "./products-chart/skeleton";
 
-export default async function Analytics() {
+export async function AnalyticsChart() {
 	const [analyticsInfo, pendingOrders] = await Promise.all([
-		analytics.getAnalytics(),
+		getAnalytics(),
 		orders.getPendingOrders(),
 	]);
 
@@ -132,5 +137,92 @@ function InfoCard({
 				<span className="text-2xl h-full">{children}</span>
 			</CardBody>
 		</Card>
+	);
+}
+
+const ANALYTICS_SKELETON: Analytics = {
+	earningsByDay: [
+		{
+			cost: 0,
+			date: addDay(new Date().toISOString(), -2).toDateString(),
+			earnings: 0,
+		},
+		{
+			cost: 0,
+			date: addDay(new Date().toISOString(), -1).toDateString(),
+			earnings: 0,
+		},
+		{
+			cost: 0,
+			date: new Date().toDateString(),
+			earnings: 0,
+		},
+		{
+			cost: 0,
+			date: addDay(new Date().toISOString(), 1).toDateString(),
+			earnings: 0,
+		},
+		{
+			cost: 0,
+			date: addDay(new Date().toISOString(), 2).toDateString(),
+			earnings: 0,
+		},
+	],
+};
+
+export function AnalyticsChartSkeleton() {
+	return (
+		<div className="flex flex-col gap-y-4">
+			<div className="grid grid-cols-4 gap-x-4">
+				<Card>
+					<CardBody className="p-4">
+						<h4 className="text-base text-zinc-400 flex items-center justify-start gap-x-2">
+							Ganancias totales
+							<LineChart />
+						</h4>
+						<span className="text-2xl flex flex-row gap-x-1 items-center">
+							$ <Skeleton className="w-16 h-5" />
+						</span>
+					</CardBody>
+				</Card>
+				<Card>
+					<CardBody className="p-4">
+						<h4 className="text-base text-zinc-400 flex items-center justify-start gap-x-2">
+							Ventas totales
+							<TrendingUp />
+						</h4>
+						<span className="text-2xl flex flex-row gap-x-1 items-center">
+							$ <Skeleton className="w-16 h-5" />
+						</span>
+					</CardBody>
+				</Card>
+				<Card>
+					<CardBody className="p-4">
+						<h4 className="text-base text-zinc-400 flex items-center justify-start gap-x-2">
+							Gastos totales
+							<TrendingDown />
+						</h4>
+						<span className="text-2xl flex flex-row gap-x-1 items-center">
+							$ <Skeleton className="w-16 h-5" />
+						</span>
+					</CardBody>
+				</Card>
+				<Card>
+					<CardBody className="p-4">
+						<h4 className="text-base text-zinc-400 flex items-center justify-start gap-x-2">
+							Ordenes pendientes
+							<ClipboardList />
+						</h4>
+						<span className="text-2xl flex flex-row gap-x-1 items-center">
+							<Skeleton className="w-16 h-5" />
+						</span>
+					</CardBody>
+				</Card>
+			</div>
+			<div className="grid grid-cols-[auto_1fr] gap-x-4">
+				<MoneyChart analytics={ANALYTICS_SKELETON} />
+				<ProductsChartSkeleton />
+			</div>
+		</div>
 	);
 }
