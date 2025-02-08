@@ -5,6 +5,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import Link from "next/link";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQueryParams } from "@kristall/core/hooks/use-query-params";
 import { ArrowUpDown, MoreVertical } from "lucide-react";
 import { NoImage } from "../../../svg/no-image";
@@ -48,6 +49,11 @@ export const columns: ColumnDef<Product>[] = [
 	{
 		accessorKey: "name",
 		header: "Nombre",
+		cell: ({ row }) => {
+			const product = row.original;
+
+			return product.name ?? <Skeleton className="w-56 h-6" />;
+		},
 	},
 	{
 		accessorKey: "price",
@@ -96,6 +102,14 @@ export const columns: ColumnDef<Product>[] = [
 				currency: "MXN",
 			}).format(amount);
 
+			if (Number.isNaN(amount)) {
+				return (
+					<div className="font-medium pr-4 flex justify-end items-center">
+						<Skeleton className="w-12 h-6" />
+					</div>
+				);
+			}
+
 			return <div className="text-end font-medium pr-4">{formatted}</div>;
 		},
 	},
@@ -140,9 +154,17 @@ export const columns: ColumnDef<Product>[] = [
 			);
 		},
 		cell: ({ row }) => {
-			return (
-				<div className="text-end font-medium pr-4">{row.getValue("stock")}</div>
-			);
+			const value = row.getValue<number>("stock");
+
+			if (!value) {
+				return (
+					<div className="font-medium pr-4 flex justify-end items-center">
+						<Skeleton className="w-12 h-6" />
+					</div>
+				);
+			}
+
+			return <div className="text-end font-medium pr-4">{value}</div>;
 		},
 	},
 	{
@@ -150,11 +172,13 @@ export const columns: ColumnDef<Product>[] = [
 		cell: ({ row }) => {
 			const product = row.original;
 
+			const hasName = product.name;
+
 			return (
 				<div className="grid place-content-center">
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Button variant="ghost" size="icon">
+							<Button disabled={!hasName} variant="ghost" size="icon">
 								<MoreVertical />
 							</Button>
 						</DropdownMenuTrigger>

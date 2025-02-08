@@ -1,6 +1,5 @@
 "use client";
 
-import { printInventory } from "@/actions/product.actions";
 import {
 	Button,
 	Dialog,
@@ -18,14 +17,15 @@ import {
 	SelectValue,
 	dropdownMenuTriggerClass,
 } from "@/components/ui";
-import type { Product } from "@kristall/core/interfaces/products";
+import type { PrintProduct } from "@kristall/core/interfaces/inventory";
+import { printInventory } from "@kristall/core/inventory/print";
 import { useSearchParams } from "next/navigation";
-import { forwardRef, useMemo, useRef, useState, useTransition } from "react";
+import { useMemo, useRef, useState, useTransition } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useLocationsContext } from "../../../context/location-context";
 import PrintLocationPage from "./print-location-page";
 
-const PrintLocations = forwardRef(() => {
+const PrintLocations = () => {
 	const locations = useLocationsContext();
 
 	const searchParams = useSearchParams();
@@ -40,9 +40,7 @@ const PrintLocations = forwardRef(() => {
 		return locationFound?.name ?? "";
 	}, [location]);
 
-	const [products, setProducts] = useState<
-		Pick<Product, "_id" | "name" | "stock" | "price">[] | null
-	>(null);
+	const [products, setProducts] = useState<PrintProduct[] | null>(null);
 
 	const ref = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 
@@ -117,6 +115,6 @@ const PrintLocations = forwardRef(() => {
 			/>
 		</>
 	);
-});
+};
 
 export default PrintLocations;

@@ -61,53 +61,6 @@ export class ProductsService {
     return this.productRepository.remove(product)
   }
 
-  // #region Get Products To Print
-  async getProductsToPrint(location: string, shopId: string) {
-    // const products = await this.productRepository.find({
-    //   where: {
-    //     shop: { _id: shopId },
-    //     locations: {
-    //       locationId: location,
-    //     }
-    //   },
-    //   select: {
-    //     _id: true,
-    //     name: true,
-    //     price: true,
-    //     locations: {
-    //       stock: true,
-    //       locationId: true,
-    //     }
-    //   },
-    //   relationLoadStrategy: 'join',
-    // });
-    // return products;
-    try {
-      const products = await this.dataSource
-        .getRepository('product')
-        .createQueryBuilder('product')
-        .innerJoin('location_product', 'location_product', 'location_product."productId" = product._id')
-        .select(['product._id AS _id', 'product.name AS name', 'product.price AS price', 'location_product.stock AS stock'])
-        .where('location_product."locationId" = :location', { location })
-        .andWhere('product.shop_id = :shopId', { shopId })
-        .getRawMany();
-
-      // .andWhere('location_product.location_id = :location', { location })
-      // .subQuery()
-      // .select('location_product.stock', 'stock')
-      // .addSelect('location_product.location_id', 'locationId')
-      // .from(LocationProduct, 'location_product')
-      // .where('location_product.product_id = product._id')
-      // .andWhere('location_product.location_id = :location', { location })
-      console.log(products);
-      return products;
-    }
-    catch (error) {
-      console.log(error);
-      throw new Error('Something went wrong');
-    }
-  }
-
   // #region Get Inventory CutOff
   async getInventoryCutOff(payload: {
     location: string,

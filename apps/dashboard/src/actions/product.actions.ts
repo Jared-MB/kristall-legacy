@@ -1,6 +1,5 @@
 "use server";
 
-import { type UUID, randomUUID } from "node:crypto";
 import type { BatchToAdd } from "@/app/dashboard/inventory/context/batch-context";
 import type { LocationToAdd } from "@/app/dashboard/inventory/context/location-context";
 import type { Image, Product } from "@/core/interfaces/entities";
@@ -10,11 +9,7 @@ import type { PaginationEntity } from "@/types";
 import type { LocationProduct } from "@/types/location";
 import type { Product as DeprecatedProduct } from "@/types/product";
 import { ServerConnection } from "@/utils/ServerConnection";
-import {
-	PrintInventoryConnection,
-	ProductConnection,
-	ProductsConnection,
-} from "@/utils/connections";
+import { ProductConnection, ProductsConnection } from "@/utils/connections";
 import { r2 } from "@/utils/r2";
 import {
 	type AddProduct,
@@ -28,6 +23,7 @@ import {
 import { parse } from "@formkit/tempo";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { type UUID, randomUUID } from "node:crypto";
 
 /**
  * @deprecated
@@ -247,18 +243,6 @@ export const updateProduct = async (
 
 	revalidatePath(`/dashboard/inventory/${productId}`);
 	return "Actualizado correctamente";
-};
-
-// #region PRINT INVENTORY
-/**
- * @deprecated
- */
-export const printInventory = async (location: string) => {
-	const response =
-		await PrintInventoryConnection(location).get<
-			Pick<DeprecatedProduct, "_id" | "name" | "stock" | "price">[]
-		>();
-	return response;
 };
 
 // #region CUT-OFF INVENTORY

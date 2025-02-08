@@ -456,21 +456,6 @@ export class ProductsController {
     return data
   }
 
-  @Get('print')
-  async printProducts(
-    @Res() res: Response,
-    @Req() req: Request,
-    @Query() query: { location: string },
-  ) {
-    const cookie = req.cookies['session'];
-    const payload = this.tokenService.decodeCookie(cookie);
-    if (!payload) {
-      return res.status(404).json({ message: 'No route found' });
-    }
-    const products = this.productsService.getProductsToPrint(query.location, payload.shop._id);
-    return this.utils.adaptResponse(products, res);
-  }
-
   @Get('inventory-cut-off')
   async getInventoryCutOff(
     @Res() res: Response,
