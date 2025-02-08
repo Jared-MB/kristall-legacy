@@ -1,6 +1,6 @@
 "use client";
 
-import { products } from "@kristall/core/modules/products";
+import { getPaginatedProducts } from "@kristall/core/products/get";
 import { createContext, useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -27,7 +27,7 @@ export const SearchProductContextProvider = ({
 	const [fetchedProducts, setProducts] = useState<SearchProduct[]>([]);
 
 	const fetchProducts = async (searchParams: URLSearchParams) =>
-		products.getPaginatedProducts(searchParams);
+		getPaginatedProducts(searchParams);
 
 	const debounce = (value: string) => {
 		const newSearchParams = new URLSearchParams(searchParams);
