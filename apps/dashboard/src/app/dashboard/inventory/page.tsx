@@ -10,7 +10,7 @@ import { MainContent } from "@kristall/ui/layout/main-content";
 import { InventoryRoutesPrefetch } from "./components/inventory-routes-prefetch";
 import { MenuShortcut } from "./components/menu/menu-shortcut";
 
-import { getPaginatedProducts } from "@kristall/core/products/adapters/products.adapter";
+import { getPaginatedProducts } from "@kristall/core/products/get";
 
 export default async function InventoryPage(props: {
 	searchParams: Promise<URLSearchParams>;
