@@ -13,7 +13,7 @@ import { Suspense } from "react";
 
 import { getAnalytics } from "@kristall/core/analytics/get";
 import { VERSIONS } from "@kristall/core/constants";
-import { orders } from "@kristall/core/modules/orders";
+import { getPendingOrders } from "@kristall/core/orders/get";
 
 import { Card, CardBody } from "@kristall/ui/card";
 import { Skeleton } from "@kristall/ui/skeleton";
@@ -32,7 +32,7 @@ import ProductsChartSkeleton from "./products-chart/skeleton";
 export async function AnalyticsChart() {
 	const [analyticsInfo, pendingOrders] = await Promise.all([
 		getAnalytics(),
-		orders.getPendingOrders(),
+		getPendingOrders(),
 	]);
 
 	const thisMonth = new Date().getMonth();
@@ -98,7 +98,7 @@ export async function AnalyticsChart() {
 					${cost}
 				</InfoCard>
 				<InfoCard title="Ordenes pendientes" icon={<ClipboardList />}>
-					{pendingOrders}
+					{pendingOrders ?? 0}
 				</InfoCard>
 			</div>
 			<div className="grid grid-cols-[auto_1fr] gap-x-4">
