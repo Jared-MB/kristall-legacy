@@ -29,11 +29,6 @@ export const getBestSellingProducts = async () => {
 /**
  * @deprecated
  */
-export const PrintInventoryConnection = (location: string) =>
-	new ServerConnection(`/products/print?location=${location}`);
-/**
- * @deprecated
- */
 export const InventoryCutOffConnection = new ServerConnection(
 	"/products/inventory-cut-off",
 );
