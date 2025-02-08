@@ -8,7 +8,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useMemo, useRef } from "react";
 
-export default function RawMoneyChart({ analytics }: { analytics: Analytics }) {
+export function RawMoneyChart({ analytics }: { analytics: Analytics }) {
 	const { theme } = useTheme();
 
 	const incomesData = useMemo(() => {

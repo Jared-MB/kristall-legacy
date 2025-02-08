@@ -19,15 +19,16 @@ import { Card, CardBody } from "@kristall/ui/card";
 import { Skeleton } from "@kristall/ui/skeleton";
 import Link from "next/link";
 
-import MoneyChart from "./money-chart";
-import ProductsChart from "./products-chart";
+import { MoneyChart } from "./money/money-chart";
+import {
+	ProductsChart,
+	ProductsChartSkeleton,
+} from "./products/products-chart";
 
 import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import { BorderBeam } from "@/components/ui/border-beam";
 
 import { cn } from "@/core/utils";
-
-import ProductsChartSkeleton from "./products-chart/skeleton";
 
 export async function AnalyticsChart() {
 	const [analyticsInfo, pendingOrders] = await Promise.all([

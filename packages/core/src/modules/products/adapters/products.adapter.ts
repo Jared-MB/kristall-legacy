@@ -20,6 +20,9 @@ export const getPaginatedProducts = async (
 	);
 };
 
+/**
+ * @deprecated use get file instead
+ */
 export const getBestSellers = async (): Promise<BestSeller[] | null> => {
 	const { data } = await productsService.getBestSellingProductsService();
 	return data;

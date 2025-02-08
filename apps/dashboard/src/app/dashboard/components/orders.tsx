@@ -1,8 +1,8 @@
-import { orders } from "@kristall/core/modules/orders";
+import { getLatestOrders } from "@kristall/core/orders/get";
 import OrdersTable from "@kristall/ui/compound/orders/table/orders-table";
 
 export default async function DashboardOrders() {
-	const latestOrders = await orders.getLatestOrders();
+	const latestOrders = await getLatestOrders();
 
 	if (!latestOrders) {
 		return null;
