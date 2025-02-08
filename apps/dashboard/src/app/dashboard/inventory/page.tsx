@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import LocationsFilter from "./components/locations-filter";
+import { LocationsFilter } from "./components/locations-filter";
 import Menu from "./components/menu";
 import ProductsTableSkeleton from "./components/products-table/skeleton";
 import { SearchProduct } from "./components/search-product";
@@ -10,7 +10,7 @@ import { MainContent } from "@kristall/ui/layout/main-content";
 import { InventoryRoutesPrefetch } from "./components/inventory-routes-prefetch";
 import { MenuShortcut } from "./components/menu/menu-shortcut";
 
-import { getPaginatedProducts } from "@kristall/core/products/adapters/products.adapter";
+import { getPaginatedProducts } from "@kristall/core/products/get";
 
 export default async function InventoryPage(props: {
 	searchParams: Promise<URLSearchParams>;

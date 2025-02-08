@@ -7,30 +7,26 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useQueryParams } from "@kristall/core/hooks/use-query-params";
 import { useEffect, useState } from "react";
 import { useLocationsContext } from "../context/location-context";
 
-export default function LocationsFilter() {
+export function LocationsFilter() {
 	const locations = useLocationsContext();
 
 	const [selectedLocation, setSelectedLocation] = useState("");
 
-	const searchParams = useSearchParams();
-	const pathname = usePathname();
-	const { replace } = useRouter();
+	const { setQueryParams, removeQueryParams, getQueryParam } =
+		useQueryParams<"location">();
 
 	const onChange = (value: string) => {
-		const query = new URLSearchParams(searchParams);
-		query.set("location", value);
-		if (value === "all") query.delete("location");
-		replace(`${pathname}?${query.toString()}`);
+		setQueryParams("location", value);
+		if (value === "all") removeQueryParams("location");
 		setSelectedLocation(value);
 	};
 
 	useEffect(() => {
-		const query = new URLSearchParams(searchParams);
-		const location = query.get("location");
+		const location = getQueryParam("location");
 		location && setSelectedLocation(location);
 	}, []);
 

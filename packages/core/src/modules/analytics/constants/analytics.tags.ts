@@ -1,3 +1,3 @@
 export const ANALYTICS_TAGS = {
-	INFO: "ANALYTICS_INFO",
+	GET: "ANALYTICS_GET",
 };

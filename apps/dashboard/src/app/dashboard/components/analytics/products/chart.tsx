@@ -8,10 +8,10 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from "@/components/ui/chart";
-import type { BestSeller } from "@/types/product";
+import type { PublicProduct } from "@kristall/core/interfaces/products";
 import { useMemo } from "react";
 
-export default function Chart({ products }: { products: BestSeller[] }) {
+export function Chart({ products }: { products: PublicProduct[] }) {
 	const chartConfig = useMemo(() => {
 		const config = {
 			visitors: {

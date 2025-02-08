@@ -1,13 +1,15 @@
 import { Suspense } from "react";
-import Analytics from "./components/analytics";
-import AnalyticsSkeleton from "./components/analytics/skeleton";
+import {
+	AnalyticsChart,
+	AnalyticsChartSkeleton,
+} from "./components/analytics/analytics-chart";
 import DashboardOrders from "./components/orders";
 
 export default function DashboardPage() {
 	return (
 		<main className="p-8 h-layout overflow-y-auto">
-			<Suspense fallback={<AnalyticsSkeleton />}>
-				<Analytics />
+			<Suspense fallback={<AnalyticsChartSkeleton />}>
+				<AnalyticsChart />
 			</Suspense>
 			<section className="pt-8">
 				<h3 className="text-2xl mb-4">Últimos pedidos</h3>

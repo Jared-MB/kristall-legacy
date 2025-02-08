@@ -16,6 +16,9 @@ interface BatchesByDate {
 	string: Batch[];
 }
 
+/**
+ * @deprecated
+ */
 export const getBatches = async (): Promise<BatchesByDate> => {
 	return await GET("/products/batches");
 };

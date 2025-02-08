@@ -27,6 +27,9 @@ interface FetchOptions {
 	toJSON?: boolean;
 }
 
+/**
+ * @deprecated Use @kristall/http package instead.
+ */
 export const GET = async <T>(
 	url: Url,
 	options: FetchOptions = {
@@ -35,6 +38,10 @@ export const GET = async <T>(
 ): Promise<ServerResponse<T>> => {
 	const { tags, toJSON } = options;
 	if (isDev) {
+		console.warn(
+			"⚠️ GET request is deprecated, use @kristall/http package instead at: ",
+			url,
+		);
 		if (tags.length === 0) {
 			console.warn("⚠️ No tags provided for GET request: ", url);
 		}
@@ -63,10 +70,18 @@ export const GET = async <T>(
 	}
 };
 
+/**
+ * @deprecated Use @kristall/http package instead
+ */
 export const POST = async <T, R = unknown>(
 	url: Url,
 	body: T,
 ): Promise<ServerResponse<R>> => {
+	isDev &&
+		console.warn(
+			"⚠️ POST is deprecated, use @kristall/http package instead at: ",
+			url,
+		);
 	const response = await fetch(`${environment.SERVER_API}${url}`, {
 		method: "POST",
 		headers: await createHeaders(),
@@ -79,10 +94,18 @@ export const POST = async <T, R = unknown>(
 	return await response.json();
 };
 
+/**
+ * @deprecated Use @kristall/http package instead
+ */
 export const PUT = async <T, R = unknown>(
 	url: Url,
 	body: T,
 ): Promise<ServerResponse<R>> => {
+	isDev &&
+		console.warn(
+			"⚠️ PUT is deprecated, use @kristall/http package instead at: ",
+			url,
+		);
 	const response = await fetch(`${environment.SERVER_API}${url}`, {
 		method: "PUT",
 		headers: await createHeaders(),
@@ -94,10 +117,18 @@ export const PUT = async <T, R = unknown>(
 	return await response.json();
 };
 
+/**
+ * @deprecated Use @kristall/http package instead
+ */
 export const PATCH = async <T, R = unknown>(
 	url: Url,
 	body: T,
 ): Promise<ServerResponse<R>> => {
+	isDev &&
+		console.warn(
+			"⚠️ PATCH is deprecated, use @kristall/http package instead at: ",
+			url,
+		);
 	const response = await fetch(`${environment.SERVER_API}${url}`, {
 		method: "PATCH",
 		headers: await createHeaders(),
@@ -109,7 +140,15 @@ export const PATCH = async <T, R = unknown>(
 	return await response.json();
 };
 
+/**
+ * @deprecated Use @kristall/http package instead
+ */
 export const DELETE = async (url: Url): Promise<ServerResponse<null>> => {
+	isDev &&
+		console.warn(
+			"⚠️ DELETE is deprecated, use @kristall/http package instead at: ",
+			url,
+		);
 	const response = await fetch(`${environment.SERVER_API}${url}`, {
 		method: "DELETE",
 		headers: await createHeaders(),
