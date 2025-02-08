@@ -4,6 +4,7 @@ import type { Pagination } from "@kristall/http/interfaces";
 
 import {
 	type ColumnDef,
+	type Table as RTable,
 	type SortingState,
 	flexRender,
 	getCoreRowModel,
@@ -28,6 +29,7 @@ import {
 	TableRow,
 } from "../../../ui/table";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQueryParams } from "@kristall/core/hooks/use-query-params";
 import { useRouter } from "next/navigation";
 
@@ -118,48 +120,7 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<section className="flex flex-col gap-y-2 grow">
-			<Table growContainer>
-				<TableHeader>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
-							{headerGroup.headers.map((header) => {
-								return (
-									<TableHead key={header.id}>
-										{header.isPlaceholder
-											? null
-											: flexRender(
-													header.column.columnDef.header,
-													header.getContext(),
-												)}
-									</TableHead>
-								);
-							})}
-						</TableRow>
-					))}
-				</TableHeader>
-				<TableBody>
-					{table.getRowModel().rows?.length ? (
-						table.getRowModel().rows.map((row) => (
-							<TableRow
-								key={row.id}
-								data-state={row.getIsSelected() && "selected"}
-							>
-								{row.getVisibleCells().map((cell) => (
-									<TableCell key={cell.id}>
-										{flexRender(cell.column.columnDef.cell, cell.getContext())}
-									</TableCell>
-								))}
-							</TableRow>
-						))
-					) : (
-						<TableRow>
-							<TableCell colSpan={columns.length} className="h-24 text-center">
-								No results.
-							</TableCell>
-						</TableRow>
-					)}
-				</TableBody>
-			</Table>
+			<RenderTable table={table} />
 			<div className="flex items-center justify-center">
 				<div className="flex items-center gap-x-2">
 					<Button
@@ -198,6 +159,117 @@ export function DataTable<TData, TValue>({
 						className="hidden h-8 w-8 p-0 lg:flex"
 						onClick={onLastPageClick}
 						disabled={!table.getCanNextPage()}
+					>
+						<span className="sr-only">Go to last page</span>
+						<ChevronsRight />
+					</Button>
+				</div>
+			</div>
+		</section>
+	);
+}
+
+interface RenderTableProps<TData> {
+	table: RTable<TData>;
+}
+
+function RenderTable<TData>({ table }: RenderTableProps<TData>) {
+	return (
+		<Table growContainer>
+			<TableHeader>
+				{table.getHeaderGroups().map((headerGroup) => (
+					<TableRow key={headerGroup.id}>
+						{headerGroup.headers.map((header) => {
+							return (
+								<TableHead key={header.id}>
+									{header.isPlaceholder
+										? null
+										: flexRender(
+												header.column.columnDef.header,
+												header.getContext(),
+											)}
+								</TableHead>
+							);
+						})}
+					</TableRow>
+				))}
+			</TableHeader>
+			<TableBody>
+				{table.getRowModel().rows?.length ? (
+					table.getRowModel().rows.map((row) => (
+						<TableRow
+							key={row.id}
+							data-state={row.getIsSelected() && "selected"}
+						>
+							{row.getVisibleCells().map((cell) => (
+								<TableCell key={cell.id}>
+									{flexRender(cell.column.columnDef.cell, cell.getContext())}
+								</TableCell>
+							))}
+						</TableRow>
+					))
+				) : (
+					<TableRow>
+						<TableCell
+							colSpan={table.getAllColumns().length}
+							className="h-24 text-center"
+						>
+							No se encontraron resultados.
+						</TableCell>
+					</TableRow>
+				)}
+			</TableBody>
+		</Table>
+	);
+}
+
+interface DataTableSkeletonProps<TData, TValue>
+	extends Pick<DataTableProps<TData, TValue>, "columns"> {
+	elements?: number;
+}
+
+export function DataTableSkeleton<TData, TValue>({
+	columns,
+	elements = 6,
+}: DataTableSkeletonProps<TData, TValue>) {
+	const table = useReactTable({
+		data: Array.from({ length: elements }).fill({
+			_id: Math.random(),
+		}) as TData[],
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		manualPagination: true,
+	});
+
+	return (
+		<section className="flex flex-col gap-y-2 grow">
+			<RenderTable table={table} />
+			<div className="flex items-center justify-center">
+				<div className="flex items-center gap-x-2">
+					<Button
+						variant="outline"
+						className="hidden h-8 w-8 p-0 lg:flex"
+						disabled
+					>
+						<span className="sr-only">Go to first page</span>
+						<ChevronsLeft />
+					</Button>
+					<Button variant="outline" className="h-8 w-8 p-0" disabled>
+						<span className="sr-only">Go to previous page</span>
+						<ChevronLeft />
+					</Button>
+					<div className="flex w-[100px] items-center justify-center text-sm font-medium">
+						Página <Skeleton className="w-12 h-5 mx-1" /> de{" "}
+						<Skeleton className="w-12 h-5 mx-1" />
+					</div>
+					<Button variant="outline" className="h-8 w-8 p-0" disabled>
+						<span className="sr-only">Go to next page</span>
+						<ChevronRight />
+					</Button>
+					<Button
+						variant="outline"
+						className="hidden h-8 w-8 p-0 lg:flex"
+						disabled
 					>
 						<span className="sr-only">Go to last page</span>
 						<ChevronsRight />
