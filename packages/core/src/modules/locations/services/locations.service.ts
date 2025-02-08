@@ -7,6 +7,9 @@ import { GET } from "@kristall/http";
 
 import { LOCATIONS_TAGS } from "../constants/locations.tags";
 
+/**
+ * @deprecated
+ */
 export const getLocationsService = async (): ServiceResponse<Location[]> => {
 	return await GET<Location[]>("/locations", {
 		tags: [LOCATIONS_TAGS.GET],
