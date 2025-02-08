@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import LocationsFilter from "./components/locations-filter";
+import { LocationsFilter } from "./components/locations-filter";
 import Menu from "./components/menu";
 import ProductsTableSkeleton from "./components/products-table/skeleton";
 import { SearchProduct } from "./components/search-product";
