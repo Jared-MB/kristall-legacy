@@ -1,0 +1,198 @@
+---
+title: Monorepo File System
+---
+
+import { Aside, FileTree } from '@astrojs/starlight/components';
+
+**Kristall** is build with [Turborepo](https://turbo.build/repo/docs) to manage the several apps and shared libraries.
+
+<FileTree>
+
+- apps all the apps that built Kristall
+  - dashboard/ ← main app for users
+  - docs/
+  - landing/
+  - pos/
+  - server/
+  - status/
+- packages all the shared libraries
+  - core/
+  - ui/
+  - http/
+- .dockerignore
+- Dockerfile only to deploy the server
+- package.json
+- pnpm-workspace.yaml
+- turbo.json
+
+</FileTree>
+
+## Apps
+
+### Frontend
+
+Almost all frontend apps follow the [NextJS](https://nextjs.org/docs/app/getting-started/project-structure) project architecture. 
+
+<FileTree>
+
+- src
+  - app On dashboard case
+    - (auth)/ login / register
+    - dashboard main app
+      - layout.tsx
+      - page.tsx
+      - ... other routes
+    - ...
+- public
+- package.json
+- .gitignore
+- next.config.ts
+- components.json for shadcn ui
+- tailwind.config.ts
+- tsconfig.json
+- ... other config files
+
+</FileTree>
+
+### Backend
+
+The backend is build using [NestJS](https://nestjs.com/) and [TypeORM](https://typeorm.io/), so the project structure may change a little bit.
+
+<FileTree>
+
+- src
+  - constants/
+  - decorators/
+  - interceptors/
+  - services/
+  - modules all the modules that built the backend
+    - analytics/
+    - products all modules should look like this
+      - controllers/
+      - dto/
+      - models/
+      - repositories/
+      - services/
+      - product.module.ts
+    - ...
+  - app.controller.ts
+  - app.module.ts
+  - main.ts to start the server
+  - ...
+- package.json
+- .gitignore
+- tsconfig.json
+- ... other config files
+
+</FileTree>
+
+Backend is now a little messy, but will continue refactoring to make it cleaner, consistent and easier to maintain.
+
+## Packages
+
+### @kristall/core
+
+Core is the main frontend package that contains all the backend connections, adapters, interfaces and hooks to make the frontend works.
+
+<Aside>
+  Some of the apps may contain their own version of core, but most of they are ***DEPRECATED*** and will be removed in the future.
+</Aside>
+
+<FileTree>
+
+- src
+  - modules all the modules that built the core
+    - analytics/
+    - products
+      - adapters
+        - get.ts
+        - id.ts
+        - ...
+      - constants
+        - product.tags.ts
+        - ...
+      - validators
+        - product.validator.ts
+        - ...
+      - interfaces/ product **ONLY** interfaces
+      - services/ will be ***DEPRECATED*** and removed in the future
+      - id.ts
+      - get.ts
+      - ...
+    - ...
+  - constants/
+  - hooks/
+  - interfaces/ generic interfaces
+  - utils/
+- package.json
+- .gitignore
+- tsconfig.json
+
+</FileTree>
+
+### [@kristall/http](../packages/http)
+
+***@kristall/http*** is the package that contains all the HTTP methods to connect to the backend. Works together with ***@kristall/core*** 
+and handles auth headers, cookies, error handling and other stuff.
+
+<Aside>
+  Some of the apps may contain their own version of http or **ServerConnection** class, but most of they are ***DEPRECATED*** and will be removed in the future.
+</Aside>
+
+<FileTree>
+
+- src
+  - modules
+    - http
+      - interfaces/ http **ONLY** interfaces
+      - services
+        - http.service.ts the main service
+      - index.ts
+  - constants/
+  - utils/
+- package.json
+- .gitignore
+- tsconfig.json
+
+</FileTree>
+
+### @kristall/ui
+
+***@kristall/ui*** is the package that contains all the UI components and hooks to make the frontend looks consistent and easy to use.
+
+<Aside>
+  All apps UI should be built using this package, some apps may contain their own version of ui, but must be targeted to this package.
+</Aside>
+
+<FileTree>
+
+- src
+  - components
+    - compound for specific modules components
+      - products/
+      - orders/
+      - ...
+    - functional for generic functional components
+      - search.tsx
+      - pagination.tsx
+      - ...
+    - icons/
+    - layout/
+    - svg/
+    - ui raw ui components
+      - button.tsx
+      - card.tsx
+      - dropdown.tsx
+      - ...
+  - core
+    - utils/
+  - hooks/
+  - globals.css
+- package.json
+- tailwind.config.ts
+- postcss.config.js
+- components.json for shadcn ui
+- .gitignore
+- tsconfig.json
+
+</FileTree>

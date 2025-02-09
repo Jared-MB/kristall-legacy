@@ -1,26 +1,19 @@
 {
 	"name": "@kristall/docs",
-	"version": "0.1.0",
-	"private": true,
+	"type": "module",
+	"version": "0.0.1",
 	"scripts": {
-		"dev": "next dev --turbopack -p 3005",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
+		"dev": "astro dev --port 3005",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
 	},
 	"dependencies": {
-		"@kristall/core": "workspace:*",
-		"@kristall/ui": "workspace:*",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"next": "15.1.6"
-	},
-	"devDependencies": {
-		"typescript": "^5",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"postcss": "^8",
-		"tailwindcss": "^3.4.1"
+		"@astrojs/starlight": "^0.31.1",
+		"@fontsource-variable/quicksand": "^5.1.1",
+		"astro": "^5.1.5",
+		"sharp": "^0.32.5",
+		"@kristall/http": "workspace:*"
 	}
 }
