@@ -4,6 +4,7 @@ import {
 	DataTable,
 	DataTableSkeleton,
 } from "@kristall/ui/compound/products/table/data-table";
+import { Suspense } from "react";
 
 export async function ProductsTable({
 	searchParams,
@@ -15,5 +16,9 @@ export async function ProductsTable({
 }
 
 export function ProductsTableSkeleton() {
-	return <DataTableSkeleton columns={columns} />;
+	return (
+		<Suspense>
+			<DataTableSkeleton columns={columns} />
+		</Suspense>
+	);
 }
