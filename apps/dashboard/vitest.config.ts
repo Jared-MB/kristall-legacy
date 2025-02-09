@@ -1,9 +1,8 @@
 import { config } from "dotenv";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-	plugins: [tsconfigPaths()],
+	// plugins: [tsconfigPaths()],
 	test: {
 		include: ["tests/unit_test/**/*.test.ts"],
 		env: {
