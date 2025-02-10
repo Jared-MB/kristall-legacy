@@ -7,6 +7,36 @@ import { Aside, Code } from '@astrojs/starlight/components';
 **@kristall/http** is a package for Kristall that provides a simple HTTP client.
 It's built on top of **fetch** API based on NextJS [**server actions**](https://nextjs.org/docs/app/getting-started/fetching-data#with-the-fetch-api).
 
+## Why its needed?
+
+At the beginning of the project, the request to the backend was made with axios or with a custom class to connect our backend, but we found that 
+including a library for every request was not a good idea. 
+
+<Aside>
+    **ServerConnection** class was the first attempt to solve this problem, but it was hard to maintain and had some issues with the typings.
+    Nowadays **~~ServerConnection~~** is deprecated and we recommend using **@kristall/http** instead. 
+    
+    Some request are still made with **ServerConnection** class.
+    But we are working on removing it from the project.
+</Aside>
+
+So we decided to create a simple HTTP client based on fetch API according to our needs, 
+reducing redundancy and improving the code quality and maintainability.
+
+### Why its different from using raw fetch API?
+
+@kristall/http is a wrapper for the fetch API, so it handles more things than just the requests, E.g:
+
+- Type safety.
+    - Add consistent types for every response.
+- Automatically: 
+    - Adds the **Authorization/Cookie** header with the actual session cookie.
+    - Adds the **Content-Type** header with the **application/json** value.
+    - Converts the request body into a string before sending it.
+- Handles error responses.
+- Helps NextJS cache.
+    - With the **tags** and **cache** options, we can improve user experience and reduce the number of requests, taking control of the app's cache.
+
 ## Methods
 
 The HTTP client provides the following methods:
@@ -311,7 +341,7 @@ const DELETE = (url: `/${string}`) => Promise<ServerResponse<null>>;
 
 #### Returns
 
-DELETE return a **null** [ServerResponse](#serverresponse) promise.
+DELETE **ALWAYS** return a **null** [ServerResponse](#serverresponse) promise.
 
 #### Usage
 
@@ -452,7 +482,7 @@ const { data } = response;
 const products = data?.entities.map(product => product.name);
 ```
 
-```ts
+export const INCORRECT_TYPE = `
 // ❌ not typed correctly
 const response = await GET<Pagination<Product[]>>('/products');
 
@@ -460,4 +490,6 @@ const { data } = response
 
 // will be an error typing
 const products = data?.entities.map(product => product.name);
-```
+`
+
+<Code code={INCORRECT_TYPE} lang='ts' mark={['[]', 'product.name']} />
