@@ -1,10 +1,12 @@
 import { getPaginatedProducts } from "@kristall/core/products/get";
-import { columns } from "@kristall/ui/compound/products/table/columns";
+import {
+	columns,
+	skeletonColumns,
+} from "@kristall/ui/compound/products/table/columns";
 import {
 	DataTable,
 	DataTableSkeleton,
 } from "@kristall/ui/compound/products/table/data-table";
-import { Suspense } from "react";
 
 export async function ProductsTable({
 	searchParams,
@@ -16,9 +18,5 @@ export async function ProductsTable({
 }
 
 export function ProductsTableSkeleton() {
-	return (
-		<Suspense>
-			<DataTableSkeleton columns={columns} />
-		</Suspense>
-	);
+	return <DataTableSkeleton columns={skeletonColumns} />;
 }

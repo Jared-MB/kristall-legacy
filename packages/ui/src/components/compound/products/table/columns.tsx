@@ -52,7 +52,7 @@ export const columns: ColumnDef<Product>[] = [
 		cell: ({ row }) => {
 			const product = row.original;
 
-			return product.name ?? <Skeleton className="w-56 h-6" />;
+			return product.name;
 		},
 	},
 	{
@@ -102,14 +102,6 @@ export const columns: ColumnDef<Product>[] = [
 				currency: "MXN",
 			}).format(amount);
 
-			if (Number.isNaN(amount)) {
-				return (
-					<div className="font-medium pr-4 flex justify-end items-center">
-						<Skeleton className="w-12 h-6" />
-					</div>
-				);
-			}
-
 			return <div className="text-end font-medium pr-4">{formatted}</div>;
 		},
 	},
@@ -156,14 +148,6 @@ export const columns: ColumnDef<Product>[] = [
 		cell: ({ row }) => {
 			const value = row.getValue<number>("stock");
 
-			if (!value) {
-				return (
-					<div className="font-medium pr-4 flex justify-end items-center">
-						<Skeleton className="w-12 h-6" />
-					</div>
-				);
-			}
-
 			return <div className="text-end font-medium pr-4">{value}</div>;
 		},
 	},
@@ -172,13 +156,11 @@ export const columns: ColumnDef<Product>[] = [
 		cell: ({ row }) => {
 			const product = row.original;
 
-			const hasName = product.name;
-
 			return (
 				<div className="grid place-content-center">
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Button disabled={!hasName} variant="ghost" size="icon">
+							<Button variant="ghost" size="icon">
 								<MoreVertical />
 							</Button>
 						</DropdownMenuTrigger>
@@ -191,6 +173,84 @@ export const columns: ColumnDef<Product>[] = [
 								</Link>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
+					</DropdownMenu>
+				</div>
+			);
+		},
+	},
+];
+
+export const skeletonColumns: ColumnDef<Product>[] = [
+	{
+		id: "image",
+		cell: ({ row }) => {
+			return (
+				<div className="grid place-content-center">
+					<div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded">
+						<NoImage className="w-full h-full object-contain" />
+					</div>
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: "name",
+		header: "Nombre",
+		cell: ({ row }) => {
+			return <Skeleton className="w-56 h-6" />;
+		},
+	},
+	{
+		accessorKey: "price",
+		header: ({ column }) => {
+			return (
+				<div className="flex w-full items-center justify-end">
+					<Button variant="ghost">
+						Precio
+						<ArrowUpDown className="ml-2 h-4 w-4" />
+					</Button>
+				</div>
+			);
+		},
+		cell: ({ row }) => {
+			return (
+				<div className="font-medium pr-4 flex justify-end items-center">
+					<Skeleton className="w-12 h-6" />
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: "stock",
+		header: ({ column }) => {
+			return (
+				<div className="flex w-full items-center justify-end">
+					<Button variant="ghost">
+						Stock
+						<ArrowUpDown className="ml-2 h-4 w-4" />
+					</Button>
+				</div>
+			);
+		},
+		cell: ({ row }) => {
+			return (
+				<div className="font-medium pr-4 flex justify-end items-center">
+					<Skeleton className="w-12 h-6" />
+				</div>
+			);
+		},
+	},
+	{
+		id: "actions",
+		cell: ({ row }) => {
+			return (
+				<div className="grid place-content-center">
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button disabled variant="ghost" size="icon">
+								<MoreVertical />
+							</Button>
+						</DropdownMenuTrigger>
 					</DropdownMenu>
 				</div>
 			);

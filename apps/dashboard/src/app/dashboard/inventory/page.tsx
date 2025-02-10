@@ -1,7 +1,10 @@
 import { Suspense } from "react";
 import { LocationsFilter } from "./components/locations-filter";
 import Menu from "./components/menu";
-import { ProductsTable } from "./components/products-table";
+import {
+	ProductsTable,
+	ProductsTableSkeleton,
+} from "./components/products-table";
 import { SearchProduct } from "./components/search-product";
 
 import { MainContent } from "@kristall/ui/layout/main-content";
@@ -22,7 +25,7 @@ export default async function InventoryPage(props: {
 				</Suspense>
 				<Menu />
 			</header>
-			<Suspense>
+			<Suspense fallback={<ProductsTableSkeleton />}>
 				<ProductsTable searchParams={props.searchParams} />
 			</Suspense>
 		</MainContent>
