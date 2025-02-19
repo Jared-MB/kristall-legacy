@@ -1,5 +1,7 @@
 "use client";
 
+import type { CustomerDetails } from "@kristall/core/interfaces/stripe";
+
 import SubmitButton from "@/components/submit-button";
 import {
 	Input,
@@ -8,8 +10,7 @@ import {
 	InputError,
 	Label,
 } from "@/components/ui";
-import { auth } from "@kristall/core/modules/auth";
-import type { CustomerDetails } from "@kristall/core/modules/stripe/interfaces";
+import { register } from "@kristall/core/auth/register";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -18,10 +19,10 @@ export default function RegisterForm({
 }: {
 	customer: CustomerDetails;
 }) {
-	const [errors, dispatch] = useActionState(auth.register, undefined);
+	const [errors, dispatch] = useActionState(register, undefined);
 
 	useEffect(() => {
-		errors && "message" in errors && toast.error(errors.message);
+		errors?.message && toast.error(errors.message);
 	}, [errors]);
 
 	return (
@@ -49,22 +50,32 @@ export default function RegisterForm({
 			</InputContainer>
 			<InputContainer>
 				<Label htmlFor="username">Usuario</Label>
-				<Input id="username" name="username" placeholder="username" />
+				<Input
+					id="username"
+					name="username"
+					placeholder="username"
+					defaultValue={errors?.fields.username.value}
+				/>
 				<InputDescription>
 					Elige el nombre de usuario con el que iniciarás sesión.
 				</InputDescription>
-				{errors && "username" in errors && (
-					<InputError>{errors.username}</InputError>
+				{errors?.fields.username && (
+					<InputError>{errors.fields.username.message}</InputError>
 				)}
 			</InputContainer>
 			<InputContainer>
 				<Label htmlFor="shopName">Nombre del negocio</Label>
-				<Input id="shopName" name="shopName" placeholder="shopName" />
+				<Input
+					id="shopName"
+					name="shopName"
+					placeholder="shopName"
+					defaultValue={errors?.fields.shopName.value}
+				/>
 				<InputDescription>
 					¿Cómo se llama tu negocio? Este nombre será visible para tus clientes.
 				</InputDescription>
-				{errors && "shopName" in errors && (
-					<InputError>{(errors as any).shopName}</InputError>
+				{errors?.fields.shopName && (
+					<InputError>{errors.fields.shopName.message}</InputError>
 				)}
 			</InputContainer>
 			<InputContainer>
@@ -74,9 +85,10 @@ export default function RegisterForm({
 					name="password"
 					type="password"
 					placeholder="* * * * * * * * *"
+					defaultValue={errors?.fields.password.value}
 				/>
-				{errors && "password" in errors && (
-					<InputError>{errors.password}</InputError>
+				{errors?.fields.password && (
+					<InputError>{errors.fields.password.message}</InputError>
 				)}
 			</InputContainer>
 			<InputContainer>
@@ -86,9 +98,10 @@ export default function RegisterForm({
 					name="confirmPassword"
 					type="password"
 					placeholder="* * * * * * * * *"
+					defaultValue={errors?.fields.confirmPassword.value}
 				/>
-				{errors && "confirmPassword" in errors && (
-					<InputError>{errors.confirmPassword}</InputError>
+				{errors?.fields.confirmPassword && (
+					<InputError>{errors.fields.confirmPassword.message}</InputError>
 				)}
 			</InputContainer>
 			<SubmitButton pendingText="Registrando...">Registrarse</SubmitButton>

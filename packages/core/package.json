@@ -6,6 +6,7 @@
 	"exports": {
 		"./modules/*": "./src/modules/*/index.ts",
 		"./utils": "./src/utils/index.ts",
+		"./utils/*": "./src/utils/*.ts",
 		"./constants": "./src/constants/index.ts",
 		"./environment": "./src/constants/environment.ts",
 		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",

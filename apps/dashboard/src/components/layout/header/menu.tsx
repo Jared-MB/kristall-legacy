@@ -1,5 +1,5 @@
 import { ThemeSwitch } from "@/components/theme-switch";
-import { auth } from "@kristall/core/modules/auth";
+import { logout } from "@kristall/core/auth/logout";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -136,7 +136,7 @@ export default function Menu() {
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem className="flex items-center gap-x-2">
-						<form action={auth.logout}>
+						<form action={logout}>
 							<button type="submit" className="flex items-center gap-x-2">
 								<LogOut className="w-5 h-5" />
 								Cerrar sesión
