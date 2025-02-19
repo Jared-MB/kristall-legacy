@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider, ThemeProvider } from "@/core/providers";
 import { cn } from "@/core/utils";
 import { quicksand } from "@/utils/fonts";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
 					>
 						{children}
 					</ThemeProvider>
+					<Analytics />
 					<Toaster visibleToasts={1} position="bottom-left" />
 				</body>
 			</QueryProvider>
