@@ -52,7 +52,7 @@ export function AppSidebarFooter() {
 									</Link>
 								</DropdownMenuItem>
 								<DropdownMenuItem asChild>
-									<Link href="/dashboard/settings/profile">
+									<Link href="/dashboard/settings/subscription">
 										<CreditCard />
 										Suscripción
 									</Link>
