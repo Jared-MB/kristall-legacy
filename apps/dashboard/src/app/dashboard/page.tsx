@@ -3,7 +3,7 @@ import {
 	AnalyticsChart,
 	AnalyticsChartSkeleton,
 } from "./components/analytics/analytics-chart";
-import DashboardOrders from "./components/orders";
+import { DashboardOrders } from "./components/orders";
 
 export default function DashboardPage() {
 	return (

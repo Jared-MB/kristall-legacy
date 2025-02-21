@@ -23,6 +23,9 @@ export default function SettingsLayout({
 					<SettingsLink href="/dashboard/settings/bank-accounts">
 						Cuentas bancarias
 					</SettingsLink>
+					<SettingsLink href="/dashboard/settings/subscription">
+						Suscripción
+					</SettingsLink>
 				</ul>
 			</Card>
 			<div className="h-[calc(100dvh-8rem)] overflow-y-scroll">{children}</div>

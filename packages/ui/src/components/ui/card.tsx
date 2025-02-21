@@ -5,10 +5,12 @@ export const Card = ({
 	children,
 	variant,
 	className,
+	id,
 	as = "section",
 }: {
 	children: React.ReactNode;
 	variant?: "default" | "destructive" | "borderless" | "container";
+	id?: string;
 	className?: string;
 	as?: "section" | "div" | "nav";
 	ref?: React.RefObject<HTMLDivElement>;
@@ -17,6 +19,7 @@ export const Card = ({
 
 	return (
 		<As
+			id={id}
 			ref={ref}
 			className={cn(
 				"flex flex-col border border-border rounded relative print:m-8",
@@ -45,8 +48,15 @@ export function CardHeader({
 	);
 }
 
-export function CardTitle({ children }: { children: React.ReactNode }) {
-	return <h3 className="text-2xl font-medium text-balance">{children}</h3>;
+export function CardTitle({
+	children,
+	className,
+}: { children: React.ReactNode; className?: string }) {
+	return (
+		<h3 className={cn("text-2xl font-medium text-balance", className)}>
+			{children}
+		</h3>
+	);
 }
 
 export function CardSubtitle({

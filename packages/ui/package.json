@@ -57,13 +57,13 @@
 		"./compound/*": "./src/components/compound/*.tsx",
 		"./functional/*": "./src/components/functional/*.tsx",
 		"./core/*": "./src/core/*/index.ts",
-		"./layout/*": "./src/components/layout/*.tsx"
+		"./layout/*": "./src/components/layout/*.tsx",
+		"./hooks/*": "./src/core/hooks/*.tsx"
 	},
 	"typesVersions": {
 		"*": {
-			"core/*": [
-				"./src/core/*/index.ts"
-			]
+			"core/*": ["./src/core/*/index.ts"],
+			"hooks/*": ["./src/core/hooks/*.tsx"]
 		}
 	}
 }
