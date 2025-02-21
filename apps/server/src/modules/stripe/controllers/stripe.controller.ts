@@ -12,14 +12,19 @@ import {
   RawBodyRequest,
   Req,
   Res,
+  UnauthorizedException,
   UseInterceptors
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { Cookies } from 'src/decorators';
+import { AuthService } from 'src/services';
 import { StripeService } from '../services/stripe.service';
+
 @Controller('stripe')
 export class StripeController {
   constructor(
     private readonly stripeService: StripeService,
+    private readonly authService: AuthService,
     private readonly utils: Utils,
   ) { }
 
@@ -42,7 +47,7 @@ export class StripeController {
   }
 
   @Put('/cancel-subscription/:id')
-  async cancelSuscription(
+  async cancelSubscription(
     @Param('id') id: string,
     @Body() body: any,
     @Res() res: Response,
@@ -53,6 +58,20 @@ export class StripeController {
       message: 'Subscription canceled',
       status: 201,
     });
+  }
+
+  @UseInterceptors(ResponseInterceptor)
+  @Get('/user')
+  async getStripeAccountByUser(@Cookies('session') session: string){
+    const user = this.authService.decodeCookie(session);
+
+    if (!user){
+      throw new UnauthorizedException()
+    }
+
+    const { stripeId } = user
+    const account = await this.stripeService.getUserSubscriptions(stripeId);
+    return account
   }
 
   @Get('customer/:id')

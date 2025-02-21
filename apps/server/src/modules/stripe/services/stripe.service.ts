@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import { Repository } from 'typeorm';
+import { Plan } from '../interfaces/plan';
 
 @Injectable()
 export class StripeService {
@@ -36,7 +37,7 @@ export class StripeService {
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeId,
     });
-    const hasCanceled = subscriptions.data[0].cancel_at_period_end;
+    const hasCanceled = subscriptions.data[0]?.cancel_at_period_end;
     return {
       isSubscribed: subscriptions.data.length > 0,
       hasCanceled,
@@ -126,6 +127,18 @@ export class StripeService {
       customer: id,
     });
     return { costumer, costumerSubscriptions };
+  }
+
+  async getUserSubscriptions(stripeId: string){
+    const stripe = this.getStripe();
+    const subscriptions = await stripe.subscriptions.list({
+      customer: stripeId,
+    });
+    const subscription: Plan = {
+      ...(subscriptions.data[0] as any).plan as Omit<Plan, 'current_period_end'>,
+      current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
+    }
+    return subscription
   }
 
   async getCostumerByEmail(email: string) {
