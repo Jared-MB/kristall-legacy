@@ -3,7 +3,7 @@ import type { Analytics } from "@kristall/core/interfaces/analytics";
 import {
 	ClipboardList,
 	LineChart,
-	Sparkle,
+	Sparkles,
 	TrendingDown,
 	TrendingUp,
 } from "lucide-react";
@@ -71,7 +71,7 @@ export async function AnalyticsChart() {
 					<InfoCard
 						className="grow"
 						title="Nueva versión"
-						icon={<Sparkle />}
+						icon={<Sparkles />}
 						isNewVersion
 					>
 						<div className="flex flex-col 2xl:flex-row justify-between items-start h-full">
