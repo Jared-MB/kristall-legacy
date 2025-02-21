@@ -11,6 +11,27 @@ export interface Version {
 
 export const VERSIONS: Version[] = [
 	{
+		_id: "v0.11.0-RC-1",
+		date: "2025-02-21",
+		title: "Virtual Showroom",
+		description: `
+			Estamos más cerca de que el Virtual Showroom sea lo más completo y estable posible.
+			Trabajamos en la mejora de la experiencia de usuario, así como en la optimización de la carga de la página.
+		`,
+	},
+	{
+		_id: "v0.10.0",
+		date: "2025-02-21",
+		title: "Better settings",
+		description: `
+			Se ha mejorado la interfaz de configuración de la aplicación. Creemos que hemos logrado agrupar las opciones de configuración en categorías más claras, organizadas y agradables.
+			`,
+		features: [
+			"Rediseño de la configuración",
+			"Se han movido algunas configuraciones para mantener la organización",
+		],
+	},
+	{
 		_id: "v0.10.0-RC-2",
 		date: "2025-01-15",
 		title: "Virtual Showroom",
