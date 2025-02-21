@@ -17,11 +17,9 @@ export default function SettingsLinkTab({
 }) {
 	const pathname = usePathname();
 
-	const isGeneral = href === "/dashboard/settings/general";
-
 	return (
 		<Fragment>
-			{href === pathname || isGeneral ? (
+			{href === pathname ? (
 				<motion.div
 					className={cn(
 						"absolute bg-zinc-300 z-0 rounded",
