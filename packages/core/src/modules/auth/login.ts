@@ -5,10 +5,10 @@ import type { Authorized, LoginResponse, LoginUser } from "./interfaces";
 import { POST } from "@kristall/http";
 import { LoginSchema } from "./validators/auth.validator";
 
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AUTH_COOKIE } from "./constants/auth.constant";
 
+import { setCookie } from "@kristall/core/utils/cookies";
 import { ZodErrorExtractor } from "@kristall/core/utils/zod-error-extractor";
 
 export const login = async (
@@ -67,7 +67,7 @@ export const login = async (
 
 	const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
 
-	(await cookies()).set(AUTH_COOKIE, access_token, {
+	await setCookie(AUTH_COOKIE, access_token, {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		maxAge: ONE_DAY_IN_SECONDS,
