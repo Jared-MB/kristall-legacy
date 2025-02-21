@@ -5,7 +5,7 @@ export default function Setting({
 	className,
 }: { children: React.ReactNode; className?: string }) {
 	return (
-		<main className={cn("py-2 px-6 flex flex-col gap-y-6 mb-3", className)}>
+		<main className={cn("p-6 flex flex-col gap-y-6", className)}>
 			{children}
 		</main>
 	);

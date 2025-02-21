@@ -1,13 +1,14 @@
 import { Button } from "@kristall/ui/button";
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@kristall/ui/card";
+import { Card, CardBody, CardHeader, CardTitle } from "@kristall/ui/card";
 
-import { ArrowRight, CheckCircle2, Package, Zap } from "lucide-react";
+import {
+	AlertTriangle,
+	ArrowRight,
+	CheckCircle2,
+	Package,
+	Sparkles,
+	Zap,
+} from "lucide-react";
 import Setting from "../components/setting";
 
 export default function SubscriptionPage() {
@@ -72,8 +73,8 @@ export default function SubscriptionPage() {
 							>
 								Ver planes premium
 								<ArrowRight className="h-4 w-4 ml-2" />
-								<small className="absolute -bottom-3 -right-10 bg-zinc-900 rounded-md border border-zinc-700 px-2 py-0.5">
-									Disponible pronto
+								<small className="absolute -bottom-3 -right-10 bg-zinc-900 rounded-md border border-zinc-700 px-2 py-0.5 flex items-center gap-x-2">
+									<Sparkles className="w-3 h-3" /> Disponible pronto
 								</small>
 							</Button>
 						</div>
@@ -83,24 +84,34 @@ export default function SubscriptionPage() {
 					</div>
 				</CardBody>
 			</Card>
-			<Card variant="destructive" id="cancel-subscription">
-				<CardHeader>
-					<CardTitle>Cancelar suscripción</CardTitle>
+			<Card className="bg-zinc-900 border-zinc-800 relative overflow-hidden">
+				<div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 via-transparent to-transparent" />
+				<CardHeader className="pb-3">
+					<CardTitle className="text-xl text-zinc-100 flex items-center gap-2">
+						<AlertTriangle className="h-5 w-5 text-rose-400" />
+						Cancelar suscripción
+					</CardTitle>
 				</CardHeader>
-				<CardBody className="pt-0">
-					<p className="md:w-[100ch] text-pretty">
-						Si cancelas tu suscripción, una vez acabado el periodo de
-						facturación, no podrás acceder a tu tienda y se deshabilitara el
-						Virtual Showroom. Podrás reactivarla en cualquier momento.{" "}
-						<small className="text-zinc-300/60">
+				<CardBody>
+					<div className="space-y-4">
+						<p className="text-sm text-zinc-300 leading-relaxed">
+							Si cancelas tu suscripción, una vez acabado el periodo de
+							facturación, no podrás acceder a tu tienda y se deshabilitará el
+							Virtual Showroom. Podrás reactivarla en cualquier momento.
+						</p>
+						<small className="text-xs text-zinc-400 italic">
 							(Tus datos y productos se borrarán pasados 3 meses de inactividad)
 						</small>
-					</p>
-					<p>Para cancelar tu suscripción, haz clic en el botón de abajo.</p>
+						<div className="pt-2">
+							<Button
+								variant="destructive"
+								className="bg-rose-600 hover:bg-rose-700 text-white"
+							>
+								Cancelar suscripción
+							</Button>
+						</div>
+					</div>
 				</CardBody>
-				<CardFooter className="justify-end">
-					<Button variant="destructive">Cancelar suscripción</Button>
-				</CardFooter>
 			</Card>
 		</Setting>
 	);
