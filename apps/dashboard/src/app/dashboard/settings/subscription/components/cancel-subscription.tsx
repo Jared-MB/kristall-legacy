@@ -6,7 +6,7 @@ import { AlertTriangle } from "lucide-react";
 export function CancelSubscription() {
 	return (
 		<Card className="bg-zinc-900 border-zinc-800 relative overflow-hidden">
-			<div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 via-transparent to-transparent" />
+			<div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 via-transparent to-transparent pointer-events-none" />
 			<CardHeader className="pb-3">
 				<CardTitle className="text-xl text-zinc-100 flex items-center gap-2">
 					<AlertTriangle className="h-5 w-5 text-rose-400" />
