@@ -33,8 +33,6 @@ export class AppController {
   healthCheck(
     @Res() res: Response,
   ) {
-    return res.json({
-      status: 'ok'
-    })
+    return res.status(200).json({ status: 'ok' });
   }
 }
