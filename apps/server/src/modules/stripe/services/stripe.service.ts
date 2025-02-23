@@ -24,12 +24,14 @@ export class StripeService {
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeId,
     });
+
     const subscription = {
       ...subscriptions.data[0].items.data[0].plan,
       id: subscriptions.data[0].id,
       cancel_at_period_end: subscriptions.data[0].cancel_at_period_end,
       current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
     }
+    
     return subscription
   }
 
@@ -85,27 +87,13 @@ export class StripeService {
 
   async getPrices() {
     const stripe = this.getStripe();
+    
     const prices = await stripe.prices.list({
       currency: 'MXN',
       active: true,
     });
-    const realPrices = [] as Stripe.Price[];
-    for (const price of prices.data) {
-      const productIndex = realPrices.findIndex(
-        (p) => p.product === price.product,
-      );
-      if (productIndex === -1) {
-        realPrices.push(price);
-      } else {
-        if (
-          (realPrices[productIndex].unit_amount as number) <
-          (price.unit_amount as number)
-        ) {
-          realPrices[productIndex] = price;
-        }
-      }
-    }
-    return realPrices;
+
+    return prices.data;
   }
 
   async getCostumerById(id: string) {
