@@ -1,4 +1,8 @@
 import type zod from "zod";
+import type {
+	FormErrorResponse,
+	InputField,
+} from "../../../interfaces/form-error";
 import type { LoginSchema, RegisterSchema } from "../validators/auth.validator";
 
 export type RegisterUser = zod.infer<typeof RegisterSchema>;
@@ -9,20 +13,12 @@ export interface Authorized {
 	access_token: string;
 }
 
-export interface InputField {
-	value: string;
-	message: string;
-}
-
 export interface LoginFields {
 	username: InputField;
 	password: InputField;
 }
 
-export interface LoginResponse {
-	message?: string;
-	fields: LoginFields;
-}
+export type LoginResponse = FormErrorResponse<LoginFields>;
 
 export interface RegisterFields extends LoginFields {
 	shopName: InputField;
@@ -30,7 +26,4 @@ export interface RegisterFields extends LoginFields {
 	confirmPassword: InputField;
 }
 
-export interface RegisterResponse {
-	message?: string;
-	fields: RegisterFields;
-}
+export type RegisterResponse = FormErrorResponse<RegisterFields>;

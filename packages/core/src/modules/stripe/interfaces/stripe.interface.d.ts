@@ -132,4 +132,5 @@ export interface StripePlan {
 	trial_period_days: null;
 	usage_type: string;
 	current_period_end: Date;
+	cancel_at_period_end: boolean;
 }
