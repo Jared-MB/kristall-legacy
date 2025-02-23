@@ -31,7 +31,7 @@ export class StripeService {
       cancel_at_period_end: subscriptions.data[0].cancel_at_period_end,
       current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
     }
-    
+
     return subscription
   }
 
@@ -44,7 +44,7 @@ export class StripeService {
     }
   }
 
-  async isUserSubscribed(stripeId: string) {
+  async isUserSubscribed(stripeId: string) { 
     const stripe = this.getStripe();
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeId,
@@ -85,7 +85,7 @@ export class StripeService {
     }
   }
 
-  async getPrices() {
+  async getPrices(): Promise<Stripe.Price[]> {
     const stripe = this.getStripe();
     
     const prices = await stripe.prices.list({
