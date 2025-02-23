@@ -25,7 +25,7 @@
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 343.9 100% 46%;
     --destructive-foreground: 0 0% 98%;
 
     --danger: 351.3 94.52% 71.37%;
@@ -78,7 +78,7 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 343.9 100% 46%;
     --destructive-foreground: 0 0% 98%;
 
     --danger: 351.3 94.52% 71.37%;
@@ -118,6 +118,10 @@
   p {
     @apply text-pretty;
   }
+}
+
+.field-sizing {
+  field-sizing: content;
 }
 
 .loader {

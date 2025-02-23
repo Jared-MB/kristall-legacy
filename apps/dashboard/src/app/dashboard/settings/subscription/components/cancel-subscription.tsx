@@ -1,9 +1,15 @@
-import { Button } from "@kristall/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@kristall/ui/card";
 
+import { getStripeAccount } from "@kristall/core/stripe/get";
+import { Button } from "@kristall/ui/button";
 import { AlertTriangle } from "lucide-react";
+import { CancelSubscriptionForm } from "./cancel-subscription-form";
 
-export function CancelSubscription() {
+export async function CancelSubscription() {
+	const data = await getStripeAccount();
+
+	if (!data) return null;
+
 	return (
 		<Card className="bg-zinc-900 border-zinc-800 relative overflow-hidden">
 			<div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 via-transparent to-transparent pointer-events-none" />
@@ -15,21 +21,27 @@ export function CancelSubscription() {
 			</CardHeader>
 			<CardBody>
 				<div className="space-y-4">
-					<p className="text-sm text-zinc-300 leading-relaxed">
+					<p className="text-sm text-zinc-300 leading-relaxed max-w-[80ch]">
 						Si cancelas tu suscripción, una vez acabado el periodo de
 						facturación, no podrás acceder a tu tienda y se deshabilitará el
-						Virtual Showroom. Podrás reactivarla en cualquier momento.
+						Virtual Showroom.
 					</p>
-					<small className="text-xs text-zinc-400 italic">
+					{/* FOR FUTURE USE WHEN WE CAN REACTIVATE THE SUBSCRIPTION */}
+					{/* <small className="text-xs text-zinc-400 italic">
 						(Tus datos y productos se borrarán pasados 3 meses de inactividad)
-					</small>
+					</small> */}
 					<div className="pt-2">
-						<Button
-							variant="destructive"
-							className="bg-rose-600 hover:bg-rose-700 text-white"
-						>
-							Cancelar suscripción
-						</Button>
+						{data.cancel_at_period_end ? (
+							<Button
+								disabled
+								variant="destructive"
+								className="bg-rose-600 hover:bg-rose-700 text-white"
+							>
+								Suscripción cancelada
+							</Button>
+						) : (
+							<CancelSubscriptionForm />
+						)}
 					</div>
 				</div>
 			</CardBody>
