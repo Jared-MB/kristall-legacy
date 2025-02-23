@@ -1,26 +1,36 @@
 import { User } from '@/server/entities';
-import { ServerError } from '@/server/utilities/Errors';
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import Stripe from 'stripe';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import { Repository } from 'typeorm';
-import { Plan } from '../interfaces/plan';
 
 @Injectable()
 export class StripeService {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
-    private readonly jwt: JwtService,
+    @InjectRepository(User) private usersRepository: Repository<User>
   ) { }
 
   private getStripe() {
     return new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
       apiVersion: '2022-11-15',
     });
+  }
+
+  async getUserSubscription(stripeId: string){
+    const stripe = this.getStripe();
+    const subscriptions = await stripe.subscriptions.list({
+      customer: stripeId,
+    });
+    const subscription = {
+      ...subscriptions.data[0].items.data[0].plan,
+      id: subscriptions.data[0].id,
+      cancel_at_period_end: subscriptions.data[0].cancel_at_period_end,
+      current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
+    }
+    return subscription
   }
 
   async getSessionById(id: string) {
@@ -53,46 +63,24 @@ export class StripeService {
     return subscription.current_period_end * 1000;
   }
 
-  async cancelSubscription(
-    _id: string,
-    body: { email: string; password: string },
-    auth: string,
-  ) {
-    const decode = this.jwt.decode(auth.replace('Bearer ', ''));
-    if (!decode || typeof decode === 'string' || decode._id !== _id) {
-      throw new ServerError('Invalid or missing token', 401);
-    }
-    const user = await this.usersRepository.findOne({
-      where: { _id },
-      relations: {
-        shop: {
-          image: true,
-        },
-      },
-    });
-    if (!user) {
-      throw new ServerError('Bad request', 400);
-    }
-    let match = false;
-    try {
-      match = await bcrypt.compare(body.password, user.password as string);
-    } catch (err) {
-      console.log(err);
-      throw new ServerError('Server error', 500);
-    }
-    if (!match) {
-      throw new ServerError('Invalid password', 401);
-    }
+  async cancelSubscription(email: string) {
     const stripe = this.getStripe();
-    const costumer = await this.getCostumerByEmail(body.email);
-    const subscriptions = await stripe.subscriptions.list({
-      customer: costumer.id,
-    });
-    const subscription = subscriptions.data[0];
-    const deleted = await stripe.subscriptions.update(subscription.id, {
-      cancel_at_period_end: true,
-    });
-    return deleted;
+    const customer = await this.getCostumerByEmail(email);
+
+    const subscription = await this.getUserSubscription(customer.id);
+
+    if (!subscription){
+      throw new Error('No se encontró la suscripción')
+    }
+
+    try {
+      return await stripe.subscriptions.update(subscription.id, {
+        cancel_at_period_end: true,
+      });
+    }
+    catch (error) {
+      throw new Error('Error al cancelar la suscripción')
+    }
   }
 
   async getPrices() {
@@ -127,18 +115,6 @@ export class StripeService {
       customer: id,
     });
     return { costumer, costumerSubscriptions };
-  }
-
-  async getUserSubscriptions(stripeId: string){
-    const stripe = this.getStripe();
-    const subscriptions = await stripe.subscriptions.list({
-      customer: stripeId,
-    });
-    const subscription: Plan = {
-      ...(subscriptions.data[0] as any).plan as Omit<Plan, 'current_period_end'>,
-      current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
-    }
-    return subscription
   }
 
   async getCostumerByEmail(email: string) {

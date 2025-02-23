@@ -6,6 +6,7 @@ import {
   Controller,
   Get,
   Headers,
+  InternalServerErrorException,
   Param,
   Post,
   Put,
@@ -17,6 +18,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Cookies } from 'src/decorators';
+import { UsersService } from 'src/modules/users/services/users.service';
 import { AuthService } from 'src/services';
 import { StripeService } from '../services/stripe.service';
 
@@ -25,6 +27,7 @@ export class StripeController {
   constructor(
     private readonly stripeService: StripeService,
     private readonly authService: AuthService,
+    private readonly usersService: UsersService,
     private readonly utils: Utils,
   ) { }
 
@@ -46,18 +49,36 @@ export class StripeController {
     return session
   }
 
-  @Put('/cancel-subscription/:id')
+  @UseInterceptors(ResponseInterceptor)
+  @Put('/cancel-subscription')
   async cancelSubscription(
-    @Param('id') id: string,
-    @Body() body: any,
-    @Res() res: Response,
-    @Headers('authorization') auth: string,
+    @Body() body: { password: string, email: string },
+    @Cookies('session') session: string,
   ) {
-    const subscription = this.stripeService.cancelSubscription(id, body, auth);
-    return this.utils.adaptResponse(subscription, res, {
-      message: 'Subscription canceled',
-      status: 201,
-    });
+    const user = this.authService.decodeCookie(session);
+    if (!user){
+      throw new UnauthorizedException()
+    }
+
+    const isPasswordValid = await this.usersService.comparePassword(user._id, body.password)
+    if (!isPasswordValid){
+      throw new UnauthorizedException('Invalid password')
+    }
+
+    if (body.email !== user.email){
+      throw new UnauthorizedException('Invalid email')
+    }
+
+    try {
+      await this.stripeService.cancelSubscription(user.email);
+    }
+    catch (error) {
+      if (error instanceof Error){
+        throw new InternalServerErrorException(error.message)
+      }
+      throw new InternalServerErrorException('Error al cancelar la suscripción')
+    }
+    return 'ok'
   }
 
   @UseInterceptors(ResponseInterceptor)
@@ -69,9 +90,7 @@ export class StripeController {
       throw new UnauthorizedException()
     }
 
-    const { stripeId } = user
-    const account = await this.stripeService.getUserSubscriptions(stripeId);
-    return account
+    return await this.stripeService.getUserSubscription(user.stripeId);
   }
 
   @Get('customer/:id')

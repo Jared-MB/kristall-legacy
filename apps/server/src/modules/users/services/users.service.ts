@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 
 import { User } from '@/server/entities';
 import { auth as FirebaseAuth, FirebaseService, firebaseRegister } from '@/server/firebase';
-import { BankAccountsService } from '@/server/modules/bank-accounts/services';
 import { ShopService } from '@/server/modules/shops/services';
 import { StripeService } from '@/server/modules/stripe/services';
 import { RESTRICTIONS, USER_PERMISSIONS } from '@/server/utilities';
@@ -44,7 +43,6 @@ export type FindUserResult =
 export class UsersService {
     constructor(
         @InjectRepository(User) private usersRepository: Repository<User>,
-        private bankAccountsService: BankAccountsService,
         private jwtService: JwtService,
         private shopService: ShopService,
         private stripeService: StripeService,
@@ -98,6 +96,15 @@ export class UsersService {
         return await this.usersRepository.count({
             where: { shop: { _id: shopId } },
         });
+    }
+
+    async comparePassword(userId: string, password: string){
+        const user = await this.findUserById({ _id: userId, showPassword: true });
+        if (!user || !user.password) {
+            return false
+        }
+
+        return await bcrypt.compare(password, user.password);
     }
 
     /**
