@@ -1,21 +1,17 @@
+import type { StripePlan } from "@kristall/core/interfaces/stripe";
+
 import { format } from "@formkit/tempo";
 import { CheckCircle2, ClockAlert, Package } from "lucide-react";
 import { Suspense } from "react";
-
-import { getStripeAccount } from "@kristall/core/stripe/get";
 
 import { Card, CardBody, CardHeader } from "@kristall/ui/card";
 import { ShopName, ShopNameSkeleton } from "./shop-name";
 
 import { cn } from "@kristall/ui/utils/cn";
 
-export async function CurrentSubscription() {
-	const data = await getStripeAccount();
-
-	if (!data) return null;
-
+export async function CurrentSubscription({ data }: { data: StripePlan }) {
 	return (
-		<Card id="subscription">
+		<Card id="subscription" className="col-span-2">
 			<CardHeader className="pb-0">
 				<Suspense fallback={<ShopNameSkeleton />}>
 					<ShopName />
@@ -31,6 +27,11 @@ export async function CurrentSubscription() {
 						<div className="flex items-center gap-2">
 							<span className="text-2xl font-semibold text-zinc-100">
 								{data.nickname}
+							</span>
+							<span className="text-xl text-zinc-400 ml-2">
+								<span className="text-base">$</span>
+								{data.amount / 100}
+								<span className="text-lg ml-2">MXN/mes</span>
 							</span>
 							<div
 								className={cn(

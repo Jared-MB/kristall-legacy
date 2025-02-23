@@ -1,13 +1,15 @@
 import Setting from "../components/setting";
 
 import { CancelSubscription } from "./components/cancel-subscription";
-import { CurrentSubscription } from "./components/current-subscription";
+import { Subscription } from "./components/subscription";
+import { SubscriptionHistory } from "./components/subscription-history";
 import { UpgradeSubscription } from "./components/upgrade-subscription";
 
 export default function SubscriptionPage() {
 	return (
 		<Setting>
-			<CurrentSubscription />
+			<Subscription />
+			<SubscriptionHistory />
 			<UpgradeSubscription />
 			<CancelSubscription />
 		</Setting>
