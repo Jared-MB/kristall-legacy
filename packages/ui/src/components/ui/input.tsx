@@ -6,8 +6,12 @@ export interface InputProps
 	extends React.InputHTMLAttributes<HTMLInputElement> {
 	icon?: React.ReactNode;
 	classNames?: {
+		/**
+		 * @deprecated use classNameContainer instead
+		 */
 		container?: string;
 	};
+	classNameContainer?: string;
 	endContent?: React.ReactNode;
 	ref?: React.Ref<HTMLInputElement>;
 }
@@ -17,6 +21,7 @@ const Input = ({
 	className,
 	type,
 	icon,
+	classNameContainer,
 	endContent,
 	...props
 }: InputProps) => {
@@ -25,6 +30,7 @@ const Input = ({
 			className={cn(
 				"border h-10 w-full border-input bg-background flex items-center justify-start gap-x-2 px-3 py-2 has-[:focus]:outline-none rounded-md has-[:focus]:ring-offset-background has-[:focus]:ring-2 has-[:focus]:ring-ring has-[:focus]:ring-offset-1",
 				props.classNames?.container,
+				classNameContainer,
 				endContent ? "pr-0" : "",
 			)}
 		>
