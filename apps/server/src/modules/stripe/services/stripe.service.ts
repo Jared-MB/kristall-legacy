@@ -19,6 +19,16 @@ export class StripeService {
     });
   }
 
+  async getUserPaymentHistory(stripeId: string): Promise<Stripe.PaymentIntent[]> {
+    const stripe = this.getStripe();
+    const paymentHistory = await stripe.paymentIntents.list({
+      customer: stripeId,
+      limit: 5
+    });
+
+    return paymentHistory.data;
+  }
+
   async getUserSubscription(stripeId: string){
     const stripe = this.getStripe();
     const subscriptions = await stripe.subscriptions.list({
@@ -28,6 +38,7 @@ export class StripeService {
     const subscription = {
       ...subscriptions.data[0].items.data[0].plan,
       id: subscriptions.data[0].id,
+      nickname: subscriptions.data[0].items.data[0].plan.nickname ?? subscriptions.data[0].items.data[0].price.lookup_key,
       cancel_at_period_end: subscriptions.data[0].cancel_at_period_end,
       current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
     }

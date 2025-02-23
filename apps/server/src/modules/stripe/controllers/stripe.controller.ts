@@ -50,6 +50,71 @@ export class StripeController {
   }
 
   @UseInterceptors(ResponseInterceptor)
+  @Get('/user')
+  async getStripeAccountByUser(@Cookies('session') session: string){
+    const user = this.authService.decodeCookie(session);
+
+    if (!user){
+      throw new UnauthorizedException()
+    }
+
+    return await this.stripeService.getUserSubscription(user.stripeId);
+  }
+
+  @UseInterceptors(ResponseInterceptor)
+  @Get('history')
+  async getStripeUserPaymentHistory(@Cookies('session') session: string) {
+    const user = this.authService.decodeCookie(session);
+    if (!user){
+      throw new UnauthorizedException()
+    }
+    const paymentHistory = await this.stripeService.getUserPaymentHistory(user.stripeId);
+    return paymentHistory
+  }
+
+  /**
+   * @deprecated Use /stripe/user instead
+   */
+  @Get('customer/:id')
+  async getCostumerById(@Param() param: any, @Res() res: Response) {
+    const costumer = this.stripeService.getCostumerById(param.id);
+    return this.utils.adaptResponse(costumer, res, {
+      message: 'Costumer found',
+      status: 201,
+    });
+  }
+
+  /**
+   * @deprecated Use /stripe/user instead
+   */
+  @Get('/customer/:email')
+  async getCostumer(@Param() param: any, @Res() res: Response) {
+    const costumer = this.stripeService.getCostumerByEmail(param.email);
+    return this.utils.adaptResponse(costumer, res, {
+      message: 'Costumer found',
+      status: 201,
+    });
+  }
+
+  @Public()
+  @Post('/checkout-session')
+  async createCheckout(@Body() body: any, @Res() res: Response) {
+    const session = this.stripeService.createCheckoutSession(body.priceId);
+    return this.utils.adaptResponse(session, res);
+  }
+
+  @Public()
+  @Post('/webhook')
+  async webhook(
+    @Headers('stripe-signature') sig: string,
+    @Req() req: RawBodyRequest<Request>,
+    @Res() res: Response,
+  ) {
+    const event = this.stripeService.webhook(req.rawBody as Buffer, sig);
+    return this.utils.adaptResponse(event, res);
+  }
+
+  @UseInterceptors(ResponseInterceptor)
   @Put('/cancel-subscription')
   async cancelSubscription(
     @Body() body: { password: string, email: string },
@@ -79,53 +144,5 @@ export class StripeController {
       throw new InternalServerErrorException('Error al cancelar la suscripción')
     }
     return 'ok'
-  }
-
-  @UseInterceptors(ResponseInterceptor)
-  @Get('/user')
-  async getStripeAccountByUser(@Cookies('session') session: string){
-    const user = this.authService.decodeCookie(session);
-
-    if (!user){
-      throw new UnauthorizedException()
-    }
-
-    return await this.stripeService.getUserSubscription(user.stripeId);
-  }
-
-  @Get('customer/:id')
-  async getCostumerById(@Param() param: any, @Res() res: Response) {
-    const costumer = this.stripeService.getCostumerById(param.id);
-    return this.utils.adaptResponse(costumer, res, {
-      message: 'Costumer found',
-      status: 201,
-    });
-  }
-
-  @Get('/customer/:email')
-  async getCostumer(@Param() param: any, @Res() res: Response) {
-    const costumer = this.stripeService.getCostumerByEmail(param.email);
-    return this.utils.adaptResponse(costumer, res, {
-      message: 'Costumer found',
-      status: 201,
-    });
-  }
-
-  @Public()
-  @Post('/checkout-session')
-  async createCheckout(@Body() body: any, @Res() res: Response) {
-    const session = this.stripeService.createCheckoutSession(body.priceId);
-    return this.utils.adaptResponse(session, res);
-  }
-
-  @Public()
-  @Post('/webhook')
-  async webhook(
-    @Headers('stripe-signature') sig: string,
-    @Req() req: RawBodyRequest<Request>,
-    @Res() res: Response,
-  ) {
-    const event = this.stripeService.webhook(req.rawBody as Buffer, sig);
-    return this.utils.adaptResponse(event, res);
   }
 }
