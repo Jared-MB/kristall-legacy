@@ -11,6 +11,16 @@ export interface Version {
 
 export const VERSIONS: Version[] = [
 	{
+		_id: "v0.11.0-RC-2",
+		date: "2025-02-21",
+		title: "Virtual Showroom Analytics",
+		description: `
+			Ahora puedes ver las estadísticas de tu Virtual Showroom en el dashboard.
+			Esto te permitirá ver las visitas, las ventas y el tráfico de tu Virtual Showroom.
+		`,
+		features: ["Virtual Showroom Analytics"],
+	},
+	{
 		_id: "v0.11.0-RC-1",
 		date: "2025-02-21",
 		title: "Virtual Showroom",

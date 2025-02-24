@@ -21,6 +21,7 @@
 		"@vitest/coverage-v8": "2.1.4",
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
+		"stripe": "12.10.0",
 		"typescript": "5.4.5",
 		"vite-tsconfig-paths": "^4.3.2",
 		"vitest": "^2.1.4"

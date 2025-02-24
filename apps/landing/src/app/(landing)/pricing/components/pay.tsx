@@ -1,8 +1,8 @@
 "use client";
 
-import { API_REST } from "@/constants";
+import { createSubscriptionIntent } from "@kristall/core/stripe/create";
 import { Button } from "@kristall/ui/button";
-import axios from "axios";
+import { useTransition } from "react";
 import { toast } from "react-toastify";
 
 export default function Pay({
@@ -12,25 +12,28 @@ export default function Pay({
 	recommended?: boolean;
 	id: string;
 }) {
-	const handleClick = async () => {
-		const { data: response } = await axios.post(
-			`${API_REST}/stripe/checkout-session`,
-			{
-				priceId: id,
-			},
-		);
+	const [isPending, startTransition] = useTransition();
 
-		if (response.data) window.location.href = response.data.url;
-		else toast.error("Ocurrió un error al procesar tu pago");
-	};
+	const handleClick = () =>
+		startTransition(async () => {
+			const { url } = await createSubscriptionIntent(id);
+
+			if (!url) {
+				toast.error("Ocurrió un error al procesar tu pago");
+				return;
+			}
+
+			window.location.href = url;
+		});
 
 	return (
 		<Button
 			variant={recommended ? "default" : "outline"}
 			className={recommended ? "shadow-md" : ""}
 			onClick={handleClick}
+			disabled={isPending}
 		>
-			Empezar
+			{isPending ? "Procesando..." : "Empezar"}
 		</Button>
 	);
 }

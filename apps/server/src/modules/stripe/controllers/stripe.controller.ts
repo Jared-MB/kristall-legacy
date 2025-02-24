@@ -32,13 +32,10 @@ export class StripeController {
   ) { }
 
   @Public()
+  @UseInterceptors(ResponseInterceptor)
   @Get('/prices')
-  async getPrices(@Res() res: Response) {
-    const prices = this.stripeService.getPrices();
-    return this.utils.adaptResponse(prices, res, {
-      message: 'Prices found',
-      status: 201,
-    });
+  async getPrices() {
+    return await this.stripeService.getPrices();
   }
 
   @Public()
