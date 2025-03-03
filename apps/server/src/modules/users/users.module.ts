@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtStrategy } from '@/server/auth/jwt.strategy';
 import { User } from '@/server/entities';
-import { FirebaseService } from '@/server/firebase';
 import { LocationsModule } from '@/server/locations/locations.module';
-import { BankAccountsModule, ShopsModule, StripeModule } from '@/server/modules';
+import { BankAccountsModule, ShopsModule } from '@/server/modules';
 import { AuthService, UtilsService } from '@/server/services';
 import { TokenService } from '@/server/utilities';
 import { Utils } from '@/server/utilities/Utils';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersAuthController, UsersController } from './controllers';
+import { UserRepository } from './repositories/user.repository';
 import { UsersService } from './services';
 
 @Module({
@@ -16,11 +16,18 @@ import { UsersService } from './services';
         TypeOrmModule.forFeature([User]),
         ShopsModule,
         LocationsModule,
-        StripeModule,
         BankAccountsModule
     ],
     controllers: [UsersAuthController, UsersController],
-    providers: [UsersService, JwtStrategy, Utils, TokenService, FirebaseService, AuthService, UtilsService],
-    exports: [UsersService],
+    providers: [
+        UsersService, 
+        JwtStrategy, 
+        Utils, 
+        TokenService, 
+        AuthService, 
+        UtilsService,
+        UserRepository
+    ],
+    exports: [UsersService, UserRepository],
 })
 export class UsersModule { }

@@ -5,13 +5,11 @@ import { randomUUID } from 'node:crypto';
 import { Repository } from 'typeorm';
 
 import { User } from '@/server/entities';
-import { auth as FirebaseAuth, FirebaseService, firebaseRegister } from '@/server/firebase';
+import { firebaseRegister } from '@/server/firebase';
 import { ShopService } from '@/server/modules/shops/services';
-import { StripeService } from '@/server/modules/stripe/services';
 import { RESTRICTIONS, USER_PERMISSIONS } from '@/server/utilities';
 import { ServerError } from '@/server/utilities/Errors';
 import { JwtService } from '@nestjs/jwt';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { CreateUserServerDto } from '../dto';
 import { FindAllUsersOptions } from '../interfaces/users.interface';
 
@@ -27,15 +25,9 @@ interface FindUserByUsername extends FindUser {
     username: string;
 }
 
-type UserWithStripe = User & {
-    isUserSubscribed: boolean;
-    currentPeriod: number;
-};
-
 export type FindUserResult =
     | User
-    | UserWithStripe
-    | (Omit<User | UserWithStripe, 'password'> & {
+    | (Omit<User, 'password'> & {
         password?: string;
     });
 
@@ -45,8 +37,6 @@ export class UsersService {
         @InjectRepository(User) private usersRepository: Repository<User>,
         private jwtService: JwtService,
         private shopService: ShopService,
-        private stripeService: StripeService,
-        private firebaseService: FirebaseService,
     ) { }
 
     async findAllUsers(shopId: string, options?: FindAllUsersOptions) {
@@ -140,10 +130,6 @@ export class UsersService {
             throw new ServerError('Forbidden', 403);
         }
 
-        const { stripeId, email } = userToDelete;
-        const firebaseUser = await signInWithEmailAndPassword(FirebaseAuth, email, stripeId)
-        await this.firebaseService.deleteUser(firebaseUser.user);
-        FirebaseAuth.signOut();
         const userDeleted = await this.usersRepository.delete({ _id: userId });
         return {
             isDeleted: userDeleted.affected === 1,
@@ -162,23 +148,6 @@ export class UsersService {
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(password, saltOrRounds);
         return hash;
-    }
-
-    async findUserByStripeId(stripeId: string) {
-        const user = await this.usersRepository.findOne({
-            where: { stripeId },
-            relations: {
-                shop: {
-                    image: true,
-                    publicPage: true,
-                },
-            },
-        });
-        if (!user) {
-            throw new Error('User not found');
-        }
-        const { password, ...result } = user;
-        return result;
     }
 
     async findUserById({
@@ -200,26 +169,9 @@ export class UsersService {
         if (!user) {
             throw new Error('User not found');
         }
-        let subscription = {
-            isSubscribed: false,
-            hasCanceled: false,
-        };
-        let isSubscribedUntil = null;
-        try {
-            subscription = await this.stripeService.isUserSubscribed(user.stripeId);
-            isSubscribedUntil = await this.stripeService.getUserCurrentPeriod(
-                user.stripeId,
-            );
-        } catch (err) {
-            // console.log('Error getting user subscription status', err);
-        }
 
         const stripeUser = {
-            ...user,
-            subscription: {
-                ...subscription,
-                isSubscribedUntil,
-            },
+            ...user
         };
         if (showPassword) {
             return stripeUser;
@@ -277,7 +229,6 @@ export class UsersService {
         }
 
         const _id = randomUUID();
-        // user._id = _id;
 
         const saltOrRounds = 10;
         const passwordHashed = await bcrypt.hash(user.password, saltOrRounds);
@@ -301,35 +252,6 @@ export class UsersService {
         const userSaved = await this.usersRepository.save(userCreated);
         const { password, ...rest } = userSaved;
         return rest;
-
-        // user.password = hash;
-
-        // const newUser = this.usersRepository.create(user);
-
-        // const shop = await this.shopService.createShop({
-        //   name: shopName,
-        //   users: [newUser],
-        // });
-
-        // await this.locationService.createLocation({
-        //   name: 'Almacén',
-        //   shop,
-        // });
-
-        // newUser.shop = shop;
-
-        // const userSaved = await this.usersRepository.save(newUser);
-
-        // const payload = {
-        //   username: userSaved.username,
-        //   id: userSaved._id,
-        //   role: userSaved.role,
-        //   createdAt: userSaved.createdAt,
-        //   name: userSaved.name,
-        // };
-        // return {
-        //   access_token: this.jwtService.sign(payload),
-        // };
     }
 
     async changeUsername(_id: string, newUsername: string) {
@@ -428,18 +350,6 @@ export class UsersService {
         if (!userdb) {
             throw new NotFoundException()
         }
-        // if (!user.password) {
-        //     throw new ServerError('Bad request', 400);
-        // }
-        // let match = false;
-        // try {
-        //     match = await bcrypt.compare(user.password, userdb.password);
-        // } catch (err) {
-        //     throw new ServerError('Server error', 500);
-        // }
-        // if (!match) {
-        //     throw new ServerError('Invalid password or email', 401);
-        // }
 
         const hash = await bcrypt.hash(user.password as string, 10);
 

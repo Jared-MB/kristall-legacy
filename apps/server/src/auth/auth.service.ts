@@ -5,6 +5,7 @@ import { FindUserResult, UsersService } from '@/server/modules/users/services';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { CacheService } from 'src/services/cache.service';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
     private shopsService: ShopService,
     private jwtService: JwtService,
     private stripeService: StripeService,
+    private cacheService: CacheService
   ) { }
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -40,29 +42,26 @@ export class AuthService {
     return null;
   }
 
-  async login(userParam: any) {
-    const user: User = userParam;
+  async login(user: User) {
     const userShop = await this.shopsService.getShopById(user.shop._id);
     if (!userShop) return null;
-    let subscription = {
-      isSubscribed: false,
-      hasCanceled: false,
-    };
-    let isSubscribedUntil = null;
-    try {
-      subscription = await this.stripeService.isUserSubscribed(user.stripeId);
-      isSubscribedUntil = await this.stripeService.getUserCurrentPeriod(
-        user.stripeId,
-      );
-    } catch (err) {
-      console.log('Error getting user subscription status', err);
+
+    const isStripeIdOnCache = await this.cacheService.get<string>(user._id, 'id')
+    if (!isStripeIdOnCache){
+      await this.cacheService.set(user._id, user.stripeId, 'id')
     }
+
+    const userSubscription = await this.stripeService.getUserSubscription(user._id)
+    if (userSubscription.status === 'none'){
+      return null
+    }
+
+    if (userSubscription.status !== 'active'){
+      return null
+    }
+
     const formattedUser = {
       ...user,
-      subscription: {
-        ...subscription,
-        isSubscribedUntil,
-      },
       shop: {
         name: userShop.name,
         _id: userShop._id,
@@ -70,7 +69,9 @@ export class AuthService {
         publicPage: userShop.publicPage || undefined,
       },
     };
+
     const { password, createdAt, ...result } = formattedUser;
+
     return {
       _id: user._id,
       username: user.username,

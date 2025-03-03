@@ -1,3 +1,5 @@
+import type Stripe from "stripe";
+
 export interface StripeSession {
 	id: string;
 	object: string;
@@ -110,6 +112,9 @@ export interface TotalDetails {
 	amount_tax: number;
 }
 
+/**
+ * @deprecated Use StripeUserSubscription instead
+ */
 export interface StripePlan {
 	id: string;
 	object: string;
@@ -134,3 +139,20 @@ export interface StripePlan {
 	current_period_end: Date;
 	cancel_at_period_end: boolean;
 }
+
+export type StripeUserSubscription =
+	| {
+			subscriptionId: string;
+			status: Stripe.Subscription.Status;
+			priceId: string;
+			currentPeriodEnd: number;
+			currentPeriodStart: number;
+			cancelAtPeriodEnd: boolean;
+			paymentMethod: {
+				brand?: string | null;
+				last4?: string | null;
+			} | null;
+	  }
+	| {
+			status: "none";
+	  };

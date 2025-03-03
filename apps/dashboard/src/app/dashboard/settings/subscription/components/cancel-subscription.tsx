@@ -8,7 +8,7 @@ import { CancelSubscriptionForm } from "./cancel-subscription-form";
 export async function CancelSubscription() {
 	const data = await getStripeAccount();
 
-	if (!data) return null;
+	if (!data || data.status === "none") return null;
 
 	return (
 		<Card
@@ -34,7 +34,7 @@ export async function CancelSubscription() {
 						(Tus datos y productos se borrarán pasados 3 meses de inactividad)
 					</small> */}
 					<div className="pt-2">
-						{data.cancel_at_period_end ? (
+						{data.cancelAtPeriodEnd ? (
 							<Button
 								disabled
 								variant="destructive"

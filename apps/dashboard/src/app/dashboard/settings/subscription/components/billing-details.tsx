@@ -1,9 +1,13 @@
-import type { StripePlan } from "@kristall/core/interfaces/stripe";
+import { getPlanByPriceId } from "@kristall/core/stripe/prices";
 
 import { Card, CardBody, CardHeader, CardTitle } from "@kristall/ui/card";
 import { CreditCard } from "lucide-react";
 
-export function BillingDetails({ data }: { data: StripePlan }) {
+export async function BillingDetails({ priceId }: { priceId: string }) {
+	const data = await getPlanByPriceId(priceId);
+
+	if (!data) return null;
+
 	return (
 		<Card className="bg-zinc-900 border-zinc-800">
 			<CardHeader className="pb-3">
@@ -17,7 +21,7 @@ export function BillingDetails({ data }: { data: StripePlan }) {
 					<div className="flex justify-between items-center">
 						<span className="text-sm text-zinc-400">Plan {data.nickname}</span>
 						<span className="text-sm text-zinc-100">
-							${data.amount / 100}.00
+							${(data.unit_amount ?? 0) / 100}.00
 						</span>
 					</div>
 					<div className="flex justify-between items-center">
@@ -29,7 +33,7 @@ export function BillingDetails({ data }: { data: StripePlan }) {
 							Total mensual
 						</span>
 						<span className="text-base font-medium text-zinc-100">
-							${data.amount / 100}
+							${(data.unit_amount ?? 0) / 100}
 						</span>
 					</div>
 				</div>

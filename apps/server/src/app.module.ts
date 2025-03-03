@@ -1,3 +1,4 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
@@ -31,6 +32,10 @@ import { Utils } from './utilities';
 
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
+import { createKeyv } from '@keyv/redis';
+import { CacheableMemory } from 'cacheable';
+import { Keyv } from 'keyv';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,13 +52,22 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
       ],
       isGlobal: true
     }),
+    CacheModule.register({
+      useFactory: async () => {
+        return {
+          stores: [
+            new Keyv({
+              store: new CacheableMemory({ lruSize: 5000 }),
+            }),
+            createKeyv(process.env.REDIS_URL),
+          ],
+        };
+      },
+      isGlobal: true
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.POSTGRES_HOST ?? 'localhost',
-      port: parseInt(process.env.POSTGRES_PORT ?? '5432'),
-      username: process.env.POSTGRES_USERNAME,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
+      url: process.env.POSTGRES_URL,
       autoLoadEntities: true,
       synchronize: true
     }),

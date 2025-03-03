@@ -2,15 +2,20 @@ import { User } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
 
-import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
-import { Repository } from 'typeorm';
+import { UserRepository } from 'src/modules/users/repositories/user.repository';
+import { CacheService } from 'src/services/cache.service';
+import { StripeUserSubscription } from '../interfaces';
+import { StripeRepository } from '../repositories/stripe.repository';
 
 @Injectable()
 export class StripeService {
+
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>
+    private readonly userRepository: UserRepository,
+    private readonly cacheService: CacheService,
+    private readonly stripeRepository: StripeRepository,
   ) { }
 
   private getStripe() {
@@ -29,23 +34,6 @@ export class StripeService {
     return paymentHistory.data;
   }
 
-  async getUserSubscription(stripeId: string){
-    const stripe = this.getStripe();
-    const subscriptions = await stripe.subscriptions.list({
-      customer: stripeId,
-    });
-
-    const subscription = {
-      ...subscriptions.data[0].items.data[0].plan,
-      id: subscriptions.data[0].id,
-      nickname: subscriptions.data[0].items.data[0].plan.nickname ?? subscriptions.data[0].items.data[0].price.lookup_key,
-      cancel_at_period_end: subscriptions.data[0].cancel_at_period_end,
-      current_period_end: new Date(subscriptions.data[0].current_period_end * 1000),
-    }
-
-    return subscription
-  }
-
   async getSessionById(id: string) {
     try {
       return await this.getStripe().checkout.sessions.retrieve(id);
@@ -55,16 +43,62 @@ export class StripeService {
     }
   }
 
-  async isUserSubscribed(stripeId: string) { 
-    const stripe = this.getStripe();
-    const subscriptions = await stripe.subscriptions.list({
-      customer: stripeId,
-    });
-    const hasCanceled = subscriptions.data[0]?.cancel_at_period_end;
-    return {
-      isSubscribed: subscriptions.data.length > 0,
-      hasCanceled,
+  /**
+   * Get stripe user subscription
+   * 
+   * It will check first the value in cache, if not found, it will get the value from stripe
+   * @param userId The user id - **NOT THE STRIPE ID**
+   */
+  async getUserSubscription(userId: string): Promise<StripeUserSubscription> { 
+
+    const subscriptionsCached = await this.cacheService.get<StripeUserSubscription>(userId)
+
+    if (subscriptionsCached){
+      return subscriptionsCached
+    }
+
+    let stripeId = await this.cacheService.get<string>(userId, 'id')
+    if (!stripeId){
+      const user = await this.userRepository.findById(userId)
+
+      if (!user){
+        return {
+          status: 'none'
+        }
+      }
+
+      stripeId = user.stripeId
+    }
+
+    const subscriptions = await this.stripeRepository.fetchUserSubscription(stripeId);
+
+    if (subscriptions.data.length === 0) {
+      const subscriptionData = { status: "none" } as const;
+      await this.cacheService.set(userId, subscriptionData);
+      return subscriptionData;
+    }
+  
+    const subscription = subscriptions.data[0];
+  
+    const subscriptionData: StripeUserSubscription = {
+      subscriptionId: subscription.id,
+      status: subscription.status,
+      priceId: subscription.items.data[0].price.id,
+      currentPeriodEnd: subscription.current_period_end,
+      currentPeriodStart: subscription.current_period_start,
+      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      paymentMethod:
+        subscription.default_payment_method &&
+        typeof subscription.default_payment_method !== "string"
+          ? {
+              brand: subscription.default_payment_method.card?.brand ?? null,
+              last4: subscription.default_payment_method.card?.last4 ?? null,
+            }
+          : null,
     };
+
+    await this.cacheService.set(userId, subscriptionData)
+    return subscriptionData;
   }
 
   async getUserCurrentPeriod(stripeId: string) {
@@ -76,18 +110,17 @@ export class StripeService {
     return subscription.current_period_end * 1000;
   }
 
-  async cancelSubscription(email: string) {
+  async cancelSubscription(userId: string) {
     const stripe = this.getStripe();
-    const customer = await this.getCostumerByEmail(email);
 
-    const subscription = await this.getUserSubscription(customer.id);
+    const subscription = await this.getUserSubscription(userId);
 
-    if (!subscription){
+    if (!subscription || subscription.status === 'none'){
       throw new Error('No se encontró la suscripción')
     }
 
     try {
-      return await stripe.subscriptions.update(subscription.id, {
+      return await stripe.subscriptions.update(subscription.subscriptionId, {
         cancel_at_period_end: true,
       });
     }
@@ -130,14 +163,14 @@ export class StripeService {
       user.name,
       user.package,
     );
-    const newUser = this.usersRepository.create({
+    const newUser = await this.userRepository.create({
       ...user,
       _id,
       role: 'admin',
       permissions: 'all',
       password,
     });
-    const userSaved = await this.usersRepository.save(newUser);
+    const userSaved = await this.userRepository.save(newUser);
     return userSaved;
   }
 
@@ -157,22 +190,6 @@ export class StripeService {
     return {
       url: session.url,
     };
-  }
-
-  async findUserByStripeId(stripeId: string) {
-    const user = await this.usersRepository.findOne({
-      where: { stripeId },
-      relations: {
-        shop: {
-          image: true,
-        },
-      },
-    });
-    if (!user) {
-      throw new Error('User not found');
-    }
-    const { password, ...result } = user;
-    return result;
   }
 
   async createTemporalStripePassword(name: string, userPackage: string) {

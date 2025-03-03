@@ -1,6 +1,6 @@
 import type { Package } from "@/constants";
 
-import { getStripePrices } from "@kristall/core/stripe/get";
+import { getStripePrices } from "@kristall/core/stripe/prices";
 
 import Price from "./components/price";
 

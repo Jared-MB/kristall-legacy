@@ -1,52 +1,29 @@
-import { Public } from '@/server/decorators/public.decorator';
-import { ResponseInterceptor } from '@/server/interceptors';
-import { Utils } from '@/server/utilities';
 import {
   Body,
   Controller,
   Get,
-  Headers,
   InternalServerErrorException,
-  Param,
-  Post,
   Put,
-  RawBodyRequest,
-  Req,
-  Res,
   UnauthorizedException,
   UseInterceptors
 } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { Cookies } from 'src/decorators';
+
 import { UsersService } from 'src/modules/users/services/users.service';
-import { AuthService } from 'src/services';
+import { AuthService } from 'src/services/auth.service';
 import { StripeService } from '../services/stripe.service';
 
+import { Cookies } from 'src/decorators';
+import { ResponseInterceptor } from 'src/interceptors';
+
+@UseInterceptors(ResponseInterceptor)
 @Controller('stripe')
 export class StripeController {
   constructor(
     private readonly stripeService: StripeService,
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
-    private readonly utils: Utils,
-  ) { }
+  ) { }  
 
-  @Public()
-  @UseInterceptors(ResponseInterceptor)
-  @Get('/prices')
-  async getPrices() {
-    return await this.stripeService.getPrices();
-  }
-
-  @Public()
-  @UseInterceptors(ResponseInterceptor)
-  @Get('sessionId/:id')
-  async getSessionById(@Param('id') id: string) {
-    const session = await this.stripeService.getSessionById(id);
-    return session
-  }
-
-  @UseInterceptors(ResponseInterceptor)
   @Get('/user')
   async getStripeAccountByUser(@Cookies('session') session: string){
     const user = this.authService.decodeCookie(session);
@@ -55,10 +32,9 @@ export class StripeController {
       throw new UnauthorizedException()
     }
 
-    return await this.stripeService.getUserSubscription(user.stripeId);
+    return await this.stripeService.getUserSubscription(user._id);
   }
 
-  @UseInterceptors(ResponseInterceptor)
   @Get('history')
   async getStripeUserPaymentHistory(@Cookies('session') session: string) {
     const user = this.authService.decodeCookie(session);
@@ -67,51 +43,8 @@ export class StripeController {
     }
     const paymentHistory = await this.stripeService.getUserPaymentHistory(user.stripeId);
     return paymentHistory
-  }
+  }  
 
-  /**
-   * @deprecated Use /stripe/user instead
-   */
-  @Get('customer/:id')
-  async getCostumerById(@Param() param: any, @Res() res: Response) {
-    const costumer = this.stripeService.getCostumerById(param.id);
-    return this.utils.adaptResponse(costumer, res, {
-      message: 'Costumer found',
-      status: 201,
-    });
-  }
-
-  /**
-   * @deprecated Use /stripe/user instead
-   */
-  @Get('/customer/:email')
-  async getCostumer(@Param() param: any, @Res() res: Response) {
-    const costumer = this.stripeService.getCostumerByEmail(param.email);
-    return this.utils.adaptResponse(costumer, res, {
-      message: 'Costumer found',
-      status: 201,
-    });
-  }
-
-  @Public()
-  @Post('/checkout-session')
-  async createCheckout(@Body() body: any, @Res() res: Response) {
-    const session = this.stripeService.createCheckoutSession(body.priceId);
-    return this.utils.adaptResponse(session, res);
-  }
-
-  @Public()
-  @Post('/webhook')
-  async webhook(
-    @Headers('stripe-signature') sig: string,
-    @Req() req: RawBodyRequest<Request>,
-    @Res() res: Response,
-  ) {
-    const event = this.stripeService.webhook(req.rawBody as Buffer, sig);
-    return this.utils.adaptResponse(event, res);
-  }
-
-  @UseInterceptors(ResponseInterceptor)
   @Put('/cancel-subscription')
   async cancelSubscription(
     @Body() body: { password: string, email: string },
@@ -124,15 +57,15 @@ export class StripeController {
 
     const isPasswordValid = await this.usersService.comparePassword(user._id, body.password)
     if (!isPasswordValid){
-      throw new UnauthorizedException('Invalid password')
+      throw new UnauthorizedException('Invalid credentials')
     }
 
     if (body.email !== user.email){
-      throw new UnauthorizedException('Invalid email')
+      throw new UnauthorizedException('Invalid credentials')
     }
 
     try {
-      await this.stripeService.cancelSubscription(user.email);
+      await this.stripeService.cancelSubscription(user._id);
     }
     catch (error) {
       if (error instanceof Error){

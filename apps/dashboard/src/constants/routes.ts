@@ -13,6 +13,8 @@ const Routes = {
 	USERS: `${BASE_URL}/users`,
 	SETTINGS: `${BASE_URL}/settings`,
 	REPORTS: `${BASE_URL}/reports`,
+	VIRTUAL_SHOWROOM: `${BASE_URL}/virtual-showroom`,
+	VIRTUAL_SHOWROOM_ANALYTICS: `${BASE_URL}/virtual-showroom/analytics`,
 };
 
 export default Routes;
