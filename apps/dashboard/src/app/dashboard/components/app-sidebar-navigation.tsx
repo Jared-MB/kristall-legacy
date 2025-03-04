@@ -1,6 +1,5 @@
 import Routes from "@/constants/routes";
 
-import { ComingSoon } from "@kristall/ui/coming-soon";
 import {
 	SidebarContent,
 	SidebarGroup,
@@ -12,10 +11,8 @@ import {
 } from "@kristall/ui/sidebar";
 
 import {
-	AppWindowMac,
 	BookText,
 	CalendarDays,
-	ChartColumnStacked,
 	ClipboardList,
 	HandCoins,
 	LayoutDashboard,
@@ -103,34 +100,6 @@ export function AppSidebarNavigation() {
 								<Link href={Routes.CUSTOMERS}>
 									<Users />
 									<span>Clientes</span>
-								</Link>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-					</SidebarMenu>
-				</SidebarGroupContent>
-			</SidebarGroup>
-			<SidebarGroup>
-				<SidebarGroupLabel>Virtual Showroom</SidebarGroupLabel>
-				<SidebarGroupContent>
-					<SidebarMenu>
-						<SidebarMenuItem>
-							<SidebarMenuButton asChild disabled>
-								<Link
-									/**href={Routes.VIRTUAL_SHOWROOM_ANALYTICS}**/
-									className="cursor-not-allowed opacity-50"
-									href=""
-								>
-									<ChartColumnStacked />
-									<span>Analíticas</span>
-									<ComingSoon position="right" />
-								</Link>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-						<SidebarMenuItem>
-							<SidebarMenuButton asChild>
-								<Link href={Routes.VIRTUAL_SHOWROOM}>
-									<AppWindowMac />
-									<span>VR - Dashboard</span>
 								</Link>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
