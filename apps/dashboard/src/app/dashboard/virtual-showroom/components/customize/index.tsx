@@ -1,7 +1,6 @@
 "use client";
 
 import type { VirtualShowroom } from "@/actions/virtual-showroom";
-import Divider from "@/components/divider";
 import Svg from "@/components/svg";
 import UploadImageSvg from "@/components/svg/upload-image-svg";
 import {
@@ -17,7 +16,6 @@ import {
 import { useImage } from "@/core/hooks";
 import type { PublicProduct } from "@kristall/core/interfaces/products";
 import { useRef, useState } from "react";
-import Preview from "./preview";
 
 interface Props extends VirtualShowroom {
 	name: string;
@@ -60,7 +58,7 @@ export default function Customize(virtualShowroom: Props) {
 	};
 
 	return (
-		<Card className="grid grid-cols-[1fr_1px_1fr] min-h-[50dvh] relative">
+		<Card>
 			<div>
 				<CardBody>
 					<form className="flex flex-col gap-y-4">
@@ -187,7 +185,7 @@ export default function Customize(virtualShowroom: Props) {
 					<Button>Guardar</Button>
 				</CardFooter>
 			</div>
-			<Divider orientation="vertical" />
+			{/* <Divider orientation="vertical" />
 			<CardBody>
 				<Preview
 					{...virtualShowroom}
@@ -203,7 +201,7 @@ export default function Customize(virtualShowroom: Props) {
 					isBannerFocused={isBannerFocused}
 					isTitleFocused={isTitleFocused}
 				/>
-			</CardBody>
+			</CardBody> */}
 		</Card>
 	);
 }
