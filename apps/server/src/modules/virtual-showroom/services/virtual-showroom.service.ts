@@ -67,7 +67,7 @@ export class VirtualShowroomService {
         let url: string | undefined = undefined
 
         try {
-            const parsedName = shopName.trim().toLowerCase();
+            const parsedName = shopName.trim().toLowerCase().replaceAll(' ', '-');
             const dns = await this.dnsService.create(parsedName)
             url = `https://${dns.name}`
         }
