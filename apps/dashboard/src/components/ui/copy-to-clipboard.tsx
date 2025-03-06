@@ -2,12 +2,13 @@
 
 import { Copy } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "./button";
+import { Button, type ButtonProps } from "./button";
 
 export default function CopyToClipboard({
 	text,
 	disabled,
-}: { text: string; disabled?: boolean }) {
+	variant = "outline",
+}: { text: string; disabled?: boolean; variant?: ButtonProps["variant"] }) {
 	const copyToClipBoard = async () => {
 		navigator.clipboard.writeText(text);
 		toast.info("Copiado al portapapeles");
@@ -17,10 +18,10 @@ export default function CopyToClipboard({
 		<Button
 			size="icon"
 			disabled={disabled}
-			variant="outline"
+			variant={variant}
 			onClick={copyToClipBoard}
 		>
-			<Copy />
+			<Copy className="h-4 w-4" />
 		</Button>
 	);
 }

@@ -27,14 +27,7 @@ export async function VirtualShowroom() {
 	return (
 		<>
 			<VirtualShowroomUrl url={virtualShowroom.url} />
-			<section className="flex flex-col gap-y-2">
-				<CardTitle>Personaliza tu Virtual Showroom</CardTitle>
-				<CardDescription>
-					¡Haz que tu Virtual Showroom sea único! Personaliza el texto inicial y
-					la imagen de portada!
-				</CardDescription>
-			</section>
-			<VirtualShowroomCustomize virtualShowroom={virtualShowroom} />
+			<VirtualShowroomCustomize />
 			<section className="flex flex-col gap-y-2">
 				<CardTitle>¿Quieres una página a tu medida?</CardTitle>
 				<CardDescription>
@@ -64,7 +57,6 @@ export function VirtualShowroomSkeleton() {
 					la imagen de portada!
 				</CardDescription>
 			</section>
-			{/* <VirtualShowroomCustomizeSkeleton /> */}
 		</>
 	);
 }
