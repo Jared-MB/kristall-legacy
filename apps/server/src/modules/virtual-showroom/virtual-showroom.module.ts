@@ -1,7 +1,10 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { PublicPage, Shop } from '@/server/entities';
 import { AuthService } from '@/server/services';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { CloudflareModule } from '../cloudflare/cloudflare.module';
+import { ReportsModule } from '../reports/reports.module';
 import { ShopsModule } from '../shops/shops.module';
 import { VirtualShowroomController } from './controllers/virtual-showroom.controller';
 import { VirtualShowroomService } from './services/virtual-showroom.service';
@@ -9,7 +12,9 @@ import { VirtualShowroomService } from './services/virtual-showroom.service';
 @Module({
     imports: [
         TypeOrmModule.forFeature([PublicPage, Shop]),
-        ShopsModule
+        ShopsModule,
+        CloudflareModule,
+        ReportsModule
     ],
     controllers: [VirtualShowroomController],
     providers: [VirtualShowroomService, AuthService],

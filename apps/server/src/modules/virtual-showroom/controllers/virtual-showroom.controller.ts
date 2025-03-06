@@ -6,7 +6,7 @@ import {
 	Get,
 	Put,
 	UnauthorizedException,
-	UseInterceptors,
+	UseInterceptors
 } from "@nestjs/common";
 import type { CreateVirtualShowroomClientDto } from "../dtos";
 import { VirtualShowroomService } from "../services/virtual-showroom.service";
@@ -14,22 +14,22 @@ import { VirtualShowroomService } from "../services/virtual-showroom.service";
 import { ShopService } from "@/server/modules/shops/services";
 import { ResponseInterceptor } from "src/interceptors";
 
+@UseInterceptors(ResponseInterceptor)
 @Controller("virtual-showroom")
 export class VirtualShowroomController {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly virtualShowroomService: VirtualShowroomService,
-		private readonly shopService: ShopService,
+		private readonly shopService: ShopService
 	) {}
 
-	@UseInterceptors(ResponseInterceptor)
 	@Get()
 	async getVirtualShowroom(@Cookies("session") session: string) {
 		const user = this.authService.decodeCookie(session);
 		if (!user) {
 			throw new UnauthorizedException();
 		}
-
+		
 		const data = await this.virtualShowroomService.get(user.shop._id);
 		return data?.publicPage
 	}
@@ -48,6 +48,14 @@ export class VirtualShowroomController {
 			await this.virtualShowroomService.hasVirtualShowroom(user.shop._id);
 		if (!hasVirtualShowroom) {
 			const url = await this.virtualShowroomService.createUrl(user.shop.name);
+
+			if (!url){
+				return {
+					status: 400,
+					message: "Invalid shop name"
+				}
+			}
+
 			const virtualShowroom = await this.virtualShowroomService.createAndSave({
 				isPublic: true,
 				shopId: user.shop._id,

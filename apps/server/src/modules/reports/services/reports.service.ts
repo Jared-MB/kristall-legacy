@@ -84,7 +84,7 @@ export class ReportsService  {
       // Ejemplo: await this.notificationService.notify(errorLog);
     }
   
-    async getRecentErrors(limit: number = 10) {
+    async getRecentErrors(limit = 10) {
       return this.errorLogRepository.find({
         order: { createdAt: 'DESC' },
         take: limit,

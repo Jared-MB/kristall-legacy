@@ -25,6 +25,7 @@ import {
   UsersModule,
   VirtualShowroomModule
 } from './modules';
+import { CloudflareModule } from './modules/cloudflare/cloudflare.module';
 
 import { AppController } from './app.controller';
 
@@ -89,6 +90,7 @@ import { Keyv } from 'keyv';
     VirtualShowroomModule,
     SettingsModule,
     ReportsModule,
+    CloudflareModule,
   ],
   controllers: [AppController],
   providers: [
