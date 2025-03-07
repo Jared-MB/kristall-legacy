@@ -105,9 +105,17 @@ import { VercelModule } from './modules/vercel/vercel.module';
 })
 export class AppModule implements OnModuleInit { 
   onModuleInit() {
-      console.log(`
-          KRISTALL
-          MOVE FAST, BREAK THINGS!!
-        `);
+    console.log(`
+      
+      _____________________________________________________________________
+           _    _    _____      __      __    ______    ___     _       _   
+           /  ,'     /    )     /     /    )    /       / |     /       /   
+          /_.'      /___ /     /      \\        /       /__|    /       /    
+         /  \\      /    |     /        \\      /       /   |   /       /     
+        /    \\    /     |   _/_    (____/    /       /    |  /____/  /____/
+      _____________________________________________________________________
+                                        
+
+    `);
   }
 }
