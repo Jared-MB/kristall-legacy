@@ -67,12 +67,14 @@ export class VirtualShowroomService {
         let url: string | undefined = undefined
 
         try {
-            const parsedName = shopName.trim().toLowerCase().replaceAll(' ', '-');
+            const parsedName = shopName.trim().toLowerCase()?.replace(' ', '-');
             const dns = await this.dnsService.create(parsedName)
             url = `https://${dns.name}`
         }
         catch (e){
-            await this.reportsService.logError(e)
+            await this.reportsService.logError(e, 'MEDIUM', {
+                operation: 'assignCNAME'
+            })
         }
         return url;
     }

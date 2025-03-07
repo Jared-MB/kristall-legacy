@@ -38,6 +38,11 @@ export function VirtualShowroomUrl({ url }: { url: string }) {
 						</Link>
 					</Button>
 				</div>
+				<CardDescription className="border text-xs p-3 rounded-md">
+					<strong className="text-purple-500">¡Buenas noticias!</strong> Tu
+					Virtual Showroom se ha registrado con éxito, pero puede tardar un poco
+					en que los cambios se propaguen completamente.
+				</CardDescription>
 			</CardBody>
 		</Card>
 	);

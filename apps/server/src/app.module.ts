@@ -1,5 +1,5 @@
 import { CacheModule } from '@nestjs/cache-manager';
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -36,6 +36,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { createKeyv } from '@keyv/redis';
 import { CacheableMemory } from 'cacheable';
 import { Keyv } from 'keyv';
+import { VercelModule } from './modules/vercel/vercel.module';
 
 @Module({
   imports: [
@@ -91,6 +92,7 @@ import { Keyv } from 'keyv';
     SettingsModule,
     ReportsModule,
     CloudflareModule,
+    VercelModule,
   ],
   controllers: [AppController],
   providers: [
@@ -101,4 +103,11 @@ import { Keyv } from 'keyv';
     Utils,
   ],
 })
-export class AppModule { }
+export class AppModule implements OnModuleInit { 
+  onModuleInit() {
+      console.log(`
+          KRISTALL
+          MOVE FAST, BREAK THINGS!!
+        `);
+  }
+}

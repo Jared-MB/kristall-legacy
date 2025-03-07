@@ -12,8 +12,10 @@ import {
 
 import { ComingSoon } from "@kristall/ui/coming-soon";
 import {
+	AppWindowMac,
 	BookText,
 	CalendarDays,
+	ChartColumnStacked,
 	ClipboardList,
 	HandCoins,
 	LayoutDashboard,

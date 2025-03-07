@@ -13,6 +13,7 @@ import { VirtualShowroomService } from "../services/virtual-showroom.service";
 
 import { ShopService } from "@/server/modules/shops/services";
 import { ResponseInterceptor } from "src/interceptors";
+import { VercelService } from "src/modules/vercel/services/vercel.service";
 
 @UseInterceptors(ResponseInterceptor)
 @Controller("virtual-showroom")
@@ -20,7 +21,8 @@ export class VirtualShowroomController {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly virtualShowroomService: VirtualShowroomService,
-		private readonly shopService: ShopService
+		private readonly shopService: ShopService,
+		private readonly vercelService: VercelService
 	) {}
 
 	@Get()
@@ -50,6 +52,15 @@ export class VirtualShowroomController {
 			const url = await this.virtualShowroomService.createUrl(user.shop.name);
 
 			if (!url){
+				return {
+					status: 400,
+					message: "Invalid shop name"
+				}
+			}
+
+			const domain = await this.vercelService.assignDomainToVS(url);
+
+			if (!domain){
 				return {
 					status: 400,
 					message: "Invalid shop name"

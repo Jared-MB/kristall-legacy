@@ -3,6 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ErrorLog } from '../models/report.model';
 
+interface Context {
+  shopId?: string,
+  userId?: string,
+  operation?: string,
+}
+
 @Injectable()
 export class ReportsService  {
     constructor(
@@ -10,7 +16,7 @@ export class ReportsService  {
       private errorLogRepository: Repository<ErrorLog>
     ) {}
   
-    async logError(error: Error, context: any = {}) {
+    async logError(error: Error, severity: ErrorLog['severity'] = 'LOW', context: Context = {} as Context) {
       try {
         const stackLines = error.stack?.split('\n');
         const errorLocation = this.parseStackTrace(stackLines?.[1] || '');
@@ -18,7 +24,7 @@ export class ReportsService  {
         const errorLog = this.errorLogRepository.create({
           errorMessage: error.message,
           errorCode: error.name,
-          severity: this.calculateSeverity(error),
+          severity,
           functionName: errorLocation.function,
           fileName: errorLocation.file,
           lineNumber: errorLocation.line,
@@ -26,7 +32,7 @@ export class ReportsService  {
             ...context,
             timestamp: new Date().toISOString(),
           },
-          userId: context.userId || null,
+          userId: context?.userId,
         });
   
         await this.errorLogRepository.save(errorLog);
@@ -42,17 +48,6 @@ export class ReportsService  {
         console.error('Error logging failed:', loggingError);
         console.error('Original error:', error);
       }
-    }
-  
-    private calculateSeverity(error: Error): 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' {
-      // Implementa tu lógica para determinar la severidad
-      if (error instanceof TypeError || error instanceof ReferenceError) {
-        return 'MEDIUM';
-      }
-      // Podrías tener tus propias clases de error personalizadas
-      // if (error instanceof DatabaseError) return 'HIGH';
-      // if (error instanceof SecurityError) return 'CRITICAL';
-      return 'LOW';
     }
   
     private parseStackTrace(stackLine: string) {
