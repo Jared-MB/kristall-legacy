@@ -1,5 +1,5 @@
 import { CacheModule } from '@nestjs/cache-manager';
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -99,4 +99,19 @@ import { Keyv } from 'keyv';
     Utils,
   ],
 })
-export class AppModule { }
+export class AppModule implements OnModuleInit { 
+  onModuleInit() {
+    console.log(`
+      
+      _____________________________________________________________________
+           _    _    _____      __      __    ______    ___     _       _   
+           /  ,'     /    )     /     /    )    /       / |     /       /   
+          /_.'      /___ /     /      \\        /       /__|    /       /    
+         /  \\      /    |     /        \\      /       /   |   /       /     
+        /    \\    /     |   _/_    (____/    /       /    |  /____/  /____/
+      _____________________________________________________________________
+                                        
+
+    `);
+  }
+}

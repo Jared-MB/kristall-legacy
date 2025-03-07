@@ -3,6 +3,7 @@ import { Body, Controller, Get, Headers, Param, Post, RawBodyRequest, Req, UseIn
 import { StripeService } from "../services";
 
 import { CacheInterceptor, CacheKey } from "@nestjs/cache-manager";
+import { Request } from "express";
 import { Public } from "src/decorators";
 import { ResponseInterceptor } from "src/interceptors";
 import { StripeRepository } from "../repositories/stripe.repository";
