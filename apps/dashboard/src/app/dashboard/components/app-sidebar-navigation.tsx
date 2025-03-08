@@ -10,7 +10,7 @@ import {
 	SidebarMenuItem,
 } from "@kristall/ui/sidebar";
 
-import { ComingSoon, NewFeature } from "@kristall/ui/announcements";
+import { BetaFeature, ComingSoon } from "@kristall/ui/announcements";
 import {
 	AppWindowMac,
 	BookText,
@@ -131,7 +131,7 @@ export function AppSidebarNavigation() {
 								<AppSidebarLink href={Routes.VIRTUAL_SHOWROOM}>
 									<AppWindowMac />
 									<span>VS - Dashboard</span>
-									<NewFeature position="right" />
+									<BetaFeature position="right" />
 								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
