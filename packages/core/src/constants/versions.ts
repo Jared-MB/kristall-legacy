@@ -13,12 +13,13 @@ export const VERSIONS: Version[] = [
 	{
 		_id: "v0.11.0-RC-2",
 		date: "2025-02-21",
-		title: "Virtual Showroom Analytics",
+		title: "Virtual Showroom Custom Domain",
 		description: `
-			Ahora puedes ver las estadísticas de tu Virtual Showroom en el dashboard.
-			Esto te permitirá ver las visitas, las ventas y el tráfico de tu Virtual Showroom.
+			Estamos emocionados de anunciar que tu Virtual Showroom ahora tiene un 
+			dominio personalizado. Por lo que pasamos de esto: www.kristall.app/shops/mi-tienda a mi-tienda.kristall.app.
+			Lo que da una URL más fácil de recordar y una mayor seguridad.
 		`,
-		features: ["Virtual Showroom Analytics"],
+		features: ["Virtual Showroom Custom Domain"],
 	},
 	{
 		_id: "v0.11.0-RC-1",
