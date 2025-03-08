@@ -1,10 +1,10 @@
+import { ComingSoon } from "@kristall/ui/announcements";
 import {
 	Card,
 	CardDescription,
 	CardHeader,
 	CardTitle,
 } from "@kristall/ui/card";
-import { ComingSoon } from "@kristall/ui/coming-soon";
 
 export function VirtualShowroomCustomize() {
 	return (

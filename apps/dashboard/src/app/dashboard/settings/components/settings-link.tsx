@@ -1,5 +1,5 @@
-import ComingSoon from "@/components/coming-soon";
 import { cn } from "@/core/utils";
+import { ComingSoon } from "@kristall/ui/announcements";
 import Link from "next/link";
 import SettingsLinkTab from "./settings-link-tab";
 
