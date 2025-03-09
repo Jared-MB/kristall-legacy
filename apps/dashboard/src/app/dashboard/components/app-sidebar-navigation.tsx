@@ -1,5 +1,7 @@
 import Routes from "@/constants/routes";
+import { isFeatureEnabled } from "@kristall/core/utils/version";
 
+import { BetaFeature, ComingSoon } from "@kristall/ui/announcements";
 import {
 	SidebarContent,
 	SidebarGroup,
@@ -9,8 +11,6 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@kristall/ui/sidebar";
-
-import { BetaFeature, ComingSoon } from "@kristall/ui/announcements";
 import {
 	AppWindowMac,
 	BookText,
@@ -29,7 +29,17 @@ import {
 import { AppSidebarLink } from "./app-sidebar-link";
 import { ReportLink } from "./report-link";
 
-export function AppSidebarNavigation() {
+import {
+	AVAILABLE_SINCE,
+	AVAILABLE_SINCE_MINOR,
+} from "../virtual-showroom/page";
+
+export async function AppSidebarNavigation() {
+	const isEnabled = await isFeatureEnabled(
+		AVAILABLE_SINCE,
+		AVAILABLE_SINCE_MINOR,
+	);
+
 	return (
 		<SidebarContent>
 			<SidebarGroup>
@@ -109,35 +119,37 @@ export function AppSidebarNavigation() {
 					</SidebarMenu>
 				</SidebarGroupContent>
 			</SidebarGroup>
-			<SidebarGroup>
-				<SidebarGroupLabel>Virtual Showroom</SidebarGroupLabel>
-				<SidebarGroupContent>
-					<SidebarMenu>
-						<SidebarMenuItem>
-							<SidebarMenuButton asChild disabled>
-								<AppSidebarLink
-									/**href={Routes.VIRTUAL_SHOWROOM_ANALYTICS}**/
-									className="cursor-not-allowed opacity-50"
-									href=""
-								>
-									<ChartColumnStacked />
-									<span>Analíticas</span>
-									<ComingSoon position="right" />
-								</AppSidebarLink>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-						<SidebarMenuItem>
-							<SidebarMenuButton asChild>
-								<AppSidebarLink href={Routes.VIRTUAL_SHOWROOM}>
-									<AppWindowMac />
-									<span>VS - Dashboard</span>
-									<BetaFeature position="right" />
-								</AppSidebarLink>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-					</SidebarMenu>
-				</SidebarGroupContent>
-			</SidebarGroup>
+			{isEnabled ? (
+				<SidebarGroup>
+					<SidebarGroupLabel>Virtual Showroom</SidebarGroupLabel>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							<SidebarMenuItem>
+								<SidebarMenuButton asChild disabled>
+									<AppSidebarLink
+										/**href={Routes.VIRTUAL_SHOWROOM_ANALYTICS}**/
+										className="cursor-not-allowed opacity-50"
+										href=""
+									>
+										<ChartColumnStacked />
+										<span>Analíticas</span>
+										<ComingSoon position="right" />
+									</AppSidebarLink>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuButton asChild>
+									<AppSidebarLink href={Routes.VIRTUAL_SHOWROOM}>
+										<AppWindowMac />
+										<span>VS - Dashboard</span>
+										<BetaFeature position="right" />
+									</AppSidebarLink>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+			) : null}
 			<SidebarGroup>
 				<SidebarGroupLabel>Finanzas</SidebarGroupLabel>
 				<SidebarGroupContent>
