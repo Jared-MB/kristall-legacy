@@ -14,6 +14,9 @@
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
+	"[astro]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
 	"cSpell.words": ["clabe", "cloudflare", "lucide", "nestjs", "sonner"],
 	"yaml.schemas": {
 		"https://json.schemastore.org/yamllint.json": "file:///c%3A/Users/amuno/Documents/proyectos/kristall/.github/worksflows/main.yml"
