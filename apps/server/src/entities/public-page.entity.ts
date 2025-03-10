@@ -20,11 +20,35 @@ export class PublicPage {
         nullable: true
     })
     @JoinColumn()
-    bannerImage: Image
+    cardImageOne: Image
+
+    @OneToOne(() => Image, undefined, {
+        nullable: true
+    })
+    @JoinColumn()
+    cardImageTwo: Image
+
+    @OneToOne(() => Image, undefined, {
+        nullable: true
+    })
+    @JoinColumn()
+    cardImageThree: Image
+
+    @OneToOne(() => Image, undefined, {
+        nullable: true,
+    })
+    @JoinColumn()
+    cardImageFour: Image
 
     @Column({
         length: 128,
         nullable: true
     })
-    title: string;
+    cardTitle: string;
+
+    @Column({
+        length: 128,
+        nullable: true
+    })
+    cardDescription: string;
 }

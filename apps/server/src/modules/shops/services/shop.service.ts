@@ -138,7 +138,7 @@ export class ShopService {
             },
             relations: {
                 publicPage: {
-                    bannerImage: true,
+                    cardImageOne: true,
                 },
                 image: true,
             },
