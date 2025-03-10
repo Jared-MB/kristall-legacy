@@ -16,20 +16,30 @@ import { usePreview } from "./preview-context";
 export function PreviewSave() {
 	const { hasStateChanged, setHasStateChanged } = usePreview();
 
+	useShortcut(
+		["s"],
+		() => {
+			if (!hasStateChanged) {
+				toast.info("No hay cambios");
+				return;
+			}
+			toast.success("Guardado");
+			setHasStateChanged(false);
+		},
+		{
+			ctrl: true,
+		},
+	);
+
 	if (!hasStateChanged) {
 		return null;
 	}
-
-	useShortcut(["ctrol", "s"], () => {
-		toast("Guardado");
-		setHasStateChanged(false);
-	});
 
 	return (
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger asChild>
-					<Button variant="secondary" size="icon" className="sticky top-0">
+					<Button variant="secondary" size="icon">
 						<svg
 							className="w-5 h-5"
 							viewBox="0 0 24 24"
@@ -55,28 +65,28 @@ export function PreviewSave() {
                                     stroke-dasharray: 100;
                                     stroke-dashoffset: 100;
                                     animation: drawLine 0.6s linear forwards;
-                                    animation-delay: 0.3s;
+                                    animation-delay: 0.2s;
                                     }
                                     
                                     .path2 {
                                     stroke-dasharray: 100;
                                     stroke-dashoffset: 100;
                                     animation: drawLine 0.6s linear forwards;
-                                    animation-delay: 0.3s;
+                                    animation-delay: 0.2s;
                                     }
                                     
                                     .path3 {
                                     stroke-dasharray: 100;
                                     stroke-dashoffset: 100;
                                     animation: drawLine 0.6s linear forwards;
-                                    animation-delay: 0.3s;
+                                    animation-delay: 0.2s;
                                     }
                                     
                                     .path4 {
                                     stroke-dasharray: 100;
                                     stroke-dashoffset: 100;
                                     animation: drawLine 0.6s linear forwards;
-                                    animation-delay: 0.3s;
+                                    animation-delay: 0.2s;
                                     }
                                 `}
 							</style>
