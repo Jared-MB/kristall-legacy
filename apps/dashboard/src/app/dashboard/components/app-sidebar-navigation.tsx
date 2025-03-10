@@ -1,7 +1,12 @@
 import Routes from "@/constants/routes";
 import { isFeatureEnabled } from "@kristall/core/utils/version";
 
-import { BetaFeature, ComingSoon } from "@kristall/ui/announcements";
+import {
+	AlphaFeature,
+	BetaFeature,
+	ComingSoon,
+	NewFeature,
+} from "@kristall/ui/announcements";
 import {
 	SidebarContent,
 	SidebarGroup,
@@ -32,7 +37,18 @@ import { ReportLink } from "./report-link";
 import {
 	AVAILABLE_SINCE,
 	AVAILABLE_SINCE_MINOR,
+	PAGE_DEVELOPMENT_STATUS,
 } from "../virtual-showroom/page";
+
+function VirtualShowroomStatus() {
+	if (PAGE_DEVELOPMENT_STATUS === "Alpha") {
+		return <AlphaFeature position="right" />;
+	}
+	if (PAGE_DEVELOPMENT_STATUS === "Beta") {
+		return <BetaFeature position="right" />;
+	}
+	return <NewFeature position="right" />;
+}
 
 export async function AppSidebarNavigation() {
 	const isEnabled = await isFeatureEnabled(
@@ -142,7 +158,7 @@ export async function AppSidebarNavigation() {
 									<AppSidebarLink href={Routes.VIRTUAL_SHOWROOM}>
 										<AppWindowMac />
 										<span>VS - Dashboard</span>
-										<BetaFeature position="right" />
+										<VirtualShowroomStatus />
 									</AppSidebarLink>
 								</SidebarMenuButton>
 							</SidebarMenuItem>

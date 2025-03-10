@@ -75,3 +75,19 @@ export function BetaFeature({
 		</Announcement>
 	);
 }
+
+export function AlphaFeature({
+	children = "¡Funcionalidad en versión alpha!",
+	position = "left",
+	className,
+}: {
+	children?: React.ReactNode | string;
+	position?: "left" | "right";
+	className?: string;
+}) {
+	return (
+		<Announcement position={position} className={cn("text-red-400", className)}>
+			{children}
+		</Announcement>
+	);
+}

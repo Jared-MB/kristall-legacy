@@ -25,6 +25,7 @@ import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 
 export const AVAILABLE_SINCE = "v0.11.";
 export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
+export const PAGE_DEVELOPMENT_STATUS: "Alpha" | "Beta" = "Alpha";
 
 export default async function VirtualShowroomPage() {
 	const { shopName } = await getShopData();
@@ -64,6 +65,25 @@ export default async function VirtualShowroomPage() {
 										</Label>
 									</div>
 									<ExperimentalFeature />
+								</CardBody>
+							</Card>
+							<Card>
+								<CardBody>
+									<CardDescription>
+										<strong className="!text-yellow-500">
+											Working progress!
+										</strong>{" "}
+										La opción de Virtual Showroom está en fase{" "}
+										<strong>{PAGE_DEVELOPMENT_STATUS}</strong>. Los cambios
+										realizados{" "}
+										<strong>no se guardaran y se perderán al recargar</strong>{" "}
+										la página. Puede haber cambios futuros en la interfaz y/o
+										funcionalidad.{" "}
+										<strong>
+											¡Estamos trabajando para brindarte la mejor experiencia
+											posible!
+										</strong>
+									</CardDescription>
 								</CardBody>
 							</Card>
 							<VirtualShowroom />
