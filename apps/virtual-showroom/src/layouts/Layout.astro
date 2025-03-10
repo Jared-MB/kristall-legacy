@@ -1,14 +1,30 @@
+---
+import "@fontsource-variable/quicksand";
+import "src/styles/global.css";
+
+const location = Astro.url.hostname;
+const shop = location.split(".")[0];
+const parsedName = shop
+	.split("-")
+	.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+const shopName = parsedName.join(" ");
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{shopName}</title>
 	</head>
-	<body>
-		<slot />
+	<body class="w-dvw">
+		<main class="min-h-dvh flex flex-col">
+			<slot/>
+		</main>
+		<footer class="p-6">
+			<small class="text-sm">Powered by <a class="text-purple-500" href="https://kristall.app" target="_blank" rel="noopener noreferrer">Kristall</a>
+		</footer>
 	</body>
 </html>
 
@@ -18,5 +34,6 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		font-family: 'Quicksand Variable', sans-serif;
 	}
 </style>

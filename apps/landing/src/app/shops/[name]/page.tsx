@@ -34,7 +34,7 @@ export default async function ShopId(props: Props) {
 			<section className="flex justify-evenly h-[50dvh] w-full">
 				<header className="flex flex-col justify-center gap-y-10 items-start">
 					<h2 className="text-4xl text-primary text-balance max-w-[28ch]">
-						{config.title ?? "Bienvenido de vuelta"}
+						{config.cardTitle ?? "Bienvenido de vuelta"}
 					</h2>
 					<Button asChild>
 						<Link href={`${params.name}/products?sort-by=best-sellers`}>
@@ -43,12 +43,12 @@ export default async function ShopId(props: Props) {
 					</Button>
 				</header>
 				<div className="grid place-content-center h-full">
-					{!config.bannerImage?.url ? (
+					{!config.cardImageOne?.url ? (
 						<BannerImage className="h-[40dvh] w-auto aspect-video object-contain" />
 					) : (
 						<Image
 							className="h-[40dvh] w-auto"
-							src={config.bannerImage.url}
+							src={config.cardImageOne.url}
 							alt={`Imagen para la página principal de productos de ${params.name}`}
 							layout="fill"
 							objectFit="cover"

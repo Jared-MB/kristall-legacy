@@ -1,5 +1,12 @@
 import Routes from "@/constants/routes";
+import { isFeatureEnabled } from "@kristall/core/utils/version";
 
+import {
+	AlphaFeature,
+	BetaFeature,
+	ComingSoon,
+	NewFeature,
+} from "@kristall/ui/announcements";
 import {
 	SidebarContent,
 	SidebarGroup,
@@ -9,10 +16,11 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@kristall/ui/sidebar";
-
 import {
+	AppWindowMac,
 	BookText,
 	CalendarDays,
+	ChartColumnStacked,
 	ClipboardList,
 	HandCoins,
 	LayoutDashboard,
@@ -23,10 +31,31 @@ import {
 	ShoppingBasket,
 	Users,
 } from "lucide-react";
-import Link from "next/link";
+import { AppSidebarLink } from "./app-sidebar-link";
 import { ReportLink } from "./report-link";
 
-export function AppSidebarNavigation() {
+import {
+	AVAILABLE_SINCE,
+	AVAILABLE_SINCE_MINOR,
+	PAGE_DEVELOPMENT_STATUS,
+} from "../virtual-showroom/page";
+
+function VirtualShowroomStatus() {
+	if (PAGE_DEVELOPMENT_STATUS === "Alpha") {
+		return <AlphaFeature position="right" />;
+	}
+	if (PAGE_DEVELOPMENT_STATUS === "Beta") {
+		return <BetaFeature position="right" />;
+	}
+	return <NewFeature position="right" />;
+}
+
+export async function AppSidebarNavigation() {
+	const isEnabled = await isFeatureEnabled(
+		AVAILABLE_SINCE,
+		AVAILABLE_SINCE_MINOR,
+	);
+
 	return (
 		<SidebarContent>
 			<SidebarGroup>
@@ -35,10 +64,10 @@ export function AppSidebarNavigation() {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.DASHBOARD}>
+								<AppSidebarLink href={Routes.DASHBOARD}>
 									<LayoutDashboard />
 									<span>Dashboard</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					</SidebarMenu>
@@ -50,34 +79,34 @@ export function AppSidebarNavigation() {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.SALES}>
+								<AppSidebarLink href={Routes.SALES}>
 									<ShoppingBasket />
 									<span>Ventas</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.INVENTORY}>
+								<AppSidebarLink href={Routes.INVENTORY}>
 									<Package />
 									<span>Inventario</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.LOCATIONS}>
+								<AppSidebarLink href={Routes.LOCATIONS}>
 									<MapPinned />
 									<span>Ubicaciones</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.BATCHES}>
+								<AppSidebarLink href={Routes.BATCHES}>
 									<CalendarDays />
 									<span>Lotes</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					</SidebarMenu>
@@ -89,41 +118,72 @@ export function AppSidebarNavigation() {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.ORDERS}>
+								<AppSidebarLink href={Routes.ORDERS}>
 									<ClipboardList />
 									<span>Pedidos</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.CUSTOMERS}>
+								<AppSidebarLink href={Routes.CUSTOMERS}>
 									<Users />
 									<span>Clientes</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					</SidebarMenu>
 				</SidebarGroupContent>
 			</SidebarGroup>
+			{isEnabled ? (
+				<SidebarGroup>
+					<SidebarGroupLabel>Virtual Showroom</SidebarGroupLabel>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							<SidebarMenuItem>
+								<SidebarMenuButton asChild disabled>
+									<AppSidebarLink
+										/**href={Routes.VIRTUAL_SHOWROOM_ANALYTICS}**/
+										className="cursor-not-allowed opacity-50"
+										href=""
+									>
+										<ChartColumnStacked />
+										<span>Analíticas</span>
+										<ComingSoon position="right" />
+									</AppSidebarLink>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuButton asChild>
+									<AppSidebarLink href={Routes.VIRTUAL_SHOWROOM}>
+										<AppWindowMac />
+										<span>VS - Dashboard</span>
+										<VirtualShowroomStatus />
+									</AppSidebarLink>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+			) : null}
 			<SidebarGroup>
 				<SidebarGroupLabel>Finanzas</SidebarGroupLabel>
 				<SidebarGroupContent>
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.NOTES}>
+								<AppSidebarLink href={Routes.NOTES}>
 									<ReceiptText />
 									<span>Notas de venta</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.EXPENSES}>
+								<AppSidebarLink href={Routes.EXPENSES}>
 									<HandCoins />
 									<span>Gastos</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					</SidebarMenu>
@@ -135,10 +195,10 @@ export function AppSidebarNavigation() {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href={Routes.USERS}>
+								<AppSidebarLink href={Routes.USERS}>
 									<Users />
 									<span>Usuarios</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<ReportLink />
@@ -151,18 +211,18 @@ export function AppSidebarNavigation() {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href="/dashboard/settings/general">
+								<AppSidebarLink href="/dashboard/settings/general">
 									<Settings />
 									<span>Configuración</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 						<SidebarMenuItem>
 							<SidebarMenuButton asChild>
-								<Link href="/docs">
+								<AppSidebarLink href="/docs">
 									<BookText />
 									<span>Documentación</span>
-								</Link>
+								</AppSidebarLink>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					</SidebarMenu>

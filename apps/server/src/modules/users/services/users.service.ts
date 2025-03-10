@@ -358,7 +358,7 @@ export class UsersService {
             throw new BadRequestException('El nombre no esta disponible')
         }
         const shop = await this.shopService.createShop({
-            name: (user as any).shopName as unknown as string,
+            name: (user as any).shopName.trim() as unknown as string,
             users: [userdb]
         });
         const newUser: User = {

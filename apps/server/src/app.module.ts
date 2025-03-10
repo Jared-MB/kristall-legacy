@@ -25,6 +25,7 @@ import {
   UsersModule,
   VirtualShowroomModule
 } from './modules';
+import { CloudflareModule } from './modules/cloudflare/cloudflare.module';
 
 import { AppController } from './app.controller';
 
@@ -35,6 +36,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { createKeyv } from '@keyv/redis';
 import { CacheableMemory } from 'cacheable';
 import { Keyv } from 'keyv';
+import { VercelModule } from './modules/vercel/vercel.module';
 
 @Module({
   imports: [
@@ -89,6 +91,8 @@ import { Keyv } from 'keyv';
     VirtualShowroomModule,
     SettingsModule,
     ReportsModule,
+    CloudflareModule,
+    VercelModule,
   ],
   controllers: [AppController],
   providers: [

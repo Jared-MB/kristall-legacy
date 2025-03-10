@@ -1,7 +1,8 @@
-import { RANDOM_WORDS } from '@/server/constants';
 import { PublicPage, Shop } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { DnsService } from 'src/modules/cloudflare/services/dns.service';
+import { ReportsService } from 'src/modules/reports/services/reports.service';
 import { Repository } from 'typeorm';
 import { CreateVirtualShowroomServerDto } from '../dtos';
 
@@ -13,6 +14,8 @@ export class VirtualShowroomService {
         private readonly publicPageRepository: Repository<PublicPage>,
         @InjectRepository(Shop)
         private readonly shopRepository: Repository<Shop>,
+        private readonly dnsService: DnsService,
+        private readonly reportsService: ReportsService
     ) { }
 
     async get(shopId: string) {
@@ -60,26 +63,20 @@ export class VirtualShowroomService {
     }
 
     async createUrl(shopName: string) {
-        const clientUrl = process.env.CLIENT_URL;
-        const baseUrl = `${clientUrl}/shops/${shopName.toLowerCase()}`;
-        let url = baseUrl;
-        let isUrlAvailable = await this.isUrlAvailable(url);
 
-        while (!isUrlAvailable) {
-            const randomIndex = Math.floor(Math.random() * RANDOM_WORDS.length);
-            url = `${baseUrl}-${RANDOM_WORDS[randomIndex]}`;
-            isUrlAvailable = await this.isUrlAvailable(url);
+        let url: string | undefined = undefined
+
+        try {
+            const parsedName = shopName.trim().toLowerCase()?.replace(' ', '-');
+            const dns = await this.dnsService.create(parsedName)
+            url = `https://${dns.name}`
         }
-
+        catch (e){
+            await this.reportsService.logError(e, 'MEDIUM', {
+                operation: 'assignCNAME'
+            })
+        }
         return url;
-    }
-
-    private async isUrlAvailable(url: string) {
-        const publicPage = await this.publicPageRepository.findOne({
-            where: { url }
-        });
-
-        return !publicPage;
     }
 
     async toggle(isPublic: boolean, _id: string) {
