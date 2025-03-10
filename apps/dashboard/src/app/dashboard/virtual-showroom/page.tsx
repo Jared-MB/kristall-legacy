@@ -17,6 +17,7 @@ import {
 import { ScrollArea } from "@kristall/ui/scroll-area";
 import { Switch } from "@kristall/ui/switch";
 
+import { getShopData } from "@kristall/core/shop/data";
 import { ExperimentalFeature } from "../settings/components/experimental-feature";
 import { VirtualShowroom } from "./components/virtual-showroom";
 import { VirtualShowroomCustomize } from "./components/virtual-showroom-customize";
@@ -25,7 +26,9 @@ import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 export const AVAILABLE_SINCE = "v0.11.";
 export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
 
-export default function VirtualShowroomPage() {
+export default async function VirtualShowroomPage() {
+	const { shopName } = await getShopData();
+
 	return (
 		<MainContent className="flex flex-col gap-y-6">
 			<Card variant="borderless" className="shadow-none bg-transparent">
@@ -69,7 +72,7 @@ export default function VirtualShowroomPage() {
 				</ResizablePanel>
 				<ResizableHandle withHandle />
 				<ResizablePanel defaultSize={50}>
-					<VirtualShowroomCustomize />
+					<VirtualShowroomCustomize shopName={shopName} />
 				</ResizablePanel>
 			</ResizablePanelGroup>
 		</MainContent>
