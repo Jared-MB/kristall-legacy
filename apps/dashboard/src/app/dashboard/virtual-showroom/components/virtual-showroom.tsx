@@ -2,7 +2,6 @@ import { isFeatureEnabled } from "@kristall/core/utils";
 import { getVirtualShowroom } from "@kristall/core/virtual-showroom/data";
 import { CardDescription, CardTitle } from "@kristall/ui/card";
 import { AVAILABLE_SINCE, AVAILABLE_SINCE_MINOR } from "../page";
-import { VirtualShowroomCustomize } from "./virtual-showroom-customize";
 import {
 	VirtualShowroomUrl,
 	VirtualShowroomUrlSkeleton,
@@ -27,7 +26,6 @@ export async function VirtualShowroom() {
 	return (
 		<>
 			<VirtualShowroomUrl url={virtualShowroom.url} />
-			<VirtualShowroomCustomize />
 			<section className="flex flex-col gap-y-2">
 				<CardTitle>¿Quieres una página a tu medida?</CardTitle>
 				<CardDescription>

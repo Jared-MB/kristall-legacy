@@ -19,6 +19,7 @@ import { Switch } from "@kristall/ui/switch";
 
 import { ExperimentalFeature } from "../settings/components/experimental-feature";
 import { VirtualShowroom } from "./components/virtual-showroom";
+import { VirtualShowroomCustomize } from "./components/virtual-showroom-customize";
 import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 
 export const AVAILABLE_SINCE = "v0.11.";
@@ -37,7 +38,7 @@ export default function VirtualShowroomPage() {
 				</CardBody>
 			</Card>
 			<ResizablePanelGroup direction="horizontal">
-				<ResizablePanel defaultSize={60}>
+				<ResizablePanel defaultSize={50}>
 					<ScrollArea className="h-full pr-6">
 						<div className="flex flex-col gap-y-6">
 							<Card>
@@ -67,11 +68,8 @@ export default function VirtualShowroomPage() {
 					</ScrollArea>
 				</ResizablePanel>
 				<ResizableHandle withHandle />
-				<ResizablePanel defaultSize={40}>
-					<div className="grid place-content-center place-items-center h-full">
-						<h4 className="text-4xl text-purple-500 mb-4">Preview</h4>
-						<small className="text-zinc-400">¡Próximamente!</small>
-					</div>
+				<ResizablePanel defaultSize={50}>
+					<VirtualShowroomCustomize />
 				</ResizablePanel>
 			</ResizablePanelGroup>
 		</MainContent>

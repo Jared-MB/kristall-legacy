@@ -21,6 +21,7 @@ const config = {
 		extend: {
 			fontFamily: {
 				sans: ["var(--font-sans)", ...fontFamily.sans],
+				serif: ["var(--font-serif)", ...fontFamily.serif],
 			},
 			height: {
 				layout: "calc(100dvh - 4rem)",
@@ -133,7 +134,10 @@ const config = {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		require("@tailwindcss/container-queries"),
+	],
 } satisfies Config;
 
 export default config;
