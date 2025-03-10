@@ -15,6 +15,9 @@
 			},
 			"complexity": {
 				"noStaticOnlyClass": "off"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	},
