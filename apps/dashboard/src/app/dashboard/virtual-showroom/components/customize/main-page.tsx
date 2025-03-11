@@ -48,7 +48,7 @@ export function MainPage({ shopName }: { shopName: string }) {
 				</div>
 				<CardImage
 					name="cardImageTwo"
-					className="bg-purple-200 @md:row-span-3 @2xl:row-start-5 col-span-3 @md:col-span-1 @2xl:col-start-3 bg-cover bg-center rounded-lg"
+					className="bg-purple-200 @md:row-span-3 @2xl:row-start-5 col-span-3 @md:col-span-1 @2xl:col-span-2 @2xl:col-start-3 bg-cover bg-center rounded-lg"
 				/>
 			</div>
 			<div className="grid grid-cols-9 grid-rows-3 @2xl:grid-rows-1 gap-4 px-6 pt-4 w-full font-serif h-72 @2xl:h-48">
