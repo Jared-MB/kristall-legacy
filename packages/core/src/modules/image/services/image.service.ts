@@ -3,7 +3,10 @@
 import type { Image, UploadImageServiceParams } from "../interfaces";
 
 import sharp from "sharp";
-import { R2_BUCKET_NAME } from "../../../constants/environment";
+import {
+	R2_BUCKET_NAME,
+	R2_BUCKET_PREFIX,
+} from "../../../constants/environment";
 
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
@@ -63,7 +66,7 @@ export const uploadImageService = async ({
 	});
 
 	await r2.send(command);
-	const url = `https://cdn.kristall.app/${shopKey}`;
+	const url = `https://${R2_BUCKET_PREFIX}.kristall.app/${shopKey}`;
 	return { url, _id: imageId };
 };
 
