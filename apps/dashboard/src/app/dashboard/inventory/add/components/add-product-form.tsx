@@ -42,8 +42,13 @@ export default function AddProductForm({
 
 	const [isCreatingMany, setIsCreatingMany] = useState(false);
 
-	const [formData, setFormData] = useState({name: "", code: "", price: "", cost: "", category: ""});
-	const [errors, setErrors] = useState<Record<string, string | undefined>>({});
+	const [formData, setFormData] = useState({
+		name: "",
+		code: "",
+		price: "",
+		cost: "",
+		category: "",
+	});
 
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -68,7 +73,7 @@ export default function AddProductForm({
 				clearLocations();
 				clearBatches();
 				formRef.current?.reset();
-				setFormData({name: "", code: "", price: "", cost: "", category: ""});
+				setFormData({ name: "", code: "", price: "", cost: "", category: "" });
 			}
 			"message" in actionErrors && toast.error(actionErrors.message);
 			"locations" in actionErrors &&
@@ -100,7 +105,6 @@ export default function AddProductForm({
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setFormData((prev) => ({ ...prev, [name]: value }));
-		setErrors((prev) => ({ ...prev, [name]: undefined }));
 	};
 
 	return (
@@ -115,14 +119,27 @@ export default function AddProductForm({
 						<div className="flex flex-row flex-wrap lg:flex-nowrap gap-4 items-start">
 							<InputContainer>
 								<Label>Nombre*</Label>
-								<Input name="name" placeholder="Ej. Galletas" value={formData.name} onChange={handleInputChange}/>
-								{actionErrors && "name" in actionErrors && actionErrors?.name && (
-									<InputError>{actionErrors.name[0]}</InputError>
-								)}
+								<Input
+									name="name"
+									placeholder="Ej. Galletas"
+									value={formData.name}
+									onChange={handleInputChange}
+								/>
+								{actionErrors &&
+									"name" in actionErrors &&
+									actionErrors?.name && (
+										<InputError>{actionErrors.name[0]}</InputError>
+									)}
 							</InputContainer>
 							<InputContainer>
 								<Label>Código</Label>
-								<Input name="code" type="number" placeholder="000000000" value={formData.code} onChange={handleInputChange} />
+								<Input
+									name="code"
+									type="number"
+									placeholder="000000000"
+									value={formData.code}
+									onChange={handleInputChange}
+								/>
 							</InputContainer>
 						</div>
 					</article>
@@ -143,22 +160,40 @@ export default function AddProductForm({
 					<div className="grid grid-cols-2 lg:grid-cols-3 gap-4 items-start">
 						<InputContainer>
 							<Label>Precio*</Label>
-							<Input name="price" icon="$" type="number" placeholder="0" value={formData.price} onChange={handleInputChange}/>
-							{actionErrors && "price" in actionErrors && actionErrors?.price && (
-								<InputError>{actionErrors.price[0]}</InputError>
-							)}
+							<Input
+								name="price"
+								icon="$"
+								type="number"
+								placeholder="0"
+								value={formData.price}
+								onChange={handleInputChange}
+							/>
+							{actionErrors &&
+								"price" in actionErrors &&
+								actionErrors?.price && (
+									<InputError>{actionErrors.price[0]}</InputError>
+								)}
 						</InputContainer>
 						<InputContainer>
 							<Label>Costo</Label>
-							<Input name="cost" icon="$" type="number" placeholder="0" value={formData.cost} onChange={handleInputChange}/>
+							<Input
+								name="cost"
+								icon="$"
+								type="number"
+								placeholder="0"
+								value={formData.cost}
+								onChange={handleInputChange}
+							/>
 						</InputContainer>
 						<InputContainer className="col-span-2 lg:col-span-1">
 							<Label>Categoría*</Label>
 							<SelectCategory categories={categories} />
 							<div className="flex items-center justify-between">
-								{actionErrors && "category" in actionErrors && actionErrors?.category && (
-									<InputError>{actionErrors.category[0]}</InputError>
-								)}
+								{actionErrors &&
+									"category" in actionErrors &&
+									actionErrors?.category && (
+										<InputError>{actionErrors.category[0]}</InputError>
+									)}
 								<InputDescription>
 									<AddCategory asLink showIcon={false} />
 								</InputDescription>
