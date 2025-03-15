@@ -1,7 +1,6 @@
 "use client";
 
 import type { Category } from "@kristall/core/modules/categories/interfaces";
-
 import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -42,6 +41,10 @@ export default function AddProductForm({
 	const { batches, isEnabled, clearBatches } = useBatchesContext();
 
 	const [isCreatingMany, setIsCreatingMany] = useState(false);
+
+	const [formData, setFormData] = useState({name: "", code: "", price: "", cost: "", category: ""});
+	const [errors, setErrors] = useState<Record<string, string | undefined>>({});
+
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const enhancedAction = uploadProduct.bind(
@@ -53,25 +56,26 @@ export default function AddProductForm({
 		redirectTo,
 	);
 
-	const [errors, dispatch, isPending] = useActionState(
+	const [actionErrors, dispatch, isPending] = useActionState(
 		enhancedAction,
 		undefined,
 	);
 
 	useEffect(() => {
-		if (errors) {
-			if ("success" in errors && errors.success) {
+		if (actionErrors) {
+			if ("success" in actionErrors && actionErrors.success) {
 				toast.success("Producto creado correctamente");
 				clearLocations();
 				clearBatches();
 				formRef.current?.reset();
+				setFormData({name: "", code: "", price: "", cost: "", category: ""});
 			}
-			"message" in errors && toast.error(errors.message);
-			"locations" in errors &&
-				errors.locations &&
-				toast.error(errors.locations[0]);
-			"size" in errors &&
-				toast.info(errors.size, {
+			"message" in actionErrors && toast.error(actionErrors.message);
+			"locations" in actionErrors &&
+				actionErrors.locations &&
+				toast.error(actionErrors.locations[0]);
+			"size" in actionErrors &&
+				toast.info(actionErrors.size, {
 					action: (
 						<Button asChild size="sm" variant="outline">
 							<Link href="/docs/faq#image-size-limit">Ver más</Link>
@@ -79,7 +83,7 @@ export default function AddProductForm({
 					),
 				});
 		}
-	}, [errors]);
+	}, [actionErrors]);
 
 	useShortcut(
 		["enter"],
@@ -93,6 +97,12 @@ export default function AddProductForm({
 		},
 	);
 
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+		setErrors((prev) => ({ ...prev, [name]: undefined }));
+	};
+
 	return (
 		<Card as="div">
 			<form action={dispatch} ref={formRef}>
@@ -105,14 +115,14 @@ export default function AddProductForm({
 						<div className="flex flex-row flex-wrap lg:flex-nowrap gap-4 items-start">
 							<InputContainer>
 								<Label>Nombre*</Label>
-								<Input name="name" placeholder="Ej. Galletas" />
-								{errors && "name" in errors && errors?.name && (
-									<InputError>{errors.name[0]}</InputError>
+								<Input name="name" placeholder="Ej. Galletas" value={formData.name} onChange={handleInputChange}/>
+								{actionErrors && "name" in actionErrors && actionErrors?.name && (
+									<InputError>{actionErrors.name[0]}</InputError>
 								)}
 							</InputContainer>
 							<InputContainer>
 								<Label>Código</Label>
-								<Input name="code" type="number" placeholder="000000000" />
+								<Input name="code" type="number" placeholder="000000000" value={formData.code} onChange={handleInputChange} />
 							</InputContainer>
 						</div>
 					</article>
@@ -133,21 +143,21 @@ export default function AddProductForm({
 					<div className="grid grid-cols-2 lg:grid-cols-3 gap-4 items-start">
 						<InputContainer>
 							<Label>Precio*</Label>
-							<Input name="price" icon="$" type="number" placeholder="0" />
-							{errors && "price" in errors && errors?.price && (
-								<InputError>{errors.price[0]}</InputError>
+							<Input name="price" icon="$" type="number" placeholder="0" value={formData.price} onChange={handleInputChange}/>
+							{actionErrors && "price" in actionErrors && actionErrors?.price && (
+								<InputError>{actionErrors.price[0]}</InputError>
 							)}
 						</InputContainer>
 						<InputContainer>
 							<Label>Costo</Label>
-							<Input name="cost" icon="$" type="number" placeholder="0" />
+							<Input name="cost" icon="$" type="number" placeholder="0" value={formData.cost} onChange={handleInputChange}/>
 						</InputContainer>
 						<InputContainer className="col-span-2 lg:col-span-1">
 							<Label>Categoría*</Label>
 							<SelectCategory categories={categories} />
 							<div className="flex items-center justify-between">
-								{errors && "category" in errors && errors?.category && (
-									<InputError>{errors.category[0]}</InputError>
+								{actionErrors && "category" in actionErrors && actionErrors?.category && (
+									<InputError>{actionErrors.category[0]}</InputError>
 								)}
 								<InputDescription>
 									<AddCategory asLink showIcon={false} />
