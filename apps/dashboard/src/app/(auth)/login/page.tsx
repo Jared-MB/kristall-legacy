@@ -13,7 +13,7 @@ export default function LoginForm() {
 	const [state, dispatch] = useActionState(login, undefined);
 
 	useEffect(() => {
-		state?.message && toast.error(state.message);
+		state?.message && toast.error(state.message.value);
 	}, [state]);
 
 	return (

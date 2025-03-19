@@ -42,14 +42,6 @@ export default function AddProductForm({
 
 	const [isCreatingMany, setIsCreatingMany] = useState(false);
 
-	const [formData, setFormData] = useState({
-		name: "",
-		code: "",
-		price: "",
-		cost: "",
-		category: "",
-	});
-
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const enhancedAction = uploadProduct.bind(
@@ -61,34 +53,31 @@ export default function AddProductForm({
 		redirectTo,
 	);
 
-	const [actionErrors, dispatch, isPending] = useActionState(
+	const [state, dispatch, isPending] = useActionState(
 		enhancedAction,
 		undefined,
 	);
 
 	useEffect(() => {
-		if (actionErrors) {
-			if ("success" in actionErrors && actionErrors.success) {
-				toast.success("Producto creado correctamente");
-				clearLocations();
-				clearBatches();
-				formRef.current?.reset();
-				setFormData({ name: "", code: "", price: "", cost: "", category: "" });
-			}
-			"message" in actionErrors && toast.error(actionErrors.message);
-			"locations" in actionErrors &&
-				actionErrors.locations &&
-				toast.error(actionErrors.locations[0]);
-			"size" in actionErrors &&
-				toast.info(actionErrors.size, {
-					action: (
-						<Button asChild size="sm" variant="outline">
-							<Link href="/docs/faq#image-size-limit">Ver más</Link>
-						</Button>
-					),
-				});
+		if (state?.message?.type === "success") {
+			toast.success(state.message.value);
+			clearLocations();
+			clearBatches();
+			formRef.current?.reset();
+			return;
 		}
-	}, [actionErrors]);
+		if (state?.message?.type === "size-error") {
+			toast.info(state.message.value, {
+				action: (
+					<Button asChild size="sm" variant="outline">
+						<Link href="/docs/faq#image-size-limit">Ver más</Link>
+					</Button>
+				),
+			});
+			return;
+		}
+		state?.message && toast.error(state.message.value);
+	}, [state]);
 
 	useShortcut(
 		["enter"],
@@ -101,11 +90,6 @@ export default function AddProductForm({
 			ctrl: true,
 		},
 	);
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: value }));
-	};
 
 	return (
 		<Card as="div">
@@ -122,14 +106,11 @@ export default function AddProductForm({
 								<Input
 									name="name"
 									placeholder="Ej. Galletas"
-									value={formData.name}
-									onChange={handleInputChange}
+									defaultValue={state?.fields.name.value}
 								/>
-								{actionErrors &&
-									"name" in actionErrors &&
-									actionErrors?.name && (
-										<InputError>{actionErrors.name[0]}</InputError>
-									)}
+								{state?.fields.name.message && (
+									<InputError>{state?.fields.name.message}</InputError>
+								)}
 							</InputContainer>
 							<InputContainer>
 								<Label>Código</Label>
@@ -137,8 +118,7 @@ export default function AddProductForm({
 									name="code"
 									type="number"
 									placeholder="000000000"
-									value={formData.code}
-									onChange={handleInputChange}
+									defaultValue={state?.fields.code.value}
 								/>
 							</InputContainer>
 						</div>
@@ -165,14 +145,11 @@ export default function AddProductForm({
 								icon="$"
 								type="number"
 								placeholder="0"
-								value={formData.price}
-								onChange={handleInputChange}
+								defaultValue={state?.fields.price.value}
 							/>
-							{actionErrors &&
-								"price" in actionErrors &&
-								actionErrors?.price && (
-									<InputError>{actionErrors.price[0]}</InputError>
-								)}
+							{state?.fields.price.message && (
+								<InputError>{state?.fields.price.message}</InputError>
+							)}
 						</InputContainer>
 						<InputContainer>
 							<Label>Costo</Label>
@@ -181,19 +158,16 @@ export default function AddProductForm({
 								icon="$"
 								type="number"
 								placeholder="0"
-								value={formData.cost}
-								onChange={handleInputChange}
+								defaultValue={state?.fields.cost.value}
 							/>
 						</InputContainer>
 						<InputContainer className="col-span-2 lg:col-span-1">
 							<Label>Categoría*</Label>
 							<SelectCategory categories={categories} />
 							<div className="flex items-center justify-between">
-								{actionErrors &&
-									"category" in actionErrors &&
-									actionErrors?.category && (
-										<InputError>{actionErrors.category[0]}</InputError>
-									)}
+								{state?.fields.category.message && (
+									<InputError>{state?.fields.category.message}</InputError>
+								)}
 								<InputDescription>
 									<AddCategory asLink showIcon={false} />
 								</InputDescription>

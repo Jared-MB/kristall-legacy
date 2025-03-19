@@ -54,8 +54,11 @@ export const register = async (
 	);
 	if (data !== "ok" && status !== 200) {
 		return {
-			message:
-				"Ha ocurrido un error interno, por favor intente de nuevo más tarde",
+			message: {
+				type: "error",
+				value:
+					"Ha ocurrido un error interno, por favor intente de nuevo más tarde",
+			},
 			fields: {
 				...fields.extractErrorsForFields(fieldNames),
 				confirmPassword: {
