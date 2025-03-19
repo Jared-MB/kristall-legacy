@@ -57,8 +57,11 @@ export const login = async (
 
 	if (status !== 200) {
 		return {
-			message:
-				"Ha ocurrido un error interno, por favor intente de nuevo más tarde",
+			message: {
+				type: "internal-error",
+				value:
+					"Ha ocurrido un error interno, por favor intente de nuevo más tarde",
+			},
 			fields: inputs,
 		};
 	}

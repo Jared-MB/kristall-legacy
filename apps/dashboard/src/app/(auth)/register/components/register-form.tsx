@@ -22,7 +22,7 @@ export default function RegisterForm({
 	const [errors, dispatch] = useActionState(register, undefined);
 
 	useEffect(() => {
-		errors?.message && toast.error(errors.message);
+		errors?.message && toast.error(errors.message.value);
 	}, [errors]);
 
 	return (
