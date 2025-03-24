@@ -33,7 +33,7 @@ export class VirtualShowroomController {
 		}
 		
 		const data = await this.virtualShowroomService.get(user.shop._id);
-		return data?.publicPage
+		return data?.virtualShowroom
 	}
 
 	@Put("toggle")
@@ -72,6 +72,7 @@ export class VirtualShowroomController {
 				shopId: user.shop._id,
 				url,
 			});
+			
 			return await this.shopService.connectVirtualShowroom(
 				user.shop._id,
 				virtualShowroom._id,

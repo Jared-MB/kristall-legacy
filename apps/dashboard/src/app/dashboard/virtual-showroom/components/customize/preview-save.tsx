@@ -10,26 +10,31 @@ import {
 
 import { useShortcut } from "@kristall/core/hooks/use-shortcut";
 import { CommandShortcut } from "@kristall/ui/command";
-import { toast } from "sonner";
+import { type ExternalToast, toast } from "sonner";
 import { usePreview } from "./preview-context";
 
-export function PreviewSave() {
+const TOAST_CONFIG: ExternalToast = {
+	position: "bottom-right",
+};
+
+export function PreviewSave({
+	ref,
+}: { ref: React.RefObject<HTMLFormElement | null> }) {
 	const { hasStateChanged, setHasStateChanged } = usePreview();
 
-	useShortcut(
-		["s"],
-		() => {
-			if (!hasStateChanged) {
-				toast.info("No hay cambios");
-				return;
-			}
-			toast.success("Guardado");
-			setHasStateChanged(false);
-		},
-		{
-			ctrl: true,
-		},
-	);
+	const save = () => {
+		if (!hasStateChanged) {
+			toast.info("No hay cambios", TOAST_CONFIG);
+			return;
+		}
+		ref?.current?.requestSubmit();
+		toast.success("Guardado", TOAST_CONFIG);
+		setHasStateChanged(false);
+	};
+
+	useShortcut(["s"], save, {
+		ctrl: true,
+	});
 
 	if (!hasStateChanged) {
 		return null;
@@ -39,7 +44,7 @@ export function PreviewSave() {
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger asChild>
-					<Button variant="secondary" size="icon">
+					<Button variant="secondary" size="icon" onClick={save}>
 						<svg
 							className="w-5 h-5"
 							viewBox="0 0 24 24"
@@ -49,7 +54,7 @@ export function PreviewSave() {
 							strokeLinecap="round"
 							strokeLinejoin="round"
 						>
-							<title>Save</title>
+							<title>Guardar cambios</title>
 							<style>
 								{`
                                     @keyframes drawLine {

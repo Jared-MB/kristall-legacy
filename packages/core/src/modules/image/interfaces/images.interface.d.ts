@@ -5,6 +5,11 @@ export interface Image {
 	url: string;
 }
 
+export interface UploadImageData {
+	image: File;
+	imageId?: UUID;
+}
+
 export interface UploadImageConfig {
 	shopName: string;
 	shopId: string;

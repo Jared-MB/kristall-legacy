@@ -25,11 +25,10 @@ import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 
 export const AVAILABLE_SINCE = "v0.11.";
 export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
-export const PAGE_DEVELOPMENT_STATUS: "Alpha" | "Beta" = "Alpha";
+export const PAGE_DEVELOPMENT_STATUS: "Alpha" | "Beta" = "Beta";
 
 export default async function VirtualShowroomPage() {
-	const { shopName } = await getShopData();
-
+	const { shopName, showroom } = await getShopData();
 	return (
 		<MainContent className="flex flex-col gap-y-6">
 			<Card variant="borderless" className="shadow-none bg-transparent">
@@ -90,10 +89,14 @@ export default async function VirtualShowroomPage() {
 						</div>
 					</ScrollArea>
 				</ResizablePanel>
-				<ResizableHandle withHandle />
-				<ResizablePanel defaultSize={50}>
-					<VirtualShowroomCustomize shopName={shopName} />
-				</ResizablePanel>
+				{showroom.isPublic && (
+					<>
+						<ResizableHandle withHandle />
+						<ResizablePanel defaultSize={50}>
+							<VirtualShowroomCustomize shopName={shopName} />
+						</ResizablePanel>
+					</>
+				)}
 			</ResizablePanelGroup>
 		</MainContent>
 	);

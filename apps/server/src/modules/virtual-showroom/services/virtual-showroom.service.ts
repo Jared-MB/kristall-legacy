@@ -1,19 +1,19 @@
-import { PublicPage, Shop } from '@/server/entities';
+import { Shop } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DnsService } from 'src/modules/cloudflare/services/dns.service';
 import { ReportsService } from 'src/modules/reports/services/reports.service';
 import { Repository } from 'typeorm';
 import { CreateVirtualShowroomServerDto } from '../dtos';
+import { VirtualShowroomRepository } from '../repositories/virtual-showroom.repository';
 
 @Injectable()
 export class VirtualShowroomService {
 
     constructor(
-        @InjectRepository(PublicPage)
-        private readonly publicPageRepository: Repository<PublicPage>,
         @InjectRepository(Shop)
         private readonly shopRepository: Repository<Shop>,
+        private readonly virtualShowroomRepository: VirtualShowroomRepository,
         private readonly dnsService: DnsService,
         private readonly reportsService: ReportsService
     ) { }
@@ -24,7 +24,7 @@ export class VirtualShowroomService {
                 _id: shopId
             },
             relations: {
-                publicPage: true
+                virtualShowroom: true
             }
         })
     }
@@ -36,30 +36,21 @@ export class VirtualShowroomService {
      * @returns The Virtual Showroom ID if it exists, otherwise undefined
      */
     async hasVirtualShowroom(shopId: string): Promise<string | undefined> {
-        const publicPage = await this.shopRepository.findOne({
+        const virtualShowroom = await this.shopRepository.findOne({
             where: {
                 _id: shopId
             },
             relations: {
-                publicPage: true
+                virtualShowroom: true
             }
         })
 
-        return publicPage?.publicPage?._id
-    }
-
-    private create(data: CreateVirtualShowroomServerDto) {
-        return this.publicPageRepository.create(data)
-    }
-
-    private async save(publicPage: PublicPage) {
-        return this.publicPageRepository.save(publicPage)
+        return virtualShowroom?.virtualShowroom?._id
     }
 
     async createAndSave(data: CreateVirtualShowroomServerDto) {
-        const publicPage = this.create(data)
-        return this.save(publicPage)
-
+        const virtualShowroom = await this.virtualShowroomRepository.create(data)
+        return this.virtualShowroomRepository.save(virtualShowroom)
     }
 
     async createUrl(shopName: string) {
@@ -80,19 +71,15 @@ export class VirtualShowroomService {
     }
 
     async toggle(isPublic: boolean, _id: string) {
-        const publicPage = await this.publicPageRepository.findOne({
-            where: {
-                _id
-            }
-        })
+        const virtualShowroom = await this.virtualShowroomRepository.findOneById(_id)
 
-        if (!publicPage) {
+        if (!virtualShowroom) {
             return null
         }
 
-        publicPage.isPublic = isPublic
+        virtualShowroom.isPublic = isPublic
 
-        return this.publicPageRepository.save(publicPage)
+        return this.virtualShowroomRepository.save(virtualShowroom)
     }
 
 }

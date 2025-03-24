@@ -8,6 +8,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { Image, PublicPage, User } from '.';
+import { VirtualShowroom } from '../modules/virtual-showroom/models/virtual-showroom.model';
 
 @Entity()
 export class Shop {
@@ -30,11 +31,18 @@ export class Shop {
   @JoinColumn()
   image: Image;
 
+  /**
+   * @deprecated Use the **VirtualShowroom** entity instead
+   */
   @OneToOne(() => PublicPage, undefined, {
     nullable: true,
   })
   @JoinColumn()
   publicPage: PublicPage
+
+  @OneToOne(() => VirtualShowroom, (virtualShowroom) => virtualShowroom.virtualShowroomConfig)
+  @JoinColumn()
+  virtualShowroom: VirtualShowroom
 
   @OneToOne(() => Setting, (setting) => setting.shop)
   @JoinColumn()

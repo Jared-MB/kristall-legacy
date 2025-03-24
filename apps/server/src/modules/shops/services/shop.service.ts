@@ -36,7 +36,7 @@ export class ShopService {
             relations: {
                 image: true,
                 users: true,
-                publicPage: true,
+                virtualShowroom: true,
             },
         });
     }
@@ -61,7 +61,7 @@ export class ShopService {
     /**
     * @deprecated
     */
-    async createShop(shop: Omit<Shop, '_id' | 'image' | 'publicPage' | 'settings'>): Promise<Shop> {
+    async createShop(shop: Omit<Shop, '_id' | 'image' | 'publicPage' | 'settings' | 'virtualShowroom'>): Promise<Shop> {
         const _id = randomUUID();
 
         const generatedSetting = this.settingsService.create({
@@ -137,9 +137,7 @@ export class ShopService {
                 _id: shopId,
             },
             relations: {
-                publicPage: {
-                    cardImageOne: true,
-                },
+                publicPage: true,
                 image: true,
             },
         });
@@ -168,20 +166,19 @@ export class ShopService {
         await this.shopRepository.update({
             _id: shopId
         }, {
-            publicPage: {
+            virtualShowroom: {
                 _id: virtualShowroomId
             }
         })
     }
 
     async getByVirtualShowroomName(virtualShowroomName: string) {
-        // const URL = `${process.env.CLIENT_URL}/shops/${virtualShowroomName}`
         return await this.shopRepository.findOne({
             where: {
                 name: ILike(`%${virtualShowroomName}%`)
             },
             relations: {
-                publicPage: true
+                virtualShowroom: true
             }
         })
     }

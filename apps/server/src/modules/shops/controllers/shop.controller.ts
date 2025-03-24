@@ -56,8 +56,8 @@ export class ShopController {
             username: user.username,
             logo: imageUrl,
             showroom: {
-                isPublic: user.shop?.publicPage?.isPublic ?? false,
-                url: user.shop?.publicPage?.url ?? '',
+                isPublic: user.shop?.virtualShowroom?.isPublic ?? false,
+                url: user.shop?.virtualShowroom?.url ?? '',
             }
         });
         return this.utils.adaptResponse(shopName, res);

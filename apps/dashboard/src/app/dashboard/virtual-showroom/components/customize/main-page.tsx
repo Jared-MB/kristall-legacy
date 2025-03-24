@@ -3,6 +3,7 @@ import { CardImage } from "./card-image";
 export function MainPage({ shopName }: { shopName: string }) {
 	return (
 		<div className="flex flex-col bg-white text-black rounded-md @container">
+			<input type="hidden" name="page" value="index" />
 			<header className="h-20 p-6 flex items-center justify-between">
 				<h1 className="text-4xl font-serif">{shopName}</h1>
 			</header>

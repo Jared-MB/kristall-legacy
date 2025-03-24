@@ -19,6 +19,8 @@ import { r2 } from "./r2.service";
  * @param imageId The ID of the image
  * @param safe If true, if it is bigger than 500KB, it will not throw an error, but will return null
  * @returns The image or null if it was not uploaded
+ *
+ * @deprecated Use the **uploadImageService** function instead
  */
 export const uploadImageService = async ({
 	image,

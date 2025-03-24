@@ -6,6 +6,9 @@ import type { UploadImageConfig } from "../interfaces";
 import { shop } from "../../shop";
 import { imageService } from "../services";
 
+/**
+ * @deprecated Use the **uploadImage** function instead
+ */
 export const uploadImage = async (
 	data: FormData,
 	config = {} as UploadImageConfig,
