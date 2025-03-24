@@ -65,12 +65,8 @@
 	},
 	"typesVersions": {
 		"*": {
-			"core/*": [
-				"./src/core/*/index.ts"
-			],
-			"hooks/*": [
-				"./src/core/hooks/*.tsx"
-			]
+			"core/*": ["./src/core/*/index.ts"],
+			"hooks/*": ["./src/core/hooks/*.tsx"]
 		}
 	}
 }
