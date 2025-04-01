@@ -2,6 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 
+import { SHOP_TAGS } from "../shop/constants";
 import { VIRTUAL_SHOWROOM_TAGS } from "./constants/virtual-showroom.tags";
 import type { VirtualShowroom } from "./interfaces";
 import {
@@ -28,4 +29,5 @@ export const getVirtualShowroom = async (): Promise<VirtualShowroom | null> => {
 export const toggleVirtualShowroom = async (isPublic: boolean) => {
 	await toggleVirtualShowroomService(isPublic);
 	revalidateTag(VIRTUAL_SHOWROOM_TAGS.DATA);
+	revalidateTag(SHOP_TAGS.INFO);
 };

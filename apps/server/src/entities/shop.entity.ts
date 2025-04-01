@@ -40,7 +40,9 @@ export class Shop {
   @JoinColumn()
   publicPage: PublicPage
 
-  @OneToOne(() => VirtualShowroom, (virtualShowroom) => virtualShowroom.virtualShowroomConfig)
+  @OneToOne(() => VirtualShowroom, undefined, {
+    nullable: true,
+  })
   @JoinColumn()
   virtualShowroom: VirtualShowroom
 

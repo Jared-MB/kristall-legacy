@@ -66,7 +66,7 @@ export class AuthService {
         name: userShop.name,
         _id: userShop._id,
         image: userShop.image || undefined,
-        publicPage: userShop.publicPage || undefined,
+        virtualShowroom: userShop?.virtualShowroom || undefined,
       },
     };
 
