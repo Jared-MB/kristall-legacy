@@ -16,7 +16,11 @@ export class VirtualShowroom {
     })
     url: string;
 
-    @OneToOne(() => VirtualShowroomConfig)
+    @OneToOne(() => VirtualShowroomConfig, (virtualShowroomConfig) => virtualShowroomConfig.virtualShowroom, {
+        nullable: true
+    })
     @JoinColumn()
     virtualShowroomConfig: VirtualShowroomConfig
 }
+
+export type VS = VirtualShowroom

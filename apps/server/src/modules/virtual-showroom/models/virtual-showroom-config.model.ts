@@ -1,10 +1,10 @@
 import { Image } from "src/entities";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { VirtualShowroom, type VS } from "./virtual-showroom.model";
 
 @Entity()
 export class VirtualShowroomConfig {
-
-    @PrimaryColumn('uuid')
+    @PrimaryGeneratedColumn('uuid')
     _id: string;
 
     @OneToOne(() => Image, undefined, {
@@ -42,4 +42,7 @@ export class VirtualShowroomConfig {
         nullable: true
     })
     cardDescription: string;
+
+    @OneToOne(() => VirtualShowroom, (virtualShowroom) => virtualShowroom.virtualShowroomConfig)
+    virtualShowroom: VS;
 }

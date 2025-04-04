@@ -5,12 +5,15 @@ import { cn } from "@kristall/ui/utils/cn";
 import { type MouseEvent, useEffect, useRef } from "react";
 import { usePreview } from "./preview-context";
 
-export function CardImage({
-	children,
-	className,
-	name,
-}: { children?: React.ReactNode; className?: string; name: string }) {
-	const { setImage, previewImage } = useImage();
+interface CardImageProps {
+	children?: React.ReactNode;
+	className?: string;
+	name: string;
+	url?: string;
+}
+
+export function CardImage({ children, className, name, url }: CardImageProps) {
+	const { setImage, previewImage } = useImage(url);
 	const { setHasStateChanged } = usePreview();
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -25,7 +28,7 @@ export function CardImage({
 	};
 
 	useEffect(() => {
-		if (previewImage) {
+		if (previewImage && !previewImage.includes("kristall.app")) {
 			setHasStateChanged(true);
 		}
 	}, [previewImage]);

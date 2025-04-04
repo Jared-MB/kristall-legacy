@@ -1,10 +1,13 @@
 "use server";
 
+import type { ServerResponse } from "@kristall/http/interfaces";
+import { revalidateTag } from "next/cache";
+import { VIRTUAL_SHOWROOM_TAGS } from "../constants/virtual-showroom.tags";
 import { uploadVirtualShowroomMainPageConfig } from "./pages/index/upload";
 
 const handler = {
 	index: uploadVirtualShowroomMainPageConfig,
-} as { [key: string]: (payload: FormData) => void };
+} as { [key: string]: (payload: FormData) => Promise<ServerResponse<unknown>> };
 
 export const uploadVirtualShowroomConfig = async (
 	_prevState: unknown,
@@ -20,5 +23,6 @@ export const uploadVirtualShowroomConfig = async (
 		throw new Error("Page config uploader not found");
 	}
 
-	handler[name](payload);
+	await handler[name](payload);
+	revalidateTag(VIRTUAL_SHOWROOM_TAGS.CONFIG);
 };

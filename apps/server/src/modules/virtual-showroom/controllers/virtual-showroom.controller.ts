@@ -14,13 +14,15 @@ import { VirtualShowroomService } from "../services/virtual-showroom.service";
 import { ShopService } from "@/server/modules/shops/services";
 import { ResponseInterceptor } from "src/interceptors";
 import { VercelService } from "src/modules/vercel/services/vercel.service";
+import { VirtualShowroomConfigService } from "../services/virtual-showroom-config.service";
 
 @UseInterceptors(ResponseInterceptor)
 @Controller("virtual-showroom")
 export class VirtualShowroomController {
 	constructor(
-		private readonly authService: AuthService,
 		private readonly virtualShowroomService: VirtualShowroomService,
+		private readonly virtualShowroomConfigService: VirtualShowroomConfigService,
+		private readonly authService: AuthService,
 		private readonly shopService: ShopService,
 		private readonly vercelService: VercelService
 	) {}
@@ -73,10 +75,16 @@ export class VirtualShowroomController {
 				url,
 			});
 			
-			return await this.shopService.connectVirtualShowroom(
+			await this.shopService.connectVirtualShowroom(
 				user.shop._id,
 				virtualShowroom._id,
 			);
+			
+			const config = await this.virtualShowroomConfigService.create()
+
+			await this.virtualShowroomService.connectConfig(virtualShowroom._id, config)
+
+			return
 		}
 
 		await this.virtualShowroomService.toggle(

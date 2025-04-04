@@ -21,8 +21,16 @@ export class ImageService {
         return await this.imageRepository.save(image);
     }
 
+    async saveMany(images: Image[]) {
+        return await this.imageRepository.save(images);
+    }
+
     async remove(image: Image) {
         return await this.imageRepository.remove(image);
+    }
+
+    async removeMany(images: Image[]) {
+        return await this.imageRepository.remove(images);
     }
 
     /**

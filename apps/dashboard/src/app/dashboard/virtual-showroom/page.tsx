@@ -18,7 +18,10 @@ import { ScrollArea } from "@kristall/ui/scroll-area";
 import { Switch } from "@kristall/ui/switch";
 
 import { getShopData } from "@kristall/core/shop/data";
+import { getVirtualShowroomConfig } from "@kristall/core/virtual-showroom/config/get";
+import { getVirtualShowroom } from "@kristall/core/virtual-showroom/data";
 import { ExperimentalFeature } from "../settings/components/experimental-feature";
+import { ConfigProvider } from "./components/config-context";
 import { VirtualShowroom } from "./components/virtual-showroom";
 import { VirtualShowroomCustomize } from "./components/virtual-showroom-customize";
 import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
@@ -28,7 +31,11 @@ export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
 export const PAGE_DEVELOPMENT_STATUS: "Alpha" | "Beta" = "Beta";
 
 export default async function VirtualShowroomPage() {
-	const { shopName, showroom } = await getShopData();
+	const { shopName } = await getShopData();
+
+	const virtualShowroom = await getVirtualShowroom();
+	const config = await getVirtualShowroomConfig();
+
 	return (
 		<MainContent className="flex flex-col gap-y-6">
 			<Card variant="borderless" className="shadow-none bg-transparent">
@@ -41,7 +48,7 @@ export default async function VirtualShowroomPage() {
 				</CardBody>
 			</Card>
 			<ResizablePanelGroup direction="horizontal">
-				<ResizablePanel defaultSize={50}>
+				<ResizablePanel defaultSize={virtualShowroom?.isPublic ? 50 : 100}>
 					<ScrollArea className="h-full pr-6">
 						<div className="flex flex-col gap-y-6">
 							<Card>
@@ -73,11 +80,8 @@ export default async function VirtualShowroomPage() {
 											Working progress!
 										</strong>{" "}
 										La opción de Virtual Showroom está en fase{" "}
-										<strong>{PAGE_DEVELOPMENT_STATUS}</strong>. Los cambios
-										realizados{" "}
-										<strong>no se guardaran y se perderán al recargar</strong>{" "}
-										la página. Puede haber cambios futuros en la interfaz y/o
-										funcionalidad.{" "}
+										<strong>{PAGE_DEVELOPMENT_STATUS}</strong>. Puede haber
+										cambios futuros en la interfaz y/o funcionalidad.{" "}
 										<strong>
 											¡Estamos trabajando para brindarte la mejor experiencia
 											posible!
@@ -89,11 +93,13 @@ export default async function VirtualShowroomPage() {
 						</div>
 					</ScrollArea>
 				</ResizablePanel>
-				{showroom.isPublic && (
+				{virtualShowroom?.isPublic && (
 					<>
 						<ResizableHandle withHandle />
 						<ResizablePanel defaultSize={50}>
-							<VirtualShowroomCustomize shopName={shopName} />
+							<ConfigProvider config={config}>
+								<VirtualShowroomCustomize shopName={shopName} />
+							</ConfigProvider>
 						</ResizablePanel>
 					</>
 				)}

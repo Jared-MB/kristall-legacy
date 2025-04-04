@@ -28,6 +28,19 @@ export class ShopService {
         return shop ? shop.name : null;
     }
 
+    async getShopByUserId(userId: string) {
+        return await this.shopRepository.findOne({
+            where: {
+                users: {
+                    _id: userId,
+                }
+            },
+            relations: {
+                virtualShowroom: true
+            }
+        })
+    }
+
     async getShopById(id: string) {
         return await this.shopRepository.findOne({
             where: {

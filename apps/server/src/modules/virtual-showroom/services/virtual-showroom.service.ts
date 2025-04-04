@@ -5,6 +5,7 @@ import { DnsService } from 'src/modules/cloudflare/services/dns.service';
 import { ReportsService } from 'src/modules/reports/services/reports.service';
 import { Repository } from 'typeorm';
 import { CreateVirtualShowroomServerDto } from '../dtos';
+import { VirtualShowroomConfig } from '../models/virtual-showroom-config.model';
 import { VirtualShowroomRepository } from '../repositories/virtual-showroom.repository';
 
 @Injectable()
@@ -42,10 +43,25 @@ export class VirtualShowroomService {
             },
             relations: {
                 virtualShowroom: true
+            },
+            select: {
+                _id: true
             }
         })
 
         return virtualShowroom?.virtualShowroom?._id
+    }
+
+    async connectConfig(virtualShowroomId: string, config: VirtualShowroomConfig) {
+        const virtualShowroom = await this.virtualShowroomRepository.findOneById(virtualShowroomId)
+
+        if (!virtualShowroom) {
+            return null
+        }
+
+        virtualShowroom.virtualShowroomConfig = config
+
+        return this.virtualShowroomRepository.save(virtualShowroom)
     }
 
     async createAndSave(data: CreateVirtualShowroomServerDto) {

@@ -1,6 +1,13 @@
+"use client";
+
+import { useConfig } from "../config-context";
 import { CardImage } from "./card-image";
 
 export function MainPage({ shopName }: { shopName: string }) {
+	const config = useConfig();
+
+	console.log(config);
+
 	return (
 		<div className="flex flex-col bg-white text-black rounded-md @container">
 			<input type="hidden" name="page" value="index" />
@@ -9,6 +16,7 @@ export function MainPage({ shopName }: { shopName: string }) {
 			</header>
 			<div className="grid grid-cols-3 grid-rows-7 gap-4 px-6 py-0 self-center w-full h-[calc(100dvh-6rem)]">
 				<CardImage
+					url={config?.cardImageOne?.url}
 					name="cardImageOne"
 					className="bg-purple-400 col-span-3 @2xl:col-span-2 row-span-4 @2xl:row-span-7 rounded-lg p-6 flex justify-end flex-col bg-cover bg-center"
 				>
@@ -48,12 +56,14 @@ export function MainPage({ shopName }: { shopName: string }) {
 					</h3>
 				</div>
 				<CardImage
+					url={config?.cardImageTwo?.url}
 					name="cardImageTwo"
 					className="bg-purple-200 @md:row-span-3 @2xl:row-start-5 col-span-3 @md:col-span-1 @2xl:col-span-2 @2xl:col-start-3 bg-cover bg-center rounded-lg"
 				/>
 			</div>
 			<div className="grid grid-cols-9 grid-rows-3 @2xl:grid-rows-1 gap-4 px-6 pt-4 w-full font-serif h-72 @2xl:h-48">
 				<CardImage
+					url={config?.cardImageThree?.url}
 					name="cardImageThree"
 					className="bg-purple-400 col-span-3 @2xl:col-span-3 col-start-1 row-span-2 @2xl:row-span-1 rounded-lg bg-[url(https://cdn.kristall.app/dev/723c4a7c-339b-4240-b697-d462f591b403)] bg-center bg-cover"
 				/>
@@ -61,6 +71,7 @@ export function MainPage({ shopName }: { shopName: string }) {
 					<span className="relative z-20 @md:text-3xl text-xl">Categorías</span>
 				</div>
 				<CardImage
+					url={config?.cardImageFour?.url}
 					name="cardImageFour"
 					className="bg-purple-300 @2xl:col-start-8 col-span-9 @2xl:col-span-2 bg-[url(https://cdn.kristall.app/dev/602ce8d4-82f9-4a02-8973-1a81358dd1c0-Tienda/d0a2935a-355d-4052-8025-f9164f27185c)] bg-cover bg-center rounded-lg"
 				/>
