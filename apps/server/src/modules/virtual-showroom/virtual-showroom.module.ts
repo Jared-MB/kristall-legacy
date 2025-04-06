@@ -19,6 +19,9 @@ import { VirtualShowroomConfig } from './models/virtual-showroom-config.model';
 import { VirtualShowroomConfigRepository } from './repositories/virtual-showroom-config.repository';
 import { VirtualShowroomConfigService } from './services/virtual-showroom-config.service';
 
+import { VirtualShowroomPublicController } from './controllers/virtual-showroom.public.controller';
+import { VirtualShowroomPublicService } from './services/virtual-showroom.public.service';
+
 @Module({
     imports: [
         TypeOrmModule.forFeature([PublicPage, Shop, VirtualShowroom, VirtualShowroomConfig]),
@@ -28,12 +31,17 @@ import { VirtualShowroomConfigService } from './services/virtual-showroom-config
         ReportsModule,
         ImageModule
     ],
-    controllers: [VirtualShowroomController, VirtualShowroomConfigController],
+    controllers: [
+        VirtualShowroomPublicController,
+        VirtualShowroomController, 
+        VirtualShowroomConfigController
+    ],
     providers: [
         VirtualShowroomRepository,
         VirtualShowroomConfigRepository,
         VirtualShowroomService, 
         VirtualShowroomConfigService,
+        VirtualShowroomPublicService,
         AuthService, 
     ],
     exports: [VirtualShowroomService]

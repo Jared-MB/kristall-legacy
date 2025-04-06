@@ -68,25 +68,16 @@ export class VirtualShowroomConfigController {
             throw new PreconditionFailedException()
         }
 
-        const newConfig = await this.virtualShowroomConfigService.updateConfig(
-            shop.virtualShowroom._id, 
+        const updatedConfig = await this.virtualShowroomConfigService.updateConfig(
+            hasVirtualShowroom, 
             {...body}
         )
 
-        if (!newConfig) {
+        if (!updatedConfig) {
             throw new InternalServerErrorException()
         }
 
-        try {
-            // const result = await this.virtualShowroomService.connectConfig(shop.virtualShowroom._id, newConfig)
-            // console.log(result)
-        }
-        catch (e){
-            console.log('Error connecting config')
-            throw new InternalServerErrorException()
-        }
-
-        return newConfig
+        return updatedConfig
     }
 
 }
