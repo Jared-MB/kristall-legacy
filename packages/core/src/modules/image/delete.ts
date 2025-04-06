@@ -7,8 +7,10 @@ import {
 
 import { r2 } from "./services/r2.service";
 
-export const deleteMany = async (keys: string[]) => {
-	const images: ObjectIdentifier[] = keys.map((key) => ({ Key: key }));
+export const deleteMany = async (keys: (string | undefined)[]) => {
+	const images: ObjectIdentifier[] = keys
+		.map((key) => ({ Key: key }))
+		.filter((key) => key.Key !== undefined);
 
 	if (images.length === 0) {
 		return {
