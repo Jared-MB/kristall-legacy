@@ -1,8 +1,8 @@
 "use server";
 
-import { PUT } from "@kristall/http";
 import { randomUUID } from "node:crypto";
 
+import { PUT } from "@kristall/http";
 import type { Image, UploadImageData } from "../../../../image/interfaces";
 import type {
 	HandlerFunctionResponse,
@@ -99,7 +99,7 @@ export const uploadVirtualShowroomMainPageConfig = async (
 			const key = getKeyFromUrl(url);
 			return key;
 		})
-		.filter((key) => key !== undefined);
+		.filter((key) => typeof key === "string");
 
 	const { error } = await deleteMany(imagesToRemove);
 
