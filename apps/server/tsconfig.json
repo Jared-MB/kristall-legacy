@@ -21,6 +21,6 @@
 		"strictBindCallApply": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
-		"lib": ["ES2021.String", "ESNext"]
+		"lib": ["ES2021.String"]
 	}
 }
