@@ -3,20 +3,28 @@
 import { PUT } from "@kristall/http";
 import { randomUUID } from "node:crypto";
 
-import type { UploadImageData } from "../../../../image/interfaces";
+import type { Image, UploadImageData } from "../../../../image/interfaces";
 import type {
+	HandlerFunctionResponse,
 	PanelImagesNames,
 	SuccessImage,
 	VirtualShowroomConfig as VSC,
 } from "../../../interfaces";
 
+import { deleteMany } from "../../../../image/delete";
 import { uploadImages } from "../../../../image/upload";
+import { getKeyFromUrl } from "../../../../image/utils/get-key";
+
 import { getShopData } from "../../../../shop/data";
 import { VirtualShowroomConfig } from "../../../models/virtual-showroom-config";
 
+interface UpdateConfigResponse {
+	unusedImages: Image[];
+}
+
 export const uploadVirtualShowroomMainPageConfig = async (
 	payload: FormData,
-) => {
+): Promise<HandlerFunctionResponse> => {
 	const data = Object.fromEntries(payload.entries());
 	const entries = Object.entries(data);
 
@@ -66,16 +74,42 @@ export const uploadVirtualShowroomMainPageConfig = async (
 		});
 	} catch (error) {
 		console.log(error);
-		return;
+		return {
+			error: "Error uploading images",
+		};
 	}
 
 	const config = new VirtualShowroomConfig()
 		.setPanelImages(successImages)
 		.build();
 
-	const response = await PUT<Partial<VSC>, VSC>("/virtual-showroom/config", {
-		...config,
-	});
+	const response = await PUT<Partial<VSC>, UpdateConfigResponse>(
+		"/virtual-showroom/config",
+		{
+			...config,
+		},
+	);
 
-	return response;
+	const {
+		data: { unusedImages },
+	} = response;
+
+	const imagesToRemove = unusedImages
+		.map(({ url }) => {
+			const key = getKeyFromUrl(url);
+			return key;
+		})
+		.filter((key) => key !== undefined);
+
+	const { error } = await deleteMany(imagesToRemove);
+
+	if (error) {
+		return {
+			error: error,
+		};
+	}
+
+	return {
+		message: "Config updated successfully",
+	};
 };

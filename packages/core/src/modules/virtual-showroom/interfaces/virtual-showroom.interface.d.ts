@@ -27,3 +27,13 @@ export interface VirtualShowroomConfig {
 	cardDescription?: string;
 	shop: Shop;
 }
+
+export type HandlerFunctionResponse =
+	| {
+			error: string;
+			message?: undefined;
+	  }
+	| {
+			message: string;
+			error?: undefined;
+	  };

@@ -24,3 +24,8 @@ export const getKey = ({
 
 	return key;
 };
+
+export const getKeyFromUrl = (url: string): string | undefined => {
+	const key = url.split("kristall.app").pop()?.slice(1);
+	return key;
+};
