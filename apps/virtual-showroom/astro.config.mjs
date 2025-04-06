@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -9,6 +9,11 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
+	},
+	env: {
+		schema: {
+			SERVER_API: envField.string({ context: "server", access: "public" }),
+		},
 	},
 
 	adapter: vercel(),

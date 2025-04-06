@@ -1,5 +1,8 @@
 ---
+export const prerender = false;
+
 import "@fontsource/aboreto";
+import { SERVER_API } from 'astro:env/server';
 import Layout from "../layouts/Layout.astro";
 
 const location = Astro.url.hostname;
@@ -8,6 +11,15 @@ const parsedName = shop
 	.split("-")
 	.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 const shopName = parsedName.join(" ");
+
+const data = await fetch(
+	`${SERVER_API}/virtual-showroom/public/${shop}`,
+);
+const virtualShowroom = await data.json();
+
+if (!virtualShowroom.data) {
+	return Astro.redirect("/404");
+}
 ---
 
 <Layout>
@@ -15,7 +27,9 @@ const shopName = parsedName.join(" ");
 		<h1 class="text-4xl font-serif">{shopName}</h1>
 	</header>
 	<div class="grid grid-cols-3 grid-rows-7 gap-4 px-6 py-0 self-center w-full h-[calc(100dvh-6rem)]">
-		<div class="bg-purple-400 col-span-3 lg:col-span-2 row-span-4 lg:row-span-7 rounded-lg p-6 flex justify-end flex-col bg-[url(https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-lMuP6KHMvE8%2FU18dxgn_0BI%2FAAAAAAAAcjY%2Fa-P6qTtx7pU%2Fs1600%2Foatmeal-chewy-chips-ahoy-cookies-01.JPG&f=1&nofb=1&ipt=d775a53f52e7a665ad2ba4dcf9a621d79f8923c5ddb4977bf1151988920381ae&ipo=images)] bg-cover bg-center">
+		<div
+			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageOne?.url})`} 
+			class='bg-purple-400 col-span-3 lg:col-span-2 row-span-4 lg:row-span-7 rounded-lg p-6 flex justify-end flex-col bg-cover bg-center'>
 			<h3 class="text-lg text-white">Lorem, ipsum.</h3>
 			<h4 class="font-bold text-3xl text-white text-balance max-w-[32ch]">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, ut?
@@ -30,13 +44,19 @@ const shopName = parsedName.join(" ");
 				</div>
 			</h3>
 		</a>
-		<div class="bg-purple-200 md:row-span-3 lg:row-start-5 col-span-3 md:col-span-1 lg:col-start-3 bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.respectmyregion.com%2Fwp-content%2Fuploads%2F2019%2F06%2F62378178_564035194002518_8120685499328422291_n-e1560498888377.jpg&f=1&nofb=1&ipt=ceec1d7cda18a5e4b233c96fade986604b60faf17f2fd587339a13e80f448dd0&ipo=images)] bg-cover bg-center rounded-lg"></div>
+		<div 
+			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageTwo?.url})`}
+			class="bg-purple-200 md:row-span-3 lg:row-start-5 col-span-3 md:col-span-1 lg:col-start-3 bg-cover bg-center rounded-lg"></div>
 	</div>
 	<div class="grid grid-cols-9 grid-rows-3 lg:grid-rows-1 gap-4 px-6 pt-4 w-full font-serif h-72 lg:h-48">
-		<div class="bg-purple-400 col-span-3 lg:col-span-3 col-start-1 row-span-2 lg:row-span-1 rounded-lg bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2FdPRrESmL5R84JBVwcL9bSA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02MDA-%2Fhttps%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbc_today_217%2F22dc5d1802ca06fb48e9dc2d715926f6&f=1&nofb=1&ipt=92298e36de9620050bb55e8d1783f322907744a817da9323f00a6b086a9150e2&ipo=images)] bg-center bg-cover"></div>
+		<div 
+			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageThree?.url})`}
+			class="bg-purple-400 col-span-3 lg:col-span-3 col-start-1 row-span-2 lg:row-span-1 rounded-lg bg-center bg-cover"></div>
 		<a href="/categories" class="cursor-pointer col-span-6 lg:col-span-4 col-start-4 row-span-2 lg:row-span-1 hover:underline overflow-hidden rounded-lg p-6 grid place-content-center bg-purple-100">
 			<span class="relative z-20 md:text-3xl text-xl">Categorías</span>
 		</a>
-		<div class="bg-purple-300 lg:col-start-8 col-span-9 lg:col-span-2 bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.themanual.com%2Fwp-content%2Fuploads%2Fsites%2F9%2F2021%2F12%2Fbiscoff.jpg%3Ffit%3D800%252C800%26p%3D1&f=1&nofb=1&ipt=bb50a5927add7ee20cb4f72c389f0ef0239e9b886872a4b3c69f054ce0af8f9f&ipo=images)] bg-cover bg-center rounded-lg"></div>
+		<div
+			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageFour?.url})`} 
+			class="bg-purple-300 lg:col-start-8 col-span-9 lg:col-span-2 bg-cover bg-center rounded-lg"></div>
 	</div>
 </Layout>

@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="404 - Página no encontrada | TEST SHOP">
+  <main class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Main error content -->
+      <div class="lg:col-span-2 bg-[#b388ff] rounded-lg p-8 flex flex-col justify-end min-h-[400px]">
+        <div class="text-white">
+          <h2 class="text-xl font-light mb-2">Error 404</h2>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            Página no encontrada
+          </h1>
+          <p class="text-xl md:text-2xl mb-6">
+            Lo sentimos, la página que buscas no existe o ha sido movida.
+          </p>
+          <a href="/" class="inline-block bg-white text-[#b388ff] px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all">
+            Volver al inicio
+          </a>
+        </div>
+      </div>
+
+      <!-- Side content -->
+      <div class="flex flex-col gap-6">
+        <div class="bg-[#d1c4e9] rounded-lg p-8 flex flex-col justify-center items-center min-h-[180px]">
+          <h2 class="text-2xl font-medium mb-4 text-center">VER PRODUCTOS</h2>
+          <a href="/productos" class="inline-flex items-center text-xl">
+            <span class="mr-2">Explorar catálogo</span>
+            <span class="text-2xl">»</span>
+          </a>
+        </div>
+        
+        <div class="bg-[#d1c4e9] rounded-lg p-8 flex flex-col justify-center items-center min-h-[180px]">
+          <h2 class="text-2xl font-medium mb-4">CATEGORÍAS</h2>
+          <a href="/categorias" class="inline-block text-xl hover:underline">
+            Ver todas
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 404 illustration -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+      <div class="bg-[#b388ff] rounded-lg p-6 flex items-center justify-center">
+        <span class="text-white text-8xl font-bold">4</span>
+      </div>
+      <div class="bg-[#e1bee7] rounded-lg p-6 flex items-center justify-center">
+        <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#b388ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 15h8"></path>
+            <path d="M9 9h.01"></path>
+            <path d="M15 9h.01"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="bg-[#b388ff] rounded-lg p-6 flex items-center justify-center">
+        <span class="text-white text-8xl font-bold">4</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container mx-auto px-4 py-6 text-sm">
+    <p>Powered by <a href="#" class="text-[#b388ff] font-medium">Kristall</a></p>
+  </footer>
+</Layout>
+
+<style>
+  main {
+    min-height: calc(100vh - 150px);
+  }
+  
+  @media (max-width: 768px) {
+    .grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
