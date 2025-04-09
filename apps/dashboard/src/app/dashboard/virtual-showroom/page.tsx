@@ -34,7 +34,12 @@ export default async function VirtualShowroomPage() {
 	const { shopName } = await getShopData();
 
 	const virtualShowroom = await getVirtualShowroom();
-	const config = await getVirtualShowroomConfig();
+
+	let config = null;
+
+	if (virtualShowroom?.isPublic) {
+		config = await getVirtualShowroomConfig();
+	}
 
 	return (
 		<MainContent className="flex flex-col gap-y-6">
