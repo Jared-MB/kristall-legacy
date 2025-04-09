@@ -14,7 +14,5 @@ export const getVirtualShowroomConfig =
 			},
 		);
 
-		console.log({ data, message, status });
-
 		return data;
 	};
