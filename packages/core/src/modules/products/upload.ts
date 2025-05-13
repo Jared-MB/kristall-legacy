@@ -2,11 +2,16 @@
 
 import type { Image } from "../image/interfaces";
 import type { BatchToAdd, LocationToAdd } from "../locations/interfaces";
-import type { UploadProductRaw } from "./interfaces";
+import type {
+	AddProduct,
+	UploadProductRaw,
+	UploadProductResponse,
+} from "./interfaces";
 
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { ZodErrorExtractor } from "@kristall/core/utils/zod-error-extractor";
 import { images } from "../image";
 import { PRODUCTS_TAGS } from "./constants";
 import { uploadProductService } from "./services/products.service";
@@ -20,7 +25,7 @@ export const uploadProduct = async (
 	redirectTo: `/${string}` | undefined,
 	_prevState: unknown,
 	data: FormData,
-) => {
+): Promise<UploadProductResponse> => {
 	const rawData = Object.fromEntries(data.entries());
 
 	// Join the locations/batches with the product data
@@ -32,8 +37,35 @@ export const uploadProduct = async (
 	} as UploadProductRaw;
 
 	const parsedData = AddProductSchema.safeParse(product);
+
+	const fields = new ZodErrorExtractor({ ...product }, parsedData.error);
+	const fieldNames: (keyof AddProduct)[] = [
+		"_id",
+		"name",
+		"code",
+		"price",
+		"cost",
+		"category",
+		"locations",
+		"batches",
+		"batchEnabled",
+	];
+
+	const inputs = fields.extractErrorsForFields(fieldNames);
+	const inputsWithImage = {
+		...inputs,
+		image: {
+			value: product.image,
+			message: "",
+		},
+	};
+
 	if (!parsedData.success) {
-		return parsedData.error.flatten().fieldErrors;
+		console.log(inputsWithImage);
+
+		return {
+			fields: inputsWithImage,
+		};
 	}
 
 	let image: Image | null = null;
@@ -44,11 +76,19 @@ export const uploadProduct = async (
 	} catch (err) {
 		if (err instanceof Error) {
 			return {
-				size: [err.message],
+				fields: inputsWithImage,
+				message: {
+					type: "size-error",
+					value: err.message,
+				},
 			};
 		}
 		return {
-			message: ["Error al subir la imagen"],
+			fields: inputsWithImage,
+			message: {
+				type: "image-error",
+				value: "Error al subir la imagen",
+			},
 		};
 	}
 
@@ -56,7 +96,11 @@ export const uploadProduct = async (
 	if (status >= 400) {
 		image && (await images.deleteImage(image._id));
 		return {
-			message: ["Error al subir el producto"],
+			fields: inputsWithImage,
+			message: {
+				type: "product-error",
+				value: "Error al subir el producto",
+			},
 		};
 	}
 
@@ -66,6 +110,16 @@ export const uploadProduct = async (
 	}
 
 	return {
-		success: true,
+		fields: {
+			...fields.extractEmptyValuesForFields(fieldNames),
+			image: {
+				value: new File([], "undefined"),
+				message: "",
+			},
+		},
+		message: {
+			type: "success",
+			value: "Producto creado correctamente",
+		},
 	};
 };

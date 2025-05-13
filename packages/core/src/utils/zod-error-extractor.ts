@@ -1,8 +1,20 @@
 import type { ZodError, typeToFlattenedError } from "zod";
 
+type FormDataValue =
+	| FormDataEntryValue
+	| Date
+	| string
+	| number
+	| File
+	| boolean;
+
+interface Values {
+	[x: string]: FormDataValue | Values | Values[];
+}
+
 export class ZodErrorExtractor<T> {
 	constructor(
-		private readonly values: { [x: string]: FormDataEntryValue },
+		private readonly values: Values,
 		private readonly error?: ZodError<T>,
 	) {}
 

@@ -1,3 +1,8 @@
+import type { z } from "zod";
+import type {
+	FormErrorResponse,
+	InputField,
+} from "../../../interfaces/form-error";
 import type { Image } from "../../image/interfaces";
 import type { LocationProduct } from "../../locations/interfaces";
 import type { AddProductSchema } from "../validators";
@@ -48,3 +53,18 @@ export interface UploadProduct extends AddProduct {
 export interface UploadProductRaw extends AddProduct {
 	image: File;
 }
+
+export interface UploadProductFields {
+	_id: InputField;
+	name: InputField;
+	code: InputField;
+	price: InputField;
+	cost: InputField;
+	category: InputField;
+	locations: InputField;
+	batches: InputField;
+	batchEnabled: InputField;
+	image: InputField;
+}
+
+export type UploadProductResponse = FormErrorResponse<UploadProductFields>;
