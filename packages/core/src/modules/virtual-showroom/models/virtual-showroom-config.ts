@@ -10,6 +10,8 @@ type ConfigPanelImages = Pick<
 
 export class VirtualShowroomConfig {
 	private images: SuccessImage[];
+	private title: string | null = null;
+	private description: string | null = null;
 
 	constructor() {
 		this.images = [];
@@ -31,11 +33,37 @@ export class VirtualShowroomConfig {
 		return this;
 	}
 
+	public setPanelTitle(title: string): VirtualShowroomConfig {
+		this.title = title;
+		return this;
+	}
+
+	public setPanelDescription(description: string): VirtualShowroomConfig {
+		this.description = description;
+		return this;
+	}
+
 	public build(): Omit<VSConfig, "shop"> {
 		const images = this.transformImages(this.images);
 
-		return {
+		let config: Omit<VSConfig, "shop"> = {
 			...images,
 		};
+
+		if (this.title) {
+			config = {
+				...config,
+				cardTitle: this.title,
+			};
+		}
+
+		if (this.description) {
+			config = {
+				...config,
+				cardDescription: this.description,
+			};
+		}
+
+		return config;
 	}
 }
