@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import "@fontsource/aboreto";
+
 import { SERVER_API } from 'astro:env/server';
 import Layout from "../layouts/Layout.astro";
 
@@ -12,14 +13,16 @@ const parsedName = shop
 	.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 const shopName = parsedName.join(" ");
 
-const data = await fetch(
+const response = await fetch(
 	`${SERVER_API}/virtual-showroom/public/${shop}`,
 );
-const virtualShowroom = await data.json();
+const virtualShowroom = await response.json();
 
 if (!virtualShowroom.data) {
 	return Astro.redirect("/404");
 }
+
+const { virtualShowroomConfig } = virtualShowroom.data;
 ---
 
 <Layout>
@@ -28,11 +31,11 @@ if (!virtualShowroom.data) {
 	</header>
 	<div class="grid grid-cols-3 grid-rows-7 gap-4 px-6 py-0 self-center w-full h-[calc(100dvh-6rem)]">
 		<div
-			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageOne?.url})`} 
+			style={`background-image: url(${virtualShowroomConfig?.cardImageOne?.url})`} 
 			class='bg-purple-400 col-span-3 lg:col-span-2 row-span-4 lg:row-span-7 rounded-lg p-6 flex justify-end flex-col bg-cover bg-center'>
-			<h3 class="text-lg text-white">Lorem, ipsum.</h3>
+			<h3 class="text-lg text-white">{virtualShowroomConfig?.cardTitle}</h3>
 			<h4 class="font-bold text-3xl text-white text-balance max-w-[32ch]">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, ut?
+				{virtualShowroomConfig?.cardDescription}
 			</h4>
 		</div>
 		<a href="/products" class="cursor-pointer group row-span-2 md:row-span-3 lg:row-span-4 col-span-3 md:col-span-2 lg:col-start-3 bg-purple-300 rounded-lg flex items-center justify-center">
@@ -45,18 +48,18 @@ if (!virtualShowroom.data) {
 			</h3>
 		</a>
 		<div 
-			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageTwo?.url})`}
+			style={`background-image: url(${virtualShowroomConfig?.cardImageTwo?.url})`}
 			class="bg-purple-200 md:row-span-3 lg:row-start-5 col-span-3 md:col-span-1 lg:col-start-3 bg-cover bg-center rounded-lg"></div>
 	</div>
 	<div class="grid grid-cols-9 grid-rows-3 lg:grid-rows-1 gap-4 px-6 pt-4 w-full font-serif h-72 lg:h-48">
 		<div 
-			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageThree?.url})`}
+			style={`background-image: url(${virtualShowroomConfig?.cardImageThree?.url})`}
 			class="bg-purple-400 col-span-3 lg:col-span-3 col-start-1 row-span-2 lg:row-span-1 rounded-lg bg-center bg-cover"></div>
 		<a href="/categories" class="cursor-pointer col-span-6 lg:col-span-4 col-start-4 row-span-2 lg:row-span-1 hover:underline overflow-hidden rounded-lg p-6 grid place-content-center bg-purple-100">
 			<span class="relative z-20 md:text-3xl text-xl">Categorías</span>
 		</a>
 		<div
-			style={`background-image: url(${virtualShowroom?.data?.virtualShowroomConfig?.cardImageFour?.url})`} 
+			style={`background-image: url(${virtualShowroomConfig?.cardImageFour?.url})`} 
 			class="bg-purple-300 lg:col-start-8 col-span-9 lg:col-span-2 bg-cover bg-center rounded-lg"></div>
 	</div>
 </Layout>
