@@ -26,7 +26,8 @@
 		"vitest": "pnpm vitest --filter=@kristall/core --filter=@kristall/http",
 		"coverage": "pnpm --filter @kristall/core coverage",
 		"format": "biome format --write .",
-		"ui": "pnpm --filter @kristall/ui ui"
+		"ui": "pnpm --filter @kristall/ui ui",
+		"publish:changeset": "turbo run build --filter @kristall/http && changeset version && changeset publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
