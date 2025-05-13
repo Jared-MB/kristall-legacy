@@ -42,7 +42,7 @@ export class VirtualShowroomConfigService {
 
         try {
             const images = this.extractPanelImages(data)
-            await this.imageService.saveMany(images)
+            images.length > 0 && await this.imageService.saveMany(images)
         }
         catch (e){
             console.log(e)
