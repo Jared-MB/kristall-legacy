@@ -2,9 +2,13 @@
 
 import { useConfig } from "../config-context";
 import { CardImage } from "./card-image";
+import { usePreview } from "./preview-context";
 
 export function MainPage({ shopName }: { shopName: string }) {
 	const config = useConfig();
+	const { setHasStateChanged } = usePreview();
+
+	const handleChange = () => setHasStateChanged(true);
 
 	console.log(config);
 
@@ -22,13 +26,20 @@ export function MainPage({ shopName }: { shopName: string }) {
 				>
 					<h3 className="text-lg text-white">
 						<textarea
-							defaultValue="Lorem, ipsum."
+							onChange={handleChange}
+							name="cardTitle"
+							defaultValue={config?.cardTitle ?? "Lorem, ipsum."}
 							className="bg-transparent resize-none field-sizing max-w-[25ch] border border-black border-opacity-10 rounded p-0.5"
 						/>
 					</h3>
 					<h4 className="font-bold text-3xl text-white text-balance max-w-[32ch]">
 						<textarea
-							defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, ut?"
+							onChange={handleChange}
+							name="cardDescription"
+							defaultValue={
+								config?.cardDescription ??
+								"Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, ut?"
+							}
 							className="bg-transparent resize-none field-sizing max-w-[20ch] border border-black border-opacity-10 rounded p-0.5"
 						/>
 					</h4>
