@@ -44,11 +44,12 @@ export type CatalogProduct = Pick<
 export type BestSeller = Pick<Product, "_id" | "name" | "totalSales">;
 
 export type AddProduct = z.infer<typeof AddProductSchema>;
-export type UpdateProduct = AddProduct;
 
 export interface UploadProduct extends AddProduct {
 	image: Image | null;
 }
+
+export type UpdateProduct = UploadProduct;
 
 export interface UploadProductRaw extends AddProduct {
 	image: File;

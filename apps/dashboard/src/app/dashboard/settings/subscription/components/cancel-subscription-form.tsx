@@ -30,7 +30,7 @@ export function CancelSubscriptionForm() {
 
 	useEffect(() => {
 		if (state?.message) {
-			toast.error(state.message);
+			toast.error(state.message.value);
 			closeDialog();
 			return;
 		}

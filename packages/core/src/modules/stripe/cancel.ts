@@ -74,7 +74,10 @@ export const cancelSubscription = async (
 
 	if (response.status !== 200) {
 		return {
-			message: response.message ?? "Error al cancelar la suscripción",
+			message: {
+				type: "error",
+				value: response.message ?? "Error al cancelar la suscripción",
+			},
 			fields: {
 				...fields.extractValuesForFields(["email", "password", "confirm"]),
 			},
@@ -89,7 +92,10 @@ export const cancelSubscription = async (
 	 * AND DOESN'T RETURN THE SUCCESS RESPONSE,
 	 */
 	return {
-		message: "Se canceló correctamente la suscripción",
+		message: {
+			type: "success",
+			value: "Se canceló correctamente la suscripción",
+		},
 		fields: {
 			...fields.extractEmptyValuesForFields(["email", "password", "confirm"]),
 		},
