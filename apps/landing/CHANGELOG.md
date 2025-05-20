@@ -1,5 +1,12 @@
 # @kristall/landing
 
+## 1.1.6
+
+### Patch Changes
+
+- @kristall/core@1.0.0
+- @kristall/ui@0.0.6
+
 ## 1.1.5
 
 ### Patch Changes
