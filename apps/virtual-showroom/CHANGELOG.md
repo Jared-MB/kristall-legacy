@@ -1,5 +1,13 @@
 # @kristall/virtual-showroom
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [2574b31]
+  - @kristall/http@1.7.2
+  - @kristall/core@1.0.0
+
 ## 0.0.5
 
 ### Patch Changes
