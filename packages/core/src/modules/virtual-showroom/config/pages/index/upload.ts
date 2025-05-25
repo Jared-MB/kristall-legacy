@@ -83,6 +83,7 @@ export const uploadVirtualShowroomMainPageConfig = async (
 		.setPanelImages(successImages)
 		.setPanelTitle(data.cardTitle.toString())
 		.setPanelDescription(data.cardDescription.toString())
+		.setCustomColor(data.customColor.toString())
 		.build();
 
 	const response = await PUT<Partial<VSC>, UpdateConfigResponse>(

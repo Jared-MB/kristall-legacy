@@ -1,44 +1,64 @@
 "use client";
 
-import type { MotionValue } from "motion/react";
-import { createContext, use, useState } from "react";
+import { uploadVirtualShowroomConfig } from "@kristall/core/virtual-showroom/config/upload";
+import { createContext, use, useActionState, useRef, useState } from "react";
 
 interface PreviewContextValue {
 	hasStateChanged: boolean;
 	setHasStateChanged: (value: boolean) => void;
-	scrollYProgress: MotionValue<number>;
 	shopName: string;
+	setPreviewColor: (value: string) => void;
+	previewColor: string;
+	formRef: React.RefObject<HTMLFormElement | null>;
+	setHasColorChanged: (value: boolean) => void;
+	hasColorChanged: boolean;
 }
 
-export const PreviewContext = createContext<PreviewContextValue>({
-	hasStateChanged: false,
-} as PreviewContextValue);
+export const PreviewContext = createContext<PreviewContextValue | null>(null);
 
 export function PreviewProvider({
 	children,
 	shopName,
-	scrollYProgress,
+	customColor,
 }: {
 	children: React.ReactNode;
-	scrollYProgress: MotionValue<number>;
 	shopName: string;
+	customColor?: string;
 }) {
 	const [hasStateChanged, setHasStateChanged] = useState(false);
+	const [previewColor, setPreviewColor] = useState(customColor ?? "#A855F7");
+	const [hasColorChanged, setHasColorChanged] = useState(false);
+
+	const formRef = useRef<HTMLFormElement>(null);
+
+	const [_, dispatch] = useActionState(uploadVirtualShowroomConfig, undefined);
 
 	return (
 		<PreviewContext
 			value={{
 				hasStateChanged,
 				setHasStateChanged,
-				scrollYProgress,
 				shopName,
+				setHasColorChanged,
+				hasColorChanged,
+				setPreviewColor,
+				previewColor,
+				formRef,
 			}}
 		>
-			{children}
+			<form ref={formRef} action={dispatch}>
+				{children}
+			</form>
 		</PreviewContext>
 	);
 }
 
 export function usePreview() {
-	return use(PreviewContext);
+	const context = use(PreviewContext);
+
+	if (!context) {
+		throw new Error("PreviewContext not found");
+	}
+
+	return context;
 }

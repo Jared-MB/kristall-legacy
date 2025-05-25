@@ -25,6 +25,7 @@ export interface VirtualShowroomConfig {
 	cardImageFour?: Image;
 	cardTitle?: string;
 	cardDescription?: string;
+	customColor?: string;
 	shop: Shop;
 }
 

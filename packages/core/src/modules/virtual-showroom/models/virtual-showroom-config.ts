@@ -12,6 +12,7 @@ export class VirtualShowroomConfig {
 	private images: SuccessImage[];
 	private title: string | null = null;
 	private description: string | null = null;
+	private customColor: string | null = null;
 
 	constructor() {
 		this.images = [];
@@ -43,6 +44,11 @@ export class VirtualShowroomConfig {
 		return this;
 	}
 
+	public setCustomColor(color: string): VirtualShowroomConfig {
+		this.customColor = color;
+		return this;
+	}
+
 	public build(): Omit<VSConfig, "shop"> {
 		const images = this.transformImages(this.images);
 
@@ -61,6 +67,13 @@ export class VirtualShowroomConfig {
 			config = {
 				...config,
 				cardDescription: this.description,
+			};
+		}
+
+		if (this.customColor) {
+			config = {
+				...config,
+				customColor: this.customColor,
 			};
 		}
 

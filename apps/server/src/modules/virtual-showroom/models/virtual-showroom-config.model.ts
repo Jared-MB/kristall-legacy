@@ -43,6 +43,12 @@ export class VirtualShowroomConfig {
     })
     cardDescription: string;
 
+    @Column({
+        length: 7,
+        nullable: true
+    })
+    customColor: string;
+
     @OneToOne(() => VirtualShowroom, (virtualShowroom) => virtualShowroom.virtualShowroomConfig)
     virtualShowroom: VS;
 }

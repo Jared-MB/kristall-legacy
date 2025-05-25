@@ -17,19 +17,19 @@ const TOAST_CONFIG: ExternalToast = {
 	position: "bottom-right",
 };
 
-export function PreviewSave({
-	ref,
-}: { ref: React.RefObject<HTMLFormElement | null> }) {
-	const { hasStateChanged, setHasStateChanged } = usePreview();
+export function PreviewSave() {
+	const { hasStateChanged, setHasStateChanged, formRef, setHasColorChanged } =
+		usePreview();
 
 	const save = () => {
 		if (!hasStateChanged) {
 			toast.info("No hay cambios", TOAST_CONFIG);
 			return;
 		}
-		ref?.current?.requestSubmit();
+		formRef?.current?.requestSubmit();
 		toast.success("Guardado", TOAST_CONFIG);
 		setHasStateChanged(false);
+		setHasColorChanged(false);
 	};
 
 	useShortcut(["s"], save, {
