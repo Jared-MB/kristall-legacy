@@ -11,6 +11,16 @@ export interface Version {
 
 export const VERSIONS: Version[] = [
 	{
+		_id: "v0.11.0-RC-3",
+		date: "2025-05-24",
+		title: "Virtual Showroom Custom Colors",
+		description: `
+			Estamos emocionados de anunciar que tu Virtual Showroom ahora tiene la posibilidad de personalizar el color de la página.
+			Lo que te permite darle un toque personal a tu tienda.
+		`,
+		features: ["Virtual Showroom Custom Colors"],
+	},
+	{
 		_id: "v0.11.0-RC-2",
 		date: "2025-02-21",
 		title: "Virtual Showroom Custom Domain",
