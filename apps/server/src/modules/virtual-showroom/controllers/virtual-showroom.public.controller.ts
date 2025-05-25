@@ -15,7 +15,7 @@ export class VirtualShowroomPublicController {
     @Get(':subdomain')
     async get(@Param('subdomain') subdomain: string){
         const virtualShowroom = await this.virtualShowroomPublicService.get(subdomain)
-        if (!virtualShowroom || !virtualShowroom.isPublic){
+        if (!virtualShowroom || !virtualShowroom?.isPublic){
             throw new NotFoundException()
         }
 

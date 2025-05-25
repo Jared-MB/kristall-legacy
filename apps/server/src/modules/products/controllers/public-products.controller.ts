@@ -17,7 +17,7 @@ export class PublicProductsController {
     @Get(':shopName')
     async getProducts(@Param('shopName') shopName: string, @Query() query: QueryProduct) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
-        if (!shop?.publicPage.isPublic) {
+        if (!shop?.publicPage?.isPublic) {
             throw new NotFoundException(`${shopName} is not found`)
         }
 
@@ -33,7 +33,7 @@ export class PublicProductsController {
     @Get('best-sellers/:shopName')
     async getBestSellers(@Param('shopName') shopName: string) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
-        if (!shop?.publicPage.isPublic) {
+        if (!shop?.publicPage?.isPublic) {
             throw new NotFoundException()
         }
         const response = await this.publicProductsService.getBestSellers(shop._id)
@@ -44,7 +44,7 @@ export class PublicProductsController {
     @Get('new/:shopName')
     async getNewProducts(@Param('shopName') shopName: string) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
-        if (!shop?.publicPage.isPublic) {
+        if (!shop?.publicPage?.isPublic) {
             throw new NotFoundException()
         }
         const response = await this.publicProductsService.getNewProducts(shop._id)
