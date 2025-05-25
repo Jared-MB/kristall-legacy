@@ -19,6 +19,7 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     let user: FindUserResult | null;
+
     try {
       user = await this.usersService.findUserByUsername({
         username,
@@ -27,19 +28,23 @@ export class AuthService {
     } catch (err) {
       return null;
     }
-    if (!user) return null;
-    if (!user.password) return null;
+
+    if (!user || !user?.password) return null;
+
     let isMatch = false;
+
     try {
       isMatch = await bcrypt.compare(password, user.password);
     } catch (err) {
       return null;
     }
-    if (isMatch) {
-      const { password, ...result } = user;
-      return result;
+
+    if (!isMatch) {
+      return null;
     }
-    return null;
+    
+    const { password: _password, ...result } = user;
+    return result;
   }
 
   async login(user: User) {
