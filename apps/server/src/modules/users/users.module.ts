@@ -1,7 +1,7 @@
-import { JwtStrategy } from '@/server/auth/jwt.strategy';
 import { User } from '@/server/entities';
 import { LocationsModule } from '@/server/locations/locations.module';
 import { BankAccountsModule, ShopsModule } from '@/server/modules';
+import { JwtStrategy } from '@/server/modules/auth/strategies/jwt.strategy';
 import { AuthService, UtilsService } from '@/server/services';
 import { TokenService } from '@/server/utilities';
 import { Utils } from '@/server/utilities/Utils';

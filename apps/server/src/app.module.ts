@@ -5,7 +5,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AdminModule } from './admin/admin.module';
-import { AuthModule } from './auth/auth.module';
 import { ClientsModule } from './clients/clients.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { LocationsModule } from './locations/locations.module';
@@ -25,13 +24,14 @@ import {
   UsersModule,
   VirtualShowroomModule
 } from './modules';
+import { AuthModule } from './modules/auth/auth.module';
 import { CloudflareModule } from './modules/cloudflare/cloudflare.module';
 
 import { AppController } from './app.controller';
 
 import { Utils } from './utilities';
 
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 
 import { createKeyv } from '@keyv/redis';
 import { CacheableMemory } from 'cacheable';

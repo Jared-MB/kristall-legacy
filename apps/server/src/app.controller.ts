@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Request, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Response } from 'express';
 
-import { AuthService } from './auth/auth.service';
-import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Cookies, Public } from './decorators';
 import { ResponseInterceptor } from './interceptors';
+import { LocalAuthGuard } from './modules/auth/guards/local-auth.guard';
+import { AuthService } from './modules/auth/services/auth.service';
 
 @Controller()
 export class AppController {
