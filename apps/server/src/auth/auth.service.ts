@@ -2,7 +2,7 @@ import { User } from '@/server/entities';
 import { ShopService } from '@/server/modules/shops/services';
 import { StripeService } from '@/server/modules/stripe/services';
 import { FindUserResult, UsersService } from '@/server/modules/users/services';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { CacheService } from 'src/services/cache.service';
@@ -53,11 +53,11 @@ export class AuthService {
 
     const userSubscription = await this.stripeService.getUserSubscription(user._id)
     if (userSubscription.status === 'none'){
-      return null
+      throw new UnauthorizedException('No tienes una suscripción a Stripe')
     }
 
     if (userSubscription.status !== 'active'){
-      return null
+      throw new UnauthorizedException('Tu suscripción a Stripe no está activa')
     }
 
     const formattedUser = {
