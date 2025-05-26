@@ -68,4 +68,10 @@ export class User {
   isActive: boolean;
 }
 
-export type SaveUser = Omit<User, 'password' | 'createdAt'>;
+/**
+ * @deprecated Get user from cookies is not necessary now, use the request user object instead with {@link JWTUser}
+ */
+export type SaveUser = Pick<User, '_id' | 'shop' | 'username' | 'role'>;
+
+export type JWTUser = Pick<User, '_id' | 'username' | 'role'> & { shop: { _id: string } };
+export type RequestUser = JWTUser & Pick<User, 'email' | 'permissions' | 'package' |'stripeId'>;

@@ -1,3 +1,7 @@
+import { Cookies } from '@/server/decorators';
+import { ResponseInterceptor } from '@/server/interceptors';
+import { AuthService, UtilsService } from '@/server/services';
+import { RESTRICTIONS, USER_PERMISSIONS, Utils } from '@/server/utilities';
 import {
     BadRequestException,
     Body,
@@ -12,16 +16,15 @@ import {
     Post,
     Put,
     Query,
+    Request,
     Res,
     UseInterceptors
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
 import { randomUUID } from 'node:crypto';
-import { Cookies } from '@/server/decorators';
-import { ResponseInterceptor } from '@/server/interceptors';
-import { AuthService, UtilsService } from '@/server/services';
-import { RESTRICTIONS, TokenService, USER_PERMISSIONS, Utils } from '@/server/utilities';
+import { AuthRequest } from 'src/interfaces/requests';
+import { ShopService } from 'src/modules/shops/services/shop.service';
 import { allowedQueries } from '../constants';
 import { ChangePasswordDto, CreateUserClientDto } from '../dto';
 import type { FindAllUsersOptions, FindAllUsersQuery } from '../interfaces';
@@ -35,13 +38,13 @@ interface Param {
 export class UsersController {
     constructor(
         private readonly usersService: UsersService,
-        private readonly tokenService: TokenService,
         private readonly utils: Utils,
         private readonly authService: AuthService,
-        private readonly utilsService: UtilsService
+        private readonly utilsService: UtilsService,
+        private readonly shopService: ShopService,
     ) { }
 
-    @UseInterceptors(new ResponseInterceptor())
+    @UseInterceptors(ResponseInterceptor)
     @Get()
     async getUsers(@Cookies('session') session: string, @Query() query: FindAllUsersQuery) {
         const user = this.authService.decodeCookie(session)
@@ -55,16 +58,13 @@ export class UsersController {
         return users
     }
 
-    @UseInterceptors(new ResponseInterceptor())
+    @UseInterceptors(ResponseInterceptor)
     @Post()
     async createUser(
-        @Cookies('session') session: string,
+        @Request() req: AuthRequest,
         @Body() body: CreateUserClientDto,
     ) {
-        const user = this.authService.decodeCookie(session)
-        if (!user) {
-            throw new ForbiddenException()
-        }
+        const user = req.user
 
         if (user.role !== 'admin' || (user.permissions !== 'all' && !user.permissions.includes(USER_PERMISSIONS.USERS.CREATE))) {
             throw new ForbiddenException()
@@ -83,6 +83,11 @@ export class UsersController {
         const stripeId = user.stripeId + '_user';
 
         const { email, name, username } = body
+        const shop = await this.shopService.getShopById(user.shop._id)
+
+        if (!shop){
+            throw new NotFoundException()
+        }
 
         const newUser = this.usersService.create({
             _id,
@@ -91,7 +96,7 @@ export class UsersController {
             username,
             password: passwordHashed,
             role: 'user',
-            shop: user.shop,
+            shop,
             permissions: 'none',
             package: user.package,
             stripeId

@@ -1,4 +1,4 @@
-import { Shop } from "@/server/entities";
+import type { Shop } from "@/server/entities";
 
 export class CreateUserClientDto {
     email: string;

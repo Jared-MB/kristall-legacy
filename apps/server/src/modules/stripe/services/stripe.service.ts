@@ -24,7 +24,29 @@ export class StripeService {
     });
   }
 
-  async getUserPaymentHistory(stripeId: string): Promise<Stripe.PaymentIntent[]> {
+  private async getStripeId(userId: string){
+    let stripeId = await this.cacheService.get<string>(userId, 'id')
+    if (!stripeId){
+      const user = await this.userRepository.findById(userId)
+
+      if (!user){
+        return null
+      }
+
+      stripeId = user.stripeId
+    }
+
+    return stripeId
+  }
+
+  async getUserPaymentHistory(userId: string): Promise<Stripe.PaymentIntent[]> {
+
+    const stripeId = await this.getStripeId(userId)
+
+    if (!stripeId){
+      return []
+    }
+
     const stripe = this.getStripe();
     const paymentHistory = await stripe.paymentIntents.list({
       customer: stripeId,
@@ -57,17 +79,10 @@ export class StripeService {
       return subscriptionsCached
     }
 
-    let stripeId = await this.cacheService.get<string>(userId, 'id')
+    const stripeId = await this.getStripeId(userId)
+
     if (!stripeId){
-      const user = await this.userRepository.findById(userId)
-
-      if (!user){
-        return {
-          status: 'none'
-        }
-      }
-
-      stripeId = user.stripeId
+      return { status: 'none' }
     }
 
     const subscriptions = await this.stripeRepository.fetchUserSubscription(stripeId);

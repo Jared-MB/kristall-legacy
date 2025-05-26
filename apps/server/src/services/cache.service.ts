@@ -11,7 +11,8 @@ export class CacheService {
     private readonly CACHE_KEYS = {
         id: 'stripe:user:id',
         stripe: 'stripe:customer',
-        priceId: 'stripe:price'
+        priceId: 'stripe:price',
+        user: 'kristall:user:id'
     } as const;
 
     constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
@@ -41,5 +42,10 @@ export class CacheService {
     public async get<T = unknown>(key: string, cacheKey: keyof typeof this.CACHE_KEYS = 'stripe'): Promise<T | null> {
         const cacheKeyValue = this.getCacheKey(key, cacheKey);
         return await this.cacheManager.get<T>(cacheKeyValue);
+    }
+
+    public async delete(key: string, cacheKey: keyof typeof this.CACHE_KEYS = 'stripe') {
+        const cacheKeyValue = this.getCacheKey(key, cacheKey);
+        return await this.cacheManager.del(cacheKeyValue);
     }
 }

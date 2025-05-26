@@ -7,6 +7,7 @@ import { TokenService } from '@/server/utilities';
 import { Utils } from '@/server/utilities/Utils';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CacheService } from 'src/services/cache.service';
 import { UsersAuthController, UsersController } from './controllers';
 import { UserRepository } from './repositories/user.repository';
 import { UsersService } from './services';
@@ -26,7 +27,8 @@ import { UsersService } from './services';
         TokenService, 
         AuthService, 
         UtilsService,
-        UserRepository
+        UserRepository,
+        CacheService
     ],
     exports: [UsersService, UserRepository],
 })

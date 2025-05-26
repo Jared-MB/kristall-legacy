@@ -4,56 +4,43 @@ import {
   Get,
   InternalServerErrorException,
   Put,
+  Request,
   UnauthorizedException,
   UseInterceptors
 } from '@nestjs/common';
 
 import { UsersService } from 'src/modules/users/services/users.service';
-import { AuthService } from 'src/services/auth.service';
 import { StripeService } from '../services/stripe.service';
 
-import { Cookies } from 'src/decorators';
 import { ResponseInterceptor } from 'src/interceptors';
+import { AuthRequest } from 'src/interfaces/requests';
 
 @UseInterceptors(ResponseInterceptor)
 @Controller('stripe')
 export class StripeController {
   constructor(
     private readonly stripeService: StripeService,
-    private readonly authService: AuthService,
     private readonly usersService: UsersService,
   ) { }  
 
   @Get('/user')
-  async getStripeAccountByUser(@Cookies('session') session: string){
-    const user = this.authService.decodeCookie(session);
-
-    if (!user){
-      throw new UnauthorizedException()
-    }
-
+  async getStripeAccountByUser(@Request() req: AuthRequest){
+    const user = req.user;
     return await this.stripeService.getUserSubscription(user._id);
   }
 
   @Get('history')
-  async getStripeUserPaymentHistory(@Cookies('session') session: string) {
-    const user = this.authService.decodeCookie(session);
-    if (!user){
-      throw new UnauthorizedException()
-    }
-    const paymentHistory = await this.stripeService.getUserPaymentHistory(user.stripeId);
-    return paymentHistory
+  async getStripeUserPaymentHistory(@Request() req: AuthRequest) {
+    const user = req.user;
+   return await this.stripeService.getUserPaymentHistory(user._id);
   }  
 
   @Put('/cancel-subscription')
   async cancelSubscription(
     @Body() body: { password: string, email: string },
-    @Cookies('session') session: string,
+    @Request() req: AuthRequest,
   ) {
-    const user = this.authService.decodeCookie(session);
-    if (!user){
-      throw new UnauthorizedException()
-    }
+    const user = req.user;
 
     const isPasswordValid = await this.usersService.comparePassword(user._id, body.password)
     if (!isPasswordValid){

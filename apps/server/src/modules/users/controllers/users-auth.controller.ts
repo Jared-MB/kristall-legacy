@@ -10,11 +10,14 @@ import {
     NotFoundException,
     Put,
     Query,
+    Request,
     UnauthorizedException,
     UseInterceptors
 } from '@nestjs/common';
+import { AuthRequest } from 'src/interfaces/requests';
 import { UsersService } from '../services';
 
+@UseInterceptors(ResponseInterceptor)
 @Controller()
 export class UsersAuthController {
     constructor(
@@ -22,7 +25,6 @@ export class UsersAuthController {
         private readonly authService: AuthService,
     ) { }
 
-    @UseInterceptors(ResponseInterceptor)
     @Get('user/is-admin')
     async getUserIsAdmin(
         @Cookies('session') session: string,
@@ -44,7 +46,6 @@ export class UsersAuthController {
         return false
     }
 
-    @UseInterceptors(new ResponseInterceptor())
     @Get('user/permissions')
     async getUserPermissionsDashboard(
         @Cookies('session') session: string,
@@ -74,20 +75,14 @@ export class UsersAuthController {
         return permissions
     }
 
-    @UseInterceptors(new ResponseInterceptor())
     @Get('user/permissions/own')
     async getOwnUserPermissions(
-        @Cookies('session') session: string,
+        @Request() req: AuthRequest
     ) {
-        const user = this.authService.decodeCookie(session)
-        if (!user) {
-            throw new UnauthorizedException()
-        }
-
-        return user.permissions
+        const { permissions } = req.user
+        return permissions
     }
 
-    @UseInterceptors(new ResponseInterceptor())
     @Get('user/permissions/pos')
     async getUserPermissionsPOS(
         @Cookies('session') session: string,
@@ -118,7 +113,6 @@ export class UsersAuthController {
         return permissions.includes('pos:access;')
     }
 
-    @UseInterceptors(new ResponseInterceptor())
     @Put('user/permissions/pos')
     async toggleUserPermissionsPOS(
         @Cookies('session') session: string,
@@ -161,7 +155,6 @@ export class UsersAuthController {
         return 'ok'
     }
 
-    @UseInterceptors(new ResponseInterceptor())
     @Put('user/permissions')
     async updateUserPermissions(
         @Cookies('session') session: string,
@@ -211,7 +204,6 @@ export class UsersAuthController {
 
 
     @Public()
-    @UseInterceptors(ResponseInterceptor)
     @Put('register')
     async signup(
         @Query() query: { by: 'stripe' },

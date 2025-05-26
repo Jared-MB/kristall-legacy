@@ -28,11 +28,11 @@ export class StripeRepository {
     const cachedPlan = await this.cacheService.get<Stripe.Price>(priceId, 'priceId')
 
     if (cachedPlan){
-      console.log('[CACHE][HIT] Full turbo >>>>')
+      console.log('[CACHE][STRIPE][HIT] Full turbo >>>>')
       return cachedPlan
     }
 
-    console.log('[CACHE][MISS]')
+    console.log('[CACHE][STRIPE][MISS]')
     const plan = await this.stripe.prices.retrieve(priceId);
     await this.cacheService.set(priceId, plan, 'priceId')
 

@@ -10,6 +10,7 @@ import { ShopService } from '@/server/modules/shops/services';
 import { RESTRICTIONS, USER_PERMISSIONS } from '@/server/utilities';
 import { ServerError } from '@/server/utilities/Errors';
 import { JwtService } from '@nestjs/jwt';
+import { CacheService } from 'src/services/cache.service';
 import { CreateUserServerDto } from '../dto';
 import { FindAllUsersOptions } from '../interfaces/users.interface';
 
@@ -37,6 +38,7 @@ export class UsersService {
         @InjectRepository(User) private usersRepository: Repository<User>,
         private jwtService: JwtService,
         private shopService: ShopService,
+        private cacheService: CacheService,
     ) { }
 
     async findAllUsers(shopId: string, options?: FindAllUsersOptions) {
@@ -131,6 +133,7 @@ export class UsersService {
         }
 
         const userDeleted = await this.usersRepository.delete({ _id: userId });
+        await this.cacheService.delete(userId, 'user')
         return {
             isDeleted: userDeleted.affected === 1,
         };
@@ -150,6 +153,9 @@ export class UsersService {
         return hash;
     }
 
+    /**
+     * @cached
+     */
     async findUserById({
         _id,
         showPassword = false,
@@ -157,6 +163,14 @@ export class UsersService {
         if (!_id) {
             throw new Error('User not found');
         }
+
+        const cachedUser = await this.cacheService.get<FindUserResult>(_id, 'user')
+        if (cachedUser && !showPassword) {
+            console.log('[CACHE][USER][HIT] Full turbo >>>>')
+            return cachedUser
+        }
+
+        console.log('[CACHE][USER][MISS]')
         const user = await this.usersRepository.findOne({
             where: { _id },
             relations: {
@@ -177,6 +191,8 @@ export class UsersService {
             return stripeUser;
         }
         const { password, ...result } = stripeUser;
+        !showPassword && await this.cacheService.set(_id, result, 'user')
+
         return result;
     }
 
@@ -256,6 +272,7 @@ export class UsersService {
 
     async changeUsername(_id: string, newUsername: string) {
         await this.usersRepository.update({ _id }, { username: newUsername });
+        await this.cacheService.delete(_id, 'user')
         const user = await this.findUserById({ _id });
         if (!user) {
             throw new Error('User not found');
@@ -306,6 +323,9 @@ export class UsersService {
         return result;
     }
 
+    /**
+     * Not resetting cache because it's we don't want to cache the password and for common features we don't need the updated password
+     */
     async changePassword(
         password: string,
         newPassword: string,
@@ -331,6 +351,7 @@ export class UsersService {
 
     async updateUser(userId: string, user: Partial<User>) {
         await this.usersRepository.update({ _id: userId }, user);
+        await this.cacheService.delete(userId, 'user')
         return await this.findUserById({ _id: userId });
     }
 

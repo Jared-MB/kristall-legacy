@@ -65,22 +65,15 @@ export class AuthService {
       throw new UnauthorizedException('Tu suscripción a Stripe no está activa')
     }
 
-    const formattedUser = {
-      ...user,
-      shop: {
-        name: userShop.name,
-        _id: userShop._id,
-        image: userShop.image || undefined,
-        virtualShowroom: userShop?.virtualShowroom || undefined,
-      },
-    };
-
-    const { password, createdAt, ...result } = formattedUser;
-
     return {
       _id: user._id,
       username: user.username,
-      access_token: this.jwtService.sign(result, {
+      access_token: this.jwtService.sign({
+        _id: user._id,
+        username: user.username,
+        shop: { _id: userShop._id },
+        role: user.role,
+      }, {
         secret: process.env.JWT_SECRET,
       }),
     };
