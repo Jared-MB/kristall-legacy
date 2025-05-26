@@ -1,10 +1,16 @@
 "use server";
 
 import { GET } from "@kristall/http";
+import type { VirtualShowroom } from "../interfaces";
 
 export const get = async (subdomain: string) => {
-	const { data, message, status } = await GET<string>(
+	const response = await GET<VirtualShowroom>(
 		`/virtual-showroom/public/${subdomain}`,
+		{
+			tags: ["no-tag-required"],
+			auth: false,
+		},
 	);
-	return data;
+
+	return response.data;
 };

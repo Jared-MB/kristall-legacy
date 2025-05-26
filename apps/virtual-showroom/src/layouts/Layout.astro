@@ -8,6 +8,12 @@ const parsedName = shop
 	.split("-")
 	.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 const shopName = parsedName.join(" ");
+
+interface Props {
+	style?: Record<string, any>;
+}
+
+const { style } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -18,7 +24,7 @@ const shopName = parsedName.join(" ");
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{shopName}</title>
 	</head>
-	<body class="w-dvw">
+	<body class="w-dvw" style={{ ...style }}>
 		<main class="min-h-dvh flex flex-col">
 			<slot/>
 		</main>
