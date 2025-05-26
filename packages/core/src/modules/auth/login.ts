@@ -38,6 +38,9 @@ export const login = async (
 	const { data, status } = await POST<LoginUser, Authorized>(
 		"/auth/login",
 		parsedData.data,
+		{
+			auth: false,
+		},
 	);
 
 	if (status === 401) {

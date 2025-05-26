@@ -51,6 +51,9 @@ export const register = async (
 	const { data, status } = await PUT<RegisterUser, "ok">(
 		"/register?by=stripe",
 		parsedData.data,
+		{
+			auth: false,
+		},
 	);
 	if (data !== "ok" && status !== 200) {
 		return {
