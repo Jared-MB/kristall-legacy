@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/core",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "ISC",
 	"private": "true",
 	"exports": {
@@ -16,7 +16,6 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
-		"@kristall/http": "workspace:*",
 		"@types/node": "20.12.7",
 		"@vitest/coverage-v8": "2.1.4",
 		"react": "19.0.0",
@@ -37,6 +36,7 @@
 		"@aws-sdk/client-s3": "3.540.0",
 		"dotenv": "^16.4.5",
 		"zod": "^3.23.8",
-		"zustand": "^5.0.2"
+		"zustand": "^5.0.2",
+		"@kristall/http": "workspace:*"
 	}
 }

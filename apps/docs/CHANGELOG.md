@@ -1,5 +1,12 @@
 # @kristall/docs
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [18bb4d9]
+  - @kristall/http@1.7.4
+
 ## 0.0.7
 
 ### Patch Changes

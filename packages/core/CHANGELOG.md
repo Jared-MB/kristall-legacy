@@ -1,0 +1,8 @@
+# @kristall/core
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [18bb4d9]
+  - @kristall/http@1.7.4

@@ -1,5 +1,13 @@
 # @kristall/ui
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [18bb4d9]
+  - @kristall/http@1.7.4
+  - @kristall/core@1.0.1
+
 ## 0.0.6
 
 ### Patch Changes
