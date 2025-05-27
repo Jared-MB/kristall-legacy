@@ -191,7 +191,8 @@ export class ShopService {
                 name: ILike(`%${virtualShowroomName}%`)
             },
             relations: {
-                virtualShowroom: true
+                virtualShowroom: true,
+                image: true
             }
         })
     }

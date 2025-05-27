@@ -1,6 +1,7 @@
 import { Controller, Get, NotFoundException, Param, UseInterceptors } from "@nestjs/common";
 import { Public } from "src/decorators";
 import { ResponseInterceptor } from "src/interceptors";
+import { ShopService } from "src/modules/shops/services/shop.service";
 import { VirtualShowroomPublicService } from "../services/virtual-showroom.public.service";
 
 @Public()
@@ -9,7 +10,8 @@ import { VirtualShowroomPublicService } from "../services/virtual-showroom.publi
 export class VirtualShowroomPublicController {
 
     constructor(
-        private readonly virtualShowroomPublicService: VirtualShowroomPublicService
+        private readonly virtualShowroomPublicService: VirtualShowroomPublicService,
+        private readonly shopService: ShopService
     ){}
 
     @Get(':subdomain')
@@ -19,7 +21,15 @@ export class VirtualShowroomPublicController {
             throw new NotFoundException()
         }
 
-        return virtualShowroom
+        const shop = await this.shopService.getByVirtualShowroomName(subdomain)
+        if (!shop){
+            throw new NotFoundException()
+        }
+
+        return {
+            ...virtualShowroom,
+            image: shop?.image?.url
+        }
     }
 
 }
