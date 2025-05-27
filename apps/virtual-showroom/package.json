@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "astro dev --port 3006",
 		"build": "astro build",
-		"preview": "astro preview",
+		"preview": "astro preview --port 3007",
 		"astro": "astro"
 	},
 	"dependencies": {
@@ -15,8 +15,10 @@
 		"@fontsource/aboreto": "^5.2.5",
 		"@kristall/core": "workspace:*",
 		"@kristall/http": "workspace:*",
+		"@lucide/astro": "0.511.0",
 		"@tailwindcss/vite": "^4.0.12",
 		"astro": "^5.4.2",
+		"debounce": "2.2.0",
 		"tailwindcss": "^4.0.12"
 	},
 	"devDependencies": {

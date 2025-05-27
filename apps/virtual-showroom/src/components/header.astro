@@ -1,0 +1,15 @@
+---
+interface Props {
+	shopName: string;
+	className?: string;
+}
+
+const { shopName, className } = Astro.props;
+---
+
+<header class:list={["h-20 p-6 flex items-center justify-between", className]} >
+    <h1 class="text-4xl font-serif text-[var(--vs-custom-400)]">
+        <a href='/'>{shopName}</a>
+    </h1>
+    <slot/>
+</header>

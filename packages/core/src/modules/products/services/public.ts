@@ -15,6 +15,7 @@ export const getPublicProductsService = async (
 		{
 			tags: [PRODUCTS_TAGS.PUBLIC],
 			cache: "no-store",
+			auth: false,
 		},
 	);
 };

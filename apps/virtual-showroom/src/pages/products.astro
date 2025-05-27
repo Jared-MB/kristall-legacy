@@ -1,0 +1,74 @@
+---
+import type { PublicProduct } from "@kristall/core/products/interfaces/products.interface.d";
+
+import { actions } from "astro:actions";
+
+import Header from "src/components/header.astro";
+import Product from "src/components/product.astro";
+import Search from "src/components/search.astro";
+
+import Layout from "src/layouts/Layout.astro";
+import { parseSubdomain } from "src/lib/subdomain";
+
+const [_, shop] = parseSubdomain(Astro.url.hostname);
+
+const params = Astro.url.searchParams;
+
+const { data: products, error } = await Astro.callAction(
+	actions.getPublicProducts,
+	{
+		shop,
+		searchParams: params,
+	},
+);
+
+const columnOne: PublicProduct[] = [];
+const columnTwo: PublicProduct[] = [];
+const columnThree: PublicProduct[] = [];
+const columnFour: PublicProduct[] = [];
+
+products?.entities.forEach((product, index) => {
+	if (index % 4 === 0) {
+		columnOne.push(product);
+	} else if (index % 4 === 1) {
+		columnTwo.push(product);
+	} else if (index % 4 === 2) {
+		columnThree.push(product);
+	} else if (index % 4 === 3) {
+		columnFour.push(product);
+	}
+});
+---
+
+<Layout>
+    <Header shopName={shop} className="sticky top-0 bg-white/70 backdrop-blur-lg z-10">
+        <Search/>
+    </Header>
+    <div class="grid grid-cols-[20dvw_auto]">
+        <aside class="h-[calc(100dvh-5rem)] sticky top-20">
+            Filter
+        </aside>
+        <section class='grid grid-cols-2 md:grid-cols-4 gap-4 p-4'>
+            <div class="flex flex-col gap-4">
+                {columnOne?.map((product) => (
+                    <Product product={product}/>
+                ))}
+            </div>
+            <div class="flex flex-col gap-4">
+                {columnTwo?.map((product) => (
+                    <Product product={product}/>
+                ))}
+            </div>
+            <div class="flex flex-col gap-4">
+                {columnThree?.map((product) => (
+                    <Product product={product}/>
+                ))}
+            </div>
+            <div class="flex flex-col gap-4">
+                {columnFour?.map((product) => (
+                    <Product product={product}/>
+                ))}
+            </div>
+        </section>
+    </div>
+</Layout>   
