@@ -14,6 +14,8 @@ import { Image, PublicPage, Shop } from '@/server/entities';
 import { Setting } from '@/server/modules/settings/models';
 import { SettingsService } from '@/server/modules/settings/services';
 import { AuthService } from '@/server/services';
+import { CacheService } from 'src/services/cache.service';
+import { ShopRepository } from './repositories/shop.repository';
 
 @Module({
     imports: [
@@ -22,7 +24,16 @@ import { AuthService } from '@/server/services';
         ProductsModule,
         CategoriesModule
     ],
-    providers: [ShopService, ShopPublicService, Utils, TokenService, SettingsService, AuthService],
+    providers: [
+        CacheService,
+        ShopRepository,
+        ShopService, 
+        ShopPublicService, 
+        Utils, 
+        TokenService, 
+        SettingsService, 
+        AuthService
+    ],
     controllers: [ShopController, ShopPublicController],
     exports: [ShopService]
 })

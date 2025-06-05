@@ -12,7 +12,8 @@ export class CacheService {
         id: 'stripe:user:id',
         stripe: 'stripe:customer',
         priceId: 'stripe:price',
-        user: 'kristall:user:id'
+        user: 'kristall:user:id',
+        shop: 'kristall:shop:id',
     } as const;
 
     constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}

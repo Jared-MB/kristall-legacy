@@ -38,6 +38,8 @@ import { CacheableMemory } from 'cacheable';
 import { Keyv } from 'keyv';
 import { VercelModule } from './modules/vercel/vercel.module';
 
+const ONE_DAY_MS = 1000 * 60 * 60 * 24;
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -65,7 +67,8 @@ import { VercelModule } from './modules/vercel/vercel.module';
           ],
         };
       },
-      isGlobal: true
+      isGlobal: true,
+      ttl: ONE_DAY_MS
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

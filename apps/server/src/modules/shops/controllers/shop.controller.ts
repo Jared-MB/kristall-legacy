@@ -1,5 +1,5 @@
 import { Cookies } from '@/server/decorators';
-import { Image, PublicPage, SaveUser } from '@/server/entities';
+import { Image, PublicPage } from '@/server/entities';
 import { ResponseInterceptor } from '@/server/interceptors';
 import { AuthService } from '@/server/services';
 import { TokenService, Utils } from '@/server/utilities';
@@ -9,16 +9,18 @@ import {
     ForbiddenException,
     Get,
     Headers,
+    NotFoundException,
     Param,
     Post,
     Put,
-    Query,
     Req,
     Res,
-    UseInterceptors,
+    UseInterceptors
 } from '@nestjs/common';
 import { ApiAcceptedResponse, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+import { AuthRequest } from 'src/interfaces/requests';
+import { ShopRepository } from '../repositories/shop.repository';
 import { ShopService } from '../services';
 
 @ApiTags('shops')
@@ -26,48 +28,41 @@ import { ShopService } from '../services';
 export class ShopController {
     constructor(
         private readonly shopsService: ShopService,
+        private readonly shopRepository: ShopRepository,
         private readonly utils: Utils,
         private readonly tokenService: TokenService,
         private readonly authService: AuthService,
     ) { }
 
+    @UseInterceptors(ResponseInterceptor)
     @Get('name')
-    async getAllShops(
-        @Res() res: Response,
-        @Headers('authorization') auth: string,
-        @Cookies('session') session: string,
-        @Query() query: {
-            auth: 'headers'
-        }) {
-        let user: SaveUser | null = null
-        if (query.auth === 'headers') {
-            user = this.tokenService.decode(auth);
+    async getShop(
+        @Req() req: AuthRequest,
+    ) {
+        const { user } = req
+        const shop = await this.shopRepository.findOne(user.shop._id);
+
+        if (!shop){
+            throw new NotFoundException()
         }
-        else {
-            user = this.authService.decodeCookie(session);
-        }
-        if (!user) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-        const imageUrl = await this.shopsService.getShopImage(user.shop._id);
-        const shopName = Promise.resolve({
-            _id: user.shop._id,
-            shopName: user.shop.name,
+
+        return {
+            _id: shop._id,
+            shopName: shop.name,
             username: user.username,
-            logo: imageUrl,
+            logo: shop.image.url,
             showroom: {
-                isPublic: user.shop?.virtualShowroom?.isPublic ?? false,
-                url: user.shop?.virtualShowroom?.url ?? '',
+                isPublic: shop?.virtualShowroom?.isPublic ?? false,
+                url: shop?.virtualShowroom?.url ?? '',
             }
-        });
-        return this.utils.adaptResponse(shopName, res);
+        }
     }
 
     @UseInterceptors(new ResponseInterceptor())
     @ApiCookieAuth('session')
     @ApiAcceptedResponse({
         type: String,
-        example: 'https://cdn.kristall.app/dawoddaw.webp',
+        example: 'https://cdn.kristall.app/image.webp',
     })
     @Get('image')
     async getImage(
