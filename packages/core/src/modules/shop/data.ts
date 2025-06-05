@@ -1,10 +1,15 @@
 "use server";
 
+import type { Shop } from "./interfaces";
+
+import { GET } from "@kristall/http";
 import { redirect } from "next/navigation";
-import { getShopDataService } from "./services";
+import { SHOP_TAGS } from "./constants";
 
 export const getShopData = async () => {
-	const { data } = await getShopDataService();
+	const { data } = await GET<Shop>("/shops/name", {
+		tags: [SHOP_TAGS.INFO],
+	});
 
 	if (!data) {
 		redirect("/login");
