@@ -30,6 +30,6 @@
 		}
 	},
 	"files": {
-		"ignore": ["**/server/**/*.ts"]
+		"ignore": ["**/server/**/*.ts", "**/*.svelte"]
 	}
 }
