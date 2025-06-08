@@ -5,6 +5,7 @@ import { ResponseInterceptor } from 'src/interceptors';
 import { PublicProductsService, type QueryProduct } from '../services';
 
 @Public()
+@UseInterceptors(ResponseInterceptor)
 @Controller('public-products')
 export class PublicProductsController {
 
@@ -13,7 +14,6 @@ export class PublicProductsController {
         private readonly shopsService: ShopService
     ) { }
 
-    @UseInterceptors(ResponseInterceptor)
     @Get(':shopName')
     async getProducts(@Param('shopName') shopName: string, @Query() query: QueryProduct) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
@@ -29,7 +29,6 @@ export class PublicProductsController {
         return response
     }
 
-    @UseInterceptors(ResponseInterceptor)
     @Get('best-sellers/:shopName')
     async getBestSellers(@Param('shopName') shopName: string) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
@@ -40,7 +39,6 @@ export class PublicProductsController {
         return response
     }
 
-    @UseInterceptors(ResponseInterceptor)
     @Get('new/:shopName')
     async getNewProducts(@Param('shopName') shopName: string) {
         const shop = await this.shopsService.getByVirtualShowroomName(shopName)
