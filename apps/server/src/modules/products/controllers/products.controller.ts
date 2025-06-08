@@ -30,6 +30,7 @@ import { BatchService, LocationProductService, ProductsService } from '../servic
 import { Image, LocationProduct, Product, ProductBatch } from '@/server/entities';
 import { ResponseInterceptor } from '@/server/interceptors';
 import { addMonth } from '@formkit/tempo';
+import { AuthRequest } from 'src/interfaces/requests';
 import { CreateBatchClientDto, CreateLocationProductDto, CreateProductClientDto, CreateProductServerDto, EditProductClientDto } from '../dto';
 import { GetProductQueryDto } from '../dto/get-product-query.dto';
 import { ProductRepository } from '../repositories/product.repository';
@@ -52,10 +53,9 @@ export class ProductsController {
   @Get()
   async getProducts(
     @Query() query: GetProductQueryDto,
-    @Cookies('session') session: string,
+    @Req() req: AuthRequest,
   ) {
-    const user = this.authService.decodeCookie(session)
-    if (!user) throw new ForbiddenException()
+    const user = req.user
 
     const { sortBy = 'createdAt', orderBy = 'DESC' } = query
 
@@ -174,19 +174,14 @@ export class ProductsController {
   }
 
   // #region REFACTOR 
+  @UseInterceptors(ResponseInterceptor)
   @Get('id/:id')
   async getProductById(
     @Param() param: { id: string },
-    @Res() res: Response,
-    @Req() req: Request,
+    @Req() req: AuthRequest,
   ) {
-    const cookie = req.cookies['session'];
-    const payload = this.tokenService.decodeCookie(cookie);
-    if (!payload) {
-      return res.status(404).json({ message: 'No route found' });
-    }
-    const product = this.productsService.getProductById(param.id, payload.shop._id);
-    return this.utils.adaptResponse(product, res);
+    const user = req.user
+    return await this.productsService.getProductById(param.id, user.shop._id);
   }
 
   // #region EDIT PRODUCT
