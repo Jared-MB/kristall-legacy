@@ -18,11 +18,13 @@ interface Props {
 
 export default async function ShopId(props: Props) {
 	const params = await props.params;
-	const config = await getVirtualShowroomConfig(params.name);
+	const virtualShowroom = await getVirtualShowroomConfig(params.name);
 
-	if (!config) {
+	if (!virtualShowroom) {
 		notFound();
 	}
+
+	const { virtualShowroomConfig: config } = virtualShowroom;
 
 	const [bestSellers, newProducts] = await Promise.all([
 		getPublicBestSellersProducts(params.name),

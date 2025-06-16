@@ -6,15 +6,17 @@ import type {
 	LocationProduct,
 	LocationToAdd,
 } from "../locations/interfaces";
+import type { Product } from "./interfaces";
 
 import { parse } from "@formkit/tempo";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { GET } from "nexum";
+import { REVALIDATE } from "nexum/revalidation";
 
 import { deleteImage, uploadImage } from "../image/adapters/image.adapter";
 import {
 	deleteProductByIdService,
-	getProductByIdService,
 	updateProductByIdService,
 } from "./services/id";
 
@@ -26,7 +28,12 @@ import { HAS_IMAGE_CHANGED } from "../image/constants/use-image";
 import { PRODUCTS_TAGS } from "./constants";
 
 export const getProductById = async (_id: string) => {
-	const { data: product } = await getProductByIdService(_id);
+	const { data: product } = await GET<Product>(`/products/id/${_id}`, {
+		tags: [PRODUCTS_TAGS.ID(_id)],
+		cache: "force-cache",
+		revalidate: REVALIDATE.EVERY_HOUR,
+	});
+
 	const mappedLocations: LocationProduct[] =
 		product?.locations?.map((location) => ({
 			...location,
@@ -124,7 +131,7 @@ export const updateProductById = async (
 	}
 
 	revalidateTag(PRODUCTS_TAGS.PAGINATED);
-	revalidateTag(`PRODUCT-${productId}`);
+	revalidateTag(PRODUCTS_TAGS.ID(productId));
 	return "Actualizado correctamente";
 };
 

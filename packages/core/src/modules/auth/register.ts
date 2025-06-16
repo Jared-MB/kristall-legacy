@@ -2,6 +2,7 @@
 
 import type { RegisterResponse, RegisterUser } from "./interfaces";
 
+import { FORM_MESSAGE_TYPES } from "@kristall/core/forms";
 import { ZodErrorExtractor } from "@kristall/core/utils/zod-error-extractor";
 import { PUT } from "@kristall/http";
 import { login } from "./login";
@@ -58,7 +59,7 @@ export const register = async (
 	if (data !== "ok" && status !== 200) {
 		return {
 			message: {
-				type: "error",
+				type: FORM_MESSAGE_TYPES.INTERNAL_ERROR,
 				value:
 					"Ha ocurrido un error interno, por favor intente de nuevo más tarde",
 			},

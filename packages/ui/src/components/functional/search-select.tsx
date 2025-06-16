@@ -9,6 +9,7 @@ import { isDev } from "@kristall/ui/core/utils";
 import { useQueryParams } from "@kristall/core/hooks/use-query-params";
 
 interface SearchSelectProps extends SelectProps {
+	/** The name of the query parameter that will be used to clear the search if its selected */
 	clearOnValue?: string;
 }
 

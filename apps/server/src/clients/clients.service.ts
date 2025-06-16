@@ -1,6 +1,6 @@
+import { Client } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Client, Shop } from '@/server/entities';
 import { ILike, Like, Repository } from 'typeorm';
 
 @Injectable()
@@ -57,10 +57,12 @@ export class ClientsService {
     }, 'purchases', increment);
   }
 
-  async addClientToDB(client: Client, shop: Shop) {
+  async addClientToDB(client: Client, shop: { _id: string}) {
     const newClient = this.clientRepository.create({
       name: client.name,
-      shop
+      shop: {
+        _id: shop._id,
+      }
     });
     return await this.clientRepository.save(newClient);
   }

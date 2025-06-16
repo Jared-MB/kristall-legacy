@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Aboreto } from "next/font/google";
 
-import { MainPage } from "./main-page";
+import { MainPage } from "./pages/main-page";
 import { PreviewSave } from "./preview-save";
 
 import { ComingSoon } from "@kristall/ui/announcements";
@@ -29,7 +29,7 @@ export function Preview() {
 				<ScrollArea className="max-w-md rounded-md">
 					<TabsList className="mb-4">
 						<TabsTrigger value="index">Inicio</TabsTrigger>
-						<TabsTrigger value="products" disabled className="relative">
+						<TabsTrigger value="products" className="relative">
 							Productos
 						</TabsTrigger>
 						<TabsTrigger value="categories" disabled className="relative">
@@ -41,6 +41,9 @@ export function Preview() {
 				<PreviewSave />
 			</motion.div>
 			<TabsContent value="index">
+				<MainPage shopName={shopName} />
+			</TabsContent>
+			<TabsContent value="products">
 				<MainPage shopName={shopName} />
 			</TabsContent>
 		</Tabs>

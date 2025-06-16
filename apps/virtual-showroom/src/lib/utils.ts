@@ -1,13 +1,22 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import type { PublicProduct } from "@kristall/core/interfaces/products";
 
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
+export const protocol =
+	process.env.NODE_ENV === "production" ? "https" : "http";
+export const rootDomain =
+	process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost:3006";
+
+export function distributeToColumnsArray(
+	products: PublicProduct[],
+	totalColumns: number,
+): PublicProduct[][] {
+	const columns: PublicProduct[][] = Array.from(
+		{ length: totalColumns },
+		() => [],
+	);
+
+	products.forEach((product, index) => {
+		columns[index % totalColumns].push(product);
+	});
+
+	return columns;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, "children"> : T;
-export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
-export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };

@@ -4,4 +4,4 @@ node_modules
 .vercel
 .next
 
-apps/@deprecated-virtual-showroom
+apps/@deprecated-*

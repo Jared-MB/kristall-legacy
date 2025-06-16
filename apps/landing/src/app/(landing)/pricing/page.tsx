@@ -17,6 +17,8 @@ const standardFeatures = [
 ];
 const plusFeatures = [...standardFeatures];
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
 	const prices = await getStripePrices({ orderBy: "asc" });
 

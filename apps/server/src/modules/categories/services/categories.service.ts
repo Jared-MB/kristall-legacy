@@ -13,9 +13,13 @@ export class CategoriesService {
     ) { }
 
     public async getPublicCategories(shopName: string){
+        const URL = `https://${shopName}.kristall.app`
+
         const categories = await this.categoryRepository.find({
             where: { shop: { 
-                name: ILike(`%${shopName}%`)
+                virtualShowroom: {
+                    url: ILike(`%${URL}%`)
+                }
             } },
             select: ['_id','name']
         })

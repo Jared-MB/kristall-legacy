@@ -1,0 +1,36 @@
+{
+	"name": "nexum",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"default": "./dist/index.js"
+		},
+		"./revalidation": {
+			"types": "./src/constants/revalidation.ts",
+			"default": "./dist/constants/revalidation.js"
+		}
+	},
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"chalk": "5.4.1",
+		"cosmiconfig": "9.0.0"
+	},
+	"devDependencies": {
+		"@kristall/typescript-config": "workspace:*",
+		"typescript": "^5"
+	},
+	"peerDependencies": {
+		"next": "^15"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

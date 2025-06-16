@@ -1,10 +1,11 @@
-import { User } from '@/server/entities';
 import { ShopService } from '@/server/modules/shops/services';
 import { StripeService } from '@/server/modules/stripe/services';
 import { FindUserResult, UsersService } from '@/server/modules/users/services';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { PaymentRequiredException } from 'src/exceptions/payment-required.exception';
+import { AuthRequest } from 'src/interfaces/requests';
 import { CacheService } from 'src/services/cache.service';
 
 @Injectable()
@@ -47,7 +48,7 @@ export class AuthService {
     return result;
   }
 
-  async login(user: User) {
+  async login(user: AuthRequest['user']) {
     const userShop = await this.shopsService.getShopById(user.shop._id);
     if (!userShop) return null;
 
@@ -58,11 +59,11 @@ export class AuthService {
 
     const userSubscription = await this.stripeService.getUserSubscription(user._id)
     if (userSubscription.status === 'none'){
-      throw new UnauthorizedException('No tienes una suscripción a Stripe')
+      throw new PaymentRequiredException('No tienes una suscripción a Stripe')
     }
 
     if (userSubscription.status !== 'active'){
-      throw new UnauthorizedException('Tu suscripción a Stripe no está activa')
+      throw new PaymentRequiredException('Tu suscripción a Stripe no está activa')
     }
 
     return {

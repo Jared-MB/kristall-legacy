@@ -10,6 +10,7 @@ import { AUTH_COOKIE } from "./constants/auth.constant";
 
 import { setCookie } from "@kristall/core/utils/cookies";
 import { ZodErrorExtractor } from "@kristall/core/utils/zod-error-extractor";
+import { FORM_MESSAGE_TYPES } from "../../interfaces/form-error";
 
 export const login = async (
 	_prevState: unknown,
@@ -35,7 +36,7 @@ export const login = async (
 		};
 	}
 
-	const { data, status } = await POST<LoginUser, Authorized>(
+	const { data, status, message } = await POST<LoginUser, Authorized>(
 		"/auth/login",
 		parsedData.data,
 		{
@@ -58,10 +59,20 @@ export const login = async (
 		};
 	}
 
+	if (status === 402) {
+		return {
+			message: {
+				type: FORM_MESSAGE_TYPES.PAYMENT_REQUIRED,
+				value: message,
+			},
+			fields: inputs,
+		};
+	}
+
 	if (status !== 200) {
 		return {
 			message: {
-				type: "internal-error",
+				type: FORM_MESSAGE_TYPES.INTERNAL_ERROR,
 				value:
 					"Ha ocurrido un error interno, por favor intente de nuevo más tarde",
 			},

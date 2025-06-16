@@ -8,8 +8,10 @@ export class VirtualShowroomPublicService {
         private readonly virtualShowroomRepository: VirtualShowroomRepository,
     ) { }
 
+    private getVirtualShowroomUrl = (subdomain: string) => `https://${subdomain}.kristall.app`
+
     async get(subdomain: string) {
-        const url = `https://${subdomain}.kristall.app`
+        const url = this.getVirtualShowroomUrl(subdomain)
 
         const virtualShowroom = await this.virtualShowroomRepository.findBy({
             url

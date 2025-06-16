@@ -17,7 +17,9 @@
 			"@kristall/core/*": ["./src/*"],
 			"@core/*": ["./src/*"],
 			"@kristall/http": ["../http/src/modules/http/index.ts"],
-			"@kristall/http/*": ["../http/src/*"]
+			"@kristall/http/*": ["../http/src/*"],
+			"nexum": ["../nexum/src/index.ts"],
+			"nexum/*": ["../nexum/src/*"]
 		},
 		"outDir": "./dist",
 		"declaration": true,

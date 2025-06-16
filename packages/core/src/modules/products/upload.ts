@@ -11,6 +11,7 @@ import type {
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { FORM_MESSAGE_TYPES } from "@kristall/core/forms";
 import { ZodErrorExtractor } from "@kristall/core/utils/zod-error-extractor";
 import { images } from "../image";
 import { PRODUCTS_TAGS } from "./constants";
@@ -78,7 +79,7 @@ export const uploadProduct = async (
 			return {
 				fields: inputsWithImage,
 				message: {
-					type: "size-error",
+					type: FORM_MESSAGE_TYPES.IMAGE_SIZE_ERROR,
 					value: err.message,
 				},
 			};
@@ -86,7 +87,7 @@ export const uploadProduct = async (
 		return {
 			fields: inputsWithImage,
 			message: {
-				type: "image-error",
+				type: FORM_MESSAGE_TYPES.IMAGE_ERROR,
 				value: "Error al subir la imagen",
 			},
 		};
@@ -98,7 +99,7 @@ export const uploadProduct = async (
 		return {
 			fields: inputsWithImage,
 			message: {
-				type: "product-error",
+				type: FORM_MESSAGE_TYPES.INTERNAL_ERROR,
 				value: "Error al subir el producto",
 			},
 		};
@@ -118,7 +119,7 @@ export const uploadProduct = async (
 			},
 		},
 		message: {
-			type: "success",
+			type: FORM_MESSAGE_TYPES.SUCCESS,
 			value: "Producto creado correctamente",
 		},
 	};

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
+import { FORM_MESSAGE_TYPES } from "@kristall/core/forms";
 import { useShortcut } from "@kristall/core/hooks/use-shortcut";
 import { uploadProduct } from "@kristall/core/products/upload";
 import { useBatchesContext } from "../../context/batch-context";
@@ -59,14 +60,14 @@ export default function AddProductForm({
 	);
 
 	useEffect(() => {
-		if (state?.message?.type === "success") {
+		if (state?.message?.type === FORM_MESSAGE_TYPES.SUCCESS) {
 			toast.success(state.message.value);
 			clearLocations();
 			clearBatches();
 			formRef.current?.reset();
 			return;
 		}
-		if (state?.message?.type === "size-error") {
+		if (state?.message?.type === FORM_MESSAGE_TYPES.IMAGE_SIZE_ERROR) {
 			toast.info(state.message.value, {
 				action: (
 					<Button asChild size="sm" variant="outline">

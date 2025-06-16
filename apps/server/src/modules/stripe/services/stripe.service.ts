@@ -9,6 +9,8 @@ import { CacheService } from 'src/services/cache.service';
 import { StripeUserSubscription } from '../interfaces';
 import { StripeRepository } from '../repositories/stripe.repository';
 
+const FIVE_MINUTES = 5 * 60 * 1000;
+
 @Injectable()
 export class StripeService {
 
@@ -72,7 +74,6 @@ export class StripeService {
    * @param userId The user id - **NOT THE STRIPE ID**
    */
   async getUserSubscription(userId: string): Promise<StripeUserSubscription> { 
-
     const subscriptionsCached = await this.cacheService.get<StripeUserSubscription>(userId)
 
     if (subscriptionsCached){
@@ -89,7 +90,7 @@ export class StripeService {
 
     if (subscriptions.data.length === 0) {
       const subscriptionData = { status: "none" } as const;
-      await this.cacheService.set(userId, subscriptionData);
+      await this.cacheService.set(userId, subscriptionData, 'stripe', FIVE_MINUTES);
       return subscriptionData;
     }
   
@@ -112,7 +113,7 @@ export class StripeService {
           : null,
     };
 
-    await this.cacheService.set(userId, subscriptionData)
+    await this.cacheService.set(userId, subscriptionData, 'stripe')
     return subscriptionData;
   }
 

@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminModule } from './admin/admin.module';
 import { ClientsModule } from './clients/clients.module';
 import { ExpensesModule } from './expenses/expenses.module';
-import { LocationsModule } from './locations/locations.module';
+import { LocationsModule } from './modules/locations/locations.module';
 
 import {
   AnalyticsModule,

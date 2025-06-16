@@ -1,7 +1,7 @@
 import { Product } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { ILike, Not, Repository } from 'typeorm';
 
 type SortByProduct = 'price-higher' | 'price-lower' | 'newest' | 'best-sellers';
 export type QueryProduct = {
@@ -32,6 +32,82 @@ export class PublicProductsService {
       default:
         return { createdAt: 'DESC' };
     }
+  }
+
+  async getProductById(shopId: string, productId: string) {
+    const product = await this.productRepository.findOne({
+      where: {
+        _id: productId,
+        shop: { _id: shopId },
+      },
+      relations: {
+        image: true,
+        category: true,
+        locations: true,
+      },
+      select: [
+        '_id',
+        'name',
+        'image',
+        'price',
+        'category',
+        'createdAt',
+        'totalSales',
+        'stock'
+      ],
+    })
+
+    if (!product) {
+      return null
+    }
+
+    return {
+      ...product,
+      isAvailable: product.stock > 0
+    }
+  }
+
+  async getRelatedProducts(shopId: string, productId: string, query: { take: number }) {
+    const product = await this.getProductById(shopId, productId)
+
+    if (!product) {
+      return null
+    }
+
+    const products = await this.productRepository.find({
+      where: {
+        shop: { _id: shopId },
+        category: {
+          _id: product.category._id,
+        },
+        _id: Not(product._id)
+      },
+      relations: ['image', 'category'],
+      select: [
+        '_id',
+        'name',
+        'image',
+        'price',
+        'category',
+        'createdAt',
+        'totalSales',
+        'stock'
+      ],
+      take: query.take,
+    })
+
+    if (!products) {
+      return null
+    }
+
+    return products.map(product => {
+      const { stock,...rest } = product
+
+      return {
+       ...rest,
+        isAvailable: stock > 0
+      }
+    })
   }
 
   async getProducts(shopId: string, query: QueryProduct) {

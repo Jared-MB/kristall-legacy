@@ -1,6 +1,9 @@
 "use server";
 
 import { paginateURL } from "@kristall/core/utils";
+import { GET } from "@kristall/http";
+import { PRODUCTS_TAGS } from "./constants";
+import type { PublicProduct } from "./interfaces";
 import {
 	getPublicBestSellersService,
 	getPublicNewProductsService,
@@ -20,6 +23,35 @@ export const getPublicProducts = async (
 ) => {
 	const query = paginateURL(searchParams, take);
 	const { data } = await getPublicProductsService(shopName, query);
+	return data;
+};
+
+export const getPublicRelatedProducts = async (
+	shopName: string,
+	productId: string,
+	searchParams?: Readonly<URLSearchParams>,
+) => {
+	const { data } = await GET<PublicProduct[] | null>(
+		`/public-products/${shopName}/${productId}/related?${
+			searchParams?.toString() ?? ""
+		}`,
+	);
+
+	return data;
+};
+
+export const getPublicProductById = async (
+	shopName: string,
+	productId: string,
+) => {
+	const { data } = await GET<PublicProduct | null>(
+		`/public-products/${shopName}/${productId}`,
+		{
+			tags: [PRODUCTS_TAGS.PUBLIC_DETAILS(productId)],
+			cache: "no-store",
+		},
+	);
+
 	return data;
 };
 

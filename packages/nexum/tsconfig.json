@@ -1,0 +1,14 @@
+{
+	"extends": "@kristall/typescript-config/base.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true,
+		"module": "ES2022",
+		"moduleResolution": "Node"
+	},
+	"include": ["src", "next-env.d.ts", "node_modules/next/types/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
+}

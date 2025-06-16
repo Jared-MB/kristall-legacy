@@ -51,4 +51,15 @@ export class VirtualShowroomConfig {
 
     @OneToOne(() => VirtualShowroom, (virtualShowroom) => virtualShowroom.virtualShowroomConfig)
     virtualShowroom: VS;
+
+    @Column({
+        enum: ['normal', 'masonry'],
+        default: 'masonry',
+    })
+    grid: string
+
+    @Column({
+        default: 4
+    })
+    gridColumns: number
 }

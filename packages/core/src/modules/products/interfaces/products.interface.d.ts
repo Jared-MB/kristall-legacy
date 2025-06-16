@@ -25,7 +25,14 @@ export interface Product {
 
 export type PublicProduct = Pick<
 	Product,
-	"_id" | "name" | "image" | "price" | "category" | "createdAt" | "totalSales"
+	| "_id"
+	| "name"
+	| "image"
+	| "price"
+	| "category"
+	| "createdAt"
+	| "totalSales"
+	| "locations"
 > & {
 	isAvailable: boolean;
 };

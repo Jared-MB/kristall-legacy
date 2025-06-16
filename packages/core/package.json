@@ -12,7 +12,8 @@
 		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",
 		"./*": "./src/modules/*.ts",
 		"./hooks/*": "./src/hooks/*.ts",
-		"./interfaces/*": "./src/modules/*/interfaces/index.d.ts"
+		"./interfaces/*": "./src/modules/*/interfaces/index.d.ts",
+		"./forms": "./src/interfaces/form-error.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
@@ -37,6 +38,7 @@
 		"dotenv": "^16.4.5",
 		"zod": "^3.23.8",
 		"zustand": "^5.0.2",
-		"@kristall/http": "workspace:*"
+		"@kristall/http": "workspace:*",
+		"nexum": "workspace:*"
 	}
 }

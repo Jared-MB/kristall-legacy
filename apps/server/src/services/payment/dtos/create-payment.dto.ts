@@ -1,4 +1,3 @@
-import { Shop } from "@/server/entities"
 import { PaymentMethod } from "../interfaces"
 
 export class CreatePaymentDto {
@@ -9,5 +8,7 @@ export class CreatePaymentDto {
     total: number
     cost: number
     date: Date
-    shop: Shop
+    shop: {
+        _id: string
+    }
 }

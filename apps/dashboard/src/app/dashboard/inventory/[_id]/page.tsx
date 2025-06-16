@@ -23,11 +23,12 @@ export default async function ProductIdPage(props: {
 		settings.getDefaultBatchEnabled(),
 	]);
 
+	if (!product) return <div>Product not found</div>;
+
 	const { defaultBatchEnabled } = userSettings;
 	const hasEnableBatches = Boolean(product.batchEnabled);
 	const defaultBatches = getBatchesFromLocations(product.locations);
 
-	if (!product) return <div>Product not found</div>;
 	if (!categories) return <div>Categories not found</div>;
 
 	return (

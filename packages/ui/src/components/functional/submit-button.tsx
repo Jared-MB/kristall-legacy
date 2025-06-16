@@ -20,7 +20,7 @@ interface Props extends ButtonProps {
 
 export function SubmitButton({
 	children,
-	pendingText = "Loading...",
+	pendingText = "Guardando...",
 	className,
 	loading,
 	disabled = false,

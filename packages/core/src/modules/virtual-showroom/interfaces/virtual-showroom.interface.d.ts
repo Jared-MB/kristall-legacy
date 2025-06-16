@@ -1,5 +1,4 @@
 import type { Image } from "../../image/interfaces";
-import type { Shop } from "../../shop/interfaces";
 
 export interface VirtualShowroom {
 	_id: string;
@@ -26,7 +25,8 @@ export interface VirtualShowroomConfig {
 	cardTitle?: string;
 	cardDescription?: string;
 	customColor?: string;
-	shop: Shop;
+	grid?: "masonry" | "grid";
+	gridColumns?: number;
 }
 
 export type HandlerFunctionResponse =

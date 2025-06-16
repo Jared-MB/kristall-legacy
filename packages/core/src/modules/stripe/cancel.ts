@@ -1,6 +1,9 @@
 "use server";
 
-import type { InputField } from "../../interfaces/form-error";
+import {
+	FORM_MESSAGE_TYPES,
+	type InputField,
+} from "../../interfaces/form-error";
 import type { CancelSubscriptionError } from "./interfaces";
 
 import { revalidateTag } from "next/cache";
@@ -75,7 +78,7 @@ export const cancelSubscription = async (
 	if (response.status !== 200) {
 		return {
 			message: {
-				type: "error",
+				type: FORM_MESSAGE_TYPES.INTERNAL_ERROR,
 				value: response.message ?? "Error al cancelar la suscripción",
 			},
 			fields: {
@@ -93,7 +96,7 @@ export const cancelSubscription = async (
 	 */
 	return {
 		message: {
-			type: "success",
+			type: FORM_MESSAGE_TYPES.SUCCESS,
 			value: "Se canceló correctamente la suscripción",
 		},
 		fields: {

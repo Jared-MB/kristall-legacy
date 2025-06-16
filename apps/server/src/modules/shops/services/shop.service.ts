@@ -3,9 +3,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 
-import { LocationsService } from '@/server/locations/locations.service';
 import { SettingsService } from '@/server/modules/settings/services';
 import { randomUUID } from 'node:crypto';
+import { LocationsService } from 'src/modules/locations/services/locations.service';
 
 @Injectable()
 export class ShopService {
@@ -188,7 +188,7 @@ export class ShopService {
     async getByVirtualShowroomName(virtualShowroomName: string) {
         return await this.shopRepository.findOne({
             where: {
-                name: ILike(`%${virtualShowroomName}%`)
+                name: ILike(`%${virtualShowroomName.replaceAll('-', ' ')}%`)
             },
             relations: {
                 virtualShowroom: true,

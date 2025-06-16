@@ -1,6 +1,6 @@
+import { Payment } from '@/server/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Payment } from '@/server/entities';
 import { Repository } from 'typeorm';
 import { CreatePaymentDto } from '../dtos';
 

@@ -106,42 +106,42 @@ const SelectContent = ({
 );
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-const SelectLabel = ({
-	ref,
+function SelectLabel({
 	className,
 	...props
-}: React.ComponentProps<typeof SelectPrimitive.Label>) => (
-	<SelectPrimitive.Label
-		ref={ref}
-		className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
-		{...props}
-	/>
-);
-SelectLabel.displayName = SelectPrimitive.Label.displayName;
+}: React.ComponentProps<typeof SelectPrimitive.Label>) {
+	return (
+		<SelectPrimitive.Label
+			data-slot="select-label"
+			className={cn("text-muted-foreground px-2 py-1.5 text-xs", className)}
+			{...props}
+		/>
+	);
+}
 
-const SelectItem = ({
-	ref,
+function SelectItem({
 	className,
 	children,
 	...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) => (
-	<SelectPrimitive.Item
-		ref={ref}
-		className={cn(
-			"relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-			className,
-		)}
-		{...props}
-	>
-		<span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-			<SelectPrimitive.ItemIndicator>
-				<Check className="h-4 w-4" />
-			</SelectPrimitive.ItemIndicator>
-		</span>
-		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-	</SelectPrimitive.Item>
-);
-SelectItem.displayName = SelectPrimitive.Item.displayName;
+}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+	return (
+		<SelectPrimitive.Item
+			data-slot="select-item"
+			className={cn(
+				"focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+				className,
+			)}
+			{...props}
+		>
+			<span className="absolute right-2 flex size-3.5 items-center justify-center">
+				<SelectPrimitive.ItemIndicator>
+					<Check className="size-4" />
+				</SelectPrimitive.ItemIndicator>
+			</span>
+			<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+		</SelectPrimitive.Item>
+	);
+}
 
 const SelectSeparator = ({
 	ref,

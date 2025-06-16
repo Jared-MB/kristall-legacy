@@ -1,3 +1,4 @@
 export const LOCATIONS_TAGS = {
 	GET: "LOCATIONS_GET",
+	PUBLIC: "GET_PUBLIC_LOCATIONS",
 } as const;

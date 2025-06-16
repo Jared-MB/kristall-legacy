@@ -15,7 +15,7 @@ export class VirtualShowroomPublicController {
     ){}
 
     @Get(':subdomain')
-    async get(@Param('subdomain') subdomain: string){
+    async getVirtualShowroom(@Param('subdomain') subdomain: string){
         const virtualShowroom = await this.virtualShowroomPublicService.get(subdomain)
         if (!virtualShowroom || !virtualShowroom?.isPublic){
             throw new NotFoundException()
@@ -30,6 +30,13 @@ export class VirtualShowroomPublicController {
             ...virtualShowroom,
             image: shop?.image?.url
         }
+    }
+
+    @Get(':subdomain/image')
+    async getImage(@Param('subdomain') subdomain: string){
+        const shop = await this.shopService.getByVirtualShowroomName(subdomain)
+
+        return shop?.image.url
     }
 
 }

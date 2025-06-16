@@ -1,5 +1,3 @@
-import { getCustomers } from "@/actions/customer.actions";
-
 import {
 	Table,
 	TableBody,
@@ -11,8 +9,12 @@ import {
 import AddCustomer from "./components/add-customer-form";
 import CustomerMenu from "./components/customer-menu";
 
+import { getAllClients } from "@kristall/core/clients/all";
+
+export const dynamic = "force-dynamic";
+
 export default async function CustomersPage() {
-	const customers = await getCustomers();
+	const customers = await getAllClients();
 
 	if (!customers) return <div>Clientes no encontrados</div>;
 

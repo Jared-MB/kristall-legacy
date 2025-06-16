@@ -1,32 +1,34 @@
-import {
-    BadRequestException,
-    Body,
-    Controller,
-    Get,
-    Headers,
-    InternalServerErrorException,
-    NotFoundException,
-    Param,
-    Patch,
-    Post,
-    Put,
-    Query,
-    Req,
-    Res,
-    UnauthorizedException,
-    UseInterceptors
-} from '@nestjs/common';
-import { Request, Response } from 'express';
-import { randomUUID } from 'node:crypto';
 import { ClientsService } from '@/server/clients/clients.service';
 import { Cookies } from '@/server/decorators';
 import { Public } from '@/server/decorators/public.decorator';
 import { Cancellation, Order } from '@/server/entities';
 import { ResponseInterceptor } from '@/server/interceptors';
-import { LocationsService } from '@/server/locations/locations.service';
 import { LocationProductService, ProductsService } from '@/server/modules/products/services';
 import { AuthService, PaymentService } from '@/server/services';
 import { TokenService, Utils } from '@/server/utilities';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Headers,
+  InternalServerErrorException,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+  Req,
+  Res,
+  UnauthorizedException,
+  UseInterceptors
+} from '@nestjs/common';
+import { Request, Response } from 'express';
+import { randomUUID } from 'node:crypto';
+import { AuthRequest } from 'src/interfaces/requests';
+import { LocationsService } from 'src/modules/locations/services/locations.service';
+import { ShopRepository } from 'src/modules/shops/repositories/shop.repository';
 import { CreateOrderDto } from '../dtos';
 import { CodeService, OrdersService, ProductOrderService } from '../services';
 
@@ -43,7 +45,8 @@ export class OrdersController {
         private readonly utils: Utils,
         private readonly tokenService: TokenService,
         private readonly authService: AuthService,
-        private readonly codeService: CodeService
+        private readonly codeService: CodeService,
+        private readonly shopRepository: ShopRepository
     ) { }
 
     @Get()
@@ -198,14 +201,13 @@ export class OrdersController {
     @Post('create-order')
     async createOrder(
         @Body() body: CreateOrderDto,
-        @Cookies('session') session: string
+        @Req() req: AuthRequest,
     ) {
-        const user = this.authService.decodeCookie(session)
-        if (!user) {
-            throw new UnauthorizedException()
-        }
+        const shop = await this.shopRepository.findOne(req.user.shop._id)
 
-        const { shop } = user
+        if (!shop) {
+            throw new BadRequestException()
+        }
 
         const client = await this.clientsService.getByName(body.client, shop._id)
 

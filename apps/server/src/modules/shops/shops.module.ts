@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { LocationsModule } from '@/server/locations/locations.module';
 import { CategoriesModule, ProductsModule } from '@/server/modules';
+import { LocationsModule } from 'src/modules/locations/locations.module';
 
 import { ShopController, ShopPublicController } from './controllers';
 
@@ -17,12 +17,17 @@ import { AuthService } from '@/server/services';
 import { CacheService } from 'src/services/cache.service';
 import { ShopRepository } from './repositories/shop.repository';
 
+/**
+ * Injected here to avoid circular dependencies with the locations module
+ */
+import { PublicLocationsController } from '../locations/controllers/locations.public.controller';
+
 @Module({
     imports: [
         TypeOrmModule.forFeature([Shop, Image, PublicPage, Setting]),
         LocationsModule,
-        ProductsModule,
-        CategoriesModule
+        CategoriesModule,
+        forwardRef(() => ProductsModule),
     ],
     providers: [
         CacheService,
@@ -34,7 +39,7 @@ import { ShopRepository } from './repositories/shop.repository';
         SettingsService, 
         AuthService
     ],
-    controllers: [ShopController, ShopPublicController],
-    exports: [ShopService]
+    controllers: [ShopController, ShopPublicController, PublicLocationsController],
+    exports: [ShopService, ShopRepository]
 })
 export class ShopsModule { }

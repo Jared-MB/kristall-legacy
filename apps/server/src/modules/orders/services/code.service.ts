@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { Crypto } from '@/server/utilities/Crypto';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CodeService {
@@ -21,7 +21,7 @@ export class CodeService {
             result += '0';
         }
         return result + numberString;
-    };
+    }
 
     private createShopNameCode(shop: string): string {
         const words = shop.split(' ');
@@ -44,7 +44,7 @@ export class CodeService {
             words[1].slice(0, 1).toUpperCase() +
             words[2].slice(0, 1).toUpperCase()
         );
-    };
+    }
 
     /**
      * Generate a code for an order
@@ -69,13 +69,13 @@ export class CodeService {
             '-' +
             this.fillWithZeros(orderNumber)
         );
-    };
+    }
 
     public generateNoNameCode(shop: string, totalOrders: number): string {
         const shopNameCode = this.createShopNameCode(shop);
         const orderNumber = totalOrders + 1;
         return shopNameCode + '-' + this.fillWithZeros(orderNumber);
-    };
+    }
 
     public generateSecurityCode = async () => {
         const code = Math.floor(1000 + Math.random() * 9000).toString();

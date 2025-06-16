@@ -1,50 +1,33 @@
 "use client";
 
-import { addCustomer } from "@/actions/customer.actions";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+
+import { uploadClient } from "@kristall/core/clients/upload";
+import { FORM_MESSAGE_TYPES } from "@kristall/core/forms";
+
+import { Button } from "@kristall/ui/button";
 import {
-	Button,
 	Dialog,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
-	Input,
-	InputContainer,
-	Label,
-} from "@/components/ui";
-import { useToast } from "@/core/hooks";
-import { useActionState, useEffect, useState } from "react";
-
-const initialState = {
-	message: "",
-	error: {
-		message: "",
-		_id: "",
-		name: "",
-	},
-};
+} from "@kristall/ui/dialog";
+import { SubmitButton } from "@kristall/ui/functional/submit-button";
+import { Input, InputContainer } from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
 
 export default function AddCustomer() {
-	const { promiseToast, resolveToast } = useToast();
+	const formRef = useRef<HTMLFormElement>(null);
 
-	const [state, action] = useActionState(addCustomer, initialState);
+	const [state, dispatch] = useActionState(uploadClient, undefined);
 	const [open, setOpen] = useState(false);
 
-	const handleAction = (data: FormData) => {
-		promiseToast();
-		action(data);
-	};
-
 	useEffect(() => {
-		if ("message" in state && state.message) {
-			resolveToast(state.message);
-			setOpen(false);
-			return;
-		}
-		if ("errors" in state && state.errors) {
-			const errors = Object.entries(state.errors);
-			const errorMessage = `${errors[0][0]}: ${errors[0][1]}`;
-			resolveToast(errorMessage, "error");
+		if (state?.message?.type === FORM_MESSAGE_TYPES.SUCCESS) {
+			toast.success(state.message.value);
 			setOpen(false);
 		}
 	}, [state]);
@@ -56,12 +39,22 @@ export default function AddCustomer() {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<h4 className="text-2xl">Agregar cliente</h4>
+					<DialogTitle>Agregar cliente</DialogTitle>
 				</DialogHeader>
-				<form action={handleAction}>
+				<form action={dispatch} ref={formRef}>
 					<InputContainer>
 						<Label>Nombre</Label>
-						<Input name="name" type="text" placeholder="Nombre del cliente" />
+						<Input
+							defaultValue={state?.fields.name.value}
+							name="name"
+							type="text"
+							placeholder="Nombre del cliente"
+						/>
+						{state?.fields.name.message && (
+							<p className="text-red-500 text-sm">
+								{state.fields.name.message}
+							</p>
+						)}
 					</InputContainer>
 					<DialogFooter className="mt-4">
 						<Button
@@ -71,7 +64,7 @@ export default function AddCustomer() {
 						>
 							Cancelar
 						</Button>
-						<Button>Guardar</Button>
+						<SubmitButton>Guardar</SubmitButton>
 					</DialogFooter>
 				</form>
 			</DialogContent>

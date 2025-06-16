@@ -5,6 +5,7 @@ import type {
 	HeadersContent,
 	ServerConnectionOptions,
 } from "@/types/server-connection";
+import { isDev } from "@kristall/core/utils";
 import type { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export class ClientServerConnection {
@@ -47,6 +48,12 @@ export class ClientServerConnection {
 	}
 
 	public async makeRequest<T>(headers: HeadersContent, options: FetchProps) {
+		isDev &&
+			console.warn(
+				"⚠️ ClientServerConnection is deprecated, use @kristall/http instead, is used at ",
+				this.url,
+			);
+
 		const api = ClientServerConnection.SERVER_API;
 		const response = await fetch(`${api}${this.url}`, {
 			method: options.method,
