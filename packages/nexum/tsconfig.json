@@ -9,6 +9,12 @@
 		"module": "ES2022",
 		"moduleResolution": "Node"
 	},
-	"include": ["src", "next-env.d.ts", "node_modules/next/types/**/*.ts"],
+	"include": [
+		"src", 
+		"next-env.d.ts", 
+		"node_modules/next/types/**/*.ts", 
+		"next-env.d.ts",
+		".next/types/**/*.ts"
+	],
 	"exclude": ["node_modules", "dist"]
 }
