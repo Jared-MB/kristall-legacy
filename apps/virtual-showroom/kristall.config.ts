@@ -1,7 +1,10 @@
 import type { KristallConfig } from "@kristall/http/interfaces";
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const config: KristallConfig = {
-	serverUrl: "http://localhost:3001/api",
+	serverUrl: process.env.SERVER_URL,
 	defaultAuthRequests: false,
 };
 
