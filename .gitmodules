@@ -1,6 +1,6 @@
 [submodule "http-nextjs"]
 	path = packages/http
 	url = https://github.com/Jared-MB/http-nextjs.git
-[submodule "nexum"]
+[submodule "packages/nexum"]
 	path = packages/nexum
-	url =  https://github.com/Jared-MB/nexum.git
+	url = https://github.com/Jared-MB/nexum.git
