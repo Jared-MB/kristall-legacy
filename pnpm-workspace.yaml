@@ -1,4 +1,15 @@
 packages:
-  - 'apps/*'
-  - 'packages/*'
-  - 'packages/*/docs'
+  - apps/*
+  - packages/*
+  - packages/*/docs
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@compodoc/compodoc'
+  - '@nestjs/core'
+  - '@swc/core'
+  - '@tailwindcss/oxide'
+  - bcrypt
+  - protobufjs
+  - sharp
+  - unrs-resolver

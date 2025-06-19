@@ -1,23 +1,11 @@
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
+import { Suspense } from "react";
+
+import { Table, TableHead, TableHeader, TableRow } from "@kristall/ui/table";
+
 import AddCustomer from "./components/add-customer-form";
-import CustomerMenu from "./components/customer-menu";
+import { ClientsTable, ClientsTableSkeleton } from "./components/clients-table";
 
-import { getAllClients } from "@kristall/core/clients/all";
-
-export const dynamic = "force-dynamic";
-
-export default async function CustomersPage() {
-	const customers = await getAllClients();
-
-	if (!customers) return <div>Clientes no encontrados</div>;
-
+export default function ClientsPage() {
 	return (
 		<main className="p-8 h-layout overflow-y-auto">
 			<header className="mb-4 flex justify-between items-center">
@@ -29,19 +17,12 @@ export default async function CustomersPage() {
 					<TableRow>
 						<TableHead>Nombre</TableHead>
 						<TableHead>Compras</TableHead>
+						<TableHead />
 					</TableRow>
 				</TableHeader>
-				<TableBody>
-					{customers?.map((customer) => (
-						<TableRow key={customer._id}>
-							<TableCell>{customer.name}</TableCell>
-							<TableCell>{customer.purchases}</TableCell>
-							<TableCell>
-								<CustomerMenu customer={customer} />
-							</TableCell>
-						</TableRow>
-					))}
-				</TableBody>
+				<Suspense fallback={<ClientsTableSkeleton />}>
+					<ClientsTable />
+				</Suspense>
 			</Table>
 		</main>
 	);
