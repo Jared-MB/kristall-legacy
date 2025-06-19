@@ -14,7 +14,7 @@
 		"dev:web": "pnpm --filter \"@kristall/landing\" --filter \"@kristall/server\" dev",
 		"dev:server:dashboard": "pnpm --filter \"@kristall/dashboard\" --filter \"@kristall/server\" dev",
 		"dev:core": "pnpm --filter @kristall/core dev",
-		"build": "turbo run build",
+		"build": "npm rebuild --verbose sharp && turbo run build",
 		"build:landing": "pnpm --filter @kristall/landing build",
 		"build:dashboard": "pnpm --filter @kristall/dashboard build",
 		"build:pos": "pnpm --filter @kristall/pos build",
