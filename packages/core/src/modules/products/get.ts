@@ -2,17 +2,32 @@
 
 import type { Product, PublicProduct } from "./interfaces";
 
-import { GET } from "@kristall/http";
-import type { Pagination } from "@kristall/http/interfaces";
+import { GET } from "nexum";
+
+import type { Pagination } from "@kristall/http/modules/http/interfaces";
+import { errorLog } from '../../utils/logs';
 import { paginateURL } from "../../utils/pagination";
-import {
-	getBestSellersAdapter,
-	getPaginatedProductsAdapter,
-} from "./adapters/get";
 import { PRODUCTS_TAGS } from "./constants";
 
-export const getBestSellers = async () => {
-	const data = await GET<PublicProduct[] | null>(
+export const getProductsByLocation = async (searchParams: Readonly<URLSearchParams>): Promise<Product[] | undefined> => {
+	const locationId = searchParams.get('locationId')
+	const take = Number(searchParams.get('take') ?? 15)
+
+	if (!locationId){
+		errorLog('Location ID is required')
+		return undefined
+	}
+	
+	const { data } = await GET<Product[]>(`/products/location?id=${locationId}&take=${take}`, {
+		tags: [PRODUCTS_TAGS.BY_LOCATION(locationId, take)],
+		cache: "force-cache",
+	})
+
+	return data
+}
+
+export const getBestSellers = async (): Promise<PublicProduct[] | undefined> => {
+	const { data } = await GET<PublicProduct[]>(
 		"/products/best-sellers?take=10&skip=0",
 		{
 			tags: [PRODUCTS_TAGS.BEST_SELLERS],
@@ -20,7 +35,7 @@ export const getBestSellers = async () => {
 		},
 	);
 
-	return getBestSellersAdapter(data);
+	return data
 };
 
 export const getPaginatedProducts = async (
@@ -28,11 +43,9 @@ export const getPaginatedProducts = async (
 ): Promise<Pagination<Product>> => {
 	const query = paginateURL(searchParams);
 
-	const data = await GET<Pagination<Product> | null>(`/products?${query}`, {
+	const {data: pagination} = await GET<Pagination<Product>>(`/products?${query}`, {
 		tags: [PRODUCTS_TAGS.PAGINATED],
 	});
-
-	const pagination = getPaginatedProductsAdapter(data);
 
 	return (
 		pagination ?? {

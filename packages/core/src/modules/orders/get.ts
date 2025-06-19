@@ -1,20 +1,36 @@
 "use server";
 
-import { GET } from "@kristall/http";
-import { getLatestOrdersAdapter, getOrdersAdapter } from "./adapters/get";
-import { ORDER_TAGS } from "./constants";
+import type { Pagination } from "@kristall/http/modules/http/interfaces";
 import type { Order } from "./interfaces";
 
-export const getLatestOrders = async (): Promise<Order[] | null> => {
-	const data = await GET<Order[]>("/orders/latest", {
-		tags: [ORDER_TAGS.LATEST],
+import { GET } from "nexum";
+import { paginateURL } from "../../utils/pagination";
+import { ORDER_TAGS } from "./constants";
+
+type GetOrdersResponse = Pagination<Order>;
+
+export const getOrders = async (
+	searchParams: Readonly<URLSearchParams>,
+): Promise<GetOrdersResponse | undefined> => {
+	const pagination = paginateURL(searchParams);
+	const { data } = await GET<GetOrdersResponse>(`/orders?${pagination}`, {
+		tags: [ORDER_TAGS.PAGINATED(pagination)],
+		cache: "no-store",
 	});
-	return getOrdersAdapter(data);
+
+	return data;
 };
 
-export const getPendingOrders = async (): Promise<number | null> => {
-	const data = await GET<number>("/orders/pending", {
+export const getLatestOrders = async (): Promise<Order[] | undefined> => {
+	const { data } = await GET<Order[]>("/orders/latest", {
+		tags: [ORDER_TAGS.LATEST],
+	});
+	return data;
+};
+
+export const getPendingOrders = async (): Promise<number | undefined> => {
+	const { data } = await GET<number>("/orders/pending", {
 		tags: [ORDER_TAGS.PENDING],
 	});
-	return getLatestOrdersAdapter(data);
+	return data;
 };

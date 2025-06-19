@@ -9,7 +9,6 @@ export const getProducts = async (
 	const query = new URLSearchParams(searchParams);
 	query.delete("take");
 
-	console.log(query.toString());
 	const { data } = await getProductsService(query.toString());
 	return data;
 };

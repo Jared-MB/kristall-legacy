@@ -2,7 +2,7 @@
 
 import type { Authorized, LoginResponse, LoginUser } from "./interfaces";
 
-import { POST } from "@kristall/http";
+import { POST } from "nexum";
 import { LoginSchema } from "./validators/auth.validator";
 
 import { redirect } from "next/navigation";
@@ -36,11 +36,12 @@ export const login = async (
 		};
 	}
 
-	const { data, status, message } = await POST<LoginUser, Authorized>(
+	const { data, status, message } = await POST<Authorized, LoginUser>(
 		"/auth/login",
 		parsedData.data,
 		{
 			auth: false,
+			revalidateTags: "never",
 		},
 	);
 
@@ -69,7 +70,7 @@ export const login = async (
 		};
 	}
 
-	if (status !== 200) {
+	if (status !== 200 || !data) {
 		return {
 			message: {
 				type: FORM_MESSAGE_TYPES.INTERNAL_ERROR,

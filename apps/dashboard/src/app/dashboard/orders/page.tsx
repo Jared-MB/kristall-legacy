@@ -1,5 +1,11 @@
 import type { OrderStatus } from "@kristall/core/modules/orders/interfaces";
 
+import { cookies } from "next/headers";
+
+import { ListFilter, MoreVertical, PackagePlus } from "lucide-react";
+
+import { getOrders } from "@kristall/core/orders/get";
+
 import { ORDER_STATUS } from "@kristall/core/modules/orders/constants";
 import OrdersTable from "@kristall/ui/compound/orders/table/orders-table";
 import { SearchSelect } from "@kristall/ui/functional/search-select";
@@ -22,13 +28,11 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ListFilter, MoreVertical, PackagePlus } from "lucide-react";
-import { cookies } from "next/headers";
-import PrintOrders from "./components/print-orders";
+} from "@kristall/ui/dropdown-menu";
+import { InputContainer } from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
 
-import { InputContainer, Label } from "@/components/ui";
-import { getOrders } from "./_adapters";
+import PrintOrders from "./components/print-orders";
 
 export default async function OrdersPage(props: {
 	searchParams: Promise<URLSearchParams>;

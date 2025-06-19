@@ -2,7 +2,7 @@ export const NEXT_TAGS = {
 	GET_VIRTUAL_SHOWROOM: "virtual-showroom",
 	GET_ANALYTICS: "analytics",
 	GET_SHOP: "shop",
-	GET_ORDERS: "orders",
+	GET_ORDERS: "ORDERS",
 	GET_LATEST_ORDERS: "latest-orders",
 	GET_PRODUCTS: "products",
 	GET_CATEGORIES: "categories",

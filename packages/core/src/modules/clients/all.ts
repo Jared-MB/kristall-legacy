@@ -8,6 +8,7 @@ import type { Client } from "./interfaces/client.interface";
 export const getAllClients = async () => {
 	const { data } = await GET<Client[]>("/clients", {
 		tags: [CLIENTS_TAGS.ALL],
+		cache: "force-cache",
 	});
 	return data;
 };

@@ -30,7 +30,7 @@ export const uploadClient = async (
 	}
 
 	const { status, message } = await POST("/clients", validatedFields.data, {
-		revalidates: [CLIENTS_TAGS.ALL],
+		revalidateTags: [CLIENTS_TAGS.ALL],
 	});
 
 	if (status !== 201) {

@@ -1,5 +1,8 @@
 /**
  * @description Take the "page" query parameter from the URL and return the skip and take query parameters.
+ *
+ * @param take The number of items to take per page.
+ * @default 7
  */
 export const paginateURL = (
 	searchParams: Readonly<URLSearchParams>,
