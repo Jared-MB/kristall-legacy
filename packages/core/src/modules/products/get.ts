@@ -4,7 +4,7 @@ import type { Product, PublicProduct } from "./interfaces";
 
 import { GET } from "nexum";
 
-import type { Pagination } from "@kristall/http/modules/http/interfaces";
+import type { Pagination } from "@kristall/http/interfaces";
 import { errorLog } from '../../utils/logs';
 import { paginateURL } from "../../utils/pagination";
 import { PRODUCTS_TAGS } from "./constants";

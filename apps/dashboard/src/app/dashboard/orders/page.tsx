@@ -38,10 +38,12 @@ export default async function OrdersPage(props: {
 	searchParams: Promise<URLSearchParams>;
 }) {
 	const searchParams = await props.searchParams;
-	const { entities: orders, page, totalPages } = await getOrders(searchParams);
+	const orders = await getOrders(searchParams);
 	const cookie = (await cookies()).get("session");
 
 	if (!orders) return <div>Error al cargar los pedidos</div>;
+
+	const { entities, page, totalPages } = orders;
 
 	return (
 		<main className="p-8 h-layout overflow-y-auto">
@@ -102,7 +104,7 @@ export default async function OrdersPage(props: {
 				</div>
 			</header>
 			<section>
-				<OrdersTable orders={orders} />
+				<OrdersTable orders={entities} />
 				<TablePagination page={page} totalPages={totalPages} />
 			</section>
 		</main>

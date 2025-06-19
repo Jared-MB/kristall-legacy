@@ -1,6 +1,6 @@
 "use server";
 
-import type { Pagination } from "@kristall/http/modules/http/interfaces";
+import type { Pagination } from "@kristall/http/interfaces";
 import type { Order } from "./interfaces";
 
 import { GET } from "nexum";
