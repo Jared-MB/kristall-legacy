@@ -1,6 +1,3 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { randomUUID } from 'node:crypto';
 import {
     Cancellation,
     Client,
@@ -14,8 +11,13 @@ import {
 } from '@/server/entities';
 import { BankAccountsService } from '@/server/modules/bank-accounts/services';
 import { generateCode, generateSecurityCode, Utils } from '@/server/utilities';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'node:crypto';
 import { DeepPartial, Equal, ILike, Like, Or, Repository } from 'typeorm';
 import { CodeService } from './code.service';
+
+import { ORDER_STATUS } from '../controllers/orders.controller';
 
 @Injectable()
 export class OrdersService {
@@ -113,11 +115,13 @@ export class OrdersService {
     async getAllOrdersByShopId(shopID: string, {
         take = 10,
         skip = 0,
-        code
+        code,
+        status
     }: {
         take: number,
         skip: number,
         code?: string,
+        status?: keyof typeof ORDER_STATUS
     }) {
         const count = await this.orderRepository.count({
             where: {
@@ -126,10 +130,13 @@ export class OrdersService {
             }
         })
 
+        const orderStatus = status === 'all' ? undefined : status
+
         const orders = await this.orderRepository.find({
             where: {
                 shop: { _id: shopID },
-                code: code ? ILike(`%${code}%`) : undefined
+                code: code ? ILike(`%${code}%`) : undefined,
+                status: orderStatus ? Equal(orderStatus) : undefined
             },
             relations: ['payment'],
             order: {

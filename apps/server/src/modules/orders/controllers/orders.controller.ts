@@ -7,22 +7,22 @@ import { LocationProductService, ProductsService } from '@/server/modules/produc
 import { AuthService, PaymentService } from '@/server/services';
 import { TokenService, Utils } from '@/server/utilities';
 import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  Headers,
-  InternalServerErrorException,
-  NotFoundException,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
-  Req,
-  Res,
-  UnauthorizedException,
-  UseInterceptors
+    BadRequestException,
+    Body,
+    Controller,
+    Get,
+    Headers,
+    InternalServerErrorException,
+    NotFoundException,
+    Param,
+    Patch,
+    Post,
+    Put,
+    Query,
+    Req,
+    Res,
+    UnauthorizedException,
+    UseInterceptors
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { randomUUID } from 'node:crypto';
@@ -31,6 +31,16 @@ import { LocationsService } from 'src/modules/locations/services/locations.servi
 import { ShopRepository } from 'src/modules/shops/repositories/shop.repository';
 import { CreateOrderDto } from '../dtos';
 import { CodeService, OrdersService, ProductOrderService } from '../services';
+
+export const ORDER_STATUS = {
+	received: "Recibido",
+	preparing: "Preparando",
+	delivering: "En camino",
+	ready: "Listo para recoger",
+	completed: "Completado",
+	cancelled: "Cancelado",
+    all: "Todos"
+} as const;
 
 @Controller('orders')
 export class OrdersController {
@@ -49,31 +59,29 @@ export class OrdersController {
         private readonly shopRepository: ShopRepository
     ) { }
 
+    @UseInterceptors(ResponseInterceptor)
     @Get()
     async getAllOrdersByShopId(
-        @Res() res: Response,
-        @Req() req: Request,
+        @Req() req: AuthRequest,
         @Query() query: {
             take: number,
             skip: number,
-            code?: string
+            code?: string,
+            status?: keyof typeof ORDER_STATUS
         } = { take: 10, skip: 0 },
     ) {
+        const { shop } = req.user;
 
-        const cookie = req.cookies['session']
-        const payload = this.tokenService.decodeCookie(cookie)
-        if (!payload) {
-            return res.status(404).json({ message: 'No route found' })
-        }
-
-        const orders = this.ordersService.getAllOrdersByShopId(
-            payload.shop._id, {
+        const orders = await this.ordersService.getAllOrdersByShopId(
+            shop._id, {
             take: query.take,
             skip: query.skip,
-            code: query.code
+            code: query.code,
+            status: query.status
         }
         );
-        return this.utils.adaptResponse(orders, res);
+
+        return orders
     }
 
     @Get('latest')
