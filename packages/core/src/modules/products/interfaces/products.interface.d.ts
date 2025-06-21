@@ -23,6 +23,18 @@ export interface Product {
 	batchEnabled: 0 | 1;
 }
 
+export type OrderProduct = Pick<
+	Product,
+	"_id" | "name" | "price" | "stock" | "image" | "code" | "category"
+>;
+
+export type ShoppingCartProduct = Pick<
+	Product,
+	"_id" | "name" | "price" | "stock"
+> & {
+	quantity: number;
+};
+
 export type PublicProduct = Pick<
 	Product,
 	| "_id"

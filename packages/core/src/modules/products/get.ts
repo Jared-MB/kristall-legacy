@@ -1,32 +1,55 @@
 "use server";
 
-import type { Product, PublicProduct } from "./interfaces";
+import type { OrderProduct, Product, PublicProduct } from "./interfaces";
 
 import { GET } from "nexum";
 
 import type { Pagination } from "@kristall/http/interfaces";
-import { errorLog } from '../../utils/logs';
 import { paginateURL } from "../../utils/pagination";
 import { PRODUCTS_TAGS } from "./constants";
 
-export const getProductsByLocation = async (searchParams: Readonly<URLSearchParams>): Promise<Product[] | undefined> => {
-	const locationId = searchParams.get('locationId')
-	const take = Number(searchParams.get('take') ?? 15)
-
-	if (!locationId){
-		errorLog('Location ID is required')
-		return undefined
+export const getProductsByLocation = async ({
+	locationId,
+	name,
+	take = 16,
+}: {
+	locationId: string;
+	name?: string;
+	take?: number;
+}): Promise<OrderProduct[] | undefined> => {
+	if (!locationId || typeof locationId !== "string") {
+		return undefined;
 	}
-	
-	const { data } = await GET<Product[]>(`/products/location?id=${locationId}&take=${take}`, {
-		tags: [PRODUCTS_TAGS.BY_LOCATION(locationId, take)],
-		cache: "force-cache",
-	})
 
-	return data
-}
+	if (typeof take !== "number") {
+		return undefined;
+	}
 
-export const getBestSellers = async (): Promise<PublicProduct[] | undefined> => {
+	const searchParams = new URLSearchParams({
+		id: locationId,
+		take: take.toString(),
+	});
+
+	if (name) {
+		searchParams.set("name", name);
+	}
+
+	const { data } = await GET<OrderProduct[]>(
+		`/products/location?${searchParams.toString()}`,
+		{
+			tags: [
+				PRODUCTS_TAGS.BY_LOCATION(locationId, take),
+				...(name ? [PRODUCTS_TAGS.SEARCH(name)] : []),
+			],
+		},
+	);
+
+	return data;
+};
+
+export const getBestSellers = async (): Promise<
+	PublicProduct[] | undefined
+> => {
 	const { data } = await GET<PublicProduct[]>(
 		"/products/best-sellers?take=10&skip=0",
 		{
@@ -35,7 +58,7 @@ export const getBestSellers = async (): Promise<PublicProduct[] | undefined> => 
 		},
 	);
 
-	return data
+	return data;
 };
 
 export const getPaginatedProducts = async (
@@ -43,9 +66,12 @@ export const getPaginatedProducts = async (
 ): Promise<Pagination<Product>> => {
 	const query = paginateURL(searchParams);
 
-	const {data: pagination} = await GET<Pagination<Product>>(`/products?${query}`, {
-		tags: [PRODUCTS_TAGS.PAGINATED],
-	});
+	const { data: pagination } = await GET<Pagination<Product>>(
+		`/products?${query}`,
+		{
+			tags: [PRODUCTS_TAGS.PAGINATED],
+		},
+	);
 
 	return (
 		pagination ?? {

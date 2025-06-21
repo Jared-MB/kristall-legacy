@@ -2,20 +2,14 @@
 
 import type { Location } from "./interfaces";
 
-import { GET } from "@kristall/http";
-import { getLocationsAdapter } from "./adapters/get";
+import { GET } from "nexum";
 import { LOCATIONS_TAGS } from "./constants/locations.tags";
 
-export const getLocations = async (
-	{ revalidate }: { revalidate?: number } = {
-		revalidate: undefined,
-	},
-): Promise<Location[] | null> => {
-	const data = await GET<Location[] | null>("/locations", {
+export const getLocations = async (): Promise<Location[] | undefined> => {
+	const { data } = await GET<Location[]>("/locations", {
 		tags: [LOCATIONS_TAGS.GET],
 		cache: "force-cache",
-		revalidate: revalidate,
 	});
 
-	return getLocationsAdapter(data);
+	return data;
 };

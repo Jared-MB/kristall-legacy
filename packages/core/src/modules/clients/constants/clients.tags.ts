@@ -1,3 +1,4 @@
 export const CLIENTS_TAGS = {
-	ALL: "CLIENTS",
+	ALL: "clients:all",
+	NAME: (name: string) => `clients:name:${name}`,
 };
