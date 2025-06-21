@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { randomUUID } from 'crypto';
-import { DataSource, ILike, Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 
 import { ImageService } from '@/server/modules/image/services/image.service';
 import { Utils } from '@/server/utilities';
@@ -22,8 +22,7 @@ export class ProductsService {
     @InjectRepository(Image)
     private readonly imageRepository: Repository<Image>,
     private readonly utils: Utils,
-    private readonly imageService: ImageService,
-    private dataSource: DataSource
+    private readonly imageService: ImageService
   ) { }
 
   create(product: CreateProductServerDto) {
@@ -68,7 +67,7 @@ export class ProductsService {
     to: string,
     onlySoldProducts: 'on' | 'off',
   }, shopId: string) {
-
+    throw new Error('Method not implemented.');
   }
 
   // #region Add Product To DB
@@ -368,7 +367,7 @@ export class ProductsService {
     return product;
   }
 
-  async getBestSellers(shopId: string, take: number = 10, skip: number = 0) {
+  async getBestSellers(shopId: string, take = 10, skip = 0) {
     const products = await this.productRepository.find({
       where: {
         shop: { _id: shopId },
@@ -383,22 +382,48 @@ export class ProductsService {
     return products;
   }
 
-  /**
-  * @deprecated
-  */
-  async getProductsByLocation(locationId: string, take?: number, skip = 0, name?: string, code?: string) {
-
-    if (!locationId) {
-      return []
+  async getProductsByLocation({
+    locationId,
+    shopId,
+    take = 10,
+    skip = 0,
+    name,
+    code
+  }: {
+    locationId: string,
+    shopId: string,
+    take?: number,
+    skip?: number,
+    name?: string,
+    code?: string
+  }) {
+    if (!locationId || !shopId) {
+      return undefined
     }
+
+    if (typeof take !== "number" || Number.isNaN(take)) {
+      throw new BadRequestException('Take must be a number')
+    }
+
+    if (typeof skip !== "number" || Number.isNaN(skip)) {
+      throw new BadRequestException('Skip must be a number')
+    }
+
+    const nameConstraint = name ? ILike(`%${name}%`) : undefined
+    const codeConstraint = code ? Like(`%${code}%`) : undefined
 
     const products = await this.productRepository.find({
       where: {
         locations: {
           locationId,
         },
+        shop: {
+          _id: shopId,
+        },
+        name: nameConstraint,
+        code: codeConstraint
       },
-      relations: ['image', 'locations'],
+      relations: ['image', 'locations', "category"],
       take,
       skip,
       select: {
@@ -407,11 +432,10 @@ export class ProductsService {
         code: true,
         stock: true,
         price: true,
-        cost: true,
       }
     });
 
-    let filteredProducts = products.map(product => {
+    const filteredProducts = products.map(product => {
       const { locations, ...rest } = product
 
       const location = locations.find(location => location.locationId === locationId)
@@ -422,17 +446,10 @@ export class ProductsService {
       }
     });
 
-    if (name) {
-      filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().includes(name.toLowerCase()));
-    }
-    else if (code) {
-      filteredProducts = filteredProducts.filter((product) => product.code.toLowerCase().includes(code.toLowerCase()));
-    }
-
     return filteredProducts
   }
 
-  async getProductsForPublic(shopId: string, take: number = 10, skip: number = 0) {
+  async getProductsForPublic(shopId: string, take = 10, skip = 0) {
     const products = await this.productRepository.find({
       where: {
         shop: { _id: shopId },

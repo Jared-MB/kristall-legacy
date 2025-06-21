@@ -26,13 +26,13 @@ export class ClientsService {
     });
   }
 
-  async getByShop(shopId: string, query: { take: number, skip: number, client?: string } = { take: 7, skip: 0 }) {
+  async getByShop(shopId: string, query: { take: number, skip: number, name?: string } = { take: 7, skip: 0 }) {
     return await this.clientRepository.find({
       where: {
         shop: {
           _id: shopId,
         },
-        name: query.client ? ILike(`%${query.client}%`) : ILike('%%'),
+        name: query.name ? ILike(`%${query.name}%`) : undefined,
       },
       take: query.take,
       skip: query.skip,

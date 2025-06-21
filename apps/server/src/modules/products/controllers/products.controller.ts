@@ -433,21 +433,23 @@ export class ProductsController {
     return this.utils.adaptResponse(products, res);
   }
 
-  @UseInterceptors(new ResponseInterceptor())
-  @Get("by-location")
+  @UseInterceptors(ResponseInterceptor)
+  @Get("location")
   async getProductsByLocation(
-    @Cookies('session') session: string,
-    @Query() query: { location: string, take: number, skip: number, name: string, code: string },
+    @Req() req: AuthRequest,
+    @Query() query: { id: string, take: string, skip?: string, name?: string, code?: string },
   ) {
-    const user = this.authService.decodeCookie(session);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
+    const { shop } = req.user
 
-    const take = query.take ? +query.take : 10;
-    const skip = query.skip ? +query.skip : 0;
-    const name = query.name ? query.name : '';
-    const data = await this.productsService.getProductsByLocation(query.location, take, skip, name, query.code);
+    const data = await this.productsService.getProductsByLocation({
+      locationId: query.id,
+      shopId: shop._id,
+      take: +query.take,
+      skip: query?.skip ? +query.skip : 0,
+      name: query.name,
+      code: query.code,
+    });
+
     return data
   }
 

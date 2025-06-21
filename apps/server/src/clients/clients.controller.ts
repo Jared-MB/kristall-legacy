@@ -36,7 +36,7 @@ export class ClientsController {
     @Query() query: {
       take: number,
       skip: number,
-      client?: string
+      name?: string
     } = { take: 7, skip: 0 }
   ) {
     const { shop } = req.user
