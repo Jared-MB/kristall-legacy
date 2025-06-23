@@ -2,7 +2,7 @@ import { SidebarTrigger } from "@kristall/ui/sidebar";
 
 import { Suspense } from "react";
 import BreadcrumbNavigation from "./breadcrumb-navigation";
-import ShopName, { ShopNameSkeleton } from "./shop-name";
+import { ShopName, ShopNameSkeleton } from "./shop-name";
 
 export default function Header() {
 	return (

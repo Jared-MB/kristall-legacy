@@ -2,8 +2,9 @@
 
 import type { Shop } from "./interfaces";
 
-import { GET } from "@kristall/http";
 import { redirect } from "next/navigation";
+import { GET } from "nexum";
+
 import { SHOP_TAGS } from "./constants";
 
 export const getShopData = async () => {

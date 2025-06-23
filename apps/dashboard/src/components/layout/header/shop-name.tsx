@@ -1,9 +1,9 @@
-import { shop } from "@kristall/core/modules/shop";
+import { getShopData } from "@kristall/core/shop/data";
 import { Skeleton } from "@kristall/ui/skeleton";
 import Link from "next/link";
 
-export default async function ShopName() {
-	const { shopName } = await shop.getShopData();
+export async function ShopName() {
+	const { shopName } = await getShopData();
 
 	return <Link href="/dashboard">{shopName}</Link>;
 }
