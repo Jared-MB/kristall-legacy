@@ -1,0 +1,17 @@
+{
+	"extends": "@kristall/typescript-config/base.json",
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src",
+		"moduleResolution": "bundler",
+		"module": "es2020",
+		"baseUrl": "."
+	},
+	"include": [
+		"src",
+		"next-env.d.ts",
+		"node_modules/next/types/**/*.ts",
+		".next/types/**/*.ts"
+	],
+	"exclude": ["node_modules", "dist"]
+}

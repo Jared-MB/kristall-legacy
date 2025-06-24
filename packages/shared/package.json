@@ -1,0 +1,41 @@
+{
+	"name": "@kristall/shared",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"default": "./dist/index.js"
+		},
+		"./domains/*/types": {
+			"types": "./src/common/domains/*/types/index.ts",
+			"default": "./dist/common/domains/*/types/index.js"
+		},
+		"./domains/*": {
+			"types": "./src/common/domains/*.ts",
+			"default": "./dist/common/domains/*.js"
+		}
+	},
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@types/node": "^24.0.3",
+		"zod": "3.25.67"
+	},
+	"devDependencies": {
+		"@kristall/typescript-config": "workspace:*",
+		"typescript": "5.8.3"
+	},
+	"peerDependencies": {
+		"next": "^15",
+		"react": "^19",
+		"react-dom": "^19"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.12.1"
+}

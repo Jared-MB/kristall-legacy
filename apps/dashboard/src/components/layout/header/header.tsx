@@ -17,7 +17,6 @@ export default function Header() {
 				<span>|</span>
 				<BreadcrumbNavigation />
 			</div>
-			{/* <Menu /> */}
 		</header>
 	);
 }

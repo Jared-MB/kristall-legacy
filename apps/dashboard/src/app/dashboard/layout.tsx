@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 	title: "Kristall - Dashboard",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardLayout({
 	children,
 }: Readonly<{

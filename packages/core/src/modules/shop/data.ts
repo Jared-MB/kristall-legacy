@@ -7,6 +7,9 @@ import { GET } from "nexum";
 
 import { SHOP_TAGS } from "./constants";
 
+/**
+ * @deprecated Use data file from `@kristall/client`
+ */
 export const getShopData = async () => {
 	const { data } = await GET<Shop>("/shops/name", {
 		tags: [SHOP_TAGS.INFO],

@@ -1,4 +1,4 @@
-import { getShopData } from "@kristall/core/shop/data";
+import { getShopData } from "@kristall/client/services/store-management/use-cases/private/get-shop-data";
 import { Skeleton } from "@kristall/ui/skeleton";
 import Link from "next/link";
 

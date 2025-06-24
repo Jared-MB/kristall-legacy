@@ -20,6 +20,8 @@
 		"@formkit/tempo": "0.1.1",
 		"@hookform/resolvers": "3.3.4",
 		"@kristall/core": "workspace:*",
+		"@kristall/shared": "workspace:*",
+		"@kristall/client": "workspace:*",
 		"@kristall/ui": "workspace:*",
 		"@radix-ui/react-accordion": "1.2.2",
 		"@radix-ui/react-avatar": "1.1.2",

@@ -20,7 +20,15 @@
 	"[svelte]": {
 		"editor.defaultFormatter": "svelte.svelte-vscode"
 	},
-	"cSpell.words": ["clabe", "cloudflare", "lucide", "nestjs", "sonner"],
+	"cSpell.words": [
+		"clabe",
+		"cloudflare",
+		"kristall",
+		"lucide",
+		"nestjs",
+		"nexum",
+		"sonner"
+	],
 	"yaml.schemas": {
 		"https://json.schemastore.org/yamllint.json": "file:///c%3A/Users/amuno/Documents/proyectos/kristall/.github/worksflows/main.yml"
 	}

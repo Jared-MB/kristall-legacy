@@ -2,6 +2,8 @@ import Header from "@/components/layout/header";
 import { SidebarProvider } from "@kristall/ui/sidebar";
 import { DocsSidebar } from "./components/docs-sidebar";
 
+export const dynamic = "force-dynamic";
+
 export default function DocsLayout({
 	children,
 }: {
