@@ -1,4 +1,4 @@
-import type { Vercel } from "@vercel/sdk";
+import type { Vercel } from "@vercel/sdk" with { "resolution-mode": "import" };
 
 import { Injectable } from "@nestjs/common";
 import { ReportsService } from "src/modules/reports/services";
