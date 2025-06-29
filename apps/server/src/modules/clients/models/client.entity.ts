@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Shop } from './shop.entity';
+import { Shop } from '../../../entities/shop.entity';
 
 @Entity()
 export class Client {
@@ -17,4 +17,11 @@ export class Client {
     default: 0,
   })
   purchases: number;
+
+  @Column({
+    default: 1,
+    enum: [0, 1],
+    nullable: true
+  })
+  isActive: number
 }
