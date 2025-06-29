@@ -1,6 +1,5 @@
 import {
     Cancellation,
-    Client,
     Location,
     LocationProduct,
     Order,
@@ -17,6 +16,7 @@ import { randomUUID } from 'node:crypto';
 import { DeepPartial, Equal, ILike, Like, Or, Repository } from 'typeorm';
 import { CodeService } from './code.service';
 
+import { Client } from 'src/modules/clients/models/client.entity';
 import { ORDER_STATUS } from '../controllers/orders.controller';
 
 @Injectable()

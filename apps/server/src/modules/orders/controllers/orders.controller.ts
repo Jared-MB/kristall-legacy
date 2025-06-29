@@ -1,4 +1,3 @@
-import { ClientsService } from '@/server/clients/clients.service';
 import { Cookies } from '@/server/decorators';
 import { Public } from '@/server/decorators/public.decorator';
 import { Cancellation, Order } from '@/server/entities';
@@ -7,26 +6,27 @@ import { LocationProductService, ProductsService } from '@/server/modules/produc
 import { AuthService, PaymentService } from '@/server/services';
 import { TokenService, Utils } from '@/server/utilities';
 import {
-    BadRequestException,
-    Body,
-    Controller,
-    Get,
-    Headers,
-    InternalServerErrorException,
-    NotFoundException,
-    Param,
-    Patch,
-    Post,
-    Put,
-    Query,
-    Req,
-    Res,
-    UnauthorizedException,
-    UseInterceptors
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Headers,
+  InternalServerErrorException,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+  Req,
+  Res,
+  UnauthorizedException,
+  UseInterceptors
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { randomUUID } from 'node:crypto';
 import { AuthRequest } from 'src/interfaces/requests';
+import { ClientsService } from 'src/modules/clients/services/clients.service';
 import { LocationsService } from 'src/modules/locations/services/locations.service';
 import { ShopRepository } from 'src/modules/shops/repositories/shop.repository';
 import { CreateOrderDto } from '../dtos';

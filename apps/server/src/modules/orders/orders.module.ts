@@ -1,7 +1,5 @@
-import { ClientsService } from '@/server/clients/clients.service';
 import {
   Cancellation,
-  Client,
   Location,
   LocationProduct,
   Order,
@@ -17,6 +15,8 @@ import { Crypto } from '@/server/utilities/Crypto';
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocationsModule } from 'src/modules/locations/locations.module';
+import { ClientsModule } from '../clients/clients.module';
+import { Client } from '../clients/models/client.entity';
 import { OrdersController } from './controllers';
 import { OrdersPublicController } from './controllers/orders-public.controller';
 import { CodeService, OrdersService, ProductOrderService } from './services';
@@ -37,8 +37,9 @@ import { CodeService, OrdersService, ProductOrderService } from './services';
     BankAccountsModule,
     forwardRef(() => ProductsModule),
     forwardRef(() => ShopsModule),
+    ClientsModule
   ],
-  providers: [OrdersService, Utils, TokenService, ClientsService, AuthService, ClientsService, CodeService, ProductOrderService, PaymentService, Crypto],
+  providers: [OrdersService, Utils, TokenService, AuthService, CodeService, ProductOrderService, PaymentService, Crypto],
   controllers: [OrdersController, OrdersPublicController],
 })
 export class OrdersModule { }
