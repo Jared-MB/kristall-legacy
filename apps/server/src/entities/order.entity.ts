@@ -1,3 +1,4 @@
+import { Client } from 'src/modules/clients/models/client.entity';
 import {
   Column,
   Entity,
@@ -8,7 +9,7 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Cancellation, Client, Location, Payment, ProductOrder, Shop } from '.';
+import { Cancellation, Location, Payment, ProductOrder, Shop } from '.';
 
 @Entity()
 export class Order {
