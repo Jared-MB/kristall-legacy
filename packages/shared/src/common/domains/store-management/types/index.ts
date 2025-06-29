@@ -1,2 +1,2 @@
-export * from "./private";
 export * from "./shop";
+export * from "./shop.private";
