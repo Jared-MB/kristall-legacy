@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, any> {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const serverResponse = context.switchToHttp().getResponse().statusCode;
     return next.handle().pipe(
       map(data => {
         /**
@@ -17,13 +18,13 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, any> {
           return {
             data: null,
             message: response?.message ?? 'Internal server error',
-            status: response?.status ?? 500,
+            status: serverResponse ?? response.status ?? 500,
           };
         }
         return {
           message: 'Success',
           data,
-          status: 200,
+          status: serverResponse ?? 200,
         };
       })
     );
