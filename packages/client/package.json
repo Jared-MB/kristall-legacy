@@ -7,6 +7,10 @@
 		"./services/store-management/use-cases/private/*": {
 			"types": "./src/services/store-management/use-cases/private/*.ts",
 			"default": "./dist/services/store-management/use-cases/private/*.js"
+		},
+		"./services/user-management/use-cases/private/*": {
+			"types": "./src/services/user-management/use-cases/private/*.ts",
+			"default": "./dist/services/user-management/use-cases/private/*.js"
 		}
 	},
 	"scripts": {
