@@ -1,15 +1,17 @@
-import { getAllClients } from "@kristall/core/clients/all";
+import { getAllClients } from "@kristall/client/services/user-management/use-cases/private/get-all-clients";
 
 import { Button } from "@kristall/ui/button";
 import { Skeleton } from "@kristall/ui/skeleton";
 import { TableBody, TableCell, TableRow } from "@kristall/ui/table";
+
 import { MoreVertical } from "lucide-react";
-import CustomerMenu from "./customer-menu";
+
+import { SeeMoreMenu } from "./see-more-menu";
 
 export async function ClientsTable() {
-	const customers = await getAllClients();
+	const clients = await getAllClients();
 
-	if (!customers || customers.length === 0)
+	if (!clients || clients.length === 0)
 		return (
 			<TableBody>
 				<TableRow>
@@ -22,12 +24,12 @@ export async function ClientsTable() {
 
 	return (
 		<TableBody>
-			{customers.map((customer) => (
-				<TableRow key={customer._id}>
-					<TableCell>{customer.name}</TableCell>
-					<TableCell>{customer.purchases}</TableCell>
+			{clients.map((client) => (
+				<TableRow key={client._id}>
+					<TableCell>{client.name}</TableCell>
+					<TableCell>{client.purchases}</TableCell>
 					<TableCell>
-						<CustomerMenu customer={customer} />
+						<SeeMoreMenu client={client} />
 					</TableCell>
 				</TableRow>
 			))}
