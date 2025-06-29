@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Request, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, HttpCode, Post, Request, UseGuards, UseInterceptors } from "@nestjs/common";
 import { Cookies, Public } from "src/decorators";
 import { ResponseInterceptor } from "src/interceptors";
 import { AuthRequest } from "src/interfaces/requests";
@@ -19,6 +19,7 @@ export class AuthController {
     }
 
     @Public()
+    @HttpCode(200)
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req: AuthRequest) {
