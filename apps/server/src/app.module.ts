@@ -5,8 +5,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AdminModule } from './admin/admin.module';
-import { ClientsModule } from './clients/clients.module';
 import { ExpensesModule } from './expenses/expenses.module';
+import { ClientsModule } from './modules/clients/clients.module';
 import { LocationsModule } from './modules/locations/locations.module';
 
 import {
