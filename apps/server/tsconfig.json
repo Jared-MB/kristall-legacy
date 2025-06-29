@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "nodenext",
 		"declaration": true,
 		"removeComments": true,
 		"emitDecoratorMetadata": true,
@@ -21,6 +21,7 @@
 		"strictBindCallApply": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
-		"lib": ["ES2021.String"]
+		"lib": ["ES2021.String"],
+		"moduleResolution": "nodenext"
 	}
 }
