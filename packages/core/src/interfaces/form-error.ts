@@ -12,6 +12,6 @@ export interface FormErrorResponse<T> {
 }
 
 export interface InputField {
-	value: any;
+	value?: any;
 	message: string;
 }
