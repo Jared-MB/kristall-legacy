@@ -1,7 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import type { PrivateClient } from "@kristall/shared/domains/user-management/types";
 
+import { useState } from "react";
+
+import { Button } from "@kristall/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -9,20 +12,18 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import type { Customer } from "@/types/customer";
-import { MoreVertical } from "lucide-react";
-import { useState } from "react";
-import EditCustomer from "./edit-customer";
-import RemoveCustomer from "./remove-customer";
+} from "@kristall/ui/dropdown-menu";
 
-export default function CustomerMenu({ customer }: { customer: Customer }) {
+import { MoreVertical } from "lucide-react";
+
+import { DeleteClient } from "./delete-client";
+import { EditClient } from "./edit-client";
+
+export function SeeMoreMenu({ client }: { client: PrivateClient }) {
 	const [open, setOpen] = useState(false);
 
-	const closeMenu = () => setOpen(false);
-
 	return (
-		<DropdownMenu open={open} onOpenChange={setOpen}>
+		<DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
 			<DropdownMenuTrigger asChild>
 				<Button size="icon" variant="ghost">
 					<MoreVertical />
@@ -32,10 +33,10 @@ export default function CustomerMenu({ customer }: { customer: Customer }) {
 				<DropdownMenuLabel>Opciones</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
-					<EditCustomer customer={customer} closeMenu={closeMenu} />
+					<EditClient client={client} />
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
-					<RemoveCustomer customer={customer} closeMenu={closeMenu} />
+					<DeleteClient client={client} />
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
