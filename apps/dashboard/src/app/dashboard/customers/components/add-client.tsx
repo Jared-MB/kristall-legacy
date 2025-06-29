@@ -1,10 +1,10 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { uploadClient } from "@kristall/core/clients/upload";
-import { FORM_MESSAGE_TYPES } from "@kristall/core/forms";
+import { uploadClient } from "@kristall/client/services/user-management/use-cases/private/upload-client";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
 
 import { Button } from "@kristall/ui/button";
 import {
@@ -19,9 +19,7 @@ import { SubmitButton } from "@kristall/ui/functional/submit-button";
 import { Input, InputContainer } from "@kristall/ui/input";
 import { Label } from "@kristall/ui/label";
 
-export default function AddCustomer() {
-	const formRef = useRef<HTMLFormElement>(null);
-
+export function AddClient() {
 	const [state, dispatch] = useActionState(uploadClient, undefined);
 	const [open, setOpen] = useState(false);
 
@@ -29,6 +27,10 @@ export default function AddCustomer() {
 		if (state?.message?.type === FORM_MESSAGE_TYPES.SUCCESS) {
 			toast.success(state.message.value);
 			setOpen(false);
+			return;
+		}
+		if (state?.message?.type === FORM_MESSAGE_TYPES.INTERNAL_ERROR) {
+			toast.error(state.message.value);
 		}
 	}, [state]);
 
@@ -41,7 +43,7 @@ export default function AddCustomer() {
 				<DialogHeader>
 					<DialogTitle>Agregar cliente</DialogTitle>
 				</DialogHeader>
-				<form action={dispatch} ref={formRef}>
+				<form action={dispatch}>
 					<InputContainer>
 						<Label>Nombre</Label>
 						<Input
