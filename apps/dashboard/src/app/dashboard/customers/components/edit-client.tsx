@@ -36,6 +36,17 @@ export function EditClient({ client }: Props) {
 		}
 	}, [state]);
 
+	if (!client.isActive) {
+		return (
+			<div
+				data-disabled
+				className="relative flex cursor-not-allowed items-center rounded-sm gap-x-2 px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+			>
+				Editar
+			</div>
+		);
+	}
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
