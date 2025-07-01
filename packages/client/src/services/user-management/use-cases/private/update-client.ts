@@ -1,6 +1,9 @@
 "use server";
 
-import type { UpdateClient } from "@kristall/shared/domains/user-management/types";
+import {
+	ClientStatus,
+	type UpdateClient,
+} from "@kristall/shared/domains/user-management/types";
 import type { UpdateClientResponse } from "../../types";
 
 import { PATCH } from "nexum";
@@ -49,7 +52,7 @@ export const updateClient = async (
 		PRIVATE_CLIENTS_ENDPOINTS.UPDATE_CLIENT(clientId),
 		parsedData.data,
 		{
-			revalidateTags: [CLIENTS_TAGS.ALL],
+			revalidateTags: [CLIENTS_TAGS.ALL(ClientStatus.ACTIVE)],
 		},
 	);
 

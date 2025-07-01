@@ -1,6 +1,9 @@
 "use server";
 
-import type { UploadClient } from "@kristall/shared/domains/user-management/types";
+import {
+	ClientStatus,
+	type UploadClient,
+} from "@kristall/shared/domains/user-management/types";
 import type { UploadClientResponse } from "../../types";
 
 import { POST } from "nexum";
@@ -36,7 +39,7 @@ export const uploadClient = async (
 		PRIVATE_CLIENTS_ENDPOINTS.CREATE_CLIENT,
 		validatedFields.data,
 		{
-			revalidateTags: [CLIENTS_TAGS.ALL],
+			revalidateTags: [CLIENTS_TAGS.ALL(ClientStatus.ACTIVE)],
 		},
 	);
 
