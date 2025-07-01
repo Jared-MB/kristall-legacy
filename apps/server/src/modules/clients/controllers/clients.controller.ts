@@ -9,6 +9,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseInterceptors,
   UsePipes,
@@ -18,7 +19,7 @@ import { AuthRequest } from 'src/interfaces/requests';
 
 
 import { CreateClientDto } from '../dtos/create-client.dto';
-import { ParamDto } from '../dtos/param.dto';
+import { ParamDto, QueryClientDto } from '../dtos/param.dto';
 import { UpdateClientDto } from '../dtos/update-client.dto';
 import { ClientsService } from '../services/clients.service';
 
@@ -32,10 +33,10 @@ export class ClientsController {
 
   @HttpCode(200)
   @Get()
-  async getClients(@Req() req: AuthRequest) {
+  async getClients(@Req() req: AuthRequest, @Query() query: QueryClientDto) {
     const { shop } = req.user
     return await this.clientsService.findByShopId(shop._id, {
-      active: true,
+      status: query.status,
     });
   }
 

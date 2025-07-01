@@ -6,6 +6,7 @@ import { DeleteClientDto } from '../dtos/delete-client.dto';
 import { UpdateClientCriteriaDto } from '../dtos/update-client.dto';
 import { Client } from '../models/client.entity';
 import { ClientsRepository } from '../repositories/clients.repository';
+import { ClientStatus } from '../types/client-status';
 
 @Injectable()
 export class ClientsService {
@@ -18,14 +19,14 @@ export class ClientsService {
     private readonly clientsRepository: ClientsRepository,
   ) { }
 
-  async findByShopId(shopId: string, { active }: { active?: boolean } = { active: undefined }): Promise<Client[]>{
-    const searchActiveClients = typeof active === 'boolean'
+  async findByShopId(shopId: string, { status }: {  status?: ClientStatus } = { status: undefined }): Promise<Client[]>{
+    const searchActiveClients = typeof status === 'string'
     
     const clients = await this.clientsRepository.find({
       shop: {
         _id: shopId,
       },
-      isActive: searchActiveClients ? (active ? 1 : 0) : undefined,
+      isActive: searchActiveClients ? (status === ClientStatus.ACTIVE ? 1 : 0) : undefined,
     })
 
     return clients;
