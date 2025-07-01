@@ -5,6 +5,7 @@ import type { DeleteClientResponse } from "../../types";
 import { DELETE } from "nexum";
 import { STATUS } from "nexum/status";
 
+import { ClientStatus } from "@kristall/shared/domains/user-management/types";
 import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/clients/private";
 import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
 import { CLIENTS_TAGS } from "../../constants/tags";
@@ -30,7 +31,10 @@ export const deleteClient = async (
 		PRIVATE_CLIENTS_ENDPOINTS.DELETE_CLIENT(_id),
 		null,
 		{
-			revalidateTags: [CLIENTS_TAGS.ALL],
+			revalidateTags: [
+				CLIENTS_TAGS.ALL(ClientStatus.ACTIVE),
+				CLIENTS_TAGS.ALL(ClientStatus.INACTIVE),
+			],
 		},
 	);
 
