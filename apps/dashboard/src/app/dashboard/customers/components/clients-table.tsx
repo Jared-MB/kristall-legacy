@@ -8,8 +8,22 @@ import { MoreVertical } from "lucide-react";
 
 import { SeeMoreMenu } from "./see-more-menu";
 
-export async function ClientsTable() {
-	const clients = await getAllClients();
+import { ClientStatus } from "@kristall/shared/domains/user-management/types";
+import { ClientStatusValidator } from "@kristall/shared/domains/user-management/validators/client-status-validator";
+
+export async function ClientsTable({
+	searchParams,
+}: { searchParams: Promise<Readonly<URLSearchParams>> }) {
+	const params = new URLSearchParams(await searchParams);
+
+	const parsedStatus = ClientStatusValidator.safeParse(params.get("status"));
+	let status: ClientStatus = ClientStatus.ACTIVE;
+
+	if (parsedStatus.success) {
+		status = parsedStatus.data;
+	}
+
+	const clients = await getAllClients({ status });
 
 	if (!clients || clients.length === 0)
 		return (
