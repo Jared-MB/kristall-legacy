@@ -8,5 +8,11 @@ import type { Client } from "./client";
 export interface PrivateClient extends Omit<Client, "isActive"> {
 	isActive: boolean;
 }
+
+export enum ClientStatus {
+	ACTIVE = "active",
+	INACTIVE = "inactive",
+}
+
 export type UploadClient = z.infer<typeof UploadClientSchema>;
 export type UpdateClient = z.infer<typeof UpdateClientSchema>;
