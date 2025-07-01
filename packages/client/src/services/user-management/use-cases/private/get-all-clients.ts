@@ -2,6 +2,7 @@
 
 import type {
 	Client,
+	ClientStatus,
 	PrivateClient,
 } from "@kristall/shared/domains/user-management/types";
 
@@ -12,11 +13,16 @@ import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/e
 
 import { CLIENTS_TAGS } from "../../constants/tags";
 
-export const getAllClients = async (): Promise<PrivateClient[] | undefined> => {
-	const { data } = await GET<Client[]>(PRIVATE_CLIENTS_ENDPOINTS.GET_CLIENTS, {
-		tags: [CLIENTS_TAGS.ALL],
-		cache: "force-cache",
-	});
+export const getAllClients = async ({
+	status,
+}: { status: ClientStatus }): Promise<PrivateClient[] | undefined> => {
+	const { data } = await GET<Client[]>(
+		`${PRIVATE_CLIENTS_ENDPOINTS.GET_CLIENTS}?status=${status}`,
+		{
+			tags: [CLIENTS_TAGS.ALL(status)],
+			cache: "force-cache",
+		},
+	);
 
 	return data?.map(adaptToPrivateClient);
 };
