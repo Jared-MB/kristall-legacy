@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/core",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"license": "ISC",
 	"private": "true",
 	"exports": {
@@ -38,7 +38,7 @@
 		"@kristall/http": "workspace:*",
 		"chalk": "5.4.1",
 		"dotenv": "^16.4.5",
-		"nexum": "workspace:*",
+		"@kristall/nexum": "workspace:*",
 		"sharp": "^0.32.5",
 		"zod": "^3.23.8",
 		"zustand": "^5.0.2"

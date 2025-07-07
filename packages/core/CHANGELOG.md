@@ -1,5 +1,12 @@
 # @kristall/core
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [c3c8c76]
+  - @kristall/nexum@1.1.1
+
 ## 1.0.2
 
 ### Patch Changes
