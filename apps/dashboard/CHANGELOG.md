@@ -1,5 +1,13 @@
 # @kristall/dashboard
 
+## 0.9.9
+
+### Patch Changes
+
+- @kristall/client@1.0.1
+- @kristall/core@1.0.2
+- @kristall/ui@0.0.8
+
 ## 0.9.8
 
 ### Patch Changes

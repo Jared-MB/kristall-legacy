@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/client",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "",
 	"type": "module",
 	"exports": {
@@ -11,6 +11,10 @@
 		"./services/user-management/use-cases/private/*": {
 			"types": "./src/services/user-management/use-cases/private/*.ts",
 			"default": "./dist/services/user-management/use-cases/private/*.js"
+		},
+		"./services/location-services/use-cases/private/*": {
+			"types": "./src/services/location-services/use-cases/private/*.ts",
+			"default": "./dist/services/location-services/use-cases/private/*.js"
 		}
 	},
 	"scripts": {
