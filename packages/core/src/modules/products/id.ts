@@ -9,10 +9,10 @@ import type {
 import type { Product } from "./interfaces";
 
 import { parse } from "@formkit/tempo";
+import { GET } from "@kristall/nexum";
+import { REVALIDATE } from "@kristall/nexum/revalidation";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { GET } from "nexum";
-import { REVALIDATE } from "nexum/revalidation";
 
 import { deleteImage, uploadImage } from "../image/adapters/image.adapter";
 import {

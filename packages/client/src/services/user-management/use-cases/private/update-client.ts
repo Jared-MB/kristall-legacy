@@ -6,13 +6,13 @@ import {
 } from "@kristall/shared/domains/user-management/types";
 import type { UpdateClientResponse } from "../../types";
 
-import { PATCH } from "nexum";
+import { PATCH } from "@kristall/nexum";
 
+import { STATUS } from "@kristall/nexum/status";
 import { UpdateClientSchema } from "@kristall/shared/domains/user-management/validators/update-client-validator";
 import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/clients/private";
 import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
 import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
-import { STATUS } from "nexum/status";
 import { CLIENTS_TAGS } from "../../constants/tags";
 
 export const updateClient = async (

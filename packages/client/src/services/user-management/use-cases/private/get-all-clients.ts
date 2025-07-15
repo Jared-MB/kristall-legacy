@@ -6,7 +6,7 @@ import type {
 	PrivateClient,
 } from "@kristall/shared/domains/user-management/types";
 
-import { GET } from "nexum";
+import { GET } from "@kristall/nexum";
 
 import { adaptToPrivateClient } from "@kristall/shared/domains/user-management/adapters/to-private";
 import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/clients/private";

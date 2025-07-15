@@ -1,6 +1,6 @@
 "use server";
 
-import { GET } from "nexum";
+import { GET } from "@kristall/nexum";
 
 import { CLIENTS_TAGS } from "./constants/clients.tags";
 import type { Client } from "./interfaces/client.interface";

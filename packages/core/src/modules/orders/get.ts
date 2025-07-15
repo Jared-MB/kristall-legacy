@@ -3,7 +3,7 @@
 import type { Pagination } from "@kristall/http/interfaces";
 import type { Order } from "./interfaces";
 
-import { GET } from "nexum";
+import { GET } from "@kristall/nexum";
 import { paginateURL } from "../../utils/pagination";
 import { ORDER_TAGS } from "./constants";
 

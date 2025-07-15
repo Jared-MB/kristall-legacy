@@ -2,7 +2,7 @@
 
 import type { Authorized, LoginResponse, LoginUser } from "./interfaces";
 
-import { POST } from "nexum";
+import { POST } from "@kristall/nexum";
 import { LoginSchema } from "./validators/auth.validator";
 
 import { redirect } from "next/navigation";

@@ -2,7 +2,7 @@
 
 import type { Location } from "./interfaces";
 
-import { GET } from "nexum";
+import { GET } from "@kristall/nexum";
 import { LOCATIONS_TAGS } from "./constants/locations.tags";
 
 export const getLocations = async (): Promise<Location[] | undefined> => {

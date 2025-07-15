@@ -1,4 +1,4 @@
-import { POST } from "nexum";
+import { POST } from "@kristall/nexum";
 
 import type { UploadClientResponse } from "./interfaces/client.interface";
 

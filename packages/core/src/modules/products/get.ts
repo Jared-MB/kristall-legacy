@@ -2,7 +2,7 @@
 
 import type { OrderProduct, Product, PublicProduct } from "./interfaces";
 
-import { GET } from "nexum";
+import { GET } from "@kristall/nexum";
 
 import type { Pagination } from "@kristall/http/interfaces";
 import { paginateURL } from "../../utils/pagination";

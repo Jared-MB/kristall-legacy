@@ -2,8 +2,8 @@
 
 import type { Shop } from "./interfaces";
 
+import { GET } from "@kristall/nexum";
 import { redirect } from "next/navigation";
-import { GET } from "nexum";
 
 import { SHOP_TAGS } from "./constants";
 

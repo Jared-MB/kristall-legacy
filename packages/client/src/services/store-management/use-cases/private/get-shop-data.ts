@@ -1,7 +1,7 @@
 "use server";
 
+import { GET } from "@kristall/nexum";
 import { redirect } from "next/navigation";
-import { GET } from "nexum";
 
 import { adaptToPrivateShop } from "@kristall/shared/domains/store-management/adapters/to-private";
 import type { Shop } from "@kristall/shared/domains/store-management/types";

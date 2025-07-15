@@ -1,6 +1,6 @@
 "use server";
 
-import { GET } from "nexum";
+import { GET } from "@kristall/nexum";
 import { BANK_ACCOUNT_TAGS } from "./constants/bank-accounts.tags";
 import type { SafeBankAccount } from "./interfaces";
 

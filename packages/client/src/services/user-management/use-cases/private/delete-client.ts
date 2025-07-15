@@ -2,8 +2,8 @@
 
 import type { DeleteClientResponse } from "../../types";
 
-import { DELETE } from "nexum";
-import { STATUS } from "nexum/status";
+import { DELETE } from "@kristall/nexum";
+import { STATUS } from "@kristall/nexum/status";
 
 import { ClientStatus } from "@kristall/shared/domains/user-management/types";
 import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/clients/private";
