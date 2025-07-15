@@ -130,10 +130,7 @@ const DialogTitle = ({
 }: React.ComponentProps<typeof DialogPrimitive.Title>) => (
 	<DialogPrimitive.Title
 		ref={ref}
-		className={cn(
-			"text-lg font-semibold leading-none tracking-tight",
-			className,
-		)}
+		className={cn("text-xl font-medium leading-none tracking-tight", className)}
 		{...props}
 	/>
 );
