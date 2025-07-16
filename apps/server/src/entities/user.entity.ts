@@ -73,5 +73,9 @@ export class User {
  */
 export type SaveUser = Pick<User, '_id' | 'shop' | 'username' | 'role'>;
 
+export type StripePlans = User['package'];
+
 export type JWTUser = Pick<User, '_id' | 'username' | 'role'> & { shop: { _id: string } };
-export type RequestUser = JWTUser & Pick<User, 'email' | 'permissions' | 'package' |'stripeId'>;
+export type RequestUser = JWTUser & Pick<User, 'email' | 'permissions' |'stripeId'> & {
+  plan: StripePlans
+};

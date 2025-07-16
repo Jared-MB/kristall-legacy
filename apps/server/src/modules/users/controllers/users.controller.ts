@@ -72,7 +72,7 @@ export class UsersController {
 
         const users = await this.usersService.count(user.shop._id)
 
-        if (users >= RESTRICTIONS.MAX_USERS[user.package as keyof typeof RESTRICTIONS.MAX_USERS]) {
+        if (users >= RESTRICTIONS.MAX_USERS[user.plan as keyof typeof RESTRICTIONS.MAX_USERS]) {
             throw new BadRequestException('Número máximo de usuarios alcanzado')
         }
 
@@ -98,7 +98,7 @@ export class UsersController {
             role: 'user',
             shop,
             permissions: 'none',
-            package: user.package,
+            package: user.plan,
             stripeId
         })
 
