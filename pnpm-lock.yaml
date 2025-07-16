@@ -44,6 +44,9 @@ importers:
       '@kristall/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@kristall/http':
+        specifier: workspace:*
+        version: link:../../packages/http
       '@kristall/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -901,6 +904,9 @@ importers:
 
   packages/http:
     dependencies:
+      '@kristall/logger':
+        specifier: workspace:*
+        version: link:../logger
       cosmiconfig:
         specifier: 9.0.0
         version: 9.0.0(typescript@5.8.3)
