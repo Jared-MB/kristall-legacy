@@ -6,6 +6,8 @@ import type {
 	ServerConnectionOptions,
 } from "@/types/server-connection";
 import { isDev } from "@kristall/core/utils";
+import { logger } from "@kristall/logger";
+import { getCaller } from "@kristall/utils";
 import type { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export class ClientServerConnection {
@@ -49,9 +51,10 @@ export class ClientServerConnection {
 
 	public async makeRequest<T>(headers: HeadersContent, options: FetchProps) {
 		isDev &&
-			console.warn(
-				"⚠️ ClientServerConnection is deprecated, use @kristall/http instead, is used at ",
-				this.url,
+			logger.warn(
+				`⚠️ ClientServerConnection is deprecated, use @kristall/nexum instead, is used at ${
+					this.url
+				} called from ${getCaller({ showOnlyFunction: true })}`,
 			);
 
 		const api = ClientServerConnection.SERVER_API;

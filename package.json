@@ -2,7 +2,7 @@
 	"name": "kristall-monorepo",
 	"private": true,
 	"scripts": {
-		"dev": "turbo run dev --concurrency=15",
+		"dev": "turbo run dev --concurrency=16",
 		"start:server": "pnpm --filter @kristall/server start",
 		"start:dashboard": "pnpm --filter @kristall/dashboard start",
 		"start:landing": "pnpm --filter @kristall/landing start",

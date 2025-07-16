@@ -47,12 +47,18 @@ importers:
       '@kristall/http':
         specifier: workspace:*
         version: link:../../packages/http
+      '@kristall/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
       '@kristall/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@kristall/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@kristall/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@radix-ui/react-accordion':
         specifier: 1.2.2
         version: 1.2.2(@types/react-dom@19.0.2)(@types/react@19.0.1)(react-dom@19.1.0)(react@19.1.0)
@@ -824,6 +830,9 @@ importers:
       '@kristall/shared':
         specifier: workspace:*
         version: link:../shared
+      '@kristall/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@types/node':
         specifier: ^24.0.3
         version: 24.0.9
@@ -852,9 +861,15 @@ importers:
       '@kristall/http':
         specifier: workspace:*
         version: link:../http
+      '@kristall/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@kristall/nexum':
         specifier: workspace:*
         version: link:../nexum
+      '@kristall/utils':
+        specifier: workspace:*
+        version: link:../utils
       chalk:
         specifier: 5.4.1
         version: 5.4.1
@@ -907,6 +922,9 @@ importers:
       '@kristall/logger':
         specifier: workspace:*
         version: link:../logger
+      '@kristall/utils':
+        specifier: workspace:*
+        version: link:../utils
       cosmiconfig:
         specifier: 9.0.0
         version: 9.0.0(typescript@5.8.3)
@@ -1154,10 +1172,17 @@ importers:
         version: 3.4.14
 
   packages/utils:
+    dependencies:
+      '@kristall/logger':
+        specifier: workspace:*
+        version: link:../logger
     devDependencies:
-      '@biomejs/biome':
-        specifier: 1.6.3
-        version: 1.6.3
+      '@kristall/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
 
 packages:
 

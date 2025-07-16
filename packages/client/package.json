@@ -33,7 +33,8 @@
 	"dependencies": {
 		"@kristall/shared": "workspace:*",
 		"@types/node": "^24.0.3",
-		"@kristall/nexum": "workspace:*"
+		"@kristall/nexum": "workspace:*",
+		"@kristall/utils": "workspace:*"
 	},
 	"devDependencies": {
 		"@kristall/typescript-config": "workspace:*",

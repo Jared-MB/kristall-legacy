@@ -1,8 +1,23 @@
 {
-    "name": "@kristall/utils",
-    "version": "0.0.0",
-    "private": true,
-    "devDependencies": {
-        "@biomejs/biome": "1.6.3"
-    }
+	"name": "@kristall/utils",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@kristall/logger": "workspace:*"
+	},
+	"devDependencies": {
+		"@kristall/typescript-config": "workspace:*",
+		"typescript": "5.8.3"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }

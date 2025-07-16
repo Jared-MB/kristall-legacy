@@ -3,6 +3,8 @@ import type {
 	HeadersContent,
 	ServerConnectionOptions,
 } from "@/types/server-connection";
+import { logger } from "@kristall/logger";
+import { getCaller } from "@kristall/utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -17,8 +19,10 @@ export class ServerConnection {
 		url: `/${string}`,
 		options: ServerConnectionOptions = { noAuth: false },
 	) {
-		console.warn(
-			`⚠️ ServerConnection is deprecated. Is used at: ${url}. Use @kristall/http package instead`,
+		logger.warn(
+			`⚠️  ServerConnection is deprecated. Is used at: ${url}. Use @kristall/nexum package instead called from ${getCaller(
+				{ showOnlyFunction: true },
+			)}`,
 		);
 		this.url = url;
 		this.options = options;
