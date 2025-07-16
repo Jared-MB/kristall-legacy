@@ -130,3 +130,11 @@ export function AddLocationDisabled() {
 		</Button>
 	);
 }
+
+export function AddLocationSkeleton() {
+	return (
+		<Button variant="outline" disabled>
+			Agregar ubicación
+		</Button>
+	);
+}
