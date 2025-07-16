@@ -2,7 +2,7 @@
 	"name": "kristall-monorepo",
 	"private": true,
 	"scripts": {
-		"dev": "turbo run dev --concurrency=13",
+		"dev": "turbo run dev --concurrency=15",
 		"start:server": "pnpm --filter @kristall/server start",
 		"start:dashboard": "pnpm --filter @kristall/dashboard start",
 		"start:landing": "pnpm --filter @kristall/landing start",
@@ -20,21 +20,21 @@
 		"build:pos": "pnpm --filter @kristall/pos build",
 		"build:server": "pnpm --filter @kristall/server build",
 		"clean": "turbo run clean",
-		"test": "turbo run test --filter=@kristall/core --filter=@kristall/http",
+		"test": "turbo run test --filter=@kristall/core --filter=@kristall/http --filter=@kristall/nexum",
 		"test:e2e": "turbo run test:e2e --filter=@kristall/server",
 		"test:ci": "turbo run test --filter=@kristall/core",
 		"vitest": "pnpm vitest --filter=@kristall/core --filter=@kristall/http",
 		"coverage": "pnpm --filter @kristall/core coverage",
 		"format": "biome format --write .",
 		"ui": "pnpm --filter @kristall/ui ui",
-		"publish:changeset": "turbo run build --filter @kristall/http && changeset version && changeset publish"
+		"publish:changeset": "turbo run build --filter @kristall/nexum && changeset version && changeset publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
 		"@changesets/cli": "2.27.9",
 		"@kristall/typescript-config": "workspace:*",
 		"@nestjs/cli": "^10.4.5",
-		"turbo": "^2.4.2"
+		"turbo": "^2.5.4"
 	},
 	"packageManager": "pnpm@10.12.1"
 }
