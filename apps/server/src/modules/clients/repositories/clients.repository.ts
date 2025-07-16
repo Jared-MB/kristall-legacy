@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { UpdateCriteriaDto } from "src/dtos/update-criteria.dto";
 import { RawRepository } from "src/interfaces/raw-repository";
 import { DeepPartial, Repository } from "typeorm";
 import { CreateClientDto } from "../dtos/create-client.dto";
 import { DeleteClientDto } from "../dtos/delete-client.dto";
-import { UpdateClientCriteriaDto } from "../dtos/update-client.dto";
 import { Client } from "../models/client.entity";
 
 @Injectable()   
@@ -36,7 +36,7 @@ export class ClientsRepository implements RawRepository<Client>{
         return await this.clientRepository.save(data);
     }
 
-    async update<T extends (CreateClientDto | DeleteClientDto)>(criteria: UpdateClientCriteriaDto, data: T) {
+    async update<T extends (CreateClientDto | DeleteClientDto)>(criteria: UpdateCriteriaDto, data: T) {
         try {
             return await this.clientRepository.update({
                 _id: criteria._id,
