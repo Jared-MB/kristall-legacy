@@ -1,4 +1,3 @@
-import { wait } from "@kristall/core/utils/wait";
 import type { PrivateLocation } from "@kristall/shared/domains/location-services/types";
 import { ShopLocation, ShopLocationSkeleton } from "./location";
 
@@ -6,7 +5,6 @@ export async function Locations({
 	locationPromise,
 }: { locationPromise: Promise<PrivateLocation[] | undefined> }) {
 	const locations = await locationPromise;
-	await wait(2000);
 
 	if (!locations) return <div>Locations not found</div>;
 
