@@ -1,0 +1,20 @@
+{
+	"name": "@kristall/try-catch",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc"
+	},
+	"devDependencies": {
+		"@kristall/typescript-config": "workspace:*",
+		"typescript": "5.8.3"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
