@@ -6,6 +6,13 @@ import type { PrivateLocation } from "@kristall/shared/domains/location-services
 import { PRIVATE_LOCATIONS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/locations/private";
 import { LOCATIONS_TAGS } from "../../constants/tags";
 
+/**
+ * Gets all locations from the server.
+ *
+ * Since locations rarely changes, this function is set as `force-cache` to improve performance.
+ *
+ * @returns A promise that resolves to an array of PrivateLocation objects or undefined.
+ */
 export const getLocations = async (): Promise<
 	PrivateLocation[] | undefined
 > => {
@@ -13,6 +20,7 @@ export const getLocations = async (): Promise<
 		PRIVATE_LOCATIONS_ENDPOINTS.GET_LOCATIONS,
 		{
 			tags: [LOCATIONS_TAGS.ALL],
+			cache: "force-cache",
 		},
 	);
 	return data;
