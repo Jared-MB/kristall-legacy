@@ -1,43 +1,53 @@
 "use client";
 
-import { addLocation } from "@/actions/location.actions";
-import { Button } from "@/components/ui/button";
+import { useActionState, useEffect, useState } from "react";
+
+import { uploadLocation } from "@kristall/client/services/location-services/use-cases/private/upload-location";
+
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { Button } from "@kristall/ui/button";
 import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input, InputContainer, InputDescription } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useDialogForm } from "@/core/hooks";
-import type { Location } from "@/types/location";
+} from "@kristall/ui/dialog";
+import { SubmitButton } from "@kristall/ui/functional/submit-button";
+import {
+	Input,
+	InputContainer,
+	InputDescription,
+	InputError,
+} from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
+import { toast } from "sonner";
 
-const initialState = { location: null as Location | null, errors: null } as
-	| { location: Location | null }
-	| {
-			errors: {
-				name?: string[];
-				address?: string[];
-				phone?: string[];
-			};
-	  }
-	| {
-			errors: {
-				message: string;
-			};
-	  };
+export function AddLocation() {
+	const [open, setOpen] = useState(false);
+	const [state, action] = useActionState(uploadLocation, undefined);
 
-export default function AddLocation() {
-	const {
-		modal: { open, setOpen },
-		action,
-	} = useDialogForm(addLocation, initialState, {
-		entityName: "Ubicación",
-		gender: "female",
-	});
+	useEffect(() => {
+		if (state?.message?.type === FORM_MESSAGE_TYPES.SUCCESS) {
+			toast.success(state.message.value);
+			setOpen(false);
+			return;
+		}
+		if (state?.message?.type === FORM_MESSAGE_TYPES.INTERNAL_ERROR) {
+			toast.error(state.message.value);
+			return;
+		}
+		if (
+			state?.message?.type ===
+			FORM_MESSAGE_TYPES.SUBSCRIPTION_FEATURE_LIMIT_REACHED
+		) {
+			toast.error(state.message.value);
+			setOpen(false);
+			return;
+		}
+	}, [state]);
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
@@ -45,25 +55,49 @@ export default function AddLocation() {
 				<Button>Agregar ubicación</Button>
 			</DialogTrigger>
 			<DialogContent>
-				<DialogHeader className="text-2xl">Agregar ubicación</DialogHeader>
-				<DialogDescription>
-					Los campos marcados con * son obligatorios
-				</DialogDescription>
-				<form className="flex flex-col gap-y-4 my-1" action={action}>
+				<DialogHeader>
+					<DialogTitle>Agregar ubicación</DialogTitle>
+					<DialogDescription>
+						Los campos marcados con * son obligatorios
+					</DialogDescription>
+				</DialogHeader>
+				<form className="flex flex-col gap-y-4" action={action}>
 					<InputContainer>
 						<Label>Nombre de la ubicación*</Label>
-						<Input name="name" placeholder="Ej. Tienda 1" />
+						<Input
+							name="name"
+							placeholder="Ej. Tienda 1"
+							defaultValue={state?.fields.name.value}
+						/>
+						{state?.fields.name.message && (
+							<InputError>{state.fields.name.message}</InputError>
+						)}
 					</InputContainer>
 					<InputContainer>
 						<Label>Dirección</Label>
-						<Input name="address" placeholder="Ej. Calle 123" />
+						<Input
+							name="address"
+							placeholder="Ej. Calle 123"
+							defaultValue={state?.fields.address.value}
+						/>
+						{state?.fields.address.message && (
+							<InputError>{state.fields.address.message}</InputError>
+						)}
 						<InputDescription>
 							Esta dirección será visible en los pedidos
 						</InputDescription>
 					</InputContainer>
 					<InputContainer>
 						<Label>Teléfono</Label>
-						<Input name="phone" type="number" placeholder="Ej. 1234567890" />
+						<Input
+							name="phone"
+							type="number"
+							placeholder="Ej. 1234567890"
+							defaultValue={state?.fields.phone.value}
+						/>
+						{state?.fields.phone.message && (
+							<InputError>{state.fields.phone.message}</InputError>
+						)}
 						<InputDescription>
 							Este teléfono será visible en los pedidos
 						</InputDescription>
@@ -76,10 +110,23 @@ export default function AddLocation() {
 						>
 							Cancelar
 						</Button>
-						<Button type="submit">Agregar</Button>
+						<SubmitButton pendingText="Guardando...">Agregar</SubmitButton>
 					</DialogFooter>
 				</form>
 			</DialogContent>
 		</Dialog>
+	);
+}
+
+export function AddLocationDisabled() {
+	const notAllowedToast = () =>
+		toast.info("Límite de ubicaciones alcanzado", {
+			position: "top-right",
+		});
+
+	return (
+		<Button variant="outline" onClick={notAllowedToast}>
+			Agregar ubicación
+		</Button>
 	);
 }
