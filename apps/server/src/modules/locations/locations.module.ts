@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocationsController } from './controllers/locations.controller';
+import { LocationRepository } from './repositories/location.repository';
 import { LocationsService } from './services/locations.service';
 
 @Module({
@@ -11,7 +12,7 @@ import { LocationsService } from './services/locations.service';
     TypeOrmModule.forFeature([Location, DeliveryLocation]),
   ],
   controllers: [LocationsController],
-  providers: [LocationsService, Utils, JwtService, TokenService],
+  providers: [LocationsService, Utils, JwtService, TokenService, LocationRepository],
   exports: [LocationsService],
 })
 export class LocationsModule { }

@@ -1,20 +1,26 @@
-import { DeliveryLocation, Location } from '@/server/entities';
+import { DeliveryLocation } from '@/server/entities';
 import { TokenService, Utils } from '@/server/utilities';
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
   Headers,
+  HttpCode,
   Param,
+  Patch,
   Post,
-  Put,
   Req,
   Res,
-  UseInterceptors
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { ResponseInterceptor } from 'src/interceptors';
 import { AuthRequest } from 'src/interfaces/requests';
+import { CreateLocationDto } from '../dtos/create-location.dto';
+import { UpdateLocationDto } from '../dtos/update-location.dto';
 import { LocationsService } from '../services/locations.service';
 
 @Controller('locations')
@@ -29,21 +35,36 @@ export class LocationsController {
   @Get()
   async getLocations(@Req() req: AuthRequest) {
     const { shop } = req.user
+
     return await this.locationsService.getLocations(shop._id);
   }
 
-  @Post()
-  async createLocation(@Body() location: Location, @Res() res: Response, @Req() req: Request) {
-    const session = req.cookies['session'];
-    const payload = this.tokenService.decodeCookie(session);
-    if (!payload) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-    const response = this.locationsService.createLocation({
-      ...location,
-      shop: payload.shop,
+  @UseInterceptors(ResponseInterceptor)
+  @Get('can-create')
+  async canCreateLocation(@Req() req: AuthRequest){
+    const { shop, permissions, plan } = req.user
+
+    const canCreate = await this.locationsService.canCreateLocation({
+      shopId: shop._id,
+      permissions,
+      plan,
     });
-    return this.utils.adaptResponse(response, res);
+
+    return canCreate
+  }
+
+  @UseInterceptors(ResponseInterceptor)
+  @HttpCode(201)
+  @UsePipes(ValidationPipe)
+  @Post()
+  async createLocation(@Body() location: CreateLocationDto, @Req() req: AuthRequest) {
+    const { shop, permissions, plan } = req.user
+
+    return await this.locationsService.save(location, {
+      shopId: shop._id,
+      permissions,
+      plan,
+    });
   }
 
   @Get('delivery')
@@ -73,24 +94,24 @@ export class LocationsController {
     return this.utils.adaptResponse(response, res);
   }
 
-  @Put('/:id')
+  @UseInterceptors(ResponseInterceptor)
+  @Patch('/:id')
   async updateLocation(
     @Param('id') id: string,
-    @Body() location: Partial<Location>,
-    @Headers('authorization') auth: string,
-    @Res() res: Response,
-    @Req() req: Request,
+    @Body() location: UpdateLocationDto,
+    @Req() req: AuthRequest,
   ) {
-    const session = req.cookies['session'];
-    const payload = this.tokenService.decodeCookie(session);
-    if (!payload) {
-      return res.status(401).json({ message: 'Unauthorized' });
+    if (!id || !location._id || id !== location._id) {
+      throw new BadRequestException('Invalid id');
     }
-    const response = this.locationsService.updateLocation(
-      id,
+
+    const { shop } = req.user
+    return await this.locationsService.updateLocation(
+      {
+        _id: id,
+        shopId: shop._id,
+      },
       location,
-      payload.shop._id,
     );
-    return this.utils.adaptResponse(response, res);
   }
 }
