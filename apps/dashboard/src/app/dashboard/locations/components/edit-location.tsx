@@ -1,58 +1,46 @@
 "use client";
 
-import { editLocation } from "@/actions/location.actions";
-import { Button } from "@/components/ui/button";
+import type { Location } from "@kristall/shared/domains/location-services/types";
+
+import { useActionState, useEffect, useState } from "react";
+
+import { updateLocation } from "@kristall/client/services/location-services/use-cases/private/update-location";
+
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { Button } from "@kristall/ui/button";
 import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input, InputContainer, InputDescription } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/core/hooks";
-import type { Location } from "@/types/location";
-import { useActionState, useEffect, useState } from "react";
+} from "@kristall/ui/dialog";
+import { SubmitButton } from "@kristall/ui/functional/submit-button";
+import {
+	Input,
+	InputContainer,
+	InputDescription,
+	InputError,
+} from "@kristall/ui/input";
+import { Label } from "@kristall/ui/label";
+import { toast } from "sonner";
 
-const initialState = { location: null as Location | null, errors: null } as
-	| { location: Location | null }
-	| {
-			errors: {
-				name?: string[];
-				address?: string[];
-				phone?: string[];
-			};
-	  }
-	| {
-			errors: {
-				message: string;
-			};
-	  };
-
-export default function EditLocation({ data }: { data: Location }) {
+export function EditLocation({ data }: { data: Location }) {
 	const [open, setOpen] = useState<boolean>(false);
 
-	const [state, action] = useActionState(editLocation, initialState);
-
-	const { promiseToast, resolveToast } = useToast();
-
-	const handleAction = (data: FormData) => {
-		promiseToast();
-		action(data);
-	};
+	const [state, dispatch] = useActionState(updateLocation, undefined);
 
 	useEffect(() => {
 		setOpen(false);
-		if ("location" in state && state.location) {
-			resolveToast("Ubicación editada correctamente");
+		if (state?.message?.type === FORM_MESSAGE_TYPES.SUCCESS) {
+			toast.success(state.message.value);
 			return;
 		}
-		if ("errors" in state && state.errors) {
-			const errors = Object.entries(state.errors);
-			const errorMessage = `${errors[0][0]}: ${errors[0][1]}`;
-			resolveToast(errorMessage, "error");
+		if (state?.message?.type === FORM_MESSAGE_TYPES.INTERNAL_ERROR) {
+			toast.error(state.message.value);
+			return;
 		}
 	}, [state]);
 
@@ -62,11 +50,13 @@ export default function EditLocation({ data }: { data: Location }) {
 				<Button variant="outline">Editar ubicación</Button>
 			</DialogTrigger>
 			<DialogContent>
-				<DialogHeader className="text-2xl">Editar ubicación</DialogHeader>
-				<DialogDescription>
-					Los campos marcados con * son obligatorios
-				</DialogDescription>
-				<form className="flex flex-col gap-y-4 my-1" action={handleAction}>
+				<DialogHeader>
+					<DialogTitle>Editar ubicación</DialogTitle>
+					<DialogDescription>
+						Los campos marcados con * son obligatorios
+					</DialogDescription>
+				</DialogHeader>
+				<form className="flex flex-col gap-y-4 my-1" action={dispatch}>
 					<input defaultValue={data._id} name="_id" type="hidden" hidden />
 					<InputContainer>
 						<Label>Nombre de la ubicación*</Label>
@@ -75,6 +65,9 @@ export default function EditLocation({ data }: { data: Location }) {
 							name="name"
 							placeholder="Ej. Tienda 1"
 						/>
+						{state?.fields.name.message && (
+							<InputError>{state.fields.name.message}</InputError>
+						)}
 					</InputContainer>
 					<InputContainer>
 						<Label>Dirección</Label>
@@ -86,6 +79,9 @@ export default function EditLocation({ data }: { data: Location }) {
 						<InputDescription>
 							Esta dirección será visible en los pedidos
 						</InputDescription>
+						{state?.fields.address.message && (
+							<InputError>{state.fields.address.message}</InputError>
+						)}
 					</InputContainer>
 					<InputContainer>
 						<Label>Teléfono</Label>
@@ -98,6 +94,9 @@ export default function EditLocation({ data }: { data: Location }) {
 						<InputDescription>
 							Este teléfono será visible en los pedidos
 						</InputDescription>
+						{state?.fields.phone.message && (
+							<InputError>{state.fields.phone.message}</InputError>
+						)}
 					</InputContainer>
 					<DialogFooter>
 						<Button
@@ -107,7 +106,9 @@ export default function EditLocation({ data }: { data: Location }) {
 						>
 							Cancelar
 						</Button>
-						<Button type="submit">Agregar</Button>
+						<SubmitButton type="submit" pendingText="Guardando...">
+							Guardar cambios
+						</SubmitButton>
 					</DialogFooter>
 				</form>
 			</DialogContent>
