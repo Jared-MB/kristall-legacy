@@ -1,4 +1,4 @@
-import { isFeatureEnabled } from "@kristall/core/utils";
+import { isFeatureEnabled } from "@kristall/client/utils/version";
 import { getVirtualShowroom } from "@kristall/core/virtual-showroom/data";
 import { CardDescription, CardTitle } from "@kristall/ui/card";
 import { AVAILABLE_SINCE, AVAILABLE_SINCE_MINOR } from "../page";

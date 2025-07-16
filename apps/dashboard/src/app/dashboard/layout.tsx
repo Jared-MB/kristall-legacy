@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
 import Header from "@/components/layout/header";
-import Version from "@/components/version";
+import { Version, VersionSkeleton } from "@/components/version";
 import { SidebarProvider } from "@kristall/ui/sidebar";
+import { Suspense } from "react";
 import { AppSidebar } from "./components/app-sidebar";
 
 export const metadata: Metadata = {
@@ -23,7 +24,9 @@ export default function DashboardLayout({
 				<Header />
 				{children}
 			</div>
-			<Version />
+			<Suspense fallback={<VersionSkeleton />}>
+				<Version />
+			</Suspense>
 		</SidebarProvider>
 	);
 }

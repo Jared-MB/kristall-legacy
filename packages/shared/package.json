@@ -10,6 +10,10 @@
 			"types": "./src/index.ts",
 			"default": "./dist/index.js"
 		},
+		"./versions": {
+			"types": "./src/common/versions.ts",
+			"default": "./dist/common/versions.js"
+		},
 		"./domains/*/types": {
 			"types": "./src/common/domains/*/types/index.ts",
 			"default": "./dist/common/domains/*/types/index.js"

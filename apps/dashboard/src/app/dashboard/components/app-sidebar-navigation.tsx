@@ -1,5 +1,5 @@
 import Routes from "@/constants/routes";
-import { isFeatureEnabled } from "@kristall/core/utils/version";
+import { isFeatureEnabled } from "@kristall/client/utils/version";
 
 import {
 	AlphaFeature,

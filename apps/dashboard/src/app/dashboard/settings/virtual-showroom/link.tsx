@@ -1,4 +1,4 @@
-import { isFeatureEnabled } from "@kristall/core/utils";
+import { isFeatureEnabled } from "@kristall/client/utils/version";
 import SettingsLink from "../components/settings-link";
 
 import {

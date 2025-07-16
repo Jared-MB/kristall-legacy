@@ -12,8 +12,8 @@ import { addDay, diffDays } from "@formkit/tempo";
 import { Suspense } from "react";
 
 import { getAnalytics } from "@kristall/core/analytics/get";
-import { VERSIONS } from "@kristall/core/constants";
 import { getPendingOrders } from "@kristall/core/orders/get";
+import { VERSIONS } from "@kristall/shared/versions";
 
 import { Card, CardBody } from "@kristall/ui/card";
 import { Skeleton } from "@kristall/ui/skeleton";

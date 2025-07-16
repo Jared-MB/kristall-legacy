@@ -1,6 +1,6 @@
-import { getLastVersion } from "@kristall/core/utils";
+import { getLastVersion } from "@kristall/client/utils/version";
 
-export default async function Version() {
+export async function Version() {
 	const version = await getLastVersion();
 
 	return (
@@ -9,3 +9,9 @@ export default async function Version() {
 		</span>
 	);
 }
+
+export const VersionSkeleton = () => {
+	return (
+		<span className="absolute bottom-0 right-0 opacity-30 text-xs">...</span>
+	);
+};

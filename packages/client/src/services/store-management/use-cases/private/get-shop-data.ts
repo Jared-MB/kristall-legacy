@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { adaptToPrivateShop } from "@kristall/shared/domains/store-management/adapters/to-private";
 import type { Shop } from "@kristall/shared/domains/store-management/types";
 
-import { SHOP_TAGS } from "../../constants/tags";
+import { SHOP_TAGS } from "../../constants/tags/shop";
 
 export const getShopData = async () => {
 	const { data } = await GET<Shop>("/shops/name", {

@@ -11,8 +11,8 @@ export interface Version {
 
 export const VERSIONS: Version[] = [
 	{
-		_id: "v0.11.0-RC-3",
-		date: "2025-05-24",
+		_id: "v0.12.0-RC-1",
+		date: "2025-07-16",
 		title: "Virtual Showroom Custom Colors",
 		description: `
 			Estamos emocionados de anunciar que tu Virtual Showroom ahora tiene la posibilidad de personalizar el color de la página.
@@ -21,15 +21,15 @@ export const VERSIONS: Version[] = [
 		features: ["Virtual Showroom Custom Colors"],
 	},
 	{
-		_id: "v0.11.0-RC-2",
-		date: "2025-02-21",
-		title: "Virtual Showroom Custom Domain",
+		_id: "v0.11.0",
+		date: "2025-07-16",
+		title: "Performance improvements",
 		description: `
-			Estamos emocionados de anunciar que tu Virtual Showroom ahora tiene un 
-			dominio personalizado. Por lo que pasamos de esto: www.kristall.app/shops/mi-tienda a mi-tienda.kristall.app.
-			Lo que da una URL más fácil de recordar y una mayor seguridad.
+			Se han realizado mejoras en la velocidad de carga de la aplicación. 
+			Esto se debe a la optimización de la carga de los componentes y la reducción de la carga de datos innecesarios y la implementación
+			de un mejor sistema de cache y renderizado de nuestras páginas.
 		`,
-		features: ["Virtual Showroom Custom Domain"],
+		features: ["Performance improvements"],
 	},
 	{
 		_id: "v0.11.0-RC-1",

@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui";
-import { isFeatureEnabled } from "@kristall/core/utils/version";
+import { isFeatureEnabled } from "@kristall/client/utils/version";
 import { getVirtualShowroom } from "@kristall/core/virtual-showroom/data";
 import { AVAILABLE_SINCE, AVAILABLE_SINCE_MINOR } from "../page";
 import { ToggleVirtualShowroom } from "./toggle-virtual-showroom";

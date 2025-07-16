@@ -28,7 +28,7 @@ import { VirtualShowroom } from "./components/virtual-showroom";
 import { VirtualShowroomCustomize } from "./components/virtual-showroom-customize";
 import { VirtualShowroomSwitch } from "./components/virtual-showroom-switch";
 
-export const AVAILABLE_SINCE = "v0.11.";
+export const AVAILABLE_SINCE = "v0.12.";
 export const AVAILABLE_SINCE_MINOR = Number(AVAILABLE_SINCE.split(".")[1]);
 export const PAGE_DEVELOPMENT_STATUS: "Alpha" | "Beta" = "Beta";
 
