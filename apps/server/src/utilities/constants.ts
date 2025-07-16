@@ -119,4 +119,4 @@ export const RESTRICTIONS = {
     standard: 2,
     plus: 4,
   },
-};
+} as const
