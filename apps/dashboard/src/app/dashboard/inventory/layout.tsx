@@ -6,9 +6,7 @@ interface Props {
 }
 
 export default async function InventoryLayout({ children }: Props) {
-	const allLocations = await getLocations();
+	const allLocations = getLocations();
 
-	return (
-		<LocationsProvider value={allLocations ?? []}>{children}</LocationsProvider>
-	);
+	return <LocationsProvider value={allLocations}>{children}</LocationsProvider>;
 }

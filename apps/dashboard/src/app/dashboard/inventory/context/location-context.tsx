@@ -4,6 +4,7 @@ import type {
 	Location,
 	LocationProduct,
 } from "@kristall/core/interfaces/locations";
+import { useQuery } from "@tanstack/react-query";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -20,13 +21,20 @@ export const LocationsProvider = ({
 	value,
 	children,
 }: {
-	value: Location[];
+	value: Promise<Location[] | undefined>;
 	children: React.ReactNode;
-}) => (
-	<LocationsContext.Provider value={value}>
-		{children}
-	</LocationsContext.Provider>
-);
+}) => {
+	const { data: locations, isLoading } = useQuery({
+		queryKey: ["locations"],
+		queryFn: () => value,
+	});
+
+	return (
+		<LocationsContext.Provider value={isLoading ? [] : locations ?? []}>
+			{children}
+		</LocationsContext.Provider>
+	);
+};
 
 export const useLocationsContext = () => useContext(LocationsContext);
 
