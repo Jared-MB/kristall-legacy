@@ -17,9 +17,9 @@
 			"types": "./src/services/location-services/use-cases/private/*.ts",
 			"default": "./dist/services/location-services/use-cases/private/*.js"
 		},
-		"./services/store-management/use-cases/private/can-use-experimental-features": {
-			"types": "./src/services/store-management/use-cases/private/*.ts",
-			"default": "./dist/services/store-management/use-cases/private/*.js"
+		"./services/analytics-tracking/use-cases/private/*": {
+			"types": "./src/services/analytics-tracking/use-cases/private/*.ts",
+			"default": "./dist/services/analytics-tracking/use-cases/private/*.js"
 		},
 		"./utils/*": {
 			"types": "./src/utils/*.ts",
