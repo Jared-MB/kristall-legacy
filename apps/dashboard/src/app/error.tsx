@@ -2,10 +2,16 @@
 
 import Svg from "@/components/svg";
 import { Bug } from "@/components/svg/bug";
-import { Button } from "@/components/ui";
+import { Button } from "@kristall/ui/button";
 import Link from "next/link";
 
-export default function AppError() {
+export default function AppError({
+	error,
+	reset,
+}: {
+	error: Error & { digest?: string };
+	reset: () => void;
+}) {
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center">
 			<div className="container flex flex-col items-center justify-center px-5 text-center">
@@ -18,10 +24,11 @@ export default function AppError() {
 				<p className="mt-4 max-w-xs sm:max-w-lg text-gray-400">
 					Lo sentimos, intente de nuevo más tarde o contacta con nosotros.
 				</p>
-				<div className="mt-8">
-					<Button asChild className="bg-purple-500 hover:bg-purple-600 ">
+				<div className="mt-8 flex items-center gap-x-4">
+					<Button asChild variant="outline">
 						<Link href="/dashboard">Volver al inicio</Link>
 					</Button>
+					<Button onClick={reset}>Intentar de nuevo</Button>
 				</div>
 			</div>
 		</div>
