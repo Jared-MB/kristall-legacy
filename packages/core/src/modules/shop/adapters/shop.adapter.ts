@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { getShopDataService, isAdminService } from "../services";
+import { getShopDataService } from "../services";
 
 /**
  * @deprecated Use data file from "@kristall/core/shop" instead
@@ -23,9 +23,4 @@ export const getShopData = async () => {
 			url: data.showroom.url,
 		},
 	};
-};
-
-export const isAdmin = async () => {
-	const { data } = await isAdminService();
-	return data;
 };
