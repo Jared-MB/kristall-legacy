@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/dashboard",
-	"version": "0.12.0-RC-1",
+	"version": "0.12.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev -p 3002 --turbopack",

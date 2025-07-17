@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/client",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "",
 	"type": "module",
 	"private": true,
@@ -12,6 +12,10 @@
 		"./services/user-management/use-cases/private/*": {
 			"types": "./src/services/user-management/use-cases/private/*.ts",
 			"default": "./dist/services/user-management/use-cases/private/*.js"
+		},
+		"./services/user-management/use-cases/public/*": {
+			"types": "./src/services/user-management/use-cases/public/*.ts",
+			"default": "./dist/services/user-management/use-cases/public/*.js"
 		},
 		"./services/location-services/use-cases/private/*": {
 			"types": "./src/services/location-services/use-cases/private/*.ts",
@@ -34,7 +38,8 @@
 		"@kristall/shared": "workspace:*",
 		"@types/node": "^24.0.3",
 		"@kristall/nexum": "workspace:*",
-		"@kristall/utils": "workspace:*"
+		"@kristall/utils": "workspace:*",
+		"@kristall/logger": "workspace:*"
 	},
 	"devDependencies": {
 		"@kristall/typescript-config": "workspace:*",

@@ -1,5 +1,12 @@
 # @kristall/virtual-showroom
 
+## 0.1.5
+
+### Patch Changes
+
+- @kristall/core@1.0.6
+- @kristall/ui@0.0.12
+
 ## 0.1.4
 
 ### Patch Changes
