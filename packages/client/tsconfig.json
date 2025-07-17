@@ -4,8 +4,7 @@
 		"outDir": "dist",
 		"rootDir": "src",
 		"moduleResolution": "bundler",
-		"module": "es2020",
-		"baseUrl": "."
+		"module": "es2020"
 	},
 	"include": [
 		"src",
