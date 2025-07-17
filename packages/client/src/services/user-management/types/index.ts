@@ -1,1 +1,1 @@
-export * from "./client.private";
+export * from "./client/client.private";

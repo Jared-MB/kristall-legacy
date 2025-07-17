@@ -1,2 +1,2 @@
-export * from "./client";
-export * from "./client.private";
+export * from "./clients/client";
+export * from "./clients/client.private";
