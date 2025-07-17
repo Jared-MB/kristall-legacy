@@ -25,8 +25,8 @@ export class UsersAuthController {
         private readonly authService: AuthService,
     ) { }
 
-    @Get('user/is-admin')
-    async getUserIsAdmin(
+    @Get('user/is-super-admin')
+    async getUserIsSuperAdmin(
         @Cookies('session') session: string,
     ) {
         const user = this.authService.decodeCookie(session)
