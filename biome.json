@@ -5,6 +5,12 @@
 	},
 	"linter": {
 		"enabled": true,
+		"ignore": [
+			"**/dist/**",
+			"**/node_modules/**",
+			"**/.next/**",
+			"**/.turbo/**"
+		],
 		"rules": {
 			"recommended": true,
 			"correctness": {
