@@ -1,11 +1,13 @@
+import { ServerCrash } from "lucide-react";
+
+import { isSuperAdmin } from "@kristall/client/services/user-management/use-cases/private/is-super-admin";
+
 import Routes from "@/constants/routes";
-import { shop } from "@kristall/core/modules/shop";
 import { SidebarMenuButton, SidebarMenuItem } from "@kristall/ui/sidebar";
-import { Users } from "lucide-react";
-import Link from "next/link";
+import { AppSidebarLink } from "./app-sidebar-link";
 
 export async function ReportLink() {
-	const isAdmin = await shop.isAdmin();
+	const isAdmin = await isSuperAdmin();
 
 	if (!isAdmin) {
 		return null;
@@ -14,10 +16,10 @@ export async function ReportLink() {
 	return (
 		<SidebarMenuItem>
 			<SidebarMenuButton asChild>
-				<Link href={Routes.REPORTS}>
-					<Users />
+				<AppSidebarLink href={Routes.REPORTS}>
+					<ServerCrash />
 					<span>Reportes</span>
-				</Link>
+				</AppSidebarLink>
 			</SidebarMenuButton>
 		</SidebarMenuItem>
 	);
