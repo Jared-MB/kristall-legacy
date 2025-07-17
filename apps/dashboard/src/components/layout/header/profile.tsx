@@ -1,10 +1,10 @@
-import { shop } from "@kristall/core/modules/shop";
+import { getShopData } from "@kristall/client/services/store-management/use-cases/private/get-shop-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@kristall/ui/avatar";
 import { DropdownMenuLabel } from "@kristall/ui/dropdown-menu";
 import { Skeleton } from "@kristall/ui/skeleton";
 
 export async function ProfilePicture() {
-	const { logo, username } = await shop.getShopData();
+	const { logo, username } = await getShopData();
 
 	return (
 		<Avatar>
@@ -23,7 +23,7 @@ export async function ProfilePictureSkeleton() {
 }
 
 export async function ProfileUsername() {
-	const { username } = await shop.getShopData();
+	const { username } = await getShopData();
 
 	return <DropdownMenuLabel>{username}</DropdownMenuLabel>;
 }
