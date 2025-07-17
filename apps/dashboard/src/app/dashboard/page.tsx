@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import {
 	AnalyticsChart,
 	AnalyticsChartSkeleton,
-} from "./components/analytics/analytics-chart";
+} from "./components/analytics/chart";
 import { DashboardOrders } from "./components/orders";
 
 export const dynamic = "force-dynamic";
