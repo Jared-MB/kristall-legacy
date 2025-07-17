@@ -824,6 +824,9 @@ importers:
 
   packages/client:
     dependencies:
+      '@kristall/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@kristall/nexum':
         specifier: workspace:*
         version: link:../nexum
