@@ -13,7 +13,7 @@ import { UpdateClientSchema } from "@kristall/shared/domains/user-management/val
 import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/clients/private";
 import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
 import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
-import { CLIENTS_TAGS } from "../../constants/tags";
+import { CLIENTS_TAGS } from "../../constants/tags/clients";
 
 export const updateClient = async (
 	_prev: unknown,
