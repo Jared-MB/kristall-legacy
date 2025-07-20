@@ -1,6 +1,6 @@
 import { ServerCrash } from "lucide-react";
 
-import { isSuperAdmin } from "@kristall/client/services/user-management/use-cases/private/is-super-admin";
+import { isSuperAdmin } from "@kristall/client/services/auth/use-cases/private/is-super-admin";
 
 import Routes from "@/constants/routes";
 import { SidebarMenuButton, SidebarMenuItem } from "@kristall/ui/sidebar";

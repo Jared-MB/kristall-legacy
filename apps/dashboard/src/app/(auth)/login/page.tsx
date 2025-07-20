@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@kristall/client/services/user-management/use-cases/public/login";
+import { login } from "@kristall/client/services/auth/use-cases/public/login";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
