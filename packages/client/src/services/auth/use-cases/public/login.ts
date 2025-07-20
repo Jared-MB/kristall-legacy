@@ -12,7 +12,7 @@ import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
 
 import { setCookie } from "../../../../utils/cookies";
 import { AvailableCookies } from "../../../../utils/cookies/available";
-import type { Authorized, LoginResponse } from "../../types/auth/auth.public";
+import type { Authorized, LoginResponse } from "../../types/auth/public";
 
 export const login = async (
 	_prevState: unknown,
