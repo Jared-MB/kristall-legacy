@@ -5,25 +5,9 @@
 	"type": "module",
 	"private": true,
 	"exports": {
-		"./services/store-management/use-cases/private/*": {
-			"types": "./src/services/store-management/use-cases/private/*.ts",
-			"default": "./dist/services/store-management/use-cases/private/*.js"
-		},
-		"./services/user-management/use-cases/private/*": {
-			"types": "./src/services/user-management/use-cases/private/*.ts",
-			"default": "./dist/services/user-management/use-cases/private/*.js"
-		},
-		"./services/user-management/use-cases/public/*": {
-			"types": "./src/services/user-management/use-cases/public/*.ts",
-			"default": "./dist/services/user-management/use-cases/public/*.js"
-		},
-		"./services/location-services/use-cases/private/*": {
-			"types": "./src/services/location-services/use-cases/private/*.ts",
-			"default": "./dist/services/location-services/use-cases/private/*.js"
-		},
-		"./services/analytics-tracking/use-cases/private/*": {
-			"types": "./src/services/analytics-tracking/use-cases/private/*.ts",
-			"default": "./dist/services/analytics-tracking/use-cases/private/*.js"
+		"./services/*": {
+			"types": "./src/services/*.ts",
+			"default": "./dist/services/*.js"
 		},
 		"./utils/*": {
 			"types": "./src/utils/*.ts",
