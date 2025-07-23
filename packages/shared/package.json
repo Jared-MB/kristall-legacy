@@ -14,6 +14,12 @@
 			"types": "./src/common/versions.ts",
 			"default": "./dist/common/versions.js"
 		},
+		"./infrastructure/*": {
+			"types": "./src/common/infrastructure/*.ts",
+			"import": "./dist/common/infrastructure/*.js",
+			"require": "./dist/cjs/common/infrastructure/*.cjs",
+			"default": "./dist/common/infrastructure/*.js"
+		},
 		"./domains/*/types": {
 			"types": "./src/common/domains/*/types/index.ts",
 			"default": "./dist/common/domains/*/types/index.js"
@@ -31,12 +37,6 @@
 			"default": "./dist/common/utils/*.js",
 			"require": "./dist/cjs/common/utils/*.cjs",
 			"import": "./dist/common/utils/*.js"
-		},
-		"./infrastructure/api/endpoints/*": {
-			"types": "./src/common/infrastructure/api/endpoints/*.ts",
-			"import": "./dist/common/infrastructure/api/endpoints/*.js",
-			"require": "./dist/cjs/common/infrastructure/api/endpoints/*.cjs",
-			"default": "./dist/common/infrastructure/api/endpoints/*.js"
 		}
 	},
 	"scripts": {
