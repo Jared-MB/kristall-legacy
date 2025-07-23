@@ -4,8 +4,8 @@ import { POST } from "@kristall/nexum";
 import { STATUS } from "@kristall/nexum/status";
 import { redirect } from "next/navigation";
 
-import type { LoginUser } from "@kristall/shared/domains/user-management/types/auth/login.public";
-import { LoginSchema } from "@kristall/shared/domains/user-management/validators/login-validator";
+import type { LoginUser } from "@kristall/shared/domains/auth/types/login.public";
+import { LoginSchema } from "@kristall/shared/domains/auth/validators/login-validator";
 import { AUTH_PUBLIC_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/auth/public";
 import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
 import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
