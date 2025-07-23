@@ -13,6 +13,7 @@ export class AuthController {
         private authService: AuthService,
     ){}
 
+    @HttpCode(200)
     @Get('verify-token')
     async validate(@Cookies('session') session: string) {
         return await this.authService.validateToken(session);
