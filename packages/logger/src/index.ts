@@ -7,16 +7,30 @@ export class KristallLogger {
 	private RED_LOG = chalk.red;
 	private YELLOW_LOG = chalk.yellow;
 
-	public log(message: string, ...args: any[]) {
-		console.log(this.KRISTALL_LOGO + message, ...args);
+	private formatMessage(message: any): string {
+		if (typeof message === "object") {
+			return JSON.stringify(message, null, 2);
+		}
+
+		return message;
 	}
 
-	public error(message: string, ...args: any[]) {
-		console.error(this.KRISTALL_LOGO + this.RED_LOG(message, ...args));
+	public log(message: any, ...args: any[]) {
+		console.log(this.KRISTALL_LOGO + this.formatMessage(message), ...args);
 	}
 
-	public warn(message: string, ...args: any[]) {
-		console.warn(this.KRISTALL_LOGO + this.YELLOW_LOG(message, ...args));
+	public error(message: any, ...args: any[]) {
+		console.error(
+			this.KRISTALL_LOGO + this.RED_LOG(this.formatMessage(message)),
+			...args,
+		);
+	}
+
+	public warn(message: any, ...args: any[]) {
+		console.warn(
+			this.KRISTALL_LOGO + this.YELLOW_LOG(this.formatMessage(message)),
+			...args,
+		);
 	}
 }
 
