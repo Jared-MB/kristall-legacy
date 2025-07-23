@@ -11,7 +11,7 @@ import { MainContent } from "@kristall/ui/layout/main-content";
 import { InventoryRoutesPrefetch } from "./components/inventory-routes-prefetch";
 import { MenuShortcut } from "./components/menu/menu-shortcut";
 
-export default async function InventoryPage(props: {
+export default function InventoryPage(props: {
 	searchParams: Promise<URLSearchParams>;
 }) {
 	return (
