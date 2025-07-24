@@ -14,6 +14,10 @@ export function wait(ms: number) {
 	const caller = getCaller();
 	logger.warn(`Waiting for ${ms}ms in ${caller}`);
 
-	if (!__IS__DEV__) return;
+	if (!__IS__DEV__) {
+		logger.warn("Waiting is only available in development mode, skipping...");
+		return;
+	}
+
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
