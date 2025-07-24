@@ -1,19 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+import { useQueryParams } from "@kristall/client/hooks/use-query-params";
+import type { Location } from "@kristall/shared/domains/location-services/types";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { useQueryParams } from "@kristall/core/hooks/use-query-params";
-import { useEffect, useState } from "react";
-import { useLocationsContext } from "../context/location-context";
+} from "@kristall/ui/select";
 
-export function LocationsFilter() {
-	const locations = useLocationsContext();
-
+export function LocationsFilter({ locations }: { locations: Location[] }) {
 	const [selectedLocation, setSelectedLocation] = useState("");
 
 	const { setQueryParams, removeQueryParams, getQueryParam } =
