@@ -22,7 +22,7 @@ const ToggleGroup = React.forwardRef<
 	<ToggleGroupPrimitive.Root
 		ref={ref}
 		className={cn(
-			"flex items-center justify-center [&_button:first-child]:rounded-l-md [&_button:last-child]:rounded-r-md",
+			"flex items-center justify-center [&_button:first-child]:rounded-l-md [&_button:last-child]:rounded-r-md border border-border rounded-lg",
 			className,
 		)}
 		{...props}
