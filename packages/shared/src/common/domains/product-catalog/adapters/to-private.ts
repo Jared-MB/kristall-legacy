@@ -1,5 +1,15 @@
+import type { Category } from "../types/category";
+import type { PrivateCategory } from "../types/category.private";
 import type { Product } from "../types/product";
 import type { PrivateProduct } from "../types/product.private";
+
+export function adaptToPrivateCategory(category: Category): PrivateCategory {
+	return {
+		_id: category._id,
+		name: category.name,
+		count: category.count,
+	};
+}
 
 export function adaptToPrivateProduct(product: Product): PrivateProduct {
 	return {
