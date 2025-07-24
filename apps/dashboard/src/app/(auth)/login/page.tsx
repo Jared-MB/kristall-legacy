@@ -10,7 +10,7 @@ import { Label } from "@kristall/ui/label";
 import { Password } from "@kristall/ui/password";
 
 export default function LoginForm() {
-	const [state, dispatch] = useActionState(login, undefined);
+	const [state, dispatch, isPending] = useActionState(login, undefined);
 
 	useEffect(() => {
 		state?.message && toast.error(state.message.value);
@@ -41,7 +41,7 @@ export default function LoginForm() {
 					<InputError>{state?.fields.password.message}</InputError>
 				)}
 			</InputContainer>
-			<SubmitButton pendingText="Iniciando sesión...">
+			<SubmitButton loading={isPending} pendingText="Iniciando sesión...">
 				Iniciar sesión
 			</SubmitButton>
 		</form>
