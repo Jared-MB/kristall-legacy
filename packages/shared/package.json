@@ -29,8 +29,8 @@
 			"default": "./dist/common/domains/*.js"
 		},
 		"./types/*": {
-			"types": "./src/common/types/*/index.ts",
-			"default": "./dist/common/types/*/index.js"
+			"types": "./src/common/types/*.ts",
+			"default": "./dist/common/types/*.js"
 		},
 		"./utils/*": {
 			"types": "./dist/common/utils/*.d.ts",
