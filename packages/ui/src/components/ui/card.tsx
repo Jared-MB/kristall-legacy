@@ -33,7 +33,6 @@ export const Card = ({
 		</As>
 	);
 };
-Card.displayName = "Card";
 
 export function CardHeader({
 	children,
@@ -115,3 +114,13 @@ export function CardFooter({
 		</footer>
 	);
 }
+
+export {
+	CardBody as Body,
+	CardDescription as Description,
+	CardFooter as Footer,
+	CardHeader as Header,
+	Card as Root,
+	CardSubtitle as Subtitle,
+	CardTitle as Title,
+};
