@@ -22,7 +22,7 @@ import {
 } from "@kristall/ui/input";
 import { Label } from "@kristall/ui/label";
 import { Divider } from "@kristall/ui/separator";
-import { AddCategory } from "../../categories/components/add-category";
+import { AddCategoryButton } from "../../categories/components/add-category";
 import Batches from "../../components/batches";
 import { SelectCategory } from "../../components/inventory-form/select-category";
 import Locations from "../../components/locations";
@@ -175,7 +175,7 @@ export default function ProductForm({
 										<InputError>{errors.errors.category[0]}</InputError>
 									)}
 								<InputDescription>
-									<AddCategory asLink showIcon={false} />
+									<AddCategoryButton asLink showIcon={false} />
 								</InputDescription>
 							</div>
 						</InputContainer>

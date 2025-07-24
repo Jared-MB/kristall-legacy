@@ -21,6 +21,14 @@ export const VERSIONS: Version[] = [
 		features: ["Virtual Showroom Custom Colors"],
 	},
 	{
+		_id: "v0.11.1",
+		date: "2025-07-24",
+		title: "Categories Refactor",
+		description:
+			"Hemos rediseñado la página de categorías para ofrecer una experiencia más agradable y fluida.",
+		fixes: ["Mejoras en la página de categorías"],
+	},
+	{
 		_id: "v0.11.0",
 		date: "2025-07-16",
 		title: "Performance improvements",
