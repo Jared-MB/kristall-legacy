@@ -10,7 +10,7 @@ import { STATUS } from "@kristall/nexum/status";
 
 import { UploadLocationSchema } from "@kristall/shared/domains/location-services/validators/upload-location-validator";
 import { PRIVATE_LOCATIONS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/locations/private";
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
 
 import { LOCATIONS_TAGS } from "../../constants/tags";

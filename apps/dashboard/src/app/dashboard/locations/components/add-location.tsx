@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 
 import { uploadLocation } from "@kristall/client/services/location-services/use-cases/private/upload-location";
 
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 import { Button } from "@kristall/ui/button";
 import {
 	Dialog,

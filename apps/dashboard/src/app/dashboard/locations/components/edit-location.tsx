@@ -6,7 +6,7 @@ import { useActionState, useEffect, useState } from "react";
 
 import { updateLocation } from "@kristall/client/services/location-services/use-cases/private/update-location";
 
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 import { Button } from "@kristall/ui/button";
 import {
 	Dialog,

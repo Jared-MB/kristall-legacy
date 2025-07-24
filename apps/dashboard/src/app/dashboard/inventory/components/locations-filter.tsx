@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { useQueryParams } from "@kristall/client/hooks/use-query-params";
-import type { Location } from "@kristall/shared/domains/location-services/types";
+import type { PrivateLocation } from "@kristall/shared/domains/location-services/types/location.private";
 import {
 	Select,
 	SelectContent,
@@ -12,7 +12,9 @@ import {
 	SelectValue,
 } from "@kristall/ui/select";
 
-export function LocationsFilter({ locations }: { locations: Location[] }) {
+export function LocationsFilter({
+	locations,
+}: { locations: PrivateLocation[] }) {
 	const [selectedLocation, setSelectedLocation] = useState("");
 
 	const { setQueryParams, removeQueryParams, getQueryParam } =

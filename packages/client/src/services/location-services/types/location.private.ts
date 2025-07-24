@@ -1,4 +1,5 @@
-import type { FormResponse, InputField } from "@kristall/shared/types/forms";
+import type { FormResponse } from "@kristall/shared/types/forms/form-response";
+import type { InputField } from "@kristall/shared/types/forms/input-fields";
 
 export interface UploadLocationFields {
 	name: InputField;

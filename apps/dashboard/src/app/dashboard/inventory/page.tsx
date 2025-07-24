@@ -1,4 +1,4 @@
-import type { Location } from "@kristall/shared/domains/location-services/types";
+import type { PrivateLocation } from "@kristall/shared/domains/location-services/types/location.private";
 
 import { Suspense } from "react";
 
@@ -40,7 +40,7 @@ export default function InventoryPage(props: {
 
 async function LocationsFilterWrapper({
 	locations,
-}: { locations: Promise<Location[] | undefined> }) {
+}: { locations: Promise<PrivateLocation[] | undefined> }) {
 	const locationsData = await locations;
 
 	return <LocationsFilter locations={locationsData ?? []} />;

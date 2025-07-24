@@ -1,6 +1,6 @@
 "use client";
 
-import type { Product } from "@kristall/core/interfaces/products";
+import type { PrivateProduct } from "@kristall/shared/domains/product-catalog/types/product.private";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import Link from "next/link";
@@ -22,7 +22,7 @@ import {
 type QueryKeys = "sortBy" | "orderBy";
 type QueryValues = "price" | "DESC" | "ASC" | "stock";
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<PrivateProduct>[] = [
 	{
 		id: "image",
 		cell: ({ row }) => {
@@ -180,7 +180,7 @@ export const columns: ColumnDef<Product>[] = [
 	},
 ];
 
-export const skeletonColumns: ColumnDef<Product>[] = [
+export const skeletonColumns: ColumnDef<PrivateProduct>[] = [
 	{
 		id: "image",
 		cell: ({ row }) => {

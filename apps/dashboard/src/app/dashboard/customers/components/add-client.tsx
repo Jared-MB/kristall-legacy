@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { uploadClient } from "@kristall/client/services/user-management/use-cases/private/upload-client";
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 
 import { Button } from "@kristall/ui/button";
 import {

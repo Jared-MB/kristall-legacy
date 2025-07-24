@@ -11,7 +11,7 @@ import { STATUS } from "@kristall/nexum/status";
 
 import { UploadClientSchema } from "@kristall/shared/domains/user-management/validators/upload-client-validator";
 import { PRIVATE_CLIENTS_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/clients/private";
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
 
 import { CLIENTS_TAGS } from "../../constants/tags/clients";

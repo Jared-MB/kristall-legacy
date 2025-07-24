@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import type { LoginUser } from "@kristall/shared/domains/auth/types/login.public";
 import { LoginSchema } from "@kristall/shared/domains/auth/validators/login-validator";
 import { AUTH_PUBLIC_ENDPOINTS } from "@kristall/shared/infrastructure/api/endpoints/auth/public";
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 import { FormExtractor } from "@kristall/shared/utils/forms/form-extractor";
 
 import { setCookie } from "../../../../utils/cookies";

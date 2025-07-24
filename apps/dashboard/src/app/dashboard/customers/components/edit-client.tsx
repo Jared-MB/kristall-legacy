@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import type { PrivateClient } from "@kristall/shared/domains/user-management/types";
-import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 
 import { updateClient } from "@kristall/client/services/user-management/use-cases/private/update-client";
 

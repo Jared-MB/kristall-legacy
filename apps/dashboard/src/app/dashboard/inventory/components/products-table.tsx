@@ -1,4 +1,5 @@
-import { getPaginatedProducts } from "@kristall/core/products/get";
+import { getPaginatedProducts } from "@kristall/client/services/product-catalog/use-cases/private/get-paginated-products";
+
 import {
 	columns,
 	skeletonColumns,
