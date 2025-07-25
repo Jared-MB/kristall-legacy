@@ -1,5 +1,11 @@
 # @kristall/core
 
+## 1.0.7
+
+### Patch Changes
+
+- @kristall/nexum@1.3.1
+
 ## 1.0.6
 
 ### Patch Changes

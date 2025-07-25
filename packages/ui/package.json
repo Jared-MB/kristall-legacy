@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/ui",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"private": "true",
 	"scripts": {
 		"ui": "pnpm dlx shadcn@latest add"
@@ -69,8 +69,12 @@
 	},
 	"typesVersions": {
 		"*": {
-			"core/*": ["./src/core/*/index.ts"],
-			"hooks/*": ["./src/core/hooks/*.tsx"]
+			"core/*": [
+				"./src/core/*/index.ts"
+			],
+			"hooks/*": [
+				"./src/core/hooks/*.tsx"
+			]
 		}
 	}
 }
