@@ -1,21 +1,39 @@
-import { Category, Shop } from '@/server/entities';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CriteriaDto } from 'src/dtos/update-criteria.dto';
+import { Context } from 'src/interfaces/context';
 import { ILike, Repository } from 'typeorm';
+import { CreateCategoryDto } from '../dtos/create-category.dto';
+import { UpdateCategoryDto } from '../dtos/update-category.dto';
 import { CategoryDetail } from '../interfaces';
+import { Category } from '../models/category.model';
+import { CategoryRepository } from '../repositories/category.repository';
 
 @Injectable()
 export class CategoriesService {
 
     constructor(
+        /**@deprecated */
         @InjectRepository(Category)
-        private categoryRepository: Repository<Category>
+        private deprecatedCategoryRepository: Repository<Category>,
+        private readonly categoryRepository: CategoryRepository
     ) { }
+
+    private async categoryExists(criteria: Omit<CriteriaDto, '_id'>, name: string): Promise<Category | null> {
+        const category = await this.categoryRepository.findOne({
+            shop: {
+                _id: criteria.shopId
+            },
+            name: name
+        });
+
+        return category
+    }
 
     public async getPublicCategories(shopName: string){
         const URL = `https://${shopName}.kristall.app`
 
-        const categories = await this.categoryRepository.find({
+        const categories = await this.deprecatedCategoryRepository.find({
             where: { shop: { 
                 virtualShowroom: {
                     url: ILike(`%${URL}%`)
@@ -27,56 +45,90 @@ export class CategoriesService {
     }
 
     public async getAllCategories(shopId: string) {
-        const categories = await this.categoryRepository.find({
-            where: { shop: { _id: shopId } }
+        const categories = await this.deprecatedCategoryRepository.find({
+            where: { shop: { _id: shopId }, isActive: 1 },
         })
         return categories;
     }
 
-    public async getCategoriesDetails(shopId: string): Promise<CategoryDetail[]> {
-        const categories = await this.categoryRepository.createQueryBuilder('category')
+    private async categoryDetail(criteria: CriteriaDto): Promise<CategoryDetail | null>{
+        const query = await this.categoryRepository.unsafe_repository().createQueryBuilder('category')
             .select('category.name', 'name')
             .addSelect('category._id', '_id')
+            .addSelect('category.isActive', 'isActive')
+            .addSelect('COUNT(product._id)', 'count')
+            .leftJoin('category.products', 'product')
+            .where('category.shop._id = :shopId', { shopId: criteria.shopId })
+            .andWhere('category._id = :id', { id: criteria._id })
+            .groupBy('category.name, category._id')
+            .getRawOne();
+
+        return query;
+    }
+
+    public async getCategoriesDetails(shopId: string): Promise<CategoryDetail[]> {
+        const categories = await this.categoryRepository.unsafe_repository().createQueryBuilder('category')
+            .select('category.name', 'name')
+            .addSelect('category._id', '_id')
+            .addSelect('category.isActive', 'isActive')
             .addSelect('COUNT(product._id)', 'count')
             .leftJoin('category.products', 'product')
             .where('category.shop._id = :shopId', { shopId })
             .groupBy('category.name, category._id')
+            .orderBy('category.isActive', 'DESC')
             .getRawMany();
 
         return categories;
     }
 
-    public async createCategory(body: Pick<Category, 'name'>, shop: Shop) {
+    public async save(category: CreateCategoryDto, {
+        shopId
+    }: Context) {
+        const existingCategory = await this.categoryExists({ shopId }, category.name);
+        if (existingCategory) throw new BadRequestException('Ya existe una categoría con el mismo nombre')
 
-        const categories = await this.getAllCategories(shop._id);
-
-        const existingCategory = categories.some(category => category.name.toLowerCase() === body.name.toLowerCase());
-
-        if (existingCategory) throw new Error('Category already exists')
-
-        const category = this.categoryRepository.create({
-            ...body,
-            shop
+        const newCategory = await this.categoryRepository.save({
+            ...category,
+            shop: {
+                _id: shopId
+            }
         });
-        await this.categoryRepository.save(category);
-        return category;
+        return newCategory;
     }
 
-    public async updateCategory(id: string, body: Category, shop: Shop) {
+    public async update(criteria: CriteriaDto, category: UpdateCategoryDto) {
+        if (criteria._id !== category._id) throw new BadRequestException("Criteria _id's mismatch")
+        if (category.isActive !== 0 && category.isActive !== 1) throw new BadRequestException("Invalid isActive value")
+       
+        const existingCategory = await this.categoryExists(criteria, category.name);
+        const isActiveChanged = category.isActive !== existingCategory?.isActive;
 
-        const categories = await this.getAllCategories(shop._id);
+        if (existingCategory && !isActiveChanged) {
+            throw new BadRequestException('Ya existe una categoría con el mismo nombre')
+        }
 
-        const existingCategory = categories.some(category => category.name.toLowerCase() === body.name.toLowerCase());
-
-        if (existingCategory) throw new Error('Category already exists')
-
-        if (id !== body._id) throw new Error('Bad request')
-
-        await this.categoryRepository.update(id, {
-            name: body.name
+        await this.categoryRepository.update({
+            _id: criteria._id,
+            shopId: criteria.shopId
+        }, {
+            name: category.name,
+            isActive: category.isActive
         })
+        return category
+    }
 
-        return body
+    public async delete(criteria: CriteriaDto) {
+        const category = await this.categoryDetail(criteria)
+        if (!category) throw new NotFoundException()
 
+        const productsInCategory = Number.parseInt(category.count)
+        if (!Number.isNaN(productsInCategory) && productsInCategory > 0) {
+            throw new BadRequestException('No se puede eliminar una categoría con productos')
+        }
+        
+        await this.categoryRepository.hardDelete({
+            _id: criteria._id,
+            shopId: criteria.shopId
+        })
     }
 }

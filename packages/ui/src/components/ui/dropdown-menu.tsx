@@ -2,11 +2,60 @@
 
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronRight, Circle } from "lucide-react";
-import type * as React from "react";
+import * as React from "react";
 
 import { cn } from "@kristall/ui/core/utils";
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+interface DropdownMenuContext {
+	open: boolean;
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DropdownContext = React.createContext<DropdownMenuContext | null>(null);
+
+export const useDropdownMenu = () => {
+	const context = React.useContext(DropdownContext);
+	if (!context) {
+		throw new Error("useDropdownMenu must be used within a DropdownMenu");
+	}
+	return context;
+};
+
+type DropdownMenuProps = React.ComponentProps<
+	typeof DropdownMenuPrimitive.Root
+>;
+
+const DropdownMenu = ({
+	children,
+	open,
+	onOpenChange,
+	...props
+}: DropdownMenuProps) => {
+	const [isOpen, setIsOpen] = React.useState(open ?? false);
+
+	const handleOpenChange = React.useCallback(
+		(value: boolean | ((value: boolean) => boolean)) => {
+			const openState = typeof value === "function" ? value(isOpen) : value;
+			setIsOpen(openState);
+			if (onOpenChange) {
+				onOpenChange(openState);
+			}
+		},
+		[isOpen, onOpenChange],
+	);
+
+	return (
+		<DropdownContext value={{ open: isOpen, setOpen: setIsOpen }}>
+			<DropdownMenuPrimitive.Root
+				open={isOpen}
+				onOpenChange={handleOpenChange}
+				{...props}
+			>
+				{children}
+			</DropdownMenuPrimitive.Root>
+		</DropdownContext>
+	);
+};
 
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 

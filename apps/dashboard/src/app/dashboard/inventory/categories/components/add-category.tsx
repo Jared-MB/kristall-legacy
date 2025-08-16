@@ -1,11 +1,11 @@
 "use client";
 
+import { Blocks, Plus } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { useModalEvents } from "@kristall/client/hooks/use-modal-events";
-
-import { uploadCategory } from "@kristall/core/categories/upload";
+import { uploadCategory } from "@kristall/client/services/product-catalog/use-cases/private/upload-category";
 
 import { Button } from "@kristall/ui/button";
 import * as Card from "@kristall/ui/card";
@@ -21,7 +21,7 @@ import { SubmitButton } from "@kristall/ui/functional/submit-button";
 import { Input, InputContainer, InputError } from "@kristall/ui/input";
 import { Label } from "@kristall/ui/label";
 
-import { Blocks, Plus } from "lucide-react";
+import { FORM_MESSAGE_TYPES } from "@kristall/shared/types/forms/messages";
 
 export function AddCategoryButton({ asLink = false, showIcon = true }) {
 	const [open, setOpen] = useState(false);
@@ -29,12 +29,14 @@ export function AddCategoryButton({ asLink = false, showIcon = true }) {
 	const [response, dispatch] = useActionState(uploadCategory, undefined);
 
 	useEffect(() => {
-		if (response) {
-			"message" in response && toast.error(response.message);
-			if ("success" in response) {
-				toast.success("Categoría creada exitosamente");
-				setOpen(false);
-			}
+		if (response?.message?.type === FORM_MESSAGE_TYPES.SUCCESS) {
+			toast.success(response.message.value);
+			setOpen(false);
+			return;
+		}
+		if (response?.message?.type === FORM_MESSAGE_TYPES.INTERNAL_ERROR) {
+			toast.error(response.message.value);
+			return;
 		}
 	}, [response]);
 
@@ -72,9 +74,10 @@ export function AddCategoryButton({ asLink = false, showIcon = true }) {
 							id="name"
 							name="name"
 							placeholder="Ej. Galletas, refrescos, etc."
+							defaultValue={response?.fields?.name?.value}
 						/>
-						{response && "name" in response && (
-							<InputError>{response.name}</InputError>
+						{response?.fields?.name?.message && (
+							<InputError>{response.fields.name.message}</InputError>
 						)}
 					</InputContainer>
 					<DialogFooter>

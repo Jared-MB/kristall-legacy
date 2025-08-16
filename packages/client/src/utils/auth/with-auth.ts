@@ -11,6 +11,11 @@ type AuthenticatedFunction<TArgs extends unknown[], TReturn> = (
 	...args: TArgs
 ) => Promise<TReturn>;
 
+/**
+ * Wraps a function to ensure that the user is authenticated before executing it.
+ *
+ * @internal
+ */
 export function withAuth<TArgs extends unknown[], TReturn>(
 	fn: AuthenticatedFunction<TArgs, TReturn>,
 ): (...args: TArgs) => Promise<TReturn> {

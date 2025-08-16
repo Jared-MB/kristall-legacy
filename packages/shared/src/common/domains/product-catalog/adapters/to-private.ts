@@ -8,6 +8,7 @@ export function adaptToPrivateCategory(category: Category): PrivateCategory {
 		_id: category._id,
 		name: category.name,
 		count: category.count,
+		isActive: Boolean(category.isActive),
 	};
 }
 

@@ -2,7 +2,7 @@
 
 import type { PrivateCategory } from "@kristall/shared/domains/product-catalog/types/category.private";
 
-import { Edit3, ExternalLink, MoreHorizontal, Package } from "lucide-react";
+import { Edit3, ExternalLink, Package } from "lucide-react";
 import Link from "next/link";
 
 import { Badge } from "@kristall/ui/badge";
@@ -10,7 +10,10 @@ import { Button } from "@kristall/ui/button";
 import * as Card from "@kristall/ui/card";
 import { Skeleton } from "@kristall/ui/skeleton";
 
+import { cn } from "@kristall/ui/utils/cn";
 import { useCategoriesDisplay } from "./categories-display";
+import { CategoryMenu } from "./category-menu";
+import { EditCategoryButton } from "./edit-category";
 
 export function Category({ category }: { category: PrivateCategory }) {
 	const displayMode = useCategoriesDisplay((state) => state.displayMode);
@@ -34,9 +37,15 @@ export function CategorySkeleton() {
 
 function CategoryGridItem({ category }: { category: PrivateCategory }) {
 	return (
-		<Card.Root className="transition-all duration-200 hover:shadow-sm">
-			<Card.Header className="pb-4">
+		<Card.Root
+			className={cn(
+				"transition-all duration-200 hover:shadow-sm",
+				!category.isActive && "opacity-50",
+			)}
+		>
+			<Card.Header className="pb-4 flex-row items-center justify-between">
 				<h3 className="text-lg font-medium">{category.name}</h3>
+				<CategoryMenu category={category} />
 			</Card.Header>
 			<Card.Body className="py-0">
 				<div className="flex items-center justify-between mb-6">
@@ -45,20 +54,24 @@ function CategoryGridItem({ category }: { category: PrivateCategory }) {
 						<span>{category.count} productos</span>
 					</div>
 					<Badge
-						variant={category.count > 0 ? "default" : "secondary"}
-						className={
-							category.count > 0 ? "bg-purple-500 hover:bg-purple-600" : ""
+						variant={
+							category.isActive
+								? category.count > 0
+									? "default"
+									: "secondary"
+								: "outline"
 						}
 					>
-						{category.count > 0 ? "Activa" : "Vacía"}
+						{category.isActive
+							? category.count > 0
+								? "Activa"
+								: "Vacía"
+							: "Inactiva"}
 					</Badge>
 				</div>
 			</Card.Body>
 			<Card.Footer className="flex gap-4">
-				<Button variant="outline" size="sm" className="flex-1">
-					<Edit3 className="w-4 h-4 mr-2" />
-					Editor
-				</Button>
+				<EditCategoryButton category={category} />
 				<Button
 					variant="link"
 					size="sm"
@@ -94,7 +107,7 @@ function CategoryGridSkeleton() {
 			<Card.Footer className="flex gap-2">
 				<Button variant="outline" size="sm" disabled className="flex-1">
 					<Edit3 className="w-4 h-4 mr-2" />
-					Editor
+					Editar
 				</Button>
 				<Button
 					disabled
@@ -112,7 +125,12 @@ function CategoryGridSkeleton() {
 
 function CategoryListItem({ category }: { category: PrivateCategory }) {
 	return (
-		<div className="grid grid-cols-12 gap-4 px-4 py-4 last:border-b-0 hover:bg-zinc-800 transition-colors">
+		<div
+			className={cn(
+				"grid grid-cols-12 gap-4 px-4 py-4 last:border-b-0 hover:bg-zinc-800 transition-colors",
+				!category.isActive && "opacity-50",
+			)}
+		>
 			<div className="col-span-4 flex items-center">
 				<div className="flex items-center">
 					<div className="w-8 h-8  rounded-lg flex items-center justify-center mr-3">
@@ -129,28 +147,30 @@ function CategoryListItem({ category }: { category: PrivateCategory }) {
 			</div>
 			<div className="col-span-2 flex items-center">
 				<Badge
-					variant={category.count > 0 ? "default" : "secondary"}
-					className={
-						category.count > 0 ? "bg-purple-500 hover:bg-purple-600" : ""
+					variant={
+						category.isActive
+							? category.count > 0
+								? "default"
+								: "secondary"
+							: "outline"
 					}
 				>
-					{category.count > 0 ? "Activa" : "Vacía"}
+					{category.isActive
+						? category.count > 0
+							? "Activa"
+							: "Vacía"
+						: "Inactiva"}
 				</Badge>
 			</div>
-			<div className="col-span-4 flex items-center gap-2">
-				<Button variant="outline" size="sm">
-					<Edit3 className="w-4 h-4 mr-2" />
-					Editor
-				</Button>
+			<div className="col-span-4 flex items-center justify-center gap-2">
+				<EditCategoryButton category={category} />
 				<Button variant="link" size="sm" asChild>
 					<Link href={`/dashboard/inventory?page=1&category=${category._id}`}>
 						Ver inventario
 						<ExternalLink className="w-4 h-4 ml-2" />
 					</Link>
 				</Button>
-				<Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-zinc-400">
-					<MoreHorizontal className="w-4 h-4" />
-				</Button>
+				<CategoryMenu category={category} />
 			</div>
 		</div>
 	);
@@ -176,22 +196,14 @@ function CategoryListSkeleton() {
 			<div className="col-span-2 flex items-center">
 				<Skeleton className="w-32 h-4" />
 			</div>
-			<div className="col-span-4 flex items-center gap-2">
+			<div className="col-span-4 flex items-center justify-center gap-2">
 				<Button variant="outline" size="sm" disabled>
 					<Edit3 className="w-4 h-4 mr-2" />
-					Editor
+					Editar
 				</Button>
 				<Button variant="link" size="sm" disabled>
 					Ver inventario
 					<ExternalLink className="w-4 h-4 ml-2" />
-				</Button>
-				<Button
-					variant="ghost"
-					size="sm"
-					className="h-8 w-8 p-0 text-zinc-400"
-					disabled
-				>
-					<MoreHorizontal className="w-4 h-4" />
 				</Button>
 			</div>
 		</div>

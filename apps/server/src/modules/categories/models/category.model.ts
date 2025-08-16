@@ -1,6 +1,6 @@
+import { Shop } from "src/entities/shop.entity";
+import { Product } from "src/modules/products/models/product.model";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "../modules/products/models/product.model";
-import { Shop } from "./shop.entity";
 
 @Entity()
 export class Category {
@@ -15,4 +15,11 @@ export class Category {
 
     @OneToMany(() => Product, product => product.category)
     products: Product[];
+
+    @Column({
+        default: 1,
+        enum: [0, 1],
+        nullable: true
+    })
+    isActive: number
 }

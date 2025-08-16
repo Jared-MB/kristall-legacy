@@ -1,3 +1,5 @@
+import { Image, LocationProduct, Shop } from 'src/entities';
+import { Category } from 'src/modules/categories/models/category.model';
 import {
   Column,
   Entity,
@@ -8,8 +10,6 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Image, LocationProduct, Shop } from '../../../entities';
-import { Category } from '../../../entities/category.entity';
 
 @Entity()
 export class Product {

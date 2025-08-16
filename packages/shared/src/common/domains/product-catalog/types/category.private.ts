@@ -1,3 +1,5 @@
 import type { Category } from "./category";
 
-export type PrivateCategory = Category;
+export type PrivateCategory = Omit<Category, "isActive"> & {
+	isActive: boolean;
+};

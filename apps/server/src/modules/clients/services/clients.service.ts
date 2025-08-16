@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateCriteriaDto } from 'src/dtos/update-criteria.dto';
+import { CriteriaDto } from 'src/dtos/update-criteria.dto';
 import { ILike, Like, Repository } from 'typeorm';
 import { CreateClientDto } from '../dtos/create-client.dto';
 import { DeleteClientDto } from '../dtos/delete-client.dto';
@@ -43,7 +43,7 @@ export class ClientsService {
     return newClient;
   }
 
-  async update({ _id, shopId}: UpdateCriteriaDto, { name }: CreateClientDto){
+  async update({ _id, shopId}: CriteriaDto, { name }: CreateClientDto){
     const updatedClient = await this.clientsRepository.update<CreateClientDto>({
       _id,
       shopId,
@@ -54,7 +54,7 @@ export class ClientsService {
     return updatedClient;
   }
 
-  async softDelete({ _id, shopId }: UpdateCriteriaDto){
+  async softDelete({ _id, shopId }: CriteriaDto){
     const deletedClient = await this.clientsRepository.update<DeleteClientDto>({
       _id,
       shopId,

@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
-import { UpdateCriteriaDto } from 'src/dtos/update-criteria.dto';
+import { CriteriaDto } from 'src/dtos/update-criteria.dto';
 import { SubscriptionFeatureLimitException } from 'src/exceptions/subscription-feature-limit.exception';
+import { Context } from 'src/interfaces/context';
 import { RESTRICTIONS } from 'src/utilities';
 import { Repository } from 'typeorm';
 import { DeliveryLocation, Location, StripePlans } from '../../../entities';
@@ -26,7 +27,7 @@ export class LocationsService {
     private readonly deprecatedDeliveryLocationRepository: Repository<DeliveryLocation>,
   ) { }
 
-  public async save(location: CreateLocationDto, { shopId, permissions, plan }: { shopId: string, permissions: string, plan: StripePlans }) {
+  public async save(location: CreateLocationDto, { shopId, permissions, plan }: Context) {
     const maxLocations = RESTRICTIONS.MAX_LOCATIONS[plan]
 
     const canCreateLocation = await this.canCreateLocation({
@@ -70,11 +71,9 @@ export class LocationsService {
     return true;
   }
 
-  async update(criteria: UpdateCriteriaDto, location: UpdateLocationDto){
-
+  async update(criteria: CriteriaDto, location: UpdateLocationDto){
     return await this.locationRepository.update(criteria, location);
   }
-
 
   async getById(id: string): Promise<Location | null>{
     return await this.locationRepository.findOne({
@@ -139,7 +138,7 @@ export class LocationsService {
   }
 
   async updateLocation(
-    criteria: UpdateCriteriaDto,
+    criteria: CriteriaDto,
     locationToUpdate: UpdateLocationDto,
   ) {
     const location = await this.locationRepository.findOne(criteria)

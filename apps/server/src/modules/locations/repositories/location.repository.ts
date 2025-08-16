@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateCriteriaDto } from "src/dtos/update-criteria.dto";
+import { CriteriaDto } from "src/dtos/update-criteria.dto";
 import { Location } from "src/entities";
 import { RawRepository } from "src/interfaces/raw-repository";
 import { DeepPartial, Repository } from "typeorm";
@@ -55,7 +55,7 @@ export class LocationRepository implements RawRepository<Location> {
         })
     }
 
-    public async update(criteria: UpdateCriteriaDto, data: DeepPartial<Location>) {
+    public async update(criteria: CriteriaDto, data: DeepPartial<Location>) {
         return await this.locationRepository.update({
             _id: criteria._id,
             shop: {
