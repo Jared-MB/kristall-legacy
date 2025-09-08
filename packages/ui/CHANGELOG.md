@@ -1,5 +1,11 @@
 # @kristall/ui
 
+## 0.0.17
+
+### Patch Changes
+
+- @kristall/core@1.0.11
+
 ## 0.0.16
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @kristall/client
 
+## 1.0.10
+
+### Patch Changes
+
+- Updated dependencies [9eb324b]
+  - @kristall/nexum@1.5.2
+
 ## 1.0.9
 
 ### Patch Changes
