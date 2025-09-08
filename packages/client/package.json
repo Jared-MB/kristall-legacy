@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@kristall/shared": "workspace:*",
-		"@types/node": "^24.0.3",
+		"@types/node": "24.0.3",
 		"@kristall/nexum": "workspace:*",
 		"@kristall/utils": "workspace:*",
 		"@kristall/logger": "workspace:*"
