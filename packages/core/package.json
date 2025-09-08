@@ -1,6 +1,6 @@
 {
 	"name": "@kristall/core",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"license": "ISC",
 	"private": "true",
 	"exports": {
