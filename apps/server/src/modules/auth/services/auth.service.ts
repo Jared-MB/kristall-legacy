@@ -1,12 +1,13 @@
-import { ShopService } from '@/server/modules/shops/services';
-import { StripeService } from '@/server/modules/stripe/services';
-import { FindUserResult, UsersService } from '@/server/modules/users/services';
+import { ShopService } from '@/server/modules/shops/services/shop.service';
+import { StripeService } from '@/server/modules/stripe/services/stripe.service';
+import {
+  FindUserResult,
+  UsersService,
+} from '@/server/modules/users/services/users.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { PaymentRequiredException } from 'src/exceptions/payment-required.exception';
 import { AuthRequest } from 'src/interfaces/requests';
-import { CacheService } from 'src/services/cache.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,6 @@ export class AuthService {
     private shopsService: ShopService,
     private jwtService: JwtService,
     private stripeService: StripeService,
-    private cacheService: CacheService,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -52,26 +52,7 @@ export class AuthService {
     const userShop = await this.shopsService.getShopById(user.shop._id);
     if (!userShop) return null;
 
-    const isStripeIdOnCache = await this.cacheService.get<string>(
-      user._id,
-      'id',
-    );
-    if (!isStripeIdOnCache) {
-      await this.cacheService.set(user._id, user.stripeId, 'id');
-    }
-
-    const userSubscription = await this.stripeService.getUserSubscription(
-      user._id,
-    );
-    if (userSubscription.status === 'none') {
-      throw new PaymentRequiredException('No tienes una suscripción a Stripe');
-    }
-
-    if (userSubscription.status !== 'active') {
-      throw new PaymentRequiredException(
-        'Tu suscripción a Stripe no está activa',
-      );
-    }
+    await this.stripeService.verifyUserSubscription(user._id, user.stripeId);
 
     return {
       _id: user._id,
@@ -91,8 +72,16 @@ export class AuthService {
   }
 
   async validateToken(token: string) {
-    const decoded = this.jwtService.verify(token);
+    const decoded = this.jwtService.verify<{
+      _id: string;
+      username: string;
+      shop: { _id: string };
+      role: string;
+      exp: number;
+      iat: number;
+    }>(token);
     const { exp, iat, ...result } = decoded;
+
     return result;
   }
 }

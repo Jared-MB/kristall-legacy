@@ -8,17 +8,17 @@ import { UserRepository } from 'src/modules/users/repositories/user.repository';
 import { CacheService } from 'src/services/cache.service';
 import { StripeUserSubscription } from '../interfaces';
 import { StripeRepository } from '../repositories/stripe.repository';
+import { PaymentRequiredException } from 'src/exceptions/payment-required.exception';
 
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 @Injectable()
 export class StripeService {
-
   constructor(
     private readonly userRepository: UserRepository,
     private readonly cacheService: CacheService,
     private readonly stripeRepository: StripeRepository,
-  ) { }
+  ) {}
 
   private getStripe() {
     return new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
@@ -26,33 +26,32 @@ export class StripeService {
     });
   }
 
-  private async getStripeId(userId: string){
-    let stripeId = await this.cacheService.get<string>(userId, 'id')
-    if (!stripeId){
-      const user = await this.userRepository.findById(userId)
+  private async getStripeId(userId: string) {
+    let stripeId = await this.cacheService.get<string>(userId, 'id');
+    if (!stripeId) {
+      const user = await this.userRepository.findById(userId);
 
-      if (!user){
-        return null
+      if (!user) {
+        return null;
       }
 
-      stripeId = user.stripeId
+      stripeId = user.stripeId;
     }
 
-    return stripeId
+    return stripeId;
   }
 
   async getUserPaymentHistory(userId: string): Promise<Stripe.PaymentIntent[]> {
+    const stripeId = await this.getStripeId(userId);
 
-    const stripeId = await this.getStripeId(userId)
-
-    if (!stripeId){
-      return []
+    if (!stripeId) {
+      return [];
     }
 
     const stripe = this.getStripe();
     const paymentHistory = await stripe.paymentIntents.list({
       customer: stripeId,
-      limit: 5
+      limit: 5,
     });
 
     return paymentHistory.data;
@@ -61,41 +60,69 @@ export class StripeService {
   async getSessionById(id: string) {
     try {
       return await this.getStripe().checkout.sessions.retrieve(id);
-    }
-    catch (error) {
+    } catch (error) {
       return null;
+    }
+  }
+
+  async verifyUserSubscription(userId: string, stripeId: string) {
+    const isStripeIdOnCache = await this.cacheService.get<string>(userId, 'id');
+    if (!isStripeIdOnCache) {
+      await this.cacheService.set(userId, stripeId, 'id');
+    }
+
+    const userSubscription = await this.getUserSubscription(userId);
+
+    if (userSubscription.status === 'none') {
+      throw new PaymentRequiredException('No tienes una suscripción a Stripe');
+    }
+
+    if (userSubscription.status !== 'active') {
+      throw new PaymentRequiredException(
+        'Tu suscripción a Stripe no está activa',
+      );
     }
   }
 
   /**
    * Get stripe user subscription
-   * 
+   *
    * It will check first the value in cache, if not found, it will get the value from stripe
    * @param userId The user id - **NOT THE STRIPE ID**
+   *
+   * @cached
    */
-  async getUserSubscription(userId: string): Promise<StripeUserSubscription> { 
-    const subscriptionsCached = await this.cacheService.get<StripeUserSubscription>(userId)
+  async getUserSubscription(userId: string): Promise<StripeUserSubscription> {
+    const subscriptionsCached =
+      await this.cacheService.get<StripeUserSubscription>(userId);
 
-    if (subscriptionsCached){
-      return subscriptionsCached
+    if (subscriptionsCached) {
+      return subscriptionsCached;
     }
 
-    const stripeId = await this.getStripeId(userId)
+    const stripeId = await this.getStripeId(userId);
 
-    if (!stripeId){
-      return { status: 'none' }
+    if (!stripeId) {
+      return { status: 'none' };
     }
 
-    const subscriptions = await this.stripeRepository.fetchUserSubscription(stripeId);
+    const subscriptions = await this.stripeRepository.fetchUserSubscription(
+      stripeId,
+    );
 
     if (subscriptions.data.length === 0) {
-      const subscriptionData = { status: "none" } as const;
-      await this.cacheService.set(userId, subscriptionData, 'stripe', FIVE_MINUTES);
+      const subscriptionData = { status: 'none' } as const;
+      await this.cacheService.set(
+        userId,
+        subscriptionData,
+        'stripe',
+        FIVE_MINUTES,
+      );
       return subscriptionData;
     }
-  
+
     const subscription = subscriptions.data[0];
-  
+
     const subscriptionData: StripeUserSubscription = {
       subscriptionId: subscription.id,
       status: subscription.status,
@@ -105,7 +132,7 @@ export class StripeService {
       cancelAtPeriodEnd: subscription.cancel_at_period_end,
       paymentMethod:
         subscription.default_payment_method &&
-        typeof subscription.default_payment_method !== "string"
+        typeof subscription.default_payment_method !== 'string'
           ? {
               brand: subscription.default_payment_method.card?.brand ?? null,
               last4: subscription.default_payment_method.card?.last4 ?? null,
@@ -113,7 +140,7 @@ export class StripeService {
           : null,
     };
 
-    await this.cacheService.set(userId, subscriptionData, 'stripe')
+    await this.cacheService.set(userId, subscriptionData, 'stripe');
     return subscriptionData;
   }
 
@@ -131,23 +158,22 @@ export class StripeService {
 
     const subscription = await this.getUserSubscription(userId);
 
-    if (!subscription || subscription.status === 'none'){
-      throw new Error('No se encontró la suscripción')
+    if (!subscription || subscription.status === 'none') {
+      throw new Error('No se encontró la suscripción');
     }
 
     try {
       return await stripe.subscriptions.update(subscription.subscriptionId, {
         cancel_at_period_end: true,
       });
-    }
-    catch (error) {
-      throw new Error('Error al cancelar la suscripción')
+    } catch (error) {
+      throw new Error('Error al cancelar la suscripción');
     }
   }
 
   async getPrices(): Promise<Stripe.Price[]> {
     const stripe = this.getStripe();
-    
+
     const prices = await stripe.prices.list({
       currency: 'MXN',
       active: true,
@@ -291,7 +317,7 @@ export class StripeService {
           email: customerData.email as string,
           name: customerData.name as string,
           stripeId: customer,
-          package: product.name.toLowerCase() as User['package']
+          package: product.name.toLowerCase() as User['package'],
         });
         // Handle successful payment event
         break;
