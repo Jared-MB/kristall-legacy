@@ -28,6 +28,7 @@ const nextConfig = {
   experimental: {
     reactCompiler: true,
   },
+  transpilePackages: ["@kristall/client"],
 };
 
 export default nextConfig;
