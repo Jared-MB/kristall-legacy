@@ -5,18 +5,9 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./services/*": {
-      "types": "./src/services/*.ts",
-      "default": "./dist/services/*.js"
-    },
-    "./utils/*": {
-      "types": "./src/utils/*.ts",
-      "default": "./dist/utils/*.js"
-    },
-    "./hooks/*": {
-      "types": "./src/hooks/*.ts",
-      "default": "./dist/hooks/*.js"
-    }
+    "./services/*": "./src/services/*.ts",
+    "./utils/*": "./src/utils/*.ts",
+    "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {
     "dev": "tsc --watch",
