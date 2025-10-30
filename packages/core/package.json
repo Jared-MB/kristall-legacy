@@ -1,48 +1,48 @@
 {
-	"name": "@kristall/core",
-	"version": "1.0.13",
-	"license": "ISC",
-	"private": "true",
-	"exports": {
-		"./modules/*": "./src/modules/*/index.ts",
-		"./utils": "./src/utils/index.ts",
-		"./utils/*": "./src/utils/*.ts",
-		"./constants": "./src/constants/index.ts",
-		"./environment": "./src/constants/environment.ts",
-		"./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",
-		"./*": "./src/modules/*.ts",
-		"./hooks/*": "./src/hooks/*.ts",
-		"./interfaces/*": "./src/modules/*/interfaces/index.d.ts",
-		"./forms": "./src/interfaces/form-error.ts"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.6.3",
-		"@types/node": "20.12.7",
-		"@vitest/coverage-v8": "2.1.4",
-		"react": "19.0.0",
-		"react-dom": "19.0.0",
-		"stripe": "12.10.0",
-		"typescript": "5.8.3",
-		"vite-tsconfig-paths": "^4.3.2",
-		"vitest": "^2.1.4"
-	},
-	"peerDependencies": {
-		"next": "^15.0.0"
-	},
-	"scripts": {
-		"test": "vitest",
-		"coverage": "vitest run --coverage"
-	},
-	"dependencies": {
-		"@aws-sdk/client-s3": "3.540.0",
-		"@kristall/http": "workspace:*",
-		"@kristall/logger": "workspace:*",
-		"@kristall/utils": "workspace:*",
-		"chalk": "5.4.1",
-		"dotenv": "^16.4.5",
-		"@kristall/nexum": "workspace:*",
-		"sharp": "^0.32.5",
-		"zod": "^3.23.8",
-		"zustand": "^5.0.2"
-	}
+  "name": "@kristall/core",
+  "version": "1.0.13",
+  "license": "ISC",
+  "private": "true",
+  "exports": {
+    "./modules/*": "./src/modules/*/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./utils/*": "./src/utils/*.ts",
+    "./constants": "./src/constants/index.ts",
+    "./environment": "./src/constants/environment.ts",
+    "./modules/*/interfaces": "./src/modules/*/interfaces/index.d.ts",
+    "./*": "./src/modules/*.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./interfaces/*": "./src/modules/*/interfaces/index.d.ts",
+    "./forms": "./src/interfaces/form-error.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.6.3",
+    "@types/node": "20.12.7",
+    "@vitest/coverage-v8": "2.1.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "stripe": "12.10.0",
+    "typescript": "5.9.3",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^2.1.4"
+  },
+  "peerDependencies": {
+    "next": "^15.0.0"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.540.0",
+    "@kristall/http": "workspace:*",
+    "@kristall/logger": "workspace:*",
+    "@kristall/nexum": "1.5.4",
+    "@kristall/utils": "workspace:*",
+    "chalk": "5.4.1",
+    "dotenv": "^16.4.5",
+    "sharp": "^0.32.5",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.2"
+  }
 }

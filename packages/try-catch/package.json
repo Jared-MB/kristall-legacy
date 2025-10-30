@@ -1,19 +1,19 @@
 {
-	"name": "@kristall/try-catch",
-	"version": "2.0.0",
-	"description": "",
-	"main": "dist/index.js",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"scripts": {
-		"dev": "tsc --watch",
-		"build": "tsc"
-	},
-	"devDependencies": {
-		"@kristall/typescript-config": "workspace:*",
-		"typescript": "5.8.3"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC"
+  "name": "@kristall/try-catch",
+  "version": "2.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@kristall/typescript-config": "workspace:*",
+    "typescript": "5.9.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

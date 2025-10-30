@@ -15,8 +15,8 @@ export class AuthService {
     private shopsService: ShopService,
     private jwtService: JwtService,
     private stripeService: StripeService,
-    private cacheService: CacheService
-  ) { }
+    private cacheService: CacheService,
+  ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
     let user: FindUserResult | null;
@@ -43,7 +43,7 @@ export class AuthService {
     if (!isMatch) {
       return null;
     }
-    
+
     const { password: _password, ...result } = user;
     return result;
   }
@@ -52,31 +52,41 @@ export class AuthService {
     const userShop = await this.shopsService.getShopById(user.shop._id);
     if (!userShop) return null;
 
-    const isStripeIdOnCache = await this.cacheService.get<string>(user._id, 'id')
-    if (!isStripeIdOnCache){
-      await this.cacheService.set(user._id, user.stripeId, 'id')
+    const isStripeIdOnCache = await this.cacheService.get<string>(
+      user._id,
+      'id',
+    );
+    if (!isStripeIdOnCache) {
+      await this.cacheService.set(user._id, user.stripeId, 'id');
     }
 
-    const userSubscription = await this.stripeService.getUserSubscription(user._id)
-    if (userSubscription.status === 'none'){
-      throw new PaymentRequiredException('No tienes una suscripción a Stripe')
+    const userSubscription = await this.stripeService.getUserSubscription(
+      user._id,
+    );
+    if (userSubscription.status === 'none') {
+      throw new PaymentRequiredException('No tienes una suscripción a Stripe');
     }
 
-    if (userSubscription.status !== 'active'){
-      throw new PaymentRequiredException('Tu suscripción a Stripe no está activa')
+    if (userSubscription.status !== 'active') {
+      throw new PaymentRequiredException(
+        'Tu suscripción a Stripe no está activa',
+      );
     }
 
     return {
       _id: user._id,
       username: user.username,
-      access_token: this.jwtService.sign({
-        _id: user._id,
-        username: user.username,
-        shop: { _id: userShop._id },
-        role: user.role,
-      }, {
-        secret: process.env.JWT_SECRET,
-      }),
+      access_token: this.jwtService.sign(
+        {
+          _id: user._id,
+          username: user.username,
+          shop: { _id: userShop._id },
+          role: user.role,
+        },
+        {
+          secret: process.env.JWT_SECRET,
+        },
+      ),
     };
   }
 

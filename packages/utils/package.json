@@ -1,23 +1,23 @@
 {
-	"name": "@kristall/utils",
-	"version": "1.0.0",
-	"description": "",
-	"private": true,
-	"main": "dist/index.js",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"scripts": {
-		"dev": "tsc --watch",
-		"build": "tsc"
-	},
-	"dependencies": {
-		"@kristall/logger": "workspace:*"
-	},
-	"devDependencies": {
-		"@kristall/typescript-config": "workspace:*",
-		"typescript": "5.8.3"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC"
+  "name": "@kristall/utils",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@kristall/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@kristall/typescript-config": "workspace:*",
+    "typescript": "5.9.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

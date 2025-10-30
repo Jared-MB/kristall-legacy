@@ -1,67 +1,67 @@
 {
-	"name": "@kristall/shared",
-	"version": "1.0.0",
-	"description": "",
-	"type": "module",
-	"main": "./dist/cjs/index.js",
-	"private": true,
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"default": "./dist/index.js"
-		},
-		"./versions": {
-			"types": "./src/common/versions.ts",
-			"default": "./dist/common/versions.js"
-		},
-		"./infrastructure/*": {
-			"types": "./src/common/infrastructure/*.ts",
-			"import": "./dist/common/infrastructure/*.js",
-			"require": "./dist/cjs/common/infrastructure/*.cjs",
-			"default": "./dist/common/infrastructure/*.js"
-		},
-		"./domains/*/types": {
-			"types": "./src/common/domains/*/types/index.ts",
-			"default": "./dist/common/domains/*/types/index.js"
-		},
-		"./domains/*": {
-			"types": "./src/common/domains/*.ts",
-			"default": "./dist/common/domains/*.js"
-		},
-		"./types/*": {
-			"types": "./src/common/types/*.ts",
-			"default": "./dist/common/types/*.js"
-		},
-		"./utils/*": {
-			"types": "./dist/common/utils/*.d.ts",
-			"default": "./dist/common/utils/*.js",
-			"require": "./dist/cjs/common/utils/*.cjs",
-			"import": "./dist/common/utils/*.js"
-		}
-	},
-	"scripts": {
-		"dev": "pnpm run --parallel \"/^dev:/\"",
-		"dev:cjs": "tsc -p tsconfig.cjs.json --watch",
-		"dev:esm": "tsc -p tsconfig.json --watch",
-		"build": "pnpm run build:cjs && pnpm run build:esm",
-		"build:cjs": "tsc -p tsconfig.cjs.json && node ./to-cjs.js",
-		"build:esm": "tsc -p tsconfig.json"
-	},
-	"dependencies": {
-		"zod": "3.25.67"
-	},
-	"devDependencies": {
-		"@kristall/typescript-config": "workspace:*",
-		"@types/node": "^24.0.3",
-		"typescript": "5.8.3"
-	},
-	"peerDependencies": {
-		"next": "^15",
-		"react": "^19",
-		"react-dom": "^19"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"packageManager": "pnpm@10.12.1"
+  "name": "@kristall/shared",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./versions": {
+      "types": "./src/common/versions.ts",
+      "default": "./dist/common/versions.js"
+    },
+    "./infrastructure/*": {
+      "types": "./src/common/infrastructure/*.ts",
+      "import": "./dist/common/infrastructure/*.js",
+      "require": "./dist/cjs/common/infrastructure/*.cjs",
+      "default": "./dist/common/infrastructure/*.js"
+    },
+    "./domains/*/types": {
+      "types": "./src/common/domains/*/types/index.ts",
+      "default": "./dist/common/domains/*/types/index.js"
+    },
+    "./domains/*": {
+      "types": "./src/common/domains/*.ts",
+      "default": "./dist/common/domains/*.js"
+    },
+    "./types/*": {
+      "types": "./src/common/types/*.ts",
+      "default": "./dist/common/types/*.js"
+    },
+    "./utils/*": {
+      "types": "./dist/common/utils/*.d.ts",
+      "default": "./dist/common/utils/*.js",
+      "require": "./dist/cjs/common/utils/*.cjs",
+      "import": "./dist/common/utils/*.js"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm run --parallel \"/^dev:/\"",
+    "dev:cjs": "tsc -p tsconfig.cjs.json --watch",
+    "dev:esm": "tsc -p tsconfig.json --watch",
+    "build": "pnpm run build:cjs && pnpm run build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node ./to-cjs.js",
+    "build:esm": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "3.25.67"
+  },
+  "devDependencies": {
+    "@kristall/typescript-config": "workspace:*",
+    "@types/node": "^24.0.3",
+    "typescript": "5.9.3"
+  },
+  "peerDependencies": {
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1"
 }
