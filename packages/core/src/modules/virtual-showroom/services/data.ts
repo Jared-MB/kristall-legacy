@@ -1,24 +1,24 @@
 "use server";
 
-import { GET, PUT } from "@kristall/http";
+import { GET, PUT } from "@kristall/nexum";
 import { VIRTUAL_SHOWROOM_TAGS } from "../constants/virtual-showroom.tags";
 import type { VirtualShowroom } from "../interfaces";
 
 export const getVirtualShowroomConfigService = async (shopName: string) => {
-	return await GET<VirtualShowroom>(`/shops/public/${shopName}/config`, {
-		cache: "no-store",
-		tags: ["no-tag-required"],
-	});
+  return await GET<VirtualShowroom>(`/shops/public/${shopName}/config`, {
+    cache: "no-store",
+    tags: ["no-tag-required"],
+  });
 };
 
 export const getVirtualShowroomService = async () => {
-	return await GET<VirtualShowroom>("/virtual-showroom", {
-		tags: [VIRTUAL_SHOWROOM_TAGS.DATA],
-	});
+  return await GET<VirtualShowroom>("/virtual-showroom", {
+    tags: [VIRTUAL_SHOWROOM_TAGS.DATA],
+  });
 };
 
 export const toggleVirtualShowroomService = async (isPublic: boolean) => {
-	return await PUT("/virtual-showroom/toggle", {
-		isPublic,
-	});
+  return await PUT("/virtual-showroom/toggle", {
+    isPublic,
+  });
 };
