@@ -29,6 +29,7 @@ const nextConfig = {
     reactCompiler: true,
   },
   transpilePackages: ["@kristall/client"],
+  serverExternalPackages: ["pino", "pino-pretty"],
 };
 
 export default nextConfig;
