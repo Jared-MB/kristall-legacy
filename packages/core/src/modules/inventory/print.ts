@@ -1,6 +1,6 @@
 "use server";
 
-import { GET } from "@kristall/nexum";
+import { GET } from "@kristall/http";
 import { printInventoryAdapter } from "./adapters/print";
 import type { PrintProduct } from "./interfaces";
 

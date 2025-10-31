@@ -1,6 +1,6 @@
 "use server";
 
-import { GET } from "@kristall/nexum";
+import { GET } from "@kristall/http";
 import { VIRTUAL_SHOWROOM_TAGS } from "../constants/virtual-showroom.tags";
 import type { VirtualShowroomConfig } from "../interfaces";
 
