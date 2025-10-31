@@ -11,7 +11,7 @@ export default function SettingsLayout({
 		<div>
 			<Card
 				as="nav"
-				className="!border-x-transparent !border-t-transparent rounded-none"
+				className="border-x-transparent! border-t-transparent! rounded-none"
 			>
 				<ul className="flex flex-row gap-x-6 p-4">
 					<SettingsLink href="/dashboard/settings/general">

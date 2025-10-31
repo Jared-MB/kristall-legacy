@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles, Zap } from "lucide-react";
 export function UpgradeSubscription() {
 	return (
 		<Card className=" border-zinc-800 relative overflow-hidden">
-			<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent" />
+			<div className="absolute inset-0 bg-linear-to-br from-purple-500/10 via-transparent to-transparent" />
 			<CardBody className="pt-6">
 				<div className="flex items-center justify-between relative">
 					<div className="space-y-3">

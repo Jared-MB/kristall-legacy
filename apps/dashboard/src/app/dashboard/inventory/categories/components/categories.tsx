@@ -19,7 +19,7 @@ export async function Categories() {
 export function CategoriesSkeleton() {
 	return (
 		<>
-			<div className="absolute inset-0 h-full max-h-dvh w-full bg-gradient-to-b from-transparent to-85% to-zinc-900/95 z-50" />
+			<div className="absolute inset-0 h-full max-h-dvh w-full bg-linear-to-b from-transparent to-85% to-zinc-900/95 z-50" />
 			<AddCategoryCard disabled />
 			{Array.from({ length: 6 }).map((_, index) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: No need for a key here since its only for skeleton

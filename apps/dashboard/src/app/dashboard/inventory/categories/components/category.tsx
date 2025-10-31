@@ -39,7 +39,7 @@ function CategoryGridItem({ category }: { category: PrivateCategory }) {
 	return (
 		<Card.Root
 			className={cn(
-				"transition-all duration-200 hover:shadow-sm",
+				"transition-all duration-200 hover:shadow-xs",
 				!category.isActive && "opacity-50",
 			)}
 		>
@@ -59,7 +59,7 @@ function CategoryGridItem({ category }: { category: PrivateCategory }) {
 								? category.count > 0
 									? "default"
 									: "secondary"
-								: "outline"
+								: "outline-solid"
 						}
 					>
 						{category.isActive
@@ -90,7 +90,7 @@ function CategoryGridItem({ category }: { category: PrivateCategory }) {
 
 function CategoryGridSkeleton() {
 	return (
-		<Card.Root className="transition-all duration-200 hover:shadow-sm">
+		<Card.Root className="transition-all duration-200 hover:shadow-xs">
 			<Card.Header className="pb-4">
 				<h3 className="text-lg font-medium">
 					<Skeleton className="w-48 h-6" />
@@ -152,7 +152,7 @@ function CategoryListItem({ category }: { category: PrivateCategory }) {
 							? category.count > 0
 								? "default"
 								: "secondary"
-							: "outline"
+							: "outline-solid"
 					}
 				>
 					{category.isActive

@@ -42,9 +42,9 @@ export function MainPage({ shopName }: { shopName: string }) {
 				<CardImage
 					url={config?.cardImageOne?.url}
 					name="cardImageOne"
-					className="bg-[var(--vs-custom-400)] col-span-3 @2xl:col-span-2 row-span-4 @2xl:row-span-7 rounded-lg p-6 flex justify-end flex-col bg-cover bg-center"
+					className="bg-(--vs-custom-400) col-span-3 @2xl:col-span-2 row-span-4 @2xl:row-span-7 rounded-lg p-6 flex justify-end flex-col bg-cover bg-center"
 				>
-					<h3 className="text-lg text-[var(--vs-custom-400)]">
+					<h3 className="text-lg text-(--vs-custom-400)">
 						<textarea
 							onChange={handleChange}
 							name="cardTitle"
@@ -64,7 +64,7 @@ export function MainPage({ shopName }: { shopName: string }) {
 						/>
 					</h4>
 				</CardImage>
-				<div className="cursor-pointer group row-span-2 @md:row-span-3 @2xl:row-span-4 col-span-3 @md:col-span-2 @2xl:col-start-3 bg-[var(--vs-custom-300)] rounded-lg flex items-center justify-center">
+				<div className="cursor-pointer group row-span-2 @md:row-span-3 @2xl:row-span-4 col-span-3 @md:col-span-2 @2xl:col-start-3 bg-(--vs-custom-300) rounded-lg flex items-center justify-center">
 					<h3 className="@4xl:text-4xl @md:text-3xl text-2xl font-serif flex flex-col group-hover:underline">
 						<span>Ver</span>
 						<div className="flex items-center gap-6 @2xl:flex-col @2xl:gap-0 @2xl:items-start">
@@ -89,29 +89,29 @@ export function MainPage({ shopName }: { shopName: string }) {
 				<CardImage
 					url={config?.cardImageTwo?.url}
 					name="cardImageTwo"
-					className="bg-[var(--vs-custom-200)] @md:row-span-3 @2xl:row-start-5 col-span-3 @md:col-span-1 @2xl:col-span-2 @2xl:col-start-3 bg-cover bg-center rounded-lg"
+					className="bg-(--vs-custom-200) @md:row-span-3 @2xl:row-start-5 col-span-3 @md:col-span-1 @2xl:col-span-2 @2xl:col-start-3 bg-cover bg-center rounded-lg"
 				/>
 			</div>
 			<div className="grid grid-cols-9 grid-rows-3 @2xl:grid-rows-1 gap-4 px-6 pt-4 w-full font-serif h-72 @2xl:h-48">
 				<CardImage
 					url={config?.cardImageThree?.url}
 					name="cardImageThree"
-					className="bg-[var(--vs-custom-400)] col-span-3 @2xl:col-span-3 col-start-1 row-span-2 @2xl:row-span-1 rounded-lg bg-center bg-cover"
+					className="bg-(--vs-custom-400) col-span-3 @2xl:col-span-3 col-start-1 row-span-2 @2xl:row-span-1 rounded-lg bg-center bg-cover"
 				/>
-				<div className="cursor-pointer col-span-6 @2xl:col-span-4 col-start-4 row-span-2 @2xl:row-span-1 hover:underline overflow-hidden rounded-lg p-6 grid place-content-center bg-[var(--vs-custom-100)]">
+				<div className="cursor-pointer col-span-6 @2xl:col-span-4 col-start-4 row-span-2 @2xl:row-span-1 hover:underline overflow-hidden rounded-lg p-6 grid place-content-center bg-(--vs-custom-100)">
 					<span className="relative z-20 @md:text-3xl text-xl">Categorías</span>
 				</div>
 				<CardImage
 					url={config?.cardImageFour?.url}
 					name="cardImageFour"
-					className="bg-[var(--vs-custom-300)] @2xl:col-start-8 col-span-9 @2xl:col-span-2  bg-cover bg-center rounded-lg"
+					className="bg-(--vs-custom-300) @2xl:col-start-8 col-span-9 @2xl:col-span-2  bg-cover bg-center rounded-lg"
 				/>
 			</div>
 			<footer className="p-6">
 				<small className="text-sm">
 					Powered by{" "}
 					<a
-						className="text-[var(--vs-custom-500)]"
+						className="text-(--vs-custom-500)"
 						href="https://kristall.app"
 						target="_blank"
 						rel="noopener noreferrer"

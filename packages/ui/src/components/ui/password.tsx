@@ -9,13 +9,13 @@ const Password = ({ ref, className, icon, ...props }: InputProps) => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
-		<div className="border h-10 w-full border-input bg-background flex items-center justify-start gap-x-2 px-3 py-2 has-[:focus]:outline-none rounded-md has-[:focus]:ring-offset-background has-[:focus]:ring-2 has-[:focus]:ring-ring has-[:focus]:ring-offset-1">
+		<div className="border h-10 w-full border-input bg-background flex items-center justify-start gap-x-2 px-3 py-2 has-focus:outline-hidden rounded-md has-focus:ring-offset-background has-focus:ring-2 has-focus:ring-ring has-focus:ring-offset-1">
 			{icon}
 			<input
 				type={showPassword ? "text" : "password"}
 				placeholder="* * * * * * * *"
 				className={cn(
-					"flex w-full h-full bg-transparent text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-none disabled:cursor-not-allowed disabled:opacity-50",
+					"flex w-full h-full bg-transparent text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
 					className,
 				)}
 				ref={ref}

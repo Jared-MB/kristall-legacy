@@ -35,7 +35,7 @@ export default function ShoppingCart() {
 	return (
 		<div className="grid grid-cols-[1fr_1px_40%]">
 			<CardBody>
-				<header className="flex items-center gap-x-4 h-[3.75rem]">
+				<header className="flex items-center gap-x-4 h-15">
 					<Search queryName="name" />
 					{isLoading ? (
 						<InputContainer>

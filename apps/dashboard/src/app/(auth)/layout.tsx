@@ -17,7 +17,7 @@ export default function LoginPage({
 				<Authentication className="w-[500px] h-[350px]" />
 			</section>
 			<section className="w-screen flex justify-center items-center lg:basis-1/2 h-dvh overflow-y-auto">
-				<div className="w-full px-32 lg:w-auto lg:mx-auto flex gap-8 lg:gap-16 flex-col py-16 h-[calc(100dvh-4rem)] ">
+				<div className="w-full px-32 lg:w-auto lg:mx-auto flex gap-8 lg:gap-16 flex-col py-16 h-layout ">
 					<header className="flex flex-col items-center lg:items-start w-full justify-center relative">
 						<div className="flex flex-col lg:flex-row w-full items-center justify-center lg:justify-start">
 							<Shield className="w-32 lg:w-16 h-32 fill-purple-500" />

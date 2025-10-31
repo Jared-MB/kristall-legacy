@@ -29,7 +29,7 @@ export function DocsSidebar() {
 				<Collapsible defaultOpen className="group/collapsible">
 					<SidebarGroup>
 						<SidebarGroupLabel asChild>
-							<CollapsibleTrigger className="hover:bg-sidebar-accent !text-sm">
+							<CollapsibleTrigger className="hover:bg-sidebar-accent text-sm!">
 								Versiones
 								<ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
 							</CollapsibleTrigger>

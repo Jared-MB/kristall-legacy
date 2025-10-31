@@ -40,7 +40,7 @@ export default function FAQPage() {
 					alt="Squoosh usage example"
 					width={930}
 					height={487}
-					className="w-2/3 mx-auto aspect-[930_/_487]"
+					className="w-2/3 mx-auto aspect-930/487"
 				/>
 				<p>
 					El formato de imagen que elijas también influye en el peso de la
@@ -52,7 +52,7 @@ export default function FAQPage() {
 					recomendamos que utilices este formato siempre que sea posible.
 				</p>
 				<Image
-					className="aspect-[407_/_558] w-56 mx-auto"
+					className="aspect-407/558 w-56 mx-auto"
 					src="https://cdn.kristall.app/webp-format-squoosh.webp"
 					alt="WebP format example"
 					width={407}

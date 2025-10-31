@@ -18,7 +18,7 @@ const Separator = ({
 		orientation={orientation}
 		className={cn(
 			"shrink-0 bg-border",
-			orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+			orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
 			className,
 		)}
 		{...props}
@@ -34,7 +34,7 @@ export function Divider({
 }: { orientation?: "vertical" | "horizontal"; className?: string }) {
 	if (orientation === "vertical")
 		return (
-			<div className={cn("w-full md:w-[1px] h-full bg-zinc-700", className)} />
+			<div className={cn("w-full md:w-px h-full bg-zinc-700", className)} />
 		);
 	return <hr className={cn("border-zinc-700", className)} />;
 }

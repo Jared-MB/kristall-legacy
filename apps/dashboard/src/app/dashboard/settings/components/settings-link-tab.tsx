@@ -23,7 +23,7 @@ export default function SettingsLinkTab({
 				<motion.div
 					className={cn(
 						"absolute bg-zinc-300 z-0 rounded",
-						orientation === "horizontal" && "h-[1px] w-full -bottom-1",
+						orientation === "horizontal" && "h-px w-full -bottom-1",
 						orientation === "vertical" && "w-[0.5px] h-full -left-1",
 					)}
 					layoutId={layoutId}

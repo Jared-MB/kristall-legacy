@@ -124,7 +124,7 @@ export default function AddProductForm({
 							</InputContainer>
 						</div>
 					</article>
-					<div className="w-full md:w-[1px] h-full bg-zinc-700" />
+					<div className="w-full md:w-px h-full bg-zinc-700" />
 					<article className="grid place-content-center py-6 px-4 md:py-0">
 						<ImagePreview
 							fallback={

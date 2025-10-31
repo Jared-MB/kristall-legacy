@@ -20,9 +20,9 @@ export const Card = ({
 			ref={ref}
 			className={cn(
 				"flex flex-col [border:1px_solid_rgba(255,255,255,.1)] rounded relative print:m-8",
-				variant === "destructive" && "!border-destructive",
-				variant === "borderless" && "!border-none shadow-lg bg-zinc-800/10",
-				variant === "container" && "!bg-transparent !border-none",
+				variant === "destructive" && "border-destructive!",
+				variant === "borderless" && "border-none! shadow-lg bg-zinc-800/10",
+				variant === "container" && "bg-transparent! border-none!",
 				className,
 			)}
 		>

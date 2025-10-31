@@ -77,7 +77,7 @@ import UnderConstruction from "@/components/pages/under-construction";
 
 // 	return (
 // 		<main>
-// 			<header className="flex items-center gap-x-4 m-8 h-[3.75rem]">
+// 			<header className="flex items-center gap-x-4 m-8 h-15">
 // 				<Search queryName="name" />
 // 				<SelectLocations locations={locations} />
 // 			</header>

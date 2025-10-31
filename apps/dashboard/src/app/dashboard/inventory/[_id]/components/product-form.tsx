@@ -113,7 +113,7 @@ export default function ProductForm({
 							</InputContainer>
 						</div>
 					</article>
-					<div className="w-full md:w-[1px] h-full bg-zinc-700" />
+					<div className="w-full md:w-px h-full bg-zinc-700" />
 					<article className="grid place-content-center py-8 px-4 md:py-0">
 						<ImagePreview
 							fallback={product.name[0]}

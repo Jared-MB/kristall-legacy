@@ -84,7 +84,7 @@ export default async function VirtualShowroomPage() {
 								<Card>
 									<CardBody>
 										<CardDescription>
-											<strong className="!text-yellow-500">
+											<strong className="text-yellow-500!">
 												Working progress!
 											</strong>{" "}
 											La opción de Virtual Showroom está en fase{" "}

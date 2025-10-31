@@ -16,7 +16,7 @@ export default async function Accounts() {
 					<Fragment key={_id}>
 						<div className="flex flex-row justify-between gap-x-2 items-center p-4">
 							<div className="flex flex-row gap-x-4 items-center">
-								<div className="rounded-full p-2 ring-[2px] ring-zinc-300">
+								<div className="rounded-full p-2 ring-2 ring-zinc-300">
 									<Wallet className="w-6 h-6" />
 								</div>
 								<h5>{bank}</h5>

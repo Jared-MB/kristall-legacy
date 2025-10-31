@@ -11,7 +11,7 @@ export default function NotFound() {
 					<NotFound404 />
 				</Svg>
 				{/* <ShieldAlert className="h-24 w-24 text-purple-500 mb-8" /> */}
-				<h1 className="text-5xl font-bold tracking-tighter sm:text-6xl xl:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-300">
+				<h1 className="text-5xl font-bold tracking-tighter sm:text-6xl xl:text-7xl/none bg-clip-text text-transparent bg-linear-to-r from-purple-500 to-purple-300">
 					404
 				</h1>
 				<p className="mt-4 text-xl sm:text-2xl">Oops! Página no encontrada</p>

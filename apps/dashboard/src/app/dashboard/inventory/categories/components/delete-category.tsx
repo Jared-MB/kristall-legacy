@@ -44,7 +44,7 @@ export function DeleteCategory({ category }: { category: PrivateCategory }) {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<div className="relative flex cursor-pointer items-center rounded-sm gap-x-2 px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+				<div className="relative flex cursor-pointer items-center rounded-sm gap-x-2 px-2 py-1.5 text-sm outline-hidden transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50">
 					Eliminar
 				</div>
 			</DialogTrigger>
