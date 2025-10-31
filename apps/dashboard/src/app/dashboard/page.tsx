@@ -4,10 +4,13 @@ import {
   AnalyticsChartSkeleton,
 } from "./components/analytics/chart";
 import { DashboardOrders } from "./components/orders";
+import { verifySession } from "@kristall/client/utils/auth/verify-session";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  await verifySession();
+
   return (
     <main className="p-8 h-layout overflow-y-auto">
       <Suspense fallback={<AnalyticsChartSkeleton />}>
