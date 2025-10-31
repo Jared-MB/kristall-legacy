@@ -1,12 +1,17 @@
 import chalk from "chalk";
-import pino from "pino";
-import pinoPretty from "pino-pretty";
+import { pino, type Logger } from "pino";
 
-const stream = pinoPretty({
-  colorize: true,
+const pinoLogger: Logger = pino({
+  transport: {
+    target: "pino-pretty",
+    options: {
+      colorize: true,
+    },
+  },
+  level: process.env.PINO_LOG_LEVEL || "info",
+
+  redact: [],
 });
-
-const pinoLogger = pino(stream);
 
 export class KristallLogger {
   private readonly KRISTALL_COLOR = chalk.hex("#a855f7");
