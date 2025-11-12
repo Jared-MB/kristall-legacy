@@ -8,7 +8,7 @@ import { type OrderBy, orderStripePrices } from "./adapters/prices";
 import { STRIPE_TAGS } from "./constants/tags";
 
 interface GetStripePricesOptions {
-	orderBy?: OrderBy;
+  orderBy?: OrderBy;
 }
 
 /**
@@ -18,25 +18,29 @@ interface GetStripePricesOptions {
  * @returns {Promise<Stripe.Price[]>}
  */
 export const getStripePrices = async (
-	options?: GetStripePricesOptions,
+  options?: GetStripePricesOptions
 ): Promise<Stripe.Price[]> => {
-	const { data } = await GET<Stripe.Price[] | null>("/stripe/prices", {
-		tags: [STRIPE_TAGS.PRICES],
-	});
+  const { data, message, status } = await GET<Stripe.Price[] | null>(
+    "/stripe/prices",
+    {
+      tags: [STRIPE_TAGS.PRICES],
+      auth: false,
+    }
+  );
 
-	if (!data) return [];
+  if (!data) return [];
 
-	if (options?.orderBy) {
-		return orderStripePrices(data, options.orderBy);
-	}
+  if (options?.orderBy) {
+    return orderStripePrices(data, options.orderBy);
+  }
 
-	return data;
+  return data;
 };
 
 export const getPlanByPriceId = async (priceId: string) => {
-	const { data } = await GET<Stripe.Price | null>(`/stripe/price/${priceId}`, {
-		tags: [`${STRIPE_TAGS.PRICES}:${priceId}`],
-	});
+  const { data } = await GET<Stripe.Price | null>(`/stripe/price/${priceId}`, {
+    tags: [`${STRIPE_TAGS.PRICES}:${priceId}`],
+  });
 
-	return data;
+  return data;
 };
