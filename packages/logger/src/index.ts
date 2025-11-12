@@ -1,17 +1,17 @@
 import chalk from "chalk";
-import { pino, type Logger } from "pino";
+// import { pino, type Logger } from "pino";
 
-const pinoLogger: Logger = pino({
-  transport: {
-    target: "pino-pretty",
-    options: {
-      colorize: true,
-    },
-  },
-  level: process.env.PINO_LOG_LEVEL || "info",
+// const pinoLogger: Logger = pino({
+//   transport: {
+//     target: "pino-pretty",
+//     options: {
+//       colorize: true,
+//     },
+//   },
+//   level: process.env.PINO_LOG_LEVEL || "info",
 
-  redact: [],
-});
+//   redact: [],
+// });
 
 export class KristallLogger {
   private readonly KRISTALL_COLOR = chalk.hex("#a855f7");
@@ -29,18 +29,18 @@ export class KristallLogger {
   }
 
   public log(message: any, ...args: any[]) {
-    pinoLogger.info(this.KRISTALL_LOGO + this.formatMessage(message), ...args);
+    console.log(this.KRISTALL_LOGO + this.formatMessage(message), ...args);
   }
 
   public error(message: any, ...args: any[]) {
-    pinoLogger.error(
+    console.error(
       this.KRISTALL_LOGO + this.RED_LOG(this.formatMessage(message)),
       ...args
     );
   }
 
   public warn(message: any, ...args: any[]) {
-    pinoLogger.warn(
+    console.warn(
       this.KRISTALL_LOGO + this.YELLOW_LOG(this.formatMessage(message)),
       ...args
     );
