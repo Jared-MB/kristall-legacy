@@ -23,6 +23,7 @@
 		"@kristall/core": "workspace:*",
 		"@kristall/http": "workspace:*",
 		"@kristall/logger": "workspace:*",
+		"@kristall/nexum": "1.5.5",
 		"@kristall/shared": "workspace:*",
 		"@kristall/ui": "workspace:*",
 		"@kristall/utils": "workspace:*",
